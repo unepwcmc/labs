@@ -82,6 +82,7 @@ GEM
     erubis (2.7.0)
     execjs (1.2.12)
       multi_json (~> 1.0)
+    fastercsv (1.5.4)
     haml (3.1.4)
     highline (1.6.8)
     hike (1.2.1)
@@ -190,6 +191,7 @@ DEPENDENCIES
   brightbox
   capistrano
   capistrano-ext
+  fastercsv
   jquery-rails
   paperclip (~> 2.4)
   pg
