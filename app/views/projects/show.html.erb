@@ -1,0 +1,17 @@
+<div class="page-header">
+  <%= link_to 'Back', projects_path, :class => 'btn' %>
+  <%= link_to 'Edit', edit_project_path(@project), :class => 'btn primary' %>
+  <h1>Listing projects</h1>
+</div>
+
+<dl>
+  <dt>Title:</dt>
+  <dd><%= @project.title %></dd>
+
+  <dt>Description:</dt>
+  <dd><%= @project.description %></dd>
+
+  <dt>Url:</dt>
+  <dd><%= @project.url %></dd>
+
+</dl>

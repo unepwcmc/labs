@@ -1,0 +1,12 @@
+<div class="page-header">
+  <h1>Our Projects</h1>
+</div>
+<% @projects.each do |project| %>
+  <div class="span5 project" data-url='<%= project.url %>'>
+    <%= image_tag project.screenshot.url(:medium) %>
+    <p>
+      <%= link_to project.title, project.url %><br />
+      <%= project.description %>
+    </p>
+  </div>
+<% end %>
