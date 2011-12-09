@@ -74,7 +74,7 @@ after "deploy:setup", :setup_production_database_configuration
 desc 'Generate rails_admin.rb initializer file'
 task :generate_rails_admin do
   secret_password = Capistrano::CLI.ui.ask("Enter your secret access password (Rails Admin initializer):")
-  template = File.read("config/deploy/rails_admin.erb")
+  template = File.read("config/deploy/rails_admin.rb.erb")
   buffer = ERB.new(template).result(binding)
   put buffer, "#{shared_path}/config/initializers/rails_admin.rb"
 end
