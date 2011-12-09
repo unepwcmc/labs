@@ -51,8 +51,8 @@ default_run_options[:pty] = true # Must be set for the password prompt from git 
 #
 # The shared area is prepared with 'deploy:setup' and all the shared
 # items are symlinked in when the code is updated.
-set :local_shared_files, %w(config/database.yml)
-set :global_shared_dirs, %w(public/system)
+set :local_shared_files, %w(config/database.yml config/initializers/rails_admin.rb)
+set :local_shared_dirs, %w(public/system)
 
 task :setup_production_database_configuration do
   the_host = Capistrano::CLI.ui.ask("Database IP address: ")
@@ -70,3 +70,12 @@ task :setup_production_database_configuration do
     put(spec.to_yaml, "#{shared_path}/config/database.yml")
 end
 after "deploy:setup", :setup_production_database_configuration
+
+desc 'Generate rails_admin.rb initializer file'
+task :generate_rails_admin do
+  secret_password = Capistrano::CLI.ui.ask("Enter your secret access password (Rails Admin initializer):")
+  template = File.read("config/deploy/rails_admin.erb")
+  buffer = ERB.new(template).result(binding)
+  put buffer, "#{shared_path}/config/initializers/rails_admin.rb"
+end
+after "deploy:setup", :generate_rails_admin

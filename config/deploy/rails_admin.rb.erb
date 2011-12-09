@@ -18,7 +18,7 @@ RailsAdmin.config do |config|
 
   config.current_user_method do
     authenticate_or_request_with_http_basic do |username, password|
-      username == "admin" && password == "leconservation"
+      username == "admin" && password == "<%= secret_password %>"
     end
     FakeUser
   end
