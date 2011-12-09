@@ -25,7 +25,9 @@ gem 'jquery-rails'
 # gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+gem 'capistrano'
+gem 'brightbox'
+gem 'capistrano-ext'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
@@ -38,4 +40,5 @@ end
 group :development do
   gem 'bootstrap-generators'
   gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
+  gem 'ruby-debug19' #Had to comment this, was failing to package linecache19
 end

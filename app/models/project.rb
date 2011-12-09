@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-  has_attached_file :screenshot, :styles => { :medium => "280x200>", :thumb => "100x100>" }
+  has_attached_file :screenshot, :styles => { :medium => "280x200", :thumb => "100x100>" }
 end
 # == Schema Information
 #

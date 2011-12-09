@@ -1,9 +1,9 @@
 <div class="page-header">
   <h1>Our Projects</h1>
 </div>
-<% @projects.each do |project| %>
+<% @projects.each_with_index do |project, i| %>
   <div class="span5 project" data-url='<%= project.url %>'>
-    <%= image_tag project.screenshot.url(:medium) %>
+    <span class="project_image" style="background-image:url('<%= project.screenshot.url(:medium)%>'"><%=project.title %></span>
     <p>
       <%= link_to project.title, project.url %><br />
       <%= project.description %>

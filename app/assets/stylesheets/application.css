@@ -8,10 +8,35 @@
 
 div.project {
   margin-top: 25px;
+  min-height: 280px;
+  border: 0 none;
+  padding: 0;
 }
 div.project p {
   color: gray;
 }
 div.project p a{
   color: black;
+}
+
+ul.media-grid li a{
+  background-color: #eeeeee;
+}
+
+.clear {
+  clear:both;
+}
+span.project_image {
+  background: no-repeat scroll 50% 50% #FFFFFF;
+  height: 200px;
+  width: 280px;
+  margin: 0 0 10px;
+  overflow: hidden;
+  text-indent: -999px;
+  display: block;
+  border: 1px solid #DDDDDD;
+  border-radius: 4px 4px 4px 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  float: left;
+  padding: 4px;
 }

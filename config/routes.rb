@@ -1,8 +1,9 @@
 Labs::Application.routes.draw do
-  resources :projects
 
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+  resources :projects, :only => ['index']
 
+  match '/contact', :to => 'home#contact'
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   root :to => 'projects#index'
