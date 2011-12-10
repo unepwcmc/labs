@@ -6,7 +6,7 @@ class FakeUser
   end
 
   def self.email
-    'admin@admin.com'
+    'admin@unep-wcmc.org'
   end
 end
 
@@ -17,13 +17,15 @@ RailsAdmin.config do |config|
   # I18n.default_locale = :de
 
   config.current_user_method do
-    authenticate_or_request_with_http_basic do |username, password|
-      username == "admin" && password == "leconservation"
-    end
     FakeUser
   end
   config.main_app_name = ['Labs', 'Admin']
-  config.authenticate_with{}
+  config.authenticate_with do
+    authenticate_or_request_with_http_basic do |username, password|
+      username.presence == "admin" && password.presence == "leconservation"
+    end
+  end
+
   # Set the admin name here (optional second array element will appear in a beautiful RailsAdmin red ©)
   # or for a dynamic name:
   # config.main_app_name = Proc.new { |controller| [Rails.application.engine_name.titleize, controller.params['action'].titleize] }
@@ -39,13 +41,6 @@ RailsAdmin.config do |config|
   #     authenticate_admin!
   #   end
   # end
-  # Example Custom Warden
-  # RailsAdmin.config do |config|
-  #   config.authenticate_with do
-  #     warden.authenticate! :scope => :paranoid
-  #   end
-  # end
-
   #  ==> Authorization
   # Use cancan https://github.com/ryanb/cancan for authorization:
   # config.authorize_with :cancan

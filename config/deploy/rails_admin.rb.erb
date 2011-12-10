@@ -2,7 +2,7 @@
 # See github.com/sferik/rails_admin for more informations
 class FakeUser
   def self.username
-    'admin'
+    'someadmin'
   end
 
   def self.email
@@ -16,14 +16,16 @@ RailsAdmin.config do |config|
   # require 'i18n'
   # I18n.default_locale = :de
 
+
   config.current_user_method do
-    authenticate_or_request_with_http_basic do |username, password|
-      username == "admin" && password == "<%= secret_password %>"
-    end
     FakeUser
   end
   config.main_app_name = ['Labs', 'Admin']
-  config.authenticate_with{}
+  config.authenticate_with do
+    authenticate_or_request_with_http_basic do |username, password|
+      username.presence == "admin" && password.presence == "<%= secret_password %>"
+    end
+  end
   # Set the admin name here (optional second array element will appear in a beautiful RailsAdmin red ©)
   # or for a dynamic name:
   # config.main_app_name = Proc.new { |controller| [Rails.application.engine_name.titleize, controller.params['action'].titleize] }
