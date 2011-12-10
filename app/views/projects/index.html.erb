@@ -1,14 +1,12 @@
 <div class="page-header">
   <h1>Our Projects</h1>
 </div>
-<div class="row">
-  <% @projects.each_with_index do |project, i| %>
-    <div class="span5 project" data-url='<%= project.url %>'>
-      <span class="project_image" style="background-image:url('<%= project.screenshot.url(:medium)%>'"><%=project.title %></span>
-      <p>
-      <%= link_to project.title, project.url %><br />
-      <%= project.description %>
-      </p>
-    </div>
-  <% end %>
-</div>
+<% @projects.each_with_index do |project, i| %>
+  <div class="span5 project <%= if i!=0 && i%3 == 0 then "clear" end %>" data-url='<%= project.url %>'>
+    <span class="project_image" style="background-image:url('<%= project.screenshot.url(:medium)%>'"><%=project.title %></span>
+    <p>
+    <%= link_to project.title, project.url %><br />
+    <%= project.description %>
+    </p>
+  </div>
+<% end %>

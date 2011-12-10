@@ -4,7 +4,7 @@
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require_tree . 
  *= require_self
-*/
+ */
 
 div.project {
   margin-top: 25px;
@@ -40,3 +40,9 @@ span.project_image {
   float: left;
   padding: 4px;
 }
+
+[class*="span"] {
+  display: inline;
+  float: left;
+  margin-left: 20px;
+          }
