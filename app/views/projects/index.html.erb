@@ -3,7 +3,7 @@
 </div>
 <% @projects.each_with_index do |project, i| %>
   <div class="span5 project <%= if i!=0 && i%3 == 0 then "clear" end %>" data-url='<%= project.url %>'>
-    <span class="project_image" style="background-image:url('<%= project.screenshot.url(:medium)%>'"><%=project.title %></span>
+    <span class="project_image" style="background-image:url('<%= project.screenshot.url(:medium)%>');"><%=project.title %></span>
     <p>
     <%= link_to project.title, project.url %><br />
     <%= project.description %>
