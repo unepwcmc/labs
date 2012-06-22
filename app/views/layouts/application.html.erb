@@ -32,11 +32,11 @@
   <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container">
-        <%= link_to "Labs", "/", :class => "brand" %>
+        <%= link_to "UNEP-WCMC Labs", "/", :class => "brand" %>
         <ul class="nav">
-          <li class="<%= if params[:controller] != "home" then "active" end %>"><a href="/">Home</a></li>
-          <li><a href="http://www.unep-wcmc.org/informatics_49.html">About</a></li>
-          <li class="<%= if params[:controller] == "home" then "active" end %>"><a href="/contact">Contact</a></li>
+          <!-- <li class="<%= if params[:controller] != "home" then "active" end %>"><a href="/">Home</a></li> -->
+          <li><a href="http://www.unep-wcmc.org/informatics_49.html">More info about UNEP-WCMC</a></li>
+          <!-- <li class="<%= if params[:controller] == "home" then "active" end %>"><a href="/contact">Contact</a></li> -->
         </ul>
       </div>
     </div>
@@ -54,7 +54,7 @@
       </div>
     </div>
     <footer>
-    <p>&copy; <%= link_to "UNEP-WCMC", "http://www.unep-wcmc.org" %> 2011</p>
+    <p>&copy; <%= link_to "UNEP-WCMC", "http://www.unep-wcmc.org" %> <%= Time.now.year  %></p>
     </footer>
   </div>
 </body>
