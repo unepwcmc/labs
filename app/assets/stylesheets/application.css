@@ -6,6 +6,10 @@
  *= require_self
  */
 
+body {
+  margin-top: 60px;
+}
+
 div.project {
   margin-top: 25px;
   min-height: 280px;
