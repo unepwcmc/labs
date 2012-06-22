@@ -1,5 +1,10 @@
 <div class="page-header">
-  <h1>Our Projects</h1>
+  <!-- <h1>Our recent projects</h1> -->
+	<h1>We make excellent tools to explain and explore the value of the world's natural resources.</h1>
+	<h4>
+		Some of our recent projects are described below. If you want to know any more, email 
+		<a href="mailto:craig.mills@unep-wcmc.org?subject=labs">Craig Mills</a>
+	</h4>
 </div>
 <% @projects.each_with_index do |project, i| %>
   <div class="span5 project <%= if i!=0 && i%3 == 0 then "clear" end %>" data-url='<%= project.url %>'>
