@@ -6,12 +6,19 @@
 		<a href="mailto:craig.mills@unep-wcmc.org?subject=labs">Craig Mills</a>
 	</h4>
 </div>
+
+<div class="row">
 <% @projects.each_with_index do |project, i| %>
-  <div class="span5 project <%= if i!=0 && i%3 == 0 then "clear" end %>" data-url='<%= project.url %>'>
+  <div class="span4 project" data-url='<%= project.url %>'>
     <span class="project_image" style="background-image:url('<%= project.screenshot.url(:medium)%>');"><%=project.title %></span>
     <p>
-    <%= link_to project.title, project.url %><br />
-    <%= project.description %>
+      <h3><%= link_to project.title, project.url %></h3>
+      <%= project.description %>
     </p>
   </div>
+  <%# Start a new row every third project, except if it's the last one %>
+  <% if (i!=0 && i%3==0) && (i!=@projects.length-1) %>
+    </div>
+    <div class="row">
+  <% end %>
 <% end %>

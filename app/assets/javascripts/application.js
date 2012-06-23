@@ -11,10 +11,10 @@
 
 $(document).ready(function(){
   $(".project").hover(function(event){
-    $(this).find('a').css('text-decoration', 'underline').css('color', 'green');
+    $(this).find('a').css('text-decoration', 'underline');
     $(this).css('cursor', 'pointer');
   }, function(event){
-    $(this).find('a').css('text-decoration', 'none').css('color', 'black');
+    $(this).find('a').css('text-decoration', 'none');
   });
 
   $(".project").click(function(event){
