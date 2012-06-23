@@ -1,14 +1,5 @@
-# RailsAdmin config file. Generated on December 09, 2011 14:32
+# RailsAdmin config file. Generated on June 22, 2012 16:42
 # See github.com/sferik/rails_admin for more informations
-class FakeUser
-  def self.username
-    'admin'
-  end
-
-  def self.email
-    'admin@unep-wcmc.org'
-  end
-end
 
 RailsAdmin.config do |config|
 
@@ -16,17 +7,10 @@ RailsAdmin.config do |config|
   # require 'i18n'
   # I18n.default_locale = :de
 
-  config.current_user_method do
-    FakeUser
-  end
-  config.main_app_name = ['Labs', 'Admin']
-  config.authenticate_with do
-    authenticate_or_request_with_http_basic do |username, password|
-      username.presence == "admin" && password.presence == "leconservation"
-    end
-  end
+  config.current_user_method { current_user } # auto-generated
 
   # Set the admin name here (optional second array element will appear in a beautiful RailsAdmin red ©)
+  config.main_app_name = ['Labs', 'Admin']
   # or for a dynamic name:
   # config.main_app_name = Proc.new { |controller| [Rails.application.engine_name.titleize, controller.params['action'].titleize] }
 
@@ -41,6 +25,13 @@ RailsAdmin.config do |config|
   #     authenticate_admin!
   #   end
   # end
+  # Example Custom Warden
+  # RailsAdmin.config do |config|
+  #   config.authenticate_with do
+  #     warden.authenticate! :scope => :paranoid
+  #   end
+  # end
+
   #  ==> Authorization
   # Use cancan https://github.com/ryanb/cancan for authorization:
   # config.authorize_with :cancan
@@ -66,10 +57,10 @@ RailsAdmin.config do |config|
 
   #  ==> Included models
   # Add all excluded models here:
-  # config.excluded_models = []
+  # config.excluded_models = [Project, User]
 
   # Add models here if you want to go 'whitelist mode':
-  # config.included_models = []
+  # config.included_models = [Project, User]
 
   # Application wide tried label methods for models' instances
   # config.label_methods << :description # Default is [:name, :title]
@@ -137,4 +128,36 @@ RailsAdmin.config do |config|
   #  - has_many/has_one associations in list section (hidden by default for performance reasons)
   # Fields may also be marked as read_only (and thus not editable) if they are not mass-assignable by current_user
 
+  # config.model Project do
+  #   # Found associations:
+  #   # Found columns:
+  #     configure :id, :integer 
+  #     configure :title, :string 
+  #     configure :description, :text 
+  #     configure :url, :string 
+  #     configure :created_at, :datetime 
+  #     configure :updated_at, :datetime 
+  #     configure :screenshot_file_name, :string         # Hidden 
+  #     configure :screenshot_content_type, :string         # Hidden 
+  #     configure :screenshot_file_size, :integer         # Hidden 
+  #     configure :screenshot_updated_at, :datetime         # Hidden 
+  #     configure :screenshot, :paperclip   #   # Sections:
+  #   list do; end
+  #   export do; end
+  #   show do; end
+  #   edit do; end
+  #   create do; end
+  #   update do; end
+  # end
+  # config.model User do
+  #   # Found associations:
+  #   # Found columns:
+  #   # Sections:
+  #   list do; end
+  #   export do; end
+  #   show do; end
+  #   edit do; end
+  #   create do; end
+  #   update do; end
+  # end
 end

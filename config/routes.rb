@@ -1,6 +1,9 @@
 Labs::Application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+
+  devise_for :users
+
   resources :projects, :only => ['index']
 
   match '/contact', :to => 'home#contact'
