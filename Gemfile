@@ -10,6 +10,7 @@ gem 'pg'
 gem 'paperclip', '~> 2.4'
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 gem 'fastercsv'
+gem 'httparty'
 
 gem 'devise'
 
@@ -47,3 +48,4 @@ group :development do
 end
 
 gem "devise"
+gem "therubyracer"
