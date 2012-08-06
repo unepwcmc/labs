@@ -33,6 +33,8 @@ gem 'capistrano'
 gem 'brightbox'
 gem 'capistrano-ext'
 
+gem 'whenever'
+
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
@@ -46,8 +48,6 @@ group :development do
   gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
   gem 'ruby-debug19'
 end
-
-gem "devise"
 
 gem "toggl", :git => "git://github.com/atog/toggl.git"
 gem "therubyracer"
