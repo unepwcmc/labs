@@ -50,4 +50,9 @@ group :development do
 end
 
 gem "toggl", :git => "git://github.com/atog/toggl.git"
+
+gem "therubyracer"
+
+gem "rmagick", :require => 'RMagick'
+
 #gem "therubyracer"
