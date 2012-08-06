@@ -11,14 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120806133325) do
+ActiveRecord::Schema.define(:version => 20120806134228) do
 
   create_table "projects", :force => true do |t|
     t.string   "title"
     t.text     "description"
     t.string   "url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
     t.string   "screenshot_file_name"
     t.string   "screenshot_content_type"
     t.integer  "screenshot_file_size"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20120806133325) do
     t.string   "github_id"
     t.integer  "pivotal_tracker_id"
     t.integer  "toggl_id"
+    t.date     "deadline"
   end
 
   create_table "rails_admin_histories", :force => true do |t|
@@ -35,8 +36,8 @@ ActiveRecord::Schema.define(:version => 20120806133325) do
     t.string   "table"
     t.integer  "month",      :limit => 2
     t.integer  "year",       :limit => 8
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
   end
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
@@ -52,8 +53,8 @@ ActiveRecord::Schema.define(:version => 20120806133325) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
