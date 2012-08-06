@@ -1,8 +1,6 @@
 class Project < ActiveRecord::Base
   has_attached_file :screenshot, :styles => { :medium => "280x200", :thumb => "100x100>" }
 
-  CONFIG = YAML::load( File.open( Rails.root.join('config/config.yml') ) )['config']
-
   def self.top_3
     response = HTTParty.get('https://api.github.com/users/unepwcmc/repos?sort=pushed')
 

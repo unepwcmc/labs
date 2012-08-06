@@ -7,8 +7,8 @@ end
 
 namespace :toggl do
   desc "Update percentages"
-  task :update_percentages do
-    API_KEYS = ['f9371ea5d53955cd243186d0e6723a9a']
+  task :update_percentages => :environment do
+    API_KEYS = CONFIG['toggl_tokens']
     project_stats = {}
 
     # Get hours worked in projects from each user
@@ -36,6 +36,23 @@ namespace :toggl do
       end
     end
 
+    WIDGET_IDS = [70085, 70086, 70071]
+    Project.top_3.each_with_index do |project, i|
+      # get project toggle id
+      stats = project_stats[project.toggl_id]
+
+      # calculate percentage from project_stats hash
+      percentage = 0
+      percentage = stats[:spent].to_f/stats[:estimated] if stats[:estimated] > 0
+      puts "#{project.title}: #{stats[:spent].to_f}/#{stats[:estimated]} = #{percentage}"
+
+      response = HTTParty.post("https://push.ducksboard.com/v/#{WIDGET_IDS[i]}", :basic_auth => {
+          :username => CONFIG['ducksboard_api_token'],
+          :password => 'x'
+        },
+        :body => "{\"value\": #{percentage}}"
+      )
+    end
     puts project_stats
   end
 end
