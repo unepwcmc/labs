@@ -14,11 +14,20 @@
 /log/*.log
 /tmp
 
-/*.swp
-/*.swo
 /config/database.yml
-/*.DS_Store
-/vendor/ruby
 /nbproject/*
 /public/system/*
 /config/initializers/rails_admin.rb
+
+# VIM
+*.swp
+/*.swo
+*.un~
+
+# OS X
+*.DS_Store
+
+# Netbeans and other IDE’s
+/nbproject
+.project
+.idea/

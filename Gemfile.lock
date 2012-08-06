@@ -1,4 +1,16 @@
 GIT
+  remote: git://github.com/atog/toggl.git
+  revision: 065f196e2c6c301e3ef4b9b564ca1fb20af20d55
+  specs:
+    toggl (0.3.0)
+      chronic_duration
+      chronic_duration (>= 0.9.0)
+      hirb
+      hirb (>= 0.3.1)
+      httparty
+      httparty (>= 0.8.1)
+
+GIT
   remote: git://github.com/ctran/annotate_models.git
   revision: 98d00635c41c4bfe66b361196241505a5c778b7a
   specs:
@@ -72,6 +84,8 @@ GEM
       net-ssh-gateway (>= 1.1.0)
     capistrano-ext (1.2.1)
       capistrano (>= 1.0.0)
+    chronic_duration (0.9.6)
+      numerizer (~> 0.1.1)
     cocaine (0.2.1)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -93,6 +107,7 @@ GEM
     haml (3.1.6)
     highline (1.6.13)
     hike (1.2.1)
+    hirb (0.7.0)
     hpricot (0.8.6)
     httparty (0.8.3)
       multi_json (~> 1.0)
@@ -127,6 +142,7 @@ GEM
     net-ssh (2.5.2)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
+    numerizer (0.1.1)
     orm_adapter (0.4.0)
     paperclip (2.7.0)
       activerecord (>= 2.3.0)
@@ -218,5 +234,6 @@ DEPENDENCIES
   rails_admin!
   ruby-debug19
   therubyracer
+  toggl!
   turn (= 0.8.2)
   uglifier (>= 1.0.3)
