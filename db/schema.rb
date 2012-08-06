@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120622154032) do
+ActiveRecord::Schema.define(:version => 20120806133325) do
 
   create_table "projects", :force => true do |t|
     t.string   "title"
@@ -23,6 +23,9 @@ ActiveRecord::Schema.define(:version => 20120622154032) do
     t.string   "screenshot_content_type"
     t.integer  "screenshot_file_size"
     t.datetime "screenshot_updated_at"
+    t.string   "github_id"
+    t.integer  "pivotal_tracker_id"
+    t.integer  "toggl_id"
   end
 
   create_table "rails_admin_histories", :force => true do |t|
