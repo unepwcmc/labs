@@ -1,3 +1,14 @@
+class Project < ActiveRecord::Base
+  has_attached_file :screenshot, :styles => { :medium => "280x200", :thumb => "100x100>" }
+
+  def self.top_3
+    response = HTTParty.get('https://api.github.com/users/unepwcmc/repos?sort=pushed')
+
+    response.map{ |i| i['name'] }.map{ |n| Project.find_by_github_id(n) }.compact[0..3]
+  end
+
+end
+
 # == Schema Information
 #
 # Table name: projects
@@ -18,6 +29,4 @@
 #  deadline                :date
 #
 
-class Project < ActiveRecord::Base
-  has_attached_file :screenshot, :styles => { :medium => "280x200", :thumb => "100x100>" }
-end
+
