@@ -64,6 +64,7 @@ task :setup_production_database_configuration do
   require 'yaml'
   spec = { "staging" => {
     "adapter" => "postgresql",
+    'encoding' => 'utf-8',
     "database" => database_name,
     "username" => database_user,
     "host" => the_host,
