@@ -233,7 +233,7 @@ DEPENDENCIES
   rails (= 3.2.7)
   rails_admin!
   ruby-debug19
-  toggl!
   therubyracer
+  toggl!
   turn (= 0.8.2)
   uglifier (>= 1.0.3)
