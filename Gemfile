@@ -11,6 +11,8 @@ gem 'paperclip', '~> 2.4'
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 gem 'fastercsv'
 
+gem 'devise'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -43,3 +45,5 @@ group :development do
   gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
   gem 'ruby-debug19'
 end
+
+gem "devise"
