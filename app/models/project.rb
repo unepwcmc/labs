@@ -2,7 +2,11 @@ class Project < ActiveRecord::Base
   has_attached_file :screenshot, :styles => { :medium => "280x200", :thumb => "100x100>" }
 
   def self.top_3
-    response = HTTParty.get('https://api.github.com/users/unepwcmc/repos?sort=pushed')
+    response = HTTParty.get('https://api.github.com/orgs/unepwcmc/repos?sort=pushed',
+                           :basic_auth => {
+                            :username => CONFIG['gh_un'],
+                            :password => CONFIG['gh_pw']
+                           })
 
     response.map{ |i| i['name'] }.map{ |n| Project.find_by_github_id(n) }.compact[0..3]
   end
