@@ -1,5 +1,7 @@
 set :default_stage, 'staging'
 require 'capistrano/ext/multistage'
+
+set :whenever_command, "bundle exec whenever"
 require "whenever/capistrano"
 
 ## Generated with 'brightbox' on Thu Apr 21 11:12:49 +0100 2011
@@ -53,7 +55,7 @@ default_run_options[:pty] = true # Must be set for the password prompt from git 
 #
 # The shared area is prepared with 'deploy:setup' and all the shared
 # items are symlinked in when the code is updated.
-set :local_shared_files, %w(config/database.yml config/initializers/rails_admin.rb)
+set :local_shared_files, %w(config/database.yml config/initializers/rails_admin.rb config/config.yml)
 set :local_shared_dirs, %w(public/system)
 
 task :setup_production_database_configuration do
@@ -64,6 +66,7 @@ task :setup_production_database_configuration do
   require 'yaml'
   spec = { "staging" => {
     "adapter" => "postgresql",
+    'encoding' => 'utf-8',
     "database" => database_name,
     "username" => database_user,
     "host" => the_host,

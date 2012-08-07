@@ -7,8 +7,14 @@ class Project < ActiveRecord::Base
                             :username => CONFIG['gh_un'],
                             :password => CONFIG['gh_pw']
                            })
-
-    response.map{ |i| i['name'] }.map{ |n| Project.find_by_github_id(n) }.compact[0..3]
+    projects = []
+    response.map{ |i| i['name'] }.each do |r|
+      if (p = Project.find_by_github_id(r))
+        projects << p
+      end
+      break if projects.size == 3
+    end
+    projects
   end
 
   def self.update_pivotal_tracker_widget
