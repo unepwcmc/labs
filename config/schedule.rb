@@ -20,12 +20,12 @@
 # Learn more: http://github.com/javan/whenever
 
 every 15.minutes do
-  rake "update_nagios"
+  rake 'dashboard:update_nagios'
 end
 
 every 1.hours do
-  rake 'toggl:update_percentages'
-  rake 'deadlines:update_widgets'
-  runner "Project.update_pivotal_tracker_widget"
-  runner "Project.update_spiceworks_widget"
+  rake 'dashboard:update_toggl_percentages'
+  rake 'dashboard:update_deadlines_widget'
+  rake 'dashboard:update_pivotal_tracker_widget'
+  rake 'dashboard:update_spiceworks_widget'
 end

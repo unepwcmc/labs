@@ -3,6 +3,8 @@ class Project < ActiveRecord::Base
   TITLE_WIDGET_IDS = [70057, 70058, 70059]
   SPICEWORK_OPEN_ID = 70265
   SPICEWORK_CLOSED_ID = 70264
+  TOGGL_API_KEYS = CONFIG['toggl_tokens']
+  BUDGET_WIDGET_IDS = [70085, 70086, 70071]
 
   def self.top_3
     response = HTTParty.get('https://api.github.com/orgs/unepwcmc/repos?sort=pushed',
@@ -58,23 +60,76 @@ class Project < ActiveRecord::Base
   def self.update_spiceworks_widget
     # Open tickets
     csv_text = HTTParty.get('http://spiceworks.unep-wcmc.org/opentickets.csv').body
-    open_count = CSV.parse(csv_text).count
+    open_count = CSV.parse(csv_text).count - 1
     response = HTTParty.post("https://push.ducksboard.com/v/#{SPICEWORK_OPEN_ID}", :basic_auth => {
         :username => CONFIG['ducksboard_api_token'],
         :password => 'x'
       },
       :body => "{\"value\": #{open_count}}"
     )
+    puts open_count
+    puts response
 
     # Closed last month tickets
     csv_text = HTTParty.get('http://spiceworks.unep-wcmc.org/closedtickets.csv').body
-    closed_count = CSV.parse(csv_text).count
+    closed_count = CSV.parse(csv_text).count - 1
     response = HTTParty.post("https://push.ducksboard.com/v/#{SPICEWORK_CLOSED_ID}", :basic_auth => {
         :username => CONFIG['ducksboard_api_token'],
         :password => 'x'
       },
       :body => "{\"value\": #{closed_count}}"
     )
+    puts closed_count
+    puts response
+  end
+
+  # Calculates the percentage of the 3 most recent projects has been spent in toggl,
+  # then updates the widget
+  def self.update_toggl_percentages
+    project_stats = {}
+
+    # Get hours worked in projects from each user
+    TOGGL_API_KEYS.each do |key|
+      toggl_interface = Toggl.new(key, "api_token")
+
+      # Get time spent
+      toggl_interface.time_entries({"start_date" => Date.parse('1970-1-1'), "end_date" => Date.today}).each do |time_entry|
+        project_id = time_entry['project'].try(:[],'id')
+        # Init project counter if not already inserted
+        project_stats[project_id] = {:spent => 0, :estimated => 0} unless project_stats[project_id].present?
+
+        # Insert duration into project
+        project_stats[project_id][:spent] += time_entry['duration']
+      end
+
+      # Get time estimates for project
+      toggl_interface.projects.each do |project|
+        project_id = project['id']
+        # Init project counter if not already inserted
+        project_stats[project_id] = {:spent => 0, :estimated => 0} unless project_stats[project_id].present?
+
+        # Set estimated
+        project_stats[project_id][:estimated] = project['estimated_workhours']*60*60 if project['estimated_workhours'].present?
+      end
+    end
+
+    Project.top_3.each_with_index do |project, i|
+      # get project toggle id
+      stats = project_stats[project.toggl_id]
+
+      # calculate percentage from project_stats hash
+      percentage = 0
+      percentage = stats[:spent].to_f/stats[:estimated] if stats[:estimated] > 0
+      puts "#{project.title}: #{stats[:spent].to_f}/#{stats[:estimated]} = #{percentage}"
+
+      response = HTTParty.post("https://push.ducksboard.com/v/#{BUDGET_WIDGET_IDS[i]}", :basic_auth => {
+          :username => CONFIG['ducksboard_api_token'],
+          :password => 'x'
+        },
+        :body => "{\"value\": #{percentage}}"
+      )
+    end
+    puts project_stats
   end
 end
 
