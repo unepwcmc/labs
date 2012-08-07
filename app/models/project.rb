@@ -3,8 +3,14 @@ class Project < ActiveRecord::Base
 
   def self.top_3
     response = HTTParty.get('https://api.github.com/users/unepwcmc/repos?sort=pushed')
-
-    response.map{ |i| i['name'] }.compact[0..2].map{ |n| Project.find_by_github_id(n) }
+    projects = []
+    response.map{ |i| i['name'] }.each do |r|
+      if (p = Project.find_by_github_id(r))
+        projects << p
+      end
+      break if projects.size == 3
+    end
+    projects
   end
 
   def self.update_pivotal_tracker_widget
