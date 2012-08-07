@@ -25,5 +25,6 @@ end
 
 every 1.hours do
   rake 'toggl:update_percentages'
+  rake 'deadlines:update_widgets'
   runner "Project.update_pivotal_tracker_widget"
 end
