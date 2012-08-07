@@ -22,3 +22,11 @@
 every 1.day do
   runner "Project.update_pivotal_tracker_widget"
 end
+
+every 15.minutes do
+  rake "update_nagios"
+end
+
+every 1.hours do
+  rake 'toggl:update_percentages'
+end

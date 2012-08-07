@@ -1,12 +1,10 @@
 class Project < ActiveRecord::Base
   has_attached_file :screenshot, :styles => { :medium => "280x200", :thumb => "100x100>" }
 
-  CONFIG = YAML::load( File.open( Rails.root.join('config/config.yml') ) )['config']
-
   def self.top_3
     response = HTTParty.get('https://api.github.com/users/unepwcmc/repos?sort=pushed')
 
-    response.map{ |i| i['name'] }.map{ |n| Project.find_by_github_id(n) }.compact[0..3]
+    response.map{ |i| i['name'] }.compact[0..2].map{ |n| Project.find_by_github_id(n) }
   end
 
   def self.update_pivotal_tracker_widget

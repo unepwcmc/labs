@@ -1,5 +1,7 @@
 set :default_stage, 'staging'
 require 'capistrano/ext/multistage'
+
+set :whenever_command, "bundle exec whenever"
 require "whenever/capistrano"
 
 ## Generated with 'brightbox' on Thu Apr 21 11:12:49 +0100 2011
@@ -53,7 +55,7 @@ default_run_options[:pty] = true # Must be set for the password prompt from git 
 #
 # The shared area is prepared with 'deploy:setup' and all the shared
 # items are symlinked in when the code is updated.
-set :local_shared_files, %w(config/database.yml config/initializers/rails_admin.rb)
+set :local_shared_files, %w(config/database.yml config/initializers/rails_admin.rb config/config.yml)
 set :local_shared_dirs, %w(public/system)
 
 task :setup_production_database_configuration do
@@ -62,8 +64,9 @@ task :setup_production_database_configuration do
   database_user = Capistrano::CLI.ui.ask("Database username: ")
   pg_password = Capistrano::CLI.password_prompt("Database user password: ")
   require 'yaml'
-  spec = { "production" => {
+  spec = { "staging" => {
     "adapter" => "postgresql",
+    'encoding' => 'utf-8',
     "database" => database_name,
     "username" => database_user,
     "host" => the_host,
@@ -81,3 +84,15 @@ task :generate_rails_admin do
   put buffer, "#{shared_path}/config/initializers/rails_admin.rb"
 end
 after "deploy:setup", :generate_rails_admin
+
+desc 'Generate config file'
+task :generate_config_file do
+  toggl_token = Capistrano::CLI.ui.ask("Enter toggl token:")
+  toggl_ws_id = Capistrano::CLI.ui.ask("Enter toggl workspace id:")
+  pt_token = Capistrano::CLI.ui.ask("Enter pivotal tracker token:")
+  ducksboard_api_token = Capistrano::CLI.ui.ask("Enter ducksboard api token:")
+  template = File.read("config/config.yml.erb")
+  buffer = ERB.new(template).result(binding)
+  put buffer, "#{shared_path}/config/config.yml"
+end
+after "deploy:setup", :generate_config_file
