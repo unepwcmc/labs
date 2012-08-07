@@ -28,28 +28,29 @@ task :update_nagios do
     ar << service["service_status"]
   end
 
-
-  #puts ar.to_json
-
-  size = 40
-  square = [0,0,size,0,size,size,0,size,0,0]
+  size = 30
+  startpad = 10
+  
+  square = [0,size+23,size,0+23]
+  square.collect!{|i| i + startpad}
+  
+  #these 2 are the start location of the square
   xoff=5
   yoff=5
-  columns = 10
-  offset = size + 5
+  
+  columns = 8 
+  
+  #this is the square inc padding
+  offset = size + xoff
 
-  canvas = Magick::Image.new((size + xoff) * columns + 5, 400) {self.background_color = '#232526'}
+  canvas = Magick::Image.new(((size + xoff) * (columns+1)) + xoff + (startpad*2), 420) {self.background_color = '#424953'}
   gc = Magick::Draw.new
   gc.fill('#AE432E')
 
   ar.each do |a|  
 
-      #Magick::HatchFill.new('white','lightcyan2')
-      gc.polygon(square[0]+xoff,square[1]+yoff,
-      square[2]+xoff,square[3]+yoff,square[4]+xoff,
-      square[5]+yoff,square[6]+xoff,square[7]+yoff,
-      square[8]+xoff,square[9]+yoff)
-
+      gc.rectangle(square[0]+xoff,square[1]+yoff,square[2]+xoff,square[3]+yoff) #upper left lower right
+      
       if a == "WARNING" 
         gc.fill('#B5712E')
       elsif a == "CRITICAL"
@@ -58,9 +59,7 @@ task :update_nagios do
         gc.fill('#7FA416')
       end
 
-
       gc.draw(canvas)
-
 
       if xoff-5 == columns*offset
         xoff = 5
@@ -70,10 +69,8 @@ task :update_nagios do
       end
 
   end
+
   canvas.format = 'png'
-  
-  puts Rails.root.join('nagios.png').to_s
-  
   canvas.write(Rails.root.join('public', 'nagios.png'))
   #canvas.to_blob
 
