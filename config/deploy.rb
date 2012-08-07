@@ -91,6 +91,8 @@ task :generate_config_file do
   toggl_ws_id = Capistrano::CLI.ui.ask("Enter toggl workspace id:")
   pt_token = Capistrano::CLI.ui.ask("Enter pivotal tracker token:")
   ducksboard_api_token = Capistrano::CLI.ui.ask("Enter ducksboard api token:")
+  nagions_uname = Capistrano::CLI.ui.ask("Enter nagios username:")
+  nagios_pwd = Capistrano::CLI.ui.ask("Enter nagios password:")
   template = File.read("config/config.yml.erb")
   buffer = ERB.new(template).result(binding)
   put buffer, "#{shared_path}/config/config.yml"
