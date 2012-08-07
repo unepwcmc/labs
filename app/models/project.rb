@@ -1,7 +1,8 @@
 class Project < ActiveRecord::Base
   has_attached_file :screenshot, :styles => { :medium => "280x200", :thumb => "100x100>" }
   TITLE_WIDGET_IDS = [70057, 70058, 70059]
-  SPICEWORK_WIDGET_ID = 70254
+  SPICEWORK_OPEN_ID = 70265
+  SPICEWORK_CLOSED_ID = 70264
 
   def self.top_3
     response = HTTParty.get('https://api.github.com/orgs/unepwcmc/repos?sort=pushed',
@@ -40,25 +41,39 @@ class Project < ActiveRecord::Base
 
   def self.update_deadlines_widget
     Project.top_3.each_with_index do |project, i|
+      date = project.deadline
+      date = Date.today + 7 if date.nil?
+      target = date.strftime("%d %b %y, 09:00")
       response = HTTParty.put("#{CONFIG['ducksboard_dashboard_api_url']}/#{TITLE_WIDGET_IDS[i]}",
         :basic_auth => {
           :password => 'x',
           :username => CONFIG['ducksboard_api_token']
         },
-        :body =>  "{\"content\": {\"event\": \"#{project.title}\"}}"
+        :body =>  "{\"content\": {\"event\": \"#{project.title}\", \"target\": \"#{target}\"}}"
       )
       puts response.inspect
     end
   end
 
   def self.update_spiceworks_widget
+    # Open tickets
     csv_text = HTTParty.get('http://spiceworks.unep-wcmc.org/opentickets.csv').body
-    ticket_count = CSV.parse(csv_text).count
-    response = HTTParty.post("https://push.ducksboard.com/v/#{SPICEWORK_WIDGET_ID}", :basic_auth => {
+    open_count = CSV.parse(csv_text).count
+    response = HTTParty.post("https://push.ducksboard.com/v/#{SPICEWORK_OPEN_ID}", :basic_auth => {
         :username => CONFIG['ducksboard_api_token'],
         :password => 'x'
       },
-      :body => "{\"value\": #{ticket_count}}"
+      :body => "{\"value\": #{open_count}}"
+    )
+
+    # Closed last month tickets
+    csv_text = HTTParty.get('http://spiceworks.unep-wcmc.org/closedtickets.csv').body
+    closed_count = CSV.parse(csv_text).count
+    response = HTTParty.post("https://push.ducksboard.com/v/#{SPICEWORK_CLOSED_ID}", :basic_auth => {
+        :username => CONFIG['ducksboard_api_token'],
+        :password => 'x'
+      },
+      :body => "{\"value\": #{closed_count}}"
     )
   end
 end
