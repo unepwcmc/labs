@@ -1,6 +1,7 @@
 class Project < ActiveRecord::Base
   has_attached_file :screenshot, :styles => { :medium => "280x200", :thumb => "100x100>" }
   TITLE_WIDGET_IDS = [70057, 70058, 70059]
+  SPICEWORK_WIDGET_ID = 70254
 
   def self.top_3
     response = HTTParty.get('https://api.github.com/orgs/unepwcmc/repos?sort=pushed',
@@ -50,6 +51,16 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def self.update_spiceworks_widget
+    csv_text = HTTParty.get('http://spiceworks.unep-wcmc.org/opentickets.csv').body
+    ticket_count = CSV.parse(csv_text).count
+    response = HTTParty.post("https://push.ducksboard.com/v/#{SPICEWORK_WIDGET_ID}", :basic_auth => {
+        :username => CONFIG['ducksboard_api_token'],
+        :password => 'x'
+      },
+      :body => "{\"value\": #{ticket_count}}"
+    )
+  end
 end
 
 # == Schema Information
