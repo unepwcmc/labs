@@ -98,3 +98,7 @@ task :generate_config_file do
   put buffer, "#{shared_path}/config/config.yml"
 end
 after "deploy:setup", :generate_config_file
+
+task :update_dashboard do
+  run "cd #{current_path} && bundle exec rake dashboard:update_all RAILS_ENV=#{rails_env}"
+end
