@@ -1,5 +1,6 @@
 class Project < ActiveRecord::Base
   has_attached_file :screenshot, :styles => { :medium => "280x200", :thumb => "100x100>" }
+  TITLE_WIDGET_IDS = [70057, 70058, 70059]
 
   def self.top_3
     response = HTTParty.get('https://api.github.com/orgs/unepwcmc/repos?sort=pushed',
@@ -34,6 +35,19 @@ class Project < ActiveRecord::Base
       puts response.inspect
     end
 
+  end
+
+  def self.update_deadlines_widget
+    Project.top_3.each_with_index do |project, i|
+      response = HTTParty.put("#{CONFIG['ducksboard_dashboard_api_url']}/#{TITLE_WIDGET_IDS[i]}",
+        :basic_auth => {
+          :password => 'x',
+          :username => CONFIG['ducksboard_api_token']
+        },
+        :body =>  "{\"content\": {\"event\": \"#{project.title}\"}}"
+      )
+      puts response.inspect
+    end
   end
 
 end
