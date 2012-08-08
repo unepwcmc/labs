@@ -13,14 +13,26 @@ class Project < ActiveRecord::Base
                             :username => CONFIG['gh_un'],
                             :password => CONFIG['gh_pw']
                            })
-    projects = []
-    response.map{ |i| i['name'] }.each do |r|
-      if (p = Project.find_by_github_id(r))
-        projects << p
+    labs_projects_names_in_order = response.map{ |e| e['name'] }
+
+    #fetch all from db and sort according to github order
+    labs_projects = Project.where(:github_id => labs_projects_names_in_order).all.
+      sort do |a,b|
+        labs_projects_names_in_order.index(a.github_id) <=>
+          labs_projects_names_in_order.index(b.github_id)
       end
-      break if projects.size == 3
+
+    top_3 = []
+    labs_projects.each_with_index do |p, idx|
+      #if multiple projects share the same pivotal tracker id, take just the 1st one
+      if idx == labs_projects.index do |pp|
+          pp.pivotal_tracker_id == p.pivotal_tracker_id
+        end
+        top_3 << p
+      end
+      break unless top_3.size < 3
     end
-    projects
+    top_3
   end
 
   def self.update_pivotal_tracker_widget
