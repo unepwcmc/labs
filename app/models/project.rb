@@ -8,11 +8,17 @@ class Project < ActiveRecord::Base
   BUDGET_WIDGET_IDS = [70084, 70085, 70075]
 
   def self.top_3
-    response = HTTParty.get('https://api.github.com/users/unepwcmc/repos?sort=pushed',
+    response = HTTParty.get('https://api.github.com/orgs/unepwcmc/repos?sort=pushed',
                            :basic_auth => {
                             :username => CONFIG['gh_un'],
                             :password => CONFIG['gh_pw']
                            })
+    # Sort by push date, because github won't
+    response = response.sort{|x,y|
+      date_y = y['pushed_at'].present? ? Date.parse(y['pushed_at']) : Date.parse('1970-01-01')
+      date_x = x['pushed_at'].present? ? Date.parse(x['pushed_at']) : Date.parse('1970-01-01')
+      date_y <=> date_x
+    } 
     labs_projects_names_in_order = response.map{ |e| e['name'] }
 
     #fetch all from db and sort according to github order
