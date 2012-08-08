@@ -25,7 +25,7 @@ class Project < ActiveRecord::Base
     top_3 = []
     labs_projects.each_with_index do |p, idx|
       #if multiple projects share the same pivotal tracker id, take just the 1st one
-      if idx == labs_projects.index do |pp|
+      if p.pivotal_tracker_id.nil? || idx == labs_projects.index do |pp|
           pp.pivotal_tracker_id == p.pivotal_tracker_id
         end
         top_3 << p
@@ -37,12 +37,12 @@ class Project < ActiveRecord::Base
 
   def self.update_pivotal_tracker_widget
     projects = Project.top_3
-    widget_ids = [70076, 70077, 70078]
+    widget_ids = [70338, 70339, 70340]
     ducksboard_dashboard_api_url = CONFIG['ducksboard_dashboard_api_url']
     ducksboard_api_token = CONFIG['ducksboard_api_token']
     widget_ids.each_with_index do |id, idx|
       project = projects[idx]
-      pt_id = project.pivotal_tracker_id
+      pt_id = project.try(:pivotal_tracker_id)
       pt_id ||= 0
       puts "updating widget #{id} with project #{pt_id}"
       response = HTTParty.put("#{ducksboard_dashboard_api_url}/#{id}",
@@ -52,7 +52,7 @@ class Project < ActiveRecord::Base
         },
         :body =>  {
           :content => {:project_id => pt_id},
-          :widget => {:title => "PT stories for #{project.title}"}
+          :widget => {:title => "PT stories for #{project.try(:title)}"}
         }.to_json
       )
       puts response.inspect
