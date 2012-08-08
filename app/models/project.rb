@@ -28,17 +28,18 @@ class Project < ActiveRecord::Base
     ducksboard_dashboard_api_url = CONFIG['ducksboard_dashboard_api_url']
     ducksboard_api_token = CONFIG['ducksboard_api_token']
     widget_ids.each_with_index do |id, idx|
-      puts "updating widget #{id} with project #{pivotal_tracker_ids[idx]}"
+      pt_id = pivotal_tracker_ids[idx]
+      pt_id ||= 0
+      puts "updating widget #{id} with project #{pt_id}"
       response = HTTParty.put("#{ducksboard_dashboard_api_url}/#{id}",
         :basic_auth => {
           :password => 'x',
           :username => ducksboard_api_token
         },
-        :body =>  "{\"content\": {\"project_id\": #{pivotal_tracker_ids[idx]}}}"
+        :body =>  "{\"content\": {\"project_id\": #{pt_id}}}"
       )
       puts response.inspect
     end
-
   end
 
   def self.update_deadlines_widget
@@ -123,6 +124,7 @@ class Project < ActiveRecord::Base
       end
     end
 
+    # Post top 3 project stats to widgets
     top_3_projects.each_with_index do |project, i|
       # get project toggle id
       stats = project_stats[project.toggl_id]
