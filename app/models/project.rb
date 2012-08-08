@@ -4,7 +4,8 @@ class Project < ActiveRecord::Base
   SPICEWORK_OPEN_ID = 70265
   SPICEWORK_CLOSED_ID = 70264
   TOGGL_API_KEYS = CONFIG['toggl_tokens']
-  BUDGET_WIDGET_IDS = [70085, 70086, 70071]
+  BUDGET_PARAM_IDS = [70085, 70086, 70071]
+  BUDGET_WIDGET_IDS = [70084, 70085, 70075]
 
   def self.top_3
     response = HTTParty.get('https://api.github.com/users/unepwcmc/repos?sort=pushed',
@@ -23,12 +24,13 @@ class Project < ActiveRecord::Base
   end
 
   def self.update_pivotal_tracker_widget
-    pivotal_tracker_ids = Project.top_3.map(&:pivotal_tracker_id)
+    projects = Project.top_3
     widget_ids = [70076, 70077, 70078]
     ducksboard_dashboard_api_url = CONFIG['ducksboard_dashboard_api_url']
     ducksboard_api_token = CONFIG['ducksboard_api_token']
     widget_ids.each_with_index do |id, idx|
-      pt_id = pivotal_tracker_ids[idx]
+      project = projects[idx]
+      pt_id = project.pivotal_tracker_id
       pt_id ||= 0
       puts "updating widget #{id} with project #{pt_id}"
       response = HTTParty.put("#{ducksboard_dashboard_api_url}/#{id}",
@@ -36,7 +38,10 @@ class Project < ActiveRecord::Base
           :password => 'x',
           :username => ducksboard_api_token
         },
-        :body =>  "{\"content\": {\"project_id\": #{pt_id}}}"
+        :body =>  {
+          :content => {:project_id => pt_id},
+          :widget => {:title => "PT stories for #{project.title}"}
+        }.to_json
       )
       puts response.inspect
     end
@@ -134,11 +139,20 @@ class Project < ActiveRecord::Base
       percentage = stats[:spent].to_f/stats[:estimated] if stats[:estimated] > 0
       puts "#{project.title} (#{project.toggl_id}): #{stats[:spent].to_f}/#{stats[:estimated]} = #{percentage}"
 
-      response = HTTParty.post("https://push.ducksboard.com/v/#{BUDGET_WIDGET_IDS[i]}", :basic_auth => {
+      response = HTTParty.post("https://push.ducksboard.com/v/#{BUDGET_PARAM_IDS[i]}", :basic_auth => {
           :username => CONFIG['ducksboard_api_token'],
           :password => 'x'
         },
-        :body => "{\"value\": #{percentage}}"
+        :body => {:value => percentage}.to_json
+      )
+
+      # Update widget title
+      response = HTTParty.put("#{CONFIG['ducksboard_dashboard_api_url']}/#{BUDGET_WIDGET_IDS[i]}",
+        :basic_auth => {
+          :username => CONFIG['ducksboard_api_token'],
+          :password => 'x'
+        },
+        :body => {:widget => {:title => project.title + ' budget'}}.to_json
       )
     end
   end
