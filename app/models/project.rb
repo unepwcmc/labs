@@ -95,8 +95,8 @@ class Project < ActiveRecord::Base
     puts response
 
     # Closed last month tickets
-    csv_text = HTTParty.get('http://spiceworks.unep-wcmc.org/closedtickets.csv').body
-    closed_count = CSV.parse(csv_text).count - 1
+    csv_text = HTTParty.get('http://spiceworks.unep-wcmc.org/NewClosedtickets.csv').body
+    closed_count = CSV.parse(csv_text)[1][1]
     response = HTTParty.post("https://push.ducksboard.com/v/#{SPICEWORK_CLOSED_ID}", :basic_auth => {
         :username => CONFIG['ducksboard_api_token'],
         :password => 'x'
