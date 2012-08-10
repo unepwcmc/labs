@@ -14,8 +14,9 @@ class Project < ActiveRecord::Base
                             :password => CONFIG['gh_pw']
                            })
     # Sort by push date, because github won't
-    response = response.sort do |a, b|
-      b['pushed_at'].to_s <=> a['pushed_at'].to_s
+    response = response.sort do |x,y|
+      DateTime.parse(y['pushed_at'] || '1970-01-01') <=>
+        DateTime.parse(x['pushed_at'] || '1970-01-01')
     end
 
     labs_projects_names_in_order = response.map{ |e| e['name'] }
