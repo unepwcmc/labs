@@ -91,7 +91,7 @@ task :generate_config_file do
   toggl_ws_id = Capistrano::CLI.ui.ask("Enter toggl workspace id:")
   pt_token = Capistrano::CLI.ui.ask("Enter pivotal tracker token:")
   ducksboard_api_token = Capistrano::CLI.ui.ask("Enter ducksboard api token:")
-  nagions_uname = Capistrano::CLI.ui.ask("Enter nagios username:")
+  nagios_uname = Capistrano::CLI.ui.ask("Enter nagios username:")
   nagios_pwd = Capistrano::CLI.ui.ask("Enter nagios password:")
   template = File.read("config/config.yml.erb")
   buffer = ERB.new(template).result(binding)
@@ -102,4 +102,4 @@ after "deploy:setup", :generate_config_file
 task :update_dashboard do
   run "cd #{current_path} && bundle exec rake dashboard:update_all RAILS_ENV=#{rails_env}"
 end
-after :deploy, :update_dashboard
+#after :deploy, :update_dashboard
