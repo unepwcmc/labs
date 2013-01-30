@@ -11,14 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120806134228) do
+ActiveRecord::Schema.define(:version => 20130130101206) do
 
   create_table "projects", :force => true do |t|
     t.string   "title"
     t.text     "description"
     t.string   "url"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.string   "screenshot_file_name"
     t.string   "screenshot_content_type"
     t.integer  "screenshot_file_size"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20120806134228) do
     t.integer  "pivotal_tracker_id"
     t.integer  "toggl_id"
     t.date     "deadline"
+    t.boolean  "is_dashboard_only",       :default => true
   end
 
   create_table "rails_admin_histories", :force => true do |t|
