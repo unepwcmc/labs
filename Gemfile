@@ -3,6 +3,8 @@ source 'http://rubygems.org'
 gem 'rails', '3.2.13'
 #gem 'rake', '0.8.7'
 
+gem 'rvm-capistrano'
+
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
