@@ -6,7 +6,7 @@ set :rvm_ruby_string, '1.9.3'
 
 
 set :whenever_command, "bundle exec whenever"
-require "whenever/capistrano"
+#require "whenever/capistrano"
 
 ## Generated with 'brightbox' on Thu Apr 21 11:12:49 +0100 2011
 gem 'brightbox', '>=2.3.8'
