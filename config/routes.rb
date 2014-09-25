@@ -4,7 +4,7 @@ Labs::Application.routes.draw do
 
   resources :projects, :only => ['index']
 
-  match '/contact', :to => 'home#contact'
+  get '/contact', :to => 'home#contact'
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   root :to => 'projects#index'
