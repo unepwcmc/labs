@@ -51,8 +51,6 @@ GEM
     archive-tar-minitar (0.5.2)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
-    bootstrap-generators (2.0.4)
-      railties (~> 3.1)
     brightbox (2.3.9)
       capistrano (>= 2.5)
     builder (3.0.4)
@@ -179,7 +177,6 @@ PLATFORMS
 
 DEPENDENCIES
   annotate!
-  bootstrap-generators
   brightbox
   capistrano
   capistrano-ext
