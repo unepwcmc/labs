@@ -9,6 +9,7 @@ module Labs
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    config.active_record.whitelist_attributes = false
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
@@ -34,10 +35,8 @@ module Labs
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
-    # Enable the asset pipeline
-    config.assets.enabled = true
-
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
   end
 end
