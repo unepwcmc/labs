@@ -14,12 +14,7 @@ gem 'fastercsv'
 gem 'httparty'
 
 gem 'devise'
-
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'uglifier', '>= 1.0.3'
-end
+gem 'uglifier', '>= 1.0.3'
 
 gem 'jquery-rails'
 
