@@ -42,10 +42,8 @@ end
 group :development do
   gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
   gem 'ruby-debug19'
+  gem 'spring'
 end
 
 gem "toggl", :git => "git://github.com/atog/toggl.git"
-
-#gem "therubyracer"
-
 gem "rmagick", :require => 'RMagick'
