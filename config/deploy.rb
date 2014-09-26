@@ -4,7 +4,6 @@ require 'capistrano/ext/multistage'
 require 'rvm/capistrano'
 set :rvm_ruby_string, '1.9.3'
 
-
 set :whenever_command, "bundle exec whenever"
 #require "whenever/capistrano"
 
@@ -17,18 +16,14 @@ load 'deploy/assets'
 # The name of your application.  Used for deployment directory and filenames
 # and Apache configs. Should be unique on the Brightbox
 set :application, "labs"
-
+set :sudo_user, "rails"
+set :app_port, "80"
 
 # Target directory for the application on the web and app servers.
 set(:deploy_to) { File.join("", "home", user, application) }
-
-# URL of your source repository. By default this will just upload
-# the local directory.  You should probably change this if you use
-# another repository, like git or subversion.
-
-#set :deploy_via, :copy
 set :repository, "git@github.com:unepwcmc/labs.git"
 
+set :branch, :master
 set :scm, :git
 set :branch, "master"
 set :scm_username, "unepwcmc-read"
@@ -61,6 +56,51 @@ default_run_options[:pty] = true # Must be set for the password prompt from git 
 # items are symlinked in when the code is updated.
 set :local_shared_files, %w(config/database.yml config/initializers/rails_admin.rb config/config.yml)
 set :local_shared_dirs, %w(public/system)
+
+desc "Configure VHost"
+task :config_vhost do
+vhost_config =<<-EOF
+server {
+  listen 80;
+  client_max_body_size 4G;
+  server_name #{application}.#{server};
+  keepalive_timeout 5;
+  root #{deploy_to}/current/public;
+  passenger_enabled on;
+  rails_env #{rails_env};
+
+  add_header 'Access-Control-Allow-Origin' *;
+  add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
+  add_header 'Access-Control-Allow-Headers' "X-Requested-With, X-Prototype-Version";
+  add_header 'Access-Control-Max-Age' 1728000;
+  
+  gzip on;
+  location ^~ /assets/ {
+    expires max;
+    add_header Cache-Control public;
+  }
+  
+  if (-f $document_root/system/maintenance.html) {
+    return 503;
+  }
+
+  error_page 500 502 504 /500.html;
+  location = /500.html {
+    root #{deploy_to}/public;
+  }
+
+  error_page 503 @maintenance;
+  location @maintenance {
+    rewrite  ^(.*)$  /system/maintenance.html break;
+  }
+}
+EOF
+put vhost_config, "/tmp/vhost_config"
+sudo "mv /tmp/vhost_config /etc/nginx/sites-available/#{application}"
+sudo "ln -s /etc/nginx/sites-available/#{application} /etc/nginx/sites-enabled/#{application}"
+end
+ 
+after "deploy:setup", :config_vhost
 
 task :setup_production_database_configuration do
   the_host = Capistrano::CLI.ui.ask("Database IP address: ")
