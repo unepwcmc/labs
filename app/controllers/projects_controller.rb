@@ -86,6 +86,6 @@ class ProjectsController < ApplicationController
   def project_params
     params.require(:project).permit(:title,
       :description, :url, :github_id, :pivotal_tracker_id,
-      :toggl_id, :deadline, :screenshot_file_name)
+      :toggl_id, :deadline)
   end
 end
