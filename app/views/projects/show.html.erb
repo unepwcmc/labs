@@ -8,6 +8,8 @@
   <dt>Title:</dt>
   <dd><%= @project.title %></dd>
 
+  <%= image_tag @project.screenshot.thumb.url %>
+
   <dt>Description:</dt>
   <dd><%= @project.description %></dd>
 

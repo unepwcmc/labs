@@ -11,11 +11,11 @@ gem 'rvm-capistrano'
 gem 'pg'
 gem 'fastercsv'
 gem 'httparty'
-
 gem 'devise'
 gem 'uglifier', '>= 1.0.3'
-
 gem 'jquery-rails'
+gem 'carrierwave'
+gem 'mini_magick'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
