@@ -5,6 +5,13 @@ class ScreenshotUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
+  include CarrierWave::MiniMagick
+
+  process :resize_to_fit => [1024 , 768]
+
+  version :thumb do
+    process :resize_to_fill => [320,200]
+  end
 
   # Choose what kind of storage to use for this uploader:
   storage :file
@@ -38,9 +45,9 @@ class ScreenshotUploader < CarrierWave::Uploader::Base
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
-  # def extension_white_list
-  #   %w(jpg jpeg gif png)
-  # end
+   def extension_white_list
+     %w(jpg jpeg gif png)
+   end
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.

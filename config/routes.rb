@@ -2,7 +2,7 @@ Labs::Application.routes.draw do
 
   devise_for :users
 
-  resources :projects #, :only => ['index']
+  resources :projects
 
   get '/contact', :to => 'home#contact'
   # You can have the root of your site routed with "root"
