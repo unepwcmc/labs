@@ -10,7 +10,7 @@
 <div class="row">
 <% @projects.each_with_index do |project, i| %>
   <div class="span4 project" data-url='<%= project.url %>'>
-    <span class="project_image" style="background-image:url('<%= project.screenshot.url(:medium)%>');"><%=project.title %></span>
+    <span class="project_image"><%=project.title %></span>
     <p>
       <h3><%= link_to project.title, project.url %></h3>
       <%= project.description %>

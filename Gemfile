@@ -9,7 +9,6 @@ gem 'rvm-capistrano'
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-gem 'paperclip', '~> 2.4'
 gem 'fastercsv'
 gem 'httparty'
 
@@ -46,4 +45,3 @@ group :development do
 end
 
 gem "toggl", :git => "git://github.com/atog/toggl.git"
-gem "rmagick", :require => 'RMagick'
