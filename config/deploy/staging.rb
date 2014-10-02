@@ -5,3 +5,4 @@ set :domain, "unepwcmc-012.vm.brightbox.net"
 
 ## List of servers
 server "unepwcmc-012.vm.brightbox.net", :app, :web, :db, :primary => true
+set :branch, :develop

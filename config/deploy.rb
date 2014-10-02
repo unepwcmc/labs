@@ -23,7 +23,6 @@ set :app_port, "80"
 set(:deploy_to) { File.join("", "home", user, application) }
 set :repository, "git@github.com:unepwcmc/labs.git"
 
-set :branch, :master
 set :scm, :git
 set :branch, "master"
 set :scm_username, "unepwcmc-read"
