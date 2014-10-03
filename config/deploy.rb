@@ -29,6 +29,19 @@ set :scm_username, "unepwcmc-read"
 set :git_enable_submodules, 1
 default_run_options[:pty] = true # Must be set for the password prompt from git to work
 
+# Slack Notifications
+set :slack_token, Rails.application.secrets.slack_token # comes from inbound webhook integration
+set :slack_room, "#labs"
+set :slack_subdomain, "wcmc" # if your subdomain is kohactive.slack.com
+set :slack_application, "Labs"
+set :slack_username, "Capistrano"
+set :slack_emoji, ":thumbsup:"
+
+before 'deploy', 'slack:starting'
+after 'deploy',  'slack:finished'
+
+
+
 ## Dependencies
 # Set the commands and gems that your application requires. e.g.
 # depend :remote, :gem, "will_paginate", ">=2.2.2"
