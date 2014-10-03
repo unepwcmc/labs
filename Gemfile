@@ -27,7 +27,7 @@ gem 'mini_magick'
 gem 'capistrano'
 gem 'brightbox'
 gem 'capistrano-ext'
-
+gem 'capistrano-slack', :git => 'https://github.com/j-mcnally/capistrano-slack.git'
 gem 'whenever'
 
 # To use debugger
