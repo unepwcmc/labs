@@ -39,13 +39,15 @@ class User < ActiveRecord::Base
   end
 
   def is_unep?
-  	response = HTTParty.get("https://api.github.com/users/#{self.github}/orgs?access_token=#{self.token}", headers: {"User-Agent" => "Labs"})
-  	organisations_hash = JSON.parse(response.body)
-  	organisations = []
-  	organisations_hash.each do |organisation|
-  		organisations << organisation["login"]
-  	end
-  	organisations.include? "unepwcmc"
+	response = HTTParty.get("https://api.github.com/users/#{self.github}/orgs?access_token=#{self.token}", headers: {"User-Agent" => "Labs"})
+	puts organisations_hash = JSON.parse(response.body)
+	if organisations_hash.has_key? "login"
+		organisations = []
+		organisations_hash.each do |organisation|
+			organisations << organisation["login"]
+		end
+		organisations.include? "unepwcmc"
+	end
   end
 
   def set_token(auth)
