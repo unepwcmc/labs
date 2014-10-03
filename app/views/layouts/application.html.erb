@@ -38,6 +38,14 @@
           <li><a href="http://www.unep-wcmc.org/informatics_49.html">More info about UNEP-WCMC</a></li>
           <!-- <li class="<%= if params[:controller] == "home" then "active" end %>"><a href="/contact">Contact</a></li> -->
         </ul>
+        <ul class="nav pull-right">
+            <% if user_signed_in? %>
+              <li>Signed in as: <%= current_user.github %></li>
+              <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+            <% else %>
+              <li><%= link_to "Sign in with Github", user_omniauth_authorize_path(:github) %></li>
+            <% end %>
+        </ul>
       </div>
     </div>
   </div>
