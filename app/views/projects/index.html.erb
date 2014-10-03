@@ -7,6 +7,8 @@
 	</h4>
 </div>
 
+<%= current_user.is_unep? unless current_user.nil? %>
+
 <div class="row">
 <% @projects.each_with_index do |project, i| %>
   <div class="span4 project" data-url='<%= project.url %>'>

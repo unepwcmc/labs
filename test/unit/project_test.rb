@@ -9,6 +9,7 @@
 #  created_at        :datetime
 #  updated_at        :datetime
 #  is_dashboard_only :boolean          default(TRUE)
+#  screenshot        :string(255)
 #
 
 require 'test_helper'
