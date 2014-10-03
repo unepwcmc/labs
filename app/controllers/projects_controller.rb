@@ -1,8 +1,9 @@
 class ProjectsController < ApplicationController
+  load_and_authorize_resource
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.where(:is_dashboard_only => false).order("created_at ASC")
+    @projects = Project.all #Project.where(:is_dashboard_only => false).order("created_at ASC")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -86,6 +87,6 @@ class ProjectsController < ApplicationController
   def project_params
     params.require(:project).permit(:title,
       :description, :url, :github_id, :pivotal_tracker_id,
-      :toggl_id, :deadline, :screenshot_file_name)
+      :toggl_id, :deadline, :screenshot)
   end
 end

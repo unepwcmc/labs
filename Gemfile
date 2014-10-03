@@ -9,14 +9,15 @@ gem 'rvm-capistrano'
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-gem 'paperclip', '~> 2.4'
 gem 'fastercsv'
 gem 'httparty'
-
 gem 'devise'
 gem 'uglifier', '>= 1.0.3'
-
 gem 'jquery-rails'
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'omniauth-github'
+gem 'cancancan', '~> 1.9'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -46,4 +47,3 @@ group :development do
 end
 
 gem "toggl", :git => "git://github.com/atog/toggl.git"
-gem "rmagick", :require => 'RMagick'

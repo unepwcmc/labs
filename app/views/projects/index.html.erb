@@ -7,10 +7,12 @@
 	</h4>
 </div>
 
+<%= current_user.is_unep? unless current_user.nil? %>
+
 <div class="row">
 <% @projects.each_with_index do |project, i| %>
   <div class="span4 project" data-url='<%= project.url %>'>
-    <span class="project_image" style="background-image:url('<%= project.screenshot.url(:medium)%>');"><%=project.title %></span>
+    <%= image_tag project.screenshot.thumb.url %>
     <p>
       <h3><%= link_to project.title, project.url %></h3>
       <%= project.description %>
