@@ -15,6 +15,10 @@
 #  last_sign_in_ip        :string(255)
 #  created_at             :datetime
 #  updated_at             :datetime
+#  provider               :string(255)
+#  uid                    :string(255)
+#  github                 :string(255)
+#  token                  :string(255)
 #
 
 require 'test_helper'
