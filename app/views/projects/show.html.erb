@@ -1,19 +1,140 @@
 <div class="page-header">
   <%= link_to 'Back', projects_path, :class => 'btn' %>
   <%= link_to 'Edit', edit_project_path(@project), :class => 'btn primary' %>
-  <h1>Listing projects</h1>
+  <h1><%= @project.title %></h1>
 </div>
 
-<dl>
-  <dt>Title:</dt>
-  <dd><%= @project.title %></dd>
+<div class="row">
+  <div class="page-header">
+    <h3>About the Project</h3>
+  </div>
 
-  <%= image_tag @project.screenshot.thumb.url %>
+  <div class="span6">
+    <dl>
+      <dt>URL:</dt>
+      <dd><%= @project.url %></dd>
 
-  <dt>Description:</dt>
-  <dd><%= @project.description %></dd>
+      <dt>Description:</dt>
+      <dd><%= @project.description %></dd>
 
-  <dt>Url:</dt>
-  <dd><%= @project.url %></dd>
+      <dt>Project Leads:</dt>
+      <dd>
+        <% if !@project.project_leads.blank? %>
+          <ul>
+            <% @project.project_leads.each do |lead| %>
+              <li><%= lead %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p>This project has no leads<p>
+        <% end %>
+      </dd>
 
-</dl>
+      
+      <dt>External Clients:</dt>
+      <dd>
+        <% if !@project.external_clients.blank? %>
+          <ul>
+            <% @project.external_clients.each do |external_client| %>
+              <li><%= external_client %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p>This project has no external clients<p>
+        <% end %>
+      </dd>
+
+      <dt>Developers:</dt>
+      <dd>
+        <% if !@project.developers.blank? %>
+          <ul>
+            <% @project.developers.each do |developer| %>
+              <li><%= developer %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p>This project has no developers<p>
+        <% end %>
+      </dd>
+    
+      <dt>Published?</dt>
+      <dd><%= @project.published ? "Yes" : "No" %></dd>
+    </dl>
+  </div>
+
+  <div class="span6">
+    <%= image_tag @project.screenshot.thumb.url %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="page-header">
+    <h3>About the Application</h3>
+  </div>
+
+  <div class="span6">
+    <dl>
+      <dt>State:</dt>
+      <dd><%= @project.state %></dd>
+
+      <dt>Internal Client:</dt>
+      <dd><%= @project.internal_client %></dd>
+
+      <dt>Current Lead:</dt>
+      <dd><%= @project.current_lead %></dd>
+
+      <dt>Hacks:</dt>
+      <dd><%= @project.hacks %></dd>
+    </dl>
+  </div>
+
+  <div class="span6">
+    <dl>
+      <dt>Repository URL:</dt>
+      <dd><%= @project.repository_url %></dd>
+
+      <dt>Dependencies:</dt>
+      <dd><%= @project.dependencies %></dd>
+    </dl>
+  </div>
+</div>
+
+<div class="row">
+  <div class="page-header">
+    <h3>Resources</h3>
+  </div>
+
+  <div class="span6">
+    <dl>
+      <dt>P Drive Folders:</dt>
+      <dd>
+        <% if !@project.pdrive_folders.blank? %>
+          <ul>
+            <% @project.pdrive_folders.each do |folder| %>
+              <li><%= folder %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p>This project has no P Drive folders<p>
+        <% end %>
+      </dd>
+    </dl>
+  </div>
+
+  <div class="span6">
+    <dl>
+      <dt>Dropbox Folders:</dt>
+      <dd>
+        <% if !@project.dropbox_folders.blank? %>
+          <ul>
+            <% @project.dropbox_folders.each do |folder| %>
+              <li><%= folder %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p>This project has no Dropbox folders<p>
+        <% end %>
+      </dd>
+    </dl>
+  </div>
+</div>

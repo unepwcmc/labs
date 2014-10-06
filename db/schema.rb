@@ -22,8 +22,19 @@ ActiveRecord::Schema.define(version: 20141006102608) do
     t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_dashboard_only", default: true
+    t.boolean  "published",        default: false
     t.string   "screenshot"
+    t.string   "repository_url"
+    t.text     "dependencies"
+    t.string   "state"
+    t.string   "internal_client"
+    t.string   "current_lead"
+    t.text     "hacks"
+    t.string   "external_clients",                 array: true
+    t.string   "project_leads",                    array: true
+    t.string   "developers",                       array: true
+    t.string   "pdrive_folders",                   array: true
+    t.string   "dropbox_folders",                  array: true
   end
 
   create_table "users", force: true do |t|

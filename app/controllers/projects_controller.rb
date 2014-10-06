@@ -3,7 +3,11 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all #Project.where(:is_dashboard_only => false).order("created_at ASC")
+    if user_signed_in?
+      @projects = Project.all.order("created_at ASC")
+    else
+      @projects = Project.where(:published => true).order("created_at ASC")
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -87,6 +91,6 @@ class ProjectsController < ApplicationController
   def project_params
     params.require(:project).permit(:title,
       :description, :url, :github_id, :pivotal_tracker_id,
-      :toggl_id, :deadline, :screenshot)
+      :toggl_id, :deadline, :screenshot, :developers, :state)
   end
 end
