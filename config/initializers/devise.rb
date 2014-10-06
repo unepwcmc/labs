@@ -209,7 +209,7 @@ Devise.setup do |config|
   require 'yaml'
   secrets = YAML.load(File.open('config/secrets.yml'))
   
-  config.omniauth :github, secrets["github_key"], secrets["github_secret"], :scope => 'user,repo,read:org'
+  config.omniauth :github, secrets["github_key"], secrets["github_secret"], :scope => 'user:email,read:org'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
