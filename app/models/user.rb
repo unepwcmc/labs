@@ -26,33 +26,33 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :omniauthable,
-         :recoverable, :rememberable, :trackable, :validatable
+    :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
   # attr_accessible :email, :password, :password_confirmation, :remember_me
   def self.from_omniauth(auth)
-	where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-	  user.email = auth.info.email
-	  user.password = Devise.friendly_token[0,20]
-	  user.github = auth.info.nickname
-	end
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0,20]
+      user.github = auth.info.nickname
+    end
   end
 
   def is_dev_team?
-  	# Checks with github to see if the user is a member of the unepwcmc wcmc-core-devs team. If so, sets is_unep to true
-  	# so that the API is only hit once on login, else set to false and login denied.
+    # Checks with github to see if the user is a member of the unepwcmc wcmc-core-devs team. If so, sets is_unep to true
+    # so that the API is only hit once on login, else set to false and login denied.
     response = HTTParty.get("https://api.github.com/teams/98845/memberships/#{self.github}?access_token=#{self.token}", headers: {"User-Agent" => "Labs"})
     response_hash = JSON.parse(response.body)
 
-  	if response_hash.has_key?("state") and response_hash["state"] == "active"
-  		true
-  	else
-  		false
-  	end
+    if response_hash.has_key?("state") and response_hash["state"] == "active"
+      true
+    else
+      false
+    end
   end
 
   def set_token(auth)
-  	self.token = auth.credentials.token
-  	self.save!
+    self.token = auth.credentials.token
+    self.save!
   end
 end
