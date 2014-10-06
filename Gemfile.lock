@@ -64,7 +64,6 @@ GEM
       capistrano (~> 2.15.5)
       net-ssh (= 2.7.0)
     builder (3.2.2)
-    cancancan (1.9.2)
     capistrano (2.15.5)
       highline
       net-scp (>= 1.0.0)
@@ -216,7 +215,6 @@ PLATFORMS
 DEPENDENCIES
   annotate!
   brightbox
-  cancancan (~> 1.9)
   capistrano
   capistrano-ext
   capistrano-slack!
