@@ -19,7 +19,6 @@
 #  uid                    :string(255)
 #  github                 :string(255)
 #  token                  :string(255)
-#  is_unep                :boolean          default(FALSE)
 #
 
 require 'test_helper'

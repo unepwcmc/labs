@@ -4,8 +4,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user.set_token(request.env["omniauth.auth"])
 
     if @user.persisted?
-        @user.check_if_unep
-        if @user.is_unep?
+        if @user.is_dev_team?
             sign_in_and_redirect @user, :event => :authentication #this will throw if @user is not activated
             set_flash_message(:notice, :success, :kind => "Github") if is_navigational_format?
         else
