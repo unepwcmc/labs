@@ -40,14 +40,12 @@ class User < ActiveRecord::Base
   end
 
   def check_if_unep
-	response = HTTParty.get("https://api.github.com/users/#{self.github}/orgs?access_token=#{self.token}", headers: {"User-Agent" => "Labs"})
-	organisations_hash = JSON.parse(response.body)
-	organisations = []
-	organisations_hash.each do |organisation|
-		organisations << organisation["login"]
-	end
+  	# Checks with github to see if the user is a member of the unepwcmc wcmc-core-devs team. If so, sets is_unep to true
+  	# so that the API is only hit once on login, else set to false and login denied.
+	response = HTTParty.get("https://api.github.com/teams/98845/memberships/#{self.github}?access_token=#{self.token}", headers: {"User-Agent" => "Labs"})
+	response_hash = JSON.parse(response.body)
 
-	if organisations.include? "unepwcmc"
+	if response_hash.has_key?("state") and response_hash["state"] == "active"
 		self.is_unep = true
 	else
 		self.is_unep = false
