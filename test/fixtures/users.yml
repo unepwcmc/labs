@@ -19,6 +19,7 @@
 #  uid                    :string(255)
 #  github                 :string(255)
 #  token                  :string(255)
+#  is_unep                :boolean          default(FALSE)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

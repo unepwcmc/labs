@@ -19,6 +19,7 @@
 #  uid                    :string(255)
 #  github                 :string(255)
 #  token                  :string(255)
+#  is_unep                :boolean          default(FALSE)
 #
 
 class User < ActiveRecord::Base
@@ -40,13 +41,14 @@ class User < ActiveRecord::Base
 
   def check_if_unep
 	response = HTTParty.get("https://api.github.com/users/#{self.github}/orgs?access_token=#{self.token}", headers: {"User-Agent" => "Labs"})
-	puts organisations_hash = JSON.parse(response.body)
-	if organisations_hash.is_a? Hash
-		organisations = []
-		organisations_hash.each do |organisation|
-			organisations << organisation["login"]
-		end
-		self.is_unep = organisations.include? "unepwcmc"
+	organisations_hash = JSON.parse(response.body)
+	organisations = []
+	organisations_hash.each do |organisation|
+		organisations << organisation["login"]
+	end
+
+	if organisations.include? "unepwcmc"
+		self.is_unep = true
 	else
 		self.is_unep = false
 	end
