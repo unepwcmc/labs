@@ -14,6 +14,10 @@
     <p>
       <h3><%= link_to project.title, project.url %></h3>
       <%= project.description %>
+      <% if user_signed_in? %>
+        <%= link_to "Show", project_path(project) %>
+        <%= link_to "Edit", edit_project_path(project) %>
+      <% end %>
     </p>
   </div>
   <%# Start a new row every third project, except if it's the last one %>
