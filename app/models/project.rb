@@ -25,4 +25,25 @@
 
 class Project < ActiveRecord::Base
   mount_uploader :screenshot, ScreenshotUploader
+
+  ["developers","external_clients","project_leads","pdrive_folders","dropbox_folders"].each do |attribute|
+  	define_method("#{attribute}_array") do
+  		self.send(attribute).join(',')
+  	end
+
+  	define_method("#{attribute}_array=") do |params|
+      self.send("#{attribute}=", params.split(','))
+      self.send(:save)
+  	end
+  end
+
+
+
+  # def developers_array
+  # 	self.developers.join(',')
+  # end
+
+  # def developers_array=(developers_array)
+  # 	self.developers = developers_array.split(',')
+  # end
 end

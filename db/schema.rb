@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141006102608) do
+ActiveRecord::Schema.define(version: 20141007141002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,11 +30,11 @@ ActiveRecord::Schema.define(version: 20141006102608) do
     t.string   "internal_client"
     t.string   "current_lead"
     t.text     "hacks"
-    t.string   "external_clients",                 array: true
-    t.string   "project_leads",                    array: true
-    t.string   "developers",                       array: true
-    t.string   "pdrive_folders",                   array: true
-    t.string   "dropbox_folders",                  array: true
+    t.text     "external_clients", default: [],    array: true
+    t.text     "project_leads",    default: [],    array: true
+    t.text     "developers",       default: [],    array: true
+    t.text     "pdrive_folders",   default: [],    array: true
+    t.text     "dropbox_folders",  default: [],    array: true
   end
 
   create_table "users", force: true do |t|

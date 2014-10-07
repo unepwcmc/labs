@@ -89,9 +89,9 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:title,
+    params.require(:project).permit(:developers_array, :developers, :title,
       :description, :url, :github_id, :pivotal_tracker_id,
-      :toggl_id, :deadline, :screenshot, {:developers => []}, :state, 
+      :toggl_id, :deadline, :screenshot, :state, 
       :repository_url, :dependencies, :internal_client, :current_lead, 
       :hacks, :external_clients, :project_leads, :pdrive_folders, 
       :dropbox_folders, :published)
