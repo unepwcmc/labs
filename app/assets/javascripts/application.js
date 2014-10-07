@@ -16,9 +16,4 @@ $(document).ready(function(){
   }, function(event){
     $(this).find('a').css('text-decoration', 'none');
   });
-
-  $(".project").click(function(event){
-    event.preventDefault();
-    window.location = $(this).attr("data-url");
-  });
 });
