@@ -7,6 +7,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+//= require select2
 //
 
 $(document).ready(function(){
@@ -17,4 +18,6 @@ $(document).ready(function(){
     $(this).find('a').css('text-decoration', 'none');
     $(this).find('img').css('border', 'none');
   });
+
+  $(".tag-field").select2({tags:[]}, {width: "resolve"});
 });
