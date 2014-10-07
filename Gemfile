@@ -16,6 +16,7 @@ gem 'uglifier', '>= 1.0.3'
 gem 'jquery-rails'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'omniauth-github'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -40,7 +41,7 @@ end
 
 group :development do
   gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
-  gem 'ruby-debug19'
+  gem 'debugger'
   gem 'spring'
 end
 
