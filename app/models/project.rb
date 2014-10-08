@@ -36,14 +36,4 @@ class Project < ActiveRecord::Base
       self.send(:save)
   	end
   end
-
-
-
-  # def developers_array
-  # 	self.developers.join(',')
-  # end
-
-  # def developers_array=(developers_array)
-  # 	self.developers = developers_array.split(',')
-  # end
 end
