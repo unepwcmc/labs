@@ -25,7 +25,8 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :omniauthable,
+  devise :database_authenticatable, #:registerable, 
+  :omniauthable,
     :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
@@ -54,5 +55,18 @@ class User < ActiveRecord::Base
   def set_token(auth)
     self.token = auth.credentials.token
     self.save!
+  end
+
+  def suspend
+    self.suspended = true
+    self.save!
+  end
+
+  def active_for_authentication?
+    super && !self.suspended?
+  end
+
+  def inactive_message
+    !self.suspended? ? super : :suspended
   end
 end

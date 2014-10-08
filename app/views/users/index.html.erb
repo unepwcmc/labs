@@ -7,7 +7,9 @@
 		<tr>
 			<th>Gravatar</th>
 			<th>Github Username</th>
+			<th>Github Email</th>
 			<th>Last Login</th>
+			<th>Delete User</th>
 		</tr>
 	</thead>
 
@@ -15,8 +17,10 @@
 		<% @users.each do |user| %>
 			<tr>
 				<td><%= image_tag gravatar user %></td>
-				<td><%= user.github %></td>
-				<td><%= user.current_sign_in_at.to_formatted_s(:long) %></td>
+				<td valign="middle"><%= user.github %></td>
+				<td valign="middle"><%= user.email %></td>
+				<td valign="middle"><%= user.current_sign_in_at.to_formatted_s(:long) %></td>
+				<td><%= link_to 'Suspend', suspend_user_path(user), method: :post, data: { confirm: "Are you sure?" } %></td>
 			</tr>
 		<% end %>
 	</tbody>

@@ -41,6 +41,7 @@
         <ul class="nav pull-right">
             <% if user_signed_in? %>
               <li><%= link_to "Signed in as: #{current_user.github}", "http://www.github.com/#{current_user.github}" %></li>
+              <li><%= link_to "Users", users_path %></li>
               <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
             <% else %>
               <li><%= link_to "Sign in with Github", user_omniauth_authorize_path(:github) %></li>
@@ -56,8 +57,8 @@
     <% end %>
   <% end %>
   <div class="container">
-        <%= yield %>
-    </div>
+    <%= yield %>
+    
     <footer>
       <p>&copy; <%= link_to "UNEP-WCMC", "http://www.unep-wcmc.org" %> <%= Time.now.year  %></p>
     </footer>
