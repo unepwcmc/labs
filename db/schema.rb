@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141006102608) do
+ActiveRecord::Schema.define(version: 20141008090619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,13 +22,24 @@ ActiveRecord::Schema.define(version: 20141006102608) do
     t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_dashboard_only", default: true
+    t.boolean  "published",        default: false
     t.string   "screenshot"
+    t.string   "repository_url"
+    t.text     "dependencies"
+    t.string   "state"
+    t.string   "internal_client"
+    t.string   "current_lead"
+    t.text     "hacks"
+    t.text     "external_clients", default: [],    array: true
+    t.text     "project_leads",    default: [],    array: true
+    t.text     "developers",       default: [],    array: true
+    t.text     "pdrive_folders",   default: [],    array: true
+    t.text     "dropbox_folders",  default: [],    array: true
   end
 
   create_table "users", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -43,6 +54,7 @@ ActiveRecord::Schema.define(version: 20141006102608) do
     t.string   "uid"
     t.string   "github"
     t.string   "token"
+    t.boolean  "suspended",              default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
