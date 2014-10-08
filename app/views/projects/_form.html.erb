@@ -11,33 +11,149 @@
     </div>
   <% end %>
 
-  <div class="clearfix">
-    <%= f.label :title %>
-    <div class="input">
-      <%= f.text_field :title %>
+  <div class="row">
+    <div class="page-header">
+      <h3>About the Project</h3>
     </div>
-  </div>
-  <div class="clearfix">
-    <%= f.label :description %>
-    <div class="input">
-      <%= f.text_area :description %>
+
+    <div class="span6">
+      <div class="clearfix">
+        <%= f.label :title %>
+        <div class="input">
+          <%= f.text_field :title %>
+        </div>
+      </div>
+
+      <div class="clearfix">
+        <%= f.label :url %>
+        <div class="input">
+          <%= f.text_field :url %>
+        </div>
+      </div>
+
+      <div class="clearfix">
+        <%= f.label :description %>
+        <div class="input">
+          <%= f.text_area :description %>
+        </div>
+      </div>
+
+      <div class="clearfix">
+        <%= f.label :project_leads %>
+        <div class="input">
+          <%= f.text_area :project_leads_array, class: "tag-field" %>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="clearfix">
-    <%= f.label :url %>
-    <div class="input">
-      <%= f.text_field :url %>
+
+    <div class="span6">
+      <div class="clearfix">
+        <%= f.label :screenshot %>
+        <div class="input">
+          <%= f.file_field :screenshot %>
+        </div>
+      </div>
+
+      <div class="clearfix">
+        <%= f.label :external_clients %>
+        <div class="input">
+          <%= f.text_area :external_clients_array, class: "tag-field" %>
+        </div>
+      </div>
+
+      <div class="clearfix">
+        <%= f.label :developers %>
+        <div class="input">
+          <%= f.text_field :developers_array, class: "tag-field" %>
+        </div>
+      </div>
+
+      <div class="clearfix">
+        <%= f.label :published %>
+        <div class="input">
+          <%= f.check_box :published %>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="clearfix">
-    <%= f.label :screenshot %>
-    <div class="input">
-      <%= f.file_field :screenshot %>
+  <div class="row">
+    <div class="page-header">
+      <h3>About the Application</h3>
+    </div>
+
+    <div class="span6">
+      <div class="clearfix">
+        <%= f.label :state %>
+        <div class="input">
+          <%= f.select :state, [["Under Development", "Under Development"],["Delivered", "Delivered"],["Project Development", "Project Development"]] %>
+        </div>
+      </div>
+
+      <div class="clearfix">
+        <%= f.label :internal_client %>
+        <div class="input">
+          <%= f.text_field :internal_client %>
+        </div>
+      </div>
+
+      <div class="clearfix">
+        <%= f.label :current_lead %>
+        <div class="input">
+          <%= f.text_field :current_lead %>
+        </div>
+      </div>
+
+      <div class="clearfix">
+        <%= f.label :hacks %>
+        <div class="input">
+          <%= f.text_area :hacks %>
+        </div>
+      </div>
+    </div>
+
+    <div class="span6">
+      <div class="clearfix">
+        <%= f.label :repository_url %>
+        <div class="input">
+          <%= f.text_field :repository_url %>
+        </div>
+      </div>
+
+      <div class="clearfix">
+        <%= f.label :dependencies %>
+        <div class="input">
+          <%= f.text_area :dependencies %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="page-header">
+      <h3>Resources</h3>
+    </div>
+
+    <div class="span6">
+      <div class="clearfix">
+        <%= f.label :pdrive_folders %>
+        <div class="input">
+          <%= f.text_area :pdrive_folders_array, class: "tag-field" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="span6">
+      <div class="clearfix">
+        <%= f.label :dropbox_folders %>
+        <div class="input">
+          <%= f.text_area :dropbox_folders_array, class: "tag-field" %>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn primary" %>
   </div>
 <% end %>

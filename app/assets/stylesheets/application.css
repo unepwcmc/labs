@@ -4,6 +4,8 @@
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require_tree . 
  *= require_self
+ *= require select2
+ *= require select2-bootstrap
  */
 
 body {
@@ -49,3 +51,12 @@ span.project_image {
   float: left;
   margin-left: 20px;
           }
+
+
+dt { padding: 10px 0px; }    
+
+#s2id_groupSelect, .select2-input, .select2-container, .select2-search-field, .select2-choices {
+width: 358px;
+}
+
+.actions { padding-top: 20px;}      

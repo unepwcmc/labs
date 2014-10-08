@@ -7,18 +7,22 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+//= require select2
 //
 
 $(document).ready(function(){
   $(".project").hover(function(event){
     $(this).find('a').css('text-decoration', 'underline');
-    $(this).css('cursor', 'pointer');
+    $(this).find('img').css('border', '2px solid #33B5E5');
   }, function(event){
     $(this).find('a').css('text-decoration', 'none');
+    $(this).find('img').css('border', 'none');
   });
 
-  $(".project").click(function(event){
-    event.preventDefault();
-    window.location = $(this).attr("data-url");
+  $(".tag-field").select2({tags:[]}, {
+  	placeholder: "Select tag",
+    allowClear: true,
+    minimumInputLength: 1,
+    width: '100%'
   });
 });
