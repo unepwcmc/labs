@@ -86,7 +86,7 @@
       <div class="clearfix">
         <%= f.label :state %>
         <div class="input">
-          <%= f.text_field :state %>
+          <%= f.select :state, [["Under Development", "Under Development"],["Delivered", "Delivered"],["Project Development", "Project Development"]] %>
         </div>
       </div>
 

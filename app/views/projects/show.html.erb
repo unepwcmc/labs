@@ -64,7 +64,10 @@
   </div>
 
   <div class="span6">
-    <%= image_tag @project.screenshot.thumb.url %>
+    <dl>
+      <dt>Screenshot:</dt>
+      <dd><%= image_tag @project.screenshot.thumb.url %></dd>
+    </dl>
   </div>
 </div>
 
