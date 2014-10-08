@@ -19,5 +19,11 @@ $(document).ready(function(){
     $(this).find('img').css('border', 'none');
   });
 
-  $(".tag-field").select2({tags:[]}, {width: "resolve"});
+  $(".tag-field").select2({tags:[]}, {
+  	placeholder: "Select tag",
+    allowClear: true,
+    minimumInputLength: 2,
+    maximumSelectionSize: 1,
+    width: '100%'
+  });
 });

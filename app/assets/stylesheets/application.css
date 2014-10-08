@@ -53,4 +53,10 @@ span.project_image {
           }
 
 
-dt { padding-top: 10px; }          
+dt { padding: 10px 0px; }    
+
+#s2id_groupSelect, .select2-input, .select2-container, .select2-search-field, .select2-choices {
+width: 358px;
+}
+
+.actions { padding-top: 20px;}      
