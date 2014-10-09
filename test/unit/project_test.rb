@@ -26,7 +26,14 @@
 require 'test_helper'
 
 class ProjectTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+	should validate_presence_of :title
+	should validate_presence_of :description
+	should validate_presence_of :repository_url
+	should validate_presence_of :state
+	should validate_inclusion_of(:state).in_array(['Under Development', 'Delivered', 'Project Development'])
+	should validate_presence_of :internal_client
+	should validate_presence_of :current_lead
+	should validate_presence_of :external_clients
+	should validate_presence_of :project_leads
+	should validate_presence_of :developers
 end
