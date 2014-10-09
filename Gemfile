@@ -38,6 +38,12 @@ gem 'whenever'
 group :test do
   # Pretty printed test output
   gem 'turn', '0.8.2', :require => false
+  gem 'capybara'
+  gem 'shoulda'
+  gem 'mocha'
+  gem 'factory_girl_rails'
+  gem 'launchy'
+  gem 'database_cleaner'
 end
 
 group :development do
@@ -46,4 +52,9 @@ group :development do
   gem 'spring'
 end
 
-gem "toggl", :git => "git://github.com/atog/toggl.git"
+group :test, :development do
+  gem 'faker'
+end
+
+
+#gem "toggl", :git => "git://github.com/atog/toggl.git"

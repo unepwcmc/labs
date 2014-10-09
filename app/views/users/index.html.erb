@@ -9,13 +9,13 @@
 			<th>Github Username</th>
 			<th>Github Email</th>
 			<th>Last Login</th>
-			<th>Delete User</th>
+			<th>Suspended User</th>
 		</tr>
 	</thead>
 
 	<tbody>
 		<% @users.each do |user| %>
-			<tr>
+			<tr class="user_row">
 				<td><%= image_tag gravatar user %></td>
 				<td valign="middle"><%= user.github %></td>
 				<td valign="middle"><%= user.email %></td>

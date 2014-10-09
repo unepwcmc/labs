@@ -24,6 +24,15 @@
 #
 
 class Project < ActiveRecord::Base
+  # Validations
+
+  validates :title, :description, :repository_url, :state, :internal_client, 
+            :current_lead, :external_clients, :project_leads, :developers, 
+              presence: true
+
+  validates :state, inclusion: { in: ['Under Development', 'Delivered', 'Project Development'] }
+
+
   mount_uploader :screenshot, ScreenshotUploader
 
   ["developers","external_clients","project_leads","pdrive_folders","dropbox_folders"].each do |attribute|
