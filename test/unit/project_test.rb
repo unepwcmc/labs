@@ -36,4 +36,13 @@ class ProjectTest < ActiveSupport::TestCase
 	should validate_presence_of :external_clients
 	should validate_presence_of :project_leads
 	should validate_presence_of :developers
+
+	test "responds to metaprogrammed array methods" do
+		@project = FactoryGirl.build(:project)
+		assert @project.respond_to?(:developers)
+		assert @project.respond_to?(:external_clients)
+		assert @project.respond_to?(:project_leads)
+		assert @project.respond_to?(:pdrive_folders)
+		assert @project.respond_to?(:dropbox_folders)
+	end
 end
