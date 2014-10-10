@@ -1,8 +1,11 @@
 Labs::Application.routes.draw do
 
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
-  resources :projects, :only => ['index']
+  resources :projects
+
+  get '/users', to: 'users#index'
+  post '/users/suspend/:id', to: 'users#suspend', as: 'suspend_user'
 
   get '/contact', :to => 'home#contact'
   # You can have the root of your site routed with "root"

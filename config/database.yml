@@ -9,7 +9,7 @@ development:
   database: labs_development
   pool: 5
   username: postgres
-  password: postgres
+  password:
 
 test:
   adapter: postgresql
@@ -17,4 +17,4 @@ test:
   database: labs_test
   pool: 5
   username: postgres
-  password: postgres
+  password:
