@@ -31,7 +31,6 @@
 /nbproject
 .project
 .idea/
-config/config.yml
 config/secrets.yml
 /public/uploads
 /public/assets
