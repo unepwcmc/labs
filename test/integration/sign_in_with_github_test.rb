@@ -2,7 +2,6 @@ require 'test_helper'
 
 class SignInWithGithubTest < ActionDispatch::IntegrationTest
   def setup
-  	OmniAuth.config.test_mode = true
     @user = FactoryGirl.build(:user)
   end
 

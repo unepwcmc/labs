@@ -44,12 +44,7 @@ class User < ActiveRecord::Base
     # so that the API is only hit once on login, else set to false and login denied.
     response = HTTParty.get("https://api.github.com/teams/98845/memberships/#{self.github}?access_token=#{self.token}", headers: {"User-Agent" => "Labs"})
     response_hash = JSON.parse(response.body)
-
-    if response_hash.has_key?("state") and response_hash["state"] == "active"
-      true
-    else
-      false
-    end
+    response_hash.has_key?("state") and response_hash["state"] == "active"
   end
 
   def set_token(auth)
