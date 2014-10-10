@@ -1,21 +1,25 @@
 language: ruby
 bundler_args: --without development production staging
 rvm:
-  - 1.9.3
+- 1.9.3
 addons:
   postgresql: 9.3
   code_climate:
     repo_token: 6c92ba0fbe5c3aa9d530650da321d26f1dd8d2637987d60b58fd3518633d097d
 before_script:
-  - psql -c 'create database travis_ci_test' -U postgres
-  - cp config/database.yml.travis config/database.yml
-  - cp config/secrets.yml.travis config/secrets.yml
-  - RAILS_ENV=test bundle exec rake db:migrate
+- psql -c 'create database travis_ci_test' -U postgres
+- cp config/database.yml.travis config/database.yml
+- cp config/secrets.yml.travis config/secrets.yml
+- RAILS_ENV=test bundle exec rake db:migrate
 script:
-  - CODECLIMATE_REPO_TOKEN=6c92ba0fbe5c3aa9d530650da321d26f1dd8d2637987d60b58fd3518633d097d bundle exec rake
+- CODECLIMATE_REPO_TOKEN=6c92ba0fbe5c3aa9d530650da321d26f1dd8d2637987d60b58fd3518633d097d
+  bundle exec rake
 notifications:
   slack: wcmc:lKFUwvPWA1ATAwSQWPm1Y3C5
 env:
-  - secure: "bVphSZfd0jstt8BWJHjcXy64j0XZuoSx+RZZPIoZ6jP8Cexh4tVG54CXuRvDnlhSZFXDQ0mUYWWOg7hj7pxbhJguGOMfi8wdzM2Jgl71Cail8QzsVMYMchuIJUOQl85b1S35RukXIR4H2uHbGVaz10Tud/wYuS0SslhZHKE5ByE="
-  - secure: "P3XuE7RnmdkCU8AxE6NB3uI7WJpUT4tIiOv/snGKSbvQsiSl01rm66g+t9yH2XffDXNGIkeThUgbzU9KGMydxmFNvFHHUYKqdkK/TxPHCdy4FCCPVUY/XEDXZuxWdMfx7iNGOgbU5KqmRJTspB6qLDLRFYaiuRJ/6ghg2DT3L9Q="
-  - secure: "N8uyv2e3PCuBHkMO/zS55lqZ/e4RUmQQ5moqtreT61Bc1r/RzF81u0djrniKO9oJ7bFW/RDeRywIP1zAFqPf8h0vjXAPtPHix8/1n/NbZh2yUG5XaahxP29glkQ6MpisH3KeiD8Enp2tnwY+gghMuKo93RmEu85LmvaLVRqBciw="
+- secure: bVphSZfd0jstt8BWJHjcXy64j0XZuoSx+RZZPIoZ6jP8Cexh4tVG54CXuRvDnlhSZFXDQ0mUYWWOg7hj7pxbhJguGOMfi8wdzM2Jgl71Cail8QzsVMYMchuIJUOQl85b1S35RukXIR4H2uHbGVaz10Tud/wYuS0SslhZHKE5ByE=
+- secure: P3XuE7RnmdkCU8AxE6NB3uI7WJpUT4tIiOv/snGKSbvQsiSl01rm66g+t9yH2XffDXNGIkeThUgbzU9KGMydxmFNvFHHUYKqdkK/TxPHCdy4FCCPVUY/XEDXZuxWdMfx7iNGOgbU5KqmRJTspB6qLDLRFYaiuRJ/6ghg2DT3L9Q=
+- secure: N8uyv2e3PCuBHkMO/zS55lqZ/e4RUmQQ5moqtreT61Bc1r/RzF81u0djrniKO9oJ7bFW/RDeRywIP1zAFqPf8h0vjXAPtPHix8/1n/NbZh2yUG5XaahxP29glkQ6MpisH3KeiD8Enp2tnwY+gghMuKo93RmEu85LmvaLVRqBciw=
+before_install:
+- openssl aes-256-cbc -K $encrypted_80b5f0d4d21a_key -iv $encrypted_80b5f0d4d21a_iv
+  -in secret.rtf.enc -out secret.rtf -d
