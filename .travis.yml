@@ -12,7 +12,7 @@ before_script:
   - cp config/secrets.yml.travis config/secrets.yml
   - RAILS_ENV=test bundle exec rake db:migrate
 script:
-  - CODECLIMATE_REPO_TOKEN=6c92ba0fbe5c3aa9d530650da321d26f1dd8d2637987d60b58fd3518633d097d bundle exec rspec spec --fail-fast
+  - CODECLIMATE_REPO_TOKEN=6c92ba0fbe5c3aa9d530650da321d26f1dd8d2637987d60b58fd3518633d097d bundle exec rake
 notifications:
   slack: wcmc:lKFUwvPWA1ATAwSQWPm1Y3C5
 env:
