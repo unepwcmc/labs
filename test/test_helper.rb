@@ -13,6 +13,7 @@ class ActionDispatch::IntegrationTest
 end
 
 class ActiveSupport::TestCase
+
   DatabaseCleaner.strategy = :truncation
 
   def sign_in_with_github user, is_dev_team
