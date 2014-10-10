@@ -2,7 +2,6 @@ require 'test_helper'
 
 class CrudProjectsTest < ActionDispatch::IntegrationTest
   def setup
-    OmniAuth.config.test_mode = true
     @user = FactoryGirl.build(:user)
     @project = FactoryGirl.create(:project)
     @draft_project = FactoryGirl.create(:draft_project)
