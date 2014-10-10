@@ -58,7 +58,7 @@ class CrudProjectsTest < ActionDispatch::IntegrationTest
     sign_in_with_github @user, true
     visit root_path
     first('.project').has_content? @project.title
-    @new_project = FactoryGirl.build(:project)
+    @new_project = FactoryGirl.build(:project) # Use string instead of object
     first('.project').click_link("Edit")
     within('.edit_project') do
       fill_in 'Title', :with => @new_project.title
