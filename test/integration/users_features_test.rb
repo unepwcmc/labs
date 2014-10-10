@@ -4,6 +4,7 @@ class UsersFeaturesTest < ActionDispatch::IntegrationTest
   def setup
     @user = FactoryGirl.build(:user)
     @seed_user = FactoryGirl.create(:user)
+    OmniAuth.config.test_mode = true
   end
 
   test "users index page is available to signed in users" do

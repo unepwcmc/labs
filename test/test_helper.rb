@@ -37,3 +37,5 @@ class ActiveSupport::TestCase
     DatabaseCleaner.clean
   end
 end
+
+OmniAuth.config.test_mode = true
