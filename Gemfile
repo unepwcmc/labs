@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-
+ruby '2.0.0'
 gem 'rails', '4.1.0'
 #gem 'rake', '0.8.7'
 
@@ -53,7 +53,7 @@ end
 
 group :development do
   gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
-  gem 'debugger'
+  #gem 'debugger'
   gem 'spring'
 end
 
