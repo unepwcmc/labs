@@ -20,6 +20,7 @@ gem 'omniauth-github'
 gem 'pg_array_parser'
 gem "codeclimate-test-reporter", group: :test, require: nil
 
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -45,6 +46,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'launchy'
   gem 'database_cleaner'
+  gem 'webmock', '~> 1.18.0', require: false
 end
 
 group :development do
