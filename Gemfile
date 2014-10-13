@@ -33,6 +33,8 @@ gem 'brightbox'
 gem 'capistrano-ext'
 gem 'capistrano-slack', :git => 'https://github.com/j-mcnally/capistrano-slack.git'
 gem 'whenever'
+gem 'exception_notification', :git => 'https://github.com/smartinez87/exception_notification.git'
+gem 'slack-notifier'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
