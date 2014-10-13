@@ -15,7 +15,7 @@
 <div class="row">
   <% @projects.each_with_index do |project, i| %>
     <div class="span4 project">
-      <%= link_to image_tag(project.screenshot.thumb.url), project.url %>
+      <%= link_to project_preview(project), project.url %>
       <p>
         <h3><%= link_to project.title, project.url %></h3>
         <p><%= project.description %></p>
