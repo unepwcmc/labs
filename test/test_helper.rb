@@ -8,8 +8,6 @@ require 'mocha/test_unit'
 require 'database_cleaner'
 require 'webmock/minitest'
 
-WebMock.disable_net_connect!(allow_localhost: true)
-
 class ActionDispatch::IntegrationTest
   # Make the Capybara DSL available in all integration tests
   include Capybara::DSL
