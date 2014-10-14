@@ -29,6 +29,9 @@ class User < ActiveRecord::Base
     :omniauthable,
     :recoverable, :rememberable, :trackable, :validatable
 
+  #include PgSearch
+  #multisearchable against: :github
+
   # Setup accessible (or protected) attributes for your model
   # attr_accessible :email, :password, :password_confirmation, :remember_me
   def self.from_omniauth(auth)

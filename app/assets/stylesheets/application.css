@@ -59,4 +59,13 @@ dt { padding: 10px 0px; }
 width: 358px;
 }
 
-.actions { padding-top: 20px;}      
+.actions { padding-top: 20px;}    
+#search-box { text-align: right; }  
+
+.unpublished-project h3, .unpublished-project a {
+  color: #777;
+}
+
+.unpublished-project a:hover {
+  color: #fff;
+}
