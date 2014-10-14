@@ -4,9 +4,9 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     if user_signed_in?
-      @projects = Project.order("created_at ASC")
+      @projects = params[:search].present? ? Project.search_admin(params[:search]) : Project.order("created_at DESC")
     else
-      @projects = Project.where(:published => true).order("created_at ASC")
+      @projects = params[:search].present? ? Project.search_public(params[:search]) : Project.where(:published => true).order("created_at DESC")
     end
 
     respond_to do |format|
