@@ -75,3 +75,7 @@ footer {
   padding: 20px 0;
   border-top: 2px solid #33B5E5;
 }
+
+.search-results-text h3 {
+  color: #33B5E5;
+}
