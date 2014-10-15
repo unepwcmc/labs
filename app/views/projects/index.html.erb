@@ -18,7 +18,7 @@
 
   <div id="search-box" class="span6">
     <%= form_tag projects_path, :method => "get", class: 'form-search' do %>
-      <%= text_field_tag "search", nil, placeholder: "Search projects..." %>
+      <%= text_field_tag "search", params[:search], placeholder: "Search projects..." %>
       <%= submit_tag "Search", class: 'btn primary' %>
     <% end %>
   </div>
