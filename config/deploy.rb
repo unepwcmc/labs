@@ -2,7 +2,7 @@ set :default_stage, 'staging'
 require 'capistrano/ext/multistage'
 
 require 'rvm/capistrano'
-set :rvm_ruby_string, '1.9.3-p484'
+set :rvm_ruby_string, '2.0.0-p576'
 
 set :whenever_command, "bundle exec whenever"
 #require "whenever/capistrano"
