@@ -5,7 +5,11 @@ Labs::Application.routes.draw do
     delete '/users/sign_out', to: 'devise/sessions#destroy', as: 'destroy_user_session'
   end
 
+  get '/projects/list', to: 'projects#list', as: 'list_projects'
+  
   resources :projects
+
+
 
   get '/users', to: 'users#index'
   post '/users/suspend/:id', to: 'users#suspend', as: 'suspend_user'
