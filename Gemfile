@@ -19,7 +19,7 @@ gem 'mini_magick'
 gem 'omniauth-github'
 gem 'pg_array_parser'
 gem "codeclimate-test-reporter", group: :test, require: nil
-
+gem 'pg_search', '~> 0.7.8'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

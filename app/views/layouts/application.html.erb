@@ -35,7 +35,7 @@
         <%= link_to "UNEP-WCMC Labs", "/", :class => "brand" %>
         <ul class="nav">
           <!-- <li class="<%= if params[:controller] != "home" then "active" end %>"><a href="/">Home</a></li> -->
-          <li><a href="http://www.unep-wcmc.org/informatics_49.html">More info about UNEP-WCMC</a></li>
+          <li><a href="http://informatics.unep-wcmc.org/">More info about UNEP-WCMC</a></li>
           <!-- <li class="<%= if params[:controller] == "home" then "active" end %>"><a href="/contact">Contact</a></li> -->
         </ul>
         <ul class="nav pull-right">
@@ -58,9 +58,8 @@
   <% end %>
   <div class="container">
     <%= yield %>
-    
     <footer>
-      <p>&copy; <%= link_to "UNEP-WCMC", "http://www.unep-wcmc.org" %> <%= Time.now.year  %></p>
+      <p>&copy; <%= link_to "UNEP-WCMC", "http://www.unep-wcmc.org" %> <%= Time.now.year %></p>
     </footer>
   </div>
 </body>

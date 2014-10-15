@@ -7,6 +7,36 @@ class ProjectsControllerTest < ActionController::TestCase
     @project = FactoryGirl.build(:project)
     @saved_project = FactoryGirl.create(:project)
     @user = FactoryGirl.create(:user)
+
+    @project_a = FactoryGirl.create(:project, title: "Abacus", description: "cod", published: false)
+    @project_b = FactoryGirl.create(:project, title: "Beef", description: "cod")
+    @project_c = FactoryGirl.create(:project, title: "Car", description: "haddock")
+  end
+
+  test "should return matching public projects on public search" do
+    get :index, search: "cod"
+    assert_includes assigns(:projects), @project_b
+    assert_not_includes assigns(:projects), @project_a
+  end
+
+  test "should return all matching projects on logged in search" do
+    sign_in @user
+    get :index, search: "cod"
+    assert_includes assigns(:projects), @project_a
+    assert_includes assigns(:projects), @project_b
+    assert_not_includes assigns(:projects), @project_c
+  end
+
+  test "should return all projects on logged in search with no term" do
+    sign_in @user
+    get :index, search: ""
+    assert_equal assigns(:projects), Project.order('created_at DESC')
+  end
+
+  test "should return all public projects on public search with no term" do
+    get :index, search: ""
+    assert_equal assigns(:projects), Project.where(published: true).order('created_at DESC')
+    assert_not_includes assigns(:projects), @project_a
   end
 
   test "should get index" do

@@ -24,17 +24,32 @@
 #
 
 class Project < ActiveRecord::Base
-  # Validations
+  # Add pg_search
+  include PgSearch
 
+  # Custom search scope for publically viewable projects
+  pg_search_scope :search,
+    :against => [:title, :description, :repository_url, :state, :internal_client, 
+            :current_lead, :external_clients, :project_leads, :developers, 
+            :dependencies, :hacks, :pdrive_folders, :dropbox_folders]
+
+  scope :published, -> { where(published: true) }
+
+  # multisearchable against: [:title, :description, :repository_url, :state, :internal_client, 
+  #           :current_lead, :external_clients, :project_leads, :developers, 
+  #           :dependencies, :hacks, :pdrive_folders, :dropbox_folders, :published]
+
+  # Validations
   validates :title, :description, :repository_url, :state, :internal_client, 
             :current_lead, :external_clients, :project_leads, :developers, 
               presence: true
 
   validates :state, inclusion: { in: ['Under Development', 'Delivered', 'Project Development'] }
 
-
+  # Mount uploader for carrierwave
   mount_uploader :screenshot, ScreenshotUploader
 
+  # Create array getter and setter methods for postgres
   ["developers","external_clients","project_leads","pdrive_folders","dropbox_folders"].each do |attribute|
   	define_method("#{attribute}_array") do
   		self.send(attribute).join(',')
