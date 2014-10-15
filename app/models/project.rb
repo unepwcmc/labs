@@ -28,17 +28,10 @@ class Project < ActiveRecord::Base
   include PgSearch
 
   # Custom search scope for publically viewable projects
-  pg_search_scope :search_public,
-    :against => [:title, :description, :repository_url, :state, :internal_client, 
-            :current_lead, :external_clients, :project_leads, :developers, 
-            :dependencies, :hacks, :pdrive_folders, :dropbox_folders], 
-    :if => :published
-
-  pg_search_scope :search_admin,
+  pg_search_scope :search,
     :against => [:title, :description, :repository_url, :state, :internal_client, 
             :current_lead, :external_clients, :project_leads, :developers, 
             :dependencies, :hacks, :pdrive_folders, :dropbox_folders]
-
 
   # multisearchable against: [:title, :description, :repository_url, :state, :internal_client, 
   #           :current_lead, :external_clients, :project_leads, :developers, 
