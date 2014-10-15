@@ -49,12 +49,8 @@
       </div>
     <%# Start a new row every third project, except if it's the last one %>
       <% if (i==@projects.length-1) %>
-        <%= i %>
-        First half
         </div>
       <% elsif (i!=0 && (i+1)%3==0) %>
-      <%= i %>
-        Second half
         </div>
         <div class="row">
       <% end %>
