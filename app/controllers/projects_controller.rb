@@ -3,11 +3,12 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    if user_signed_in?
-      @projects = params[:search].present? ? Project.search(params[:search]) : Project.order("created_at DESC")
-    else
-      @projects = params[:search].present? ? Project.where(published: true).search(params[:search]).order("created_at DESC") : Project.where(published: true).order("created_at DESC")
-    end
+
+    @projects = params[:search].present? ?
+        Project.search(params[:search]).order("created_at DESC") :
+        Project.order("created_at DESC")
+    
+    @projects = @projects.published unless user_signed_in?
 
     respond_to do |format|
       format.html # index.html.erb

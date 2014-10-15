@@ -33,6 +33,8 @@ class Project < ActiveRecord::Base
             :current_lead, :external_clients, :project_leads, :developers, 
             :dependencies, :hacks, :pdrive_folders, :dropbox_folders]
 
+  scope :published, -> { where(published: true) }
+
   # multisearchable against: [:title, :description, :repository_url, :state, :internal_client, 
   #           :current_lead, :external_clients, :project_leads, :developers, 
   #           :dependencies, :hacks, :pdrive_folders, :dropbox_folders, :published]
