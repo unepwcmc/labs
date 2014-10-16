@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :installation do
-    project_id { FactoryGirl.create(:project) }
-    server_id { FactoryGirl.create(:server) }
-    name Faker::Name.name
+    project_id { FactoryGirl.create(:project).id }
+    server_id { FactoryGirl.create(:server).id }
+    sequence(:name) { |n| "Installation_#{n}" }
     role { ['Web', 'Database', 'Web & Database'].sample }
     stage { ['Staging', 'Production'].sample }
     branch { ['develop', 'master'].sample }
