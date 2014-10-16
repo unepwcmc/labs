@@ -13,6 +13,14 @@ class ProjectsControllerTest < ActionController::TestCase
     @project_c = FactoryGirl.create(:project, title: "Car", description: "haddock")
   end
 
+  test "should get lists" do
+    sign_in @user
+    get :list
+    assert_response :success
+    assert_equal assigns(:projects), Project.all
+  end
+
+
   test "should return matching public projects on public search" do
     get :index, search: "cod"
     assert_includes assigns(:projects), @project_b

@@ -1,0 +1,23 @@
+<div class="page-header">
+  <h1>Listing Projects</h1>
+</div>
+
+<table class="table" id="list_view">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>URL</th>
+      <th>State</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @projects.each do |project| %>
+      <tr class="user_row">
+        <td><%= link_to project.title, project %></td>
+        <td><%= link_to project.url, project.url %></td>
+        <td><%= project.state %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
