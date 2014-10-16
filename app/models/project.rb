@@ -16,11 +16,11 @@
 #  internal_client  :string(255)
 #  current_lead     :string(255)
 #  hacks            :text
-#  external_clients :string(255)
-#  project_leads    :string(255)
-#  developers       :string(255)
-#  pdrive_folders   :string(255)
-#  dropbox_folders  :string(255)
+#  external_clients :text             default([]), is an Array
+#  project_leads    :text             default([]), is an Array
+#  developers       :text             default([]), is an Array
+#  pdrive_folders   :text             default([]), is an Array
+#  dropbox_folders  :text             default([]), is an Array
 #
 
 class Project < ActiveRecord::Base

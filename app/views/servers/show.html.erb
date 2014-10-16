@@ -2,32 +2,43 @@
   <h1><%= @server.name %></h1>
 </div>
 
-<%= button_to 'Back', servers_path, method: :get, :class => 'btn primary' %>
-<%= button_to 'Edit', edit_server_path(@server), method: :get, :class => 'btn primary' %>
+<div class="btn-group">
+  <%= button_to 'Back', servers_path, method: :get, :class => 'btn primary' %>
+  <%= button_to 'Edit', edit_server_path(@server), method: :get, :class => 'btn primary' %>
+</div>
 
 <div class="row">
-  <p>
-    <strong>Domain:</strong>
-    <%= @server.domain %>
-  </p>
+  <div class="span6">
+    <p>
+      <strong>Domain:</strong>
+      <%= @server.domain %>
+    </p>
 
-  <p>
-    <strong>Username:</strong>
-    <%= @server.username %>
-  </p>
+    <p>
+      <strong>Username:</strong>
+      <%= @server.username %>
+    </p>
 
-  <p>
-    <strong>Admin url:</strong>
-    <%= @server.admin_url %>
-  </p>
+    <p>
+      <strong>Admin url:</strong>
+      <%= @server.admin_url %>
+    </p>
 
-  <p>
-    <strong>Os:</strong>
-    <%= @server.os %>
-  </p>
+    <p>
+      <strong>OS:</strong>
+      <%= @server.os %>
+    </p>
 
-  <p>
-    <strong>Description:</strong>
-    <%= @server.description %>
-  </p>
+    <p>
+      <strong>Description:</strong>
+      <%= @server.description %>
+    </p>
+  </div>
+
+  <div class="span6">
+    <h3>Installations on this Server</h3>
+    <% @installations.each do |installation| %>
+      <%= link_to "#{installation.name} (#{installation.role} / #{installation.stage})", installation_path(installation) %><br>
+    <% end %>
+  </div>
 </div>

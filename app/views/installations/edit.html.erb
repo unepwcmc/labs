@@ -1,6 +1,10 @@
-<h1>Editing installation</h1>
+<div class="page-header">
+  <h1>Editing Installation</h1>
+</div>
+
+<div class="btn-group">
+  <%= button_to 'Show', @installation, method: :get, class: "btn primary" %>
+  <%= button_to 'Back', installations_path, method: :get, class: "btn primary" %>
+</div>
 
 <%= render 'form' %>
-
-<%= link_to 'Show', @installation %> |
-<%= link_to 'Back', installations_path %>

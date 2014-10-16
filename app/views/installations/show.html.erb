@@ -1,44 +1,49 @@
-<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <h1><%= @installation.name %></h1>
+</div>
 
-<p>
-  <strong>Project:</strong>
-  <%= @installation.project %>
-</p>
+<div class="btn-group">
+  <%= button_to 'Edit', edit_installation_path(@installation), method: :get, class: "btn primary" %>
+  <%= button_to 'Back', installations_path, method: :get, class: "btn primary" %>
+</div>
 
-<p>
-  <strong>Server:</strong>
-  <%= @installation.server %>
-</p>
+<div class="row">
+  <div class="span12">
+    <p>
+      <strong>Project:</strong>
+      <%= link_to @installation.project.title, project_path(@installation.project) %>
+    </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @installation.name %>
-</p>
+    <p>
+      <strong>Server:</strong>
+      <%= link_to @installation.server.name, server_path(@installation.server) %>
+    </p>
 
-<p>
-  <strong>Role:</strong>
-  <%= @installation.role %>
-</p>
+    <p>
+      <strong>Role:</strong>
+      <%= @installation.role %>
+    </p>
 
-<p>
-  <strong>Stage:</strong>
-  <%= @installation.stage %>
-</p>
+    <p>
+      <strong>Stage:</strong>
+      <%= @installation.stage %>
+    </p>
 
-<p>
-  <strong>Branch:</strong>
-  <%= @installation.branch %>
-</p>
+    <p>
+      <strong>Branch:</strong>
+      <%= @installation.branch %>
+    </p>
 
-<p>
-  <strong>Url:</strong>
-  <%= @installation.url %>
-</p>
+    <p>
+      <strong>Url:</strong>
+      <%= @installation.url %>
+    </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @installation.description %>
-</p>
+    <p>
+      <strong>Description:</strong>
+      <%= @installation.description %>
+    </p>
+  </div>
+</div>
 
-<%= link_to 'Edit', edit_installation_path(@installation) %> |
-<%= link_to 'Back', installations_path %>
+
