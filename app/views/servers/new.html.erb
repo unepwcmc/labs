@@ -1,8 +1,10 @@
 <div class="page-header">
-  <h1>Add a new Server</h1>
+  <h1>Add a New Server</h1>
 </div>
 
-<%= button_to 'Back', servers_path, method: :get, class: "btn primary" %>
+<div class="btn-group">
+  <%= button_to 'Back', servers_path, method: :get, class: "btn primary" %>
+</div>
 
 
 <%= render 'form' %>

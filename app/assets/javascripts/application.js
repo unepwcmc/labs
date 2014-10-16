@@ -8,6 +8,7 @@
 //= require jquery_ujs
 //= require_tree .
 //= require select2
+//= require bootstrap.min
 //
 
 $(document).ready(function(){

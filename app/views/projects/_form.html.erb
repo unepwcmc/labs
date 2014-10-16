@@ -17,30 +17,30 @@
     </div>
 
     <div class="span6">
-      <div class="clearfix">
-        <%= f.label :title %>
-        <div class="input">
+      <div class="clearfix control-group">
+        <%= f.label :title, class: "control-label" %>
+        <div class="input controls">
           <%= f.text_field :title %>
         </div>
       </div>
 
-      <div class="clearfix">
-        <%= f.label :url %>
-        <div class="input">
+      <div class="clearfix control-group">
+        <%= f.label :url, class: "control-label" %>
+        <div class="input controls">
           <%= f.text_field :url %>
         </div>
       </div>
 
-      <div class="clearfix">
-        <%= f.label :description %>
-        <div class="input">
+      <div class="clearfix control-group">
+        <%= f.label :description, class: "control-label" %>
+        <div class="input controls">
           <%= f.text_area :description %>
         </div>
       </div>
 
-      <div class="clearfix">
-        <%= f.label :project_leads %>
-        <div class="input">
+      <div class="clearfix control-group">
+        <%= f.label :project_leads, class: "control-label" %>
+        <div class="input controls">
           <%= f.text_area :project_leads_array, class: "tag-field" %>
         </div>
       </div>

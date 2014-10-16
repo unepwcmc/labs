@@ -6,7 +6,11 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-3.times do
+Project.delete_all
+Server.delete_all
+Installation.delete_all
+
+9.times do
   Project.create!(
     title: Faker::Company.name,
     description: Faker::Lorem.paragraph,
@@ -22,4 +26,28 @@
   )
 end
 
-puts "Added 3 new seed projects!"
+3.times do
+    Server.create!(
+        name: Faker::Name.name,
+        domain: Faker::Internet.url,
+        username: Faker::Internet.user_name,
+        admin_url: Faker::Internet.url,
+        os: ['Windows', 'Linux'].sample,
+        description: Faker::Lorem.paragraph
+    )
+end
+
+6.times do
+    Installation.create!(
+        project_id: Project.order("RANDOM()").first.id,
+        server_id: Server.order("RANDOM()").first.id,
+        name: Faker::Name.name,
+        role: ['Web', 'Database', 'Web & Database'].sample,
+        stage: ['Staging', 'Production'].sample,
+        branch: ['develop', 'master'].sample,
+        url: Faker::Internet.url,
+        description: Faker::Lorem.paragraph
+    )
+end
+
+puts "Cleared database, added 9 projects, 3 servers and 6 new installations!"

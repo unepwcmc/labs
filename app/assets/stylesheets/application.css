@@ -79,3 +79,10 @@ footer {
 .search-results-text h3 {
   color: #33B5E5;
 }
+
+.button_to,
+.button_to div {
+  display: inline;
+}
+
+.btn-group { margin: 20px 0px; }

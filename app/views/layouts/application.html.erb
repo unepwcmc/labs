@@ -35,8 +35,33 @@
         <%= link_to "UNEP-WCMC Labs", "/", :class => "brand" %>
         <ul class="nav">
           <% if user_signed_in? %>
-            <li><%= link_to "All Users", users_path %></li>
-            <li><%= link_to "List Projects", list_projects_path %></li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects</a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <li><%= link_to "Search Projects", root_path %></li>
+                <li><%= link_to "List Projects", list_projects_path %></li>
+                <li><%= link_to "Add a Project", new_project_path %></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Installations</a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <li><%= link_to "List Installations", installations_path %></li>
+                <li><%= link_to "Add an Installation", new_installation_path %></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Servers</a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <li><%= link_to "List Servers", servers_path %></li>
+                <li><%= link_to "Add a Server", new_server_path %></li>
+              </ul>
+            </li>
+
+            <li><%= link_to "Users", users_path %></li>
+            
           <% else %>
             <li><%= link_to 'More info about UNEP-WCMC', "http://informatics.unep-wcmc.org/" %></li>
           <% end %>

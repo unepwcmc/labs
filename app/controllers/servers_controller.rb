@@ -7,6 +7,7 @@ class ServersController < ApplicationController
 
   def show
     @server = Server.find(params[:id])
+    @installations = @server.installations
   end
 
   def new

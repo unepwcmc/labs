@@ -19,6 +19,7 @@
 #  uid                    :string(255)
 #  github                 :string(255)
 #  token                  :string(255)
+#  suspended              :boolean          default(FALSE)
 #
 
 class User < ActiveRecord::Base

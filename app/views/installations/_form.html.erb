@@ -1,4 +1,4 @@
-<%= form_for(@installation) do |f| %>
+<%= form_for(@installation, :html => {class: "form-horizontal"}) do |f| %>
   <% if @installation.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@installation.errors.count, "error") %> prohibited this installation from being saved:</h2>
@@ -11,40 +11,66 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :project_id %><br>
+
+
+  <div class="field control-group">
+    <%= f.label :project_id, class: "control-label" %>
+    <div class="controls">
     <%= f.collection_select :project_id, Project.order(:title),:id,:title, 
         {prompt: "Select the project this Installation refers to"} %>
+      </div>
   </div>
-  <div class="field">
-    <%= f.label :server_id %><br>
-    <%= f.collection_select :server_id, Server.order(:name),:id,:name, 
+
+  <div class="field control-group">
+    <%= f.label :server_id, class: "control-label" %>
+    <div class="controls">
+      <%= f.collection_select :server_id, Server.order(:name),:id,:name, 
         {prompt: "Select the server this Installation belongs to"} %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+
+  <div class="field control-group">
+    <%= f.label :name, class: "control-label" %>
+    <div class="controls">
+      <%= f.text_field :name %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :role %><br>
-    <%= f.text_field :role %>
+
+  <div class="field control-group">
+    <%= f.label :role, class: "control-label" %>
+    <div class="controls">
+      <%= f.text_field :role %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :stage %><br>
-    <%= f.text_field :stage %>
+
+  <div class="field control-group">
+    <%= f.label :stage, class: "control-label" %>
+    <div class="controls">
+      <%= f.text_field :stage %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :branch %><br>
-    <%= f.text_field :branch %>
+
+  <div class="field control-group">
+    <%= f.label :branch, class: "control-label" %>
+    <div class="controls">
+      <%= f.text_field :branch %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :url %><br>
-    <%= f.text_field :url %>
+
+  <div class="field control-group">
+    <%= f.label :url, class: "control-label" %>
+    <div class="controls">
+      <%= f.text_field :url %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
+
+  <div class="field control-group">
+    <%= f.label :description, class: "control-label" %>
+    <div class="controls">
+      <%= f.text_area :description %>
+    </div>
   </div>
+  
   <div class="actions">
     <%= f.submit %>
   </div>
