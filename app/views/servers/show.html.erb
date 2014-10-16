@@ -1,0 +1,33 @@
+<div class="page-header">
+  <h1><%= @server.name %></h1>
+</div>
+
+<%= button_to 'Back', servers_path, method: :get, :class => 'btn primary' %>
+<%= button_to 'Edit', edit_server_path(@server), method: :get, :class => 'btn primary' %>
+
+<div class="row">
+  <p>
+    <strong>Domain:</strong>
+    <%= @server.domain %>
+  </p>
+
+  <p>
+    <strong>Username:</strong>
+    <%= @server.username %>
+  </p>
+
+  <p>
+    <strong>Admin url:</strong>
+    <%= @server.admin_url %>
+  </p>
+
+  <p>
+    <strong>Os:</strong>
+    <%= @server.os %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= @server.description %>
+  </p>
+</div>
