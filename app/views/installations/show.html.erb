@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @installation.project %>
+</p>
+
+<p>
+  <strong>Server:</strong>
+  <%= @installation.server %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @installation.name %>
+</p>
+
+<p>
+  <strong>Role:</strong>
+  <%= @installation.role %>
+</p>
+
+<p>
+  <strong>Stage:</strong>
+  <%= @installation.stage %>
+</p>
+
+<p>
+  <strong>Branch:</strong>
+  <%= @installation.branch %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @installation.url %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @installation.description %>
+</p>
+
+<%= link_to 'Edit', edit_installation_path(@installation) %> |
+<%= link_to 'Back', installations_path %>

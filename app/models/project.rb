@@ -27,6 +27,11 @@ class Project < ActiveRecord::Base
   # Add pg_search
   include PgSearch
 
+  # Relationships
+  has_many :installations
+  has_many :projects, through: :installation
+
+
   # Custom search scope for publically viewable projects
   pg_search_scope :search,
     :against => [:title, :description, :repository_url, :state, :internal_client, 
