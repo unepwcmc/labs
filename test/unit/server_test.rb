@@ -13,13 +13,13 @@
 #  updated_at  :datetime
 #
 
-class Server < ActiveRecord::Base
-  has_many :installations
-  has_many :projects, through: :installations
+require 'test_helper'
 
-  #Validations
-  validates :name, :domain, :os, presence: true
+class ServerTest < ActiveSupport::TestCase
+  should validate_presence_of :name
+  should validate_presence_of :domain
+  should validate_presence_of :os
   
-  validates :os, inclusion: { in: ['Windows', 'Linux'] }
-  validates :name, uniqueness: true
+  should validate_inclusion_of(:os).in_array(['Windows', 'Linux'])
+  should validate_uniqueness_of :name
 end

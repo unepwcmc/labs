@@ -39,14 +39,14 @@
   <div class="field control-group">
     <%= f.label :role, class: "control-label" %>
     <div class="controls">
-      <%= f.text_field :role %>
+      <%= f.select :role, [["Web", "Web"],["Database", "Database"],["Web & Database", "Web & Database"]] %>
     </div>
   </div>
 
   <div class="field control-group">
     <%= f.label :stage, class: "control-label" %>
     <div class="controls">
-      <%= f.text_field :stage %>
+      <%= f.select :stage, [["Staging", "Staging"],["Production", "Production"]] %>
     </div>
   </div>
 

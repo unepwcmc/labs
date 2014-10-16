@@ -18,4 +18,10 @@
 class Installation < ActiveRecord::Base
   belongs_to :project
   belongs_to :server
+
+  #Validations
+  validates :project_id, :server_id, :name, :role, :stage, :branch, :url, presence: true
+  validates :role, inclusion: { in: ['Web', 'Database', 'Web & Database']}
+  validates :stage, inclusion: { in: ['Staging', 'Production']}
+  validates :name, uniqueness: true
 end

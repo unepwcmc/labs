@@ -5,6 +5,7 @@ class ServersControllerTest < ActionController::TestCase
 
   setup do
     @server = FactoryGirl.create(:server)
+    @new_server = FactoryGirl.build(:server)
     @user = FactoryGirl.create(:user)
     sign_in @user
   end
@@ -22,9 +23,8 @@ class ServersControllerTest < ActionController::TestCase
 
   test "should create server" do
     assert_difference('Server.count') do
-      post :create, server: { admin_url: @server.admin_url, description: @server.description, domain: @server.domain, name: @server.name, os: @server.os, username: @server.username }
+      post :create, server: { admin_url: @new_server.admin_url, description: @new_server.description, domain: @new_server.domain, name: @new_server.name, os: @new_server.os, username: @new_server.username }
     end
-
     assert_redirected_to server_path(assigns(:server))
   end
 

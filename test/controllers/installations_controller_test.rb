@@ -5,6 +5,7 @@ class InstallationsControllerTest < ActionController::TestCase
   
   setup do
     @installation = FactoryGirl.create(:installation)
+    @new_installation = FactoryGirl.build(:installation)
     @user = FactoryGirl.create(:user)
     sign_in @user
   end
@@ -22,7 +23,7 @@ class InstallationsControllerTest < ActionController::TestCase
 
   test "should create installation" do
     assert_difference('Installation.count') do
-      post :create, installation: { branch: @installation.branch, description: @installation.description, name: @installation.name, project_id: @installation.project_id, role: @installation.role, server_id: @installation.server_id, stage: @installation.stage, url: @installation.url }
+      post :create, installation: { branch: @new_installation.branch, description: @new_installation.description, name: @new_installation.name, project_id: @new_installation.project_id, role: @new_installation.role, server_id: @new_installation.server_id, stage: @new_installation.stage, url: @new_installation.url }
     end
 
     assert_redirected_to installation_path(assigns(:installation))
