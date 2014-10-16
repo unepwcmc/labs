@@ -10,9 +10,11 @@ Project.delete_all
 Server.delete_all
 Installation.delete_all
 
-9.times do
+9.times do |n|
   Project.create!(
-    title: Faker::Company.name,
+    title: ['Protected Planet', 'Ocean Data Viewer', 'Blue Carbon Layer', 
+            'Marine Data Validation', 'Apes Dashboard', 'Global Islands Database', 
+            'REDD+ Database', 'CITES Checklist', 'Species Database'][n-1],
     description: Faker::Lorem.paragraph,
     url: Faker::Internet.url,
     repository_url: Faker::Internet.url,
@@ -26,9 +28,9 @@ Installation.delete_all
   )
 end
 
-3.times do
+3.times do |n|
     Server.create!(
-        name: Faker::Name.name,
+        name: "Server_#{n}",
         domain: Faker::Internet.url,
         username: Faker::Internet.user_name,
         admin_url: Faker::Internet.url,
@@ -37,11 +39,11 @@ end
     )
 end
 
-6.times do
+6.times do |n|
     Installation.create!(
         project_id: Project.order("RANDOM()").first.id,
         server_id: Server.order("RANDOM()").first.id,
-        name: Faker::Name.name,
+        name: "Installation_#{n}",
         role: ['Web', 'Database', 'Web & Database'].sample,
         stage: ['Staging', 'Production'].sample,
         branch: ['develop', 'master'].sample,
