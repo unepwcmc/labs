@@ -9,25 +9,27 @@
 </div>
 
 <div class="row">
-  <div class="span6 col-lg-6">
+  <div class="col-lg-6 col-lg-6">
     <% if user_signed_in? %>
-      <%= button_to "Add a new Project", new_project_path, method: :get, class: 'btn primary' %>
+      <%= button_to "Add a new Project", new_project_path, method: :get, class: 'btn btn-primary' %>
     <% end %>
     &nbsp;
   </div>
 
-  <div id="search-box" class="span6 col-lg-6">
-    <%= form_tag projects_path, :method => "get", class: 'form-search' do %>
-      <%= text_field_tag "search", params[:search], placeholder: "Search projects..." %>
-      <%= submit_tag "Search", class: 'btn primary' %>
-    <% end %>
+  <div id="search-box" class="col-lg-6 col-lg-6">
+    <div class="form-group">
+      <%= form_tag projects_path, :method => "get", class: 'form-search form-inline' do %>
+        <%= text_field_tag "search", params[:search], placeholder: "Search projects...", class: "form-control" %>
+        <%= submit_tag "Search", class: 'btn btn-primary' %>
+      <% end %>
+    </div>
   </div>
 </div>
 
 <div class="row">
   <% if params[:search].present? %>
-    <div class="span12 col-lg-12 search-results-text">
-      <h3>Showing <%= @projects.length %> <%= "project".pluralize @projects.length %> found matching "<%= params[:search] %>".</h3>
+    <div class="col-lg-12 col-lg-12 search-results-text">
+      <h2>Showing <%= @projects.length %> <%= "project".pluralize @projects.length %> found matching "<%= params[:search] %>".</h2>
     </div>
   <% end %>
 </div>
@@ -35,10 +37,10 @@
   <% unless @projects.length == 0 %>
     <div class="row">
     <% @projects.each_with_index do |project, i| %>
-      <div class="span4 col-lg-4 project <%= project_style project %>">
+      <div class="col-lg-4 col-lg-4 project <%= project_style project %>">
         <%= link_to project_preview(project), project.url %>
         <p>
-          <h3><%= link_to project.title, project.url %></h3>
+          <h2><%= link_to project.title, project.url %></h2>
           <p><%= project.description %></p>
           <% if user_signed_in? %>
             <%= link_to "Show", project_path(project) %> | 
