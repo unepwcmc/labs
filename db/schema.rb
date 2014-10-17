@@ -11,12 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141014122548) do
+ActiveRecord::Schema.define(version: 20141016102530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pg_trgm"
   enable_extension "fuzzystrmatch"
+
+  create_table "installations", force: true do |t|
+    t.integer  "project_id"
+    t.integer  "server_id"
+    t.string   "name"
+    t.string   "role"
+    t.string   "stage"
+    t.string   "branch"
+    t.string   "url"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "installations", ["project_id"], name: "index_installations_on_project_id", using: :btree
+  add_index "installations", ["server_id"], name: "index_installations_on_server_id", using: :btree
 
   create_table "pg_search_documents", force: true do |t|
     t.text     "content"
@@ -45,6 +61,17 @@ ActiveRecord::Schema.define(version: 20141014122548) do
     t.text     "developers",       default: [],    array: true
     t.text     "pdrive_folders",   default: [],    array: true
     t.text     "dropbox_folders",  default: [],    array: true
+  end
+
+  create_table "servers", force: true do |t|
+    t.string   "name"
+    t.string   "domain"
+    t.string   "username"
+    t.string   "admin_url"
+    t.string   "os"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|

@@ -1,4 +1,4 @@
-<%= form_for(@project) do |f| %>
+<%= form_for(@project, :html => { class: "form-horizontal" }) do |f| %>
   <% if @project.errors.any? %>
     <div class="alert-message block-message error">
       <p><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</p>
@@ -13,65 +13,120 @@
 
   <div class="row">
     <div class="page-header">
-      <h3>About the Project</h3>
+      <h2>About the Project</h2>
     </div>
 
-    <div class="span6">
-      <div class="clearfix">
-        <%= f.label :title %>
-        <div class="input">
-          <%= f.text_field :title %>
+    <div class="col-lg-6">
+      <div class="form-group">
+        <%= f.label :title, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :title, class: "form-control" %>
         </div>
       </div>
 
-      <div class="clearfix">
-        <%= f.label :url %>
-        <div class="input">
-          <%= f.text_field :url %>
+      <div class="form-group">
+        <%= f.label :url, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :url, class: "form-control" %>
         </div>
       </div>
 
-      <div class="clearfix">
-        <%= f.label :description %>
-        <div class="input">
-          <%= f.text_area :description %>
+      <div class="form-group">
+        <%= f.label :description, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :description, class: "form-control" %>
         </div>
       </div>
 
-      <div class="clearfix">
-        <%= f.label :project_leads %>
-        <div class="input">
-          <%= f.text_area :project_leads_array, class: "tag-field" %>
+      <div class="form-group">
+        <%= f.label :project_leads, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :project_leads_array, class: "form-control tag-field" %>
         </div>
       </div>
     </div>
 
-    <div class="span6">
-      <div class="clearfix">
-        <%= f.label :screenshot %>
-        <div class="input">
+    <div class="col-lg-6">
+      <div class="form-group">
+        <%= f.label :screenshot, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
           <%= f.file_field :screenshot %>
         </div>
       </div>
 
-      <div class="clearfix">
-        <%= f.label :external_clients %>
-        <div class="input">
-          <%= f.text_area :external_clients_array, class: "tag-field" %>
+      <div class="form-group">
+        <%= f.label :external_clients, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :external_clients_array, class: "form-control tag-field" %>
         </div>
       </div>
 
-      <div class="clearfix">
-        <%= f.label :developers %>
-        <div class="input">
-          <%= f.text_field :developers_array, class: "tag-field" %>
+      <div class="form-group">
+        <%= f.label :developers, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :developers_array, class: "form-control tag-field" %>
         </div>
       </div>
 
-      <div class="clearfix">
+      <div class="form-group">
+        <div class="col-sm-2 control-label">
         <%= f.label :published %>
-        <div class="input">
-          <%= f.check_box :published %>
+      </div>
+        <div class="col-sm-offset-2 col-sm-10" style="margin: 10px 0px 0px 0px;">
+            <%= f.check_box :published, class: "inline" %>
+        </div>
+      </div>
+    
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="page-header">
+      <h2>About the Application</h2>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <%= f.label :state, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.select :state, [["Under Development", "Under Development"],["Delivered", "Delivered"],["Project Development", "Project Development"]], {}, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :internal_client, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :internal_client, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :current_lead, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :current_lead, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :hacks, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :hacks, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <%= f.label :repository_url, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :repository_url, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :dependencies, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :dependencies, class: "form-control" %>
         </div>
       </div>
     </div>
@@ -79,81 +134,29 @@
 
   <div class="row">
     <div class="page-header">
-      <h3>About the Application</h3>
+      <h2>Resources</h2>
     </div>
 
-    <div class="span6">
-      <div class="clearfix">
-        <%= f.label :state %>
-        <div class="input">
-          <%= f.select :state, [["Under Development", "Under Development"],["Delivered", "Delivered"],["Project Development", "Project Development"]] %>
-        </div>
-      </div>
-
-      <div class="clearfix">
-        <%= f.label :internal_client %>
-        <div class="input">
-          <%= f.text_field :internal_client %>
-        </div>
-      </div>
-
-      <div class="clearfix">
-        <%= f.label :current_lead %>
-        <div class="input">
-          <%= f.text_field :current_lead %>
-        </div>
-      </div>
-
-      <div class="clearfix">
-        <%= f.label :hacks %>
-        <div class="input">
-          <%= f.text_area :hacks %>
+    <div class="col-lg-6">
+      <div class="form-group">
+        <%= f.label :pdrive_folders, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :pdrive_folders_array, class: "form-control tag-field" %>
         </div>
       </div>
     </div>
 
-    <div class="span6">
-      <div class="clearfix">
-        <%= f.label :repository_url %>
-        <div class="input">
-          <%= f.text_field :repository_url %>
-        </div>
-      </div>
-
-      <div class="clearfix">
-        <%= f.label :dependencies %>
-        <div class="input">
-          <%= f.text_area :dependencies %>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="page-header">
-      <h3>Resources</h3>
-    </div>
-
-    <div class="span6">
-      <div class="clearfix">
-        <%= f.label :pdrive_folders %>
-        <div class="input">
-          <%= f.text_area :pdrive_folders_array, class: "tag-field" %>
-        </div>
-      </div>
-    </div>
-
-    <div class="span6">
-      <div class="clearfix">
-        <%= f.label :dropbox_folders %>
-        <div class="input">
-          <%= f.text_area :dropbox_folders_array, class: "tag-field" %>
+    <div class="col-lg-6">
+      <div class="form-group">
+        <%= f.label :dropbox_folders, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :dropbox_folders_array, class: "form-control tag-field" %>
         </div>
       </div>
     </div>
   </div>
 
   <div class="actions">
-    <%= f.submit class: "btn primary" %>
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>

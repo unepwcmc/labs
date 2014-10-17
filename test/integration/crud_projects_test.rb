@@ -59,7 +59,7 @@ class CrudProjectsTest < ActionDispatch::IntegrationTest
     first('.project').has_content? @project.title
     @new_project = FactoryGirl.build(:project) # Use string instead of object
     first('.project').click_link("Edit")
-    within('.edit_project') do
+    within('.form-horizontal') do
       fill_in 'Title', :with => @new_project.title
       click_button 'Update Project'
     end

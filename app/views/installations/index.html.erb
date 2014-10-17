@@ -1,0 +1,39 @@
+<div class="page-header">
+  <h1>Listing Installations</h1>
+</div>
+
+<div class="btn-group">
+  <%= button_to 'New Installation', new_installation_path, method: :get, class: "btn btn-primary" %>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Project</th>
+      <th>Server</th>
+      <th>Role</th>
+      <th>Stage</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @installations.each do |installation| %>
+      <tr>
+        <td><%= installation.name %></td>
+        <td><%= link_to installation.project.title, project_path(installation.project) %></td>
+        <td><%= link_to installation.server.name, server_path(installation.server) %></td>
+        <td><%= installation.role %></td>
+        <td><%= installation.stage %></td>
+        <td><%= link_to 'Show', installation %></td>
+        <td><%= link_to 'Edit', edit_installation_path(installation) %></td>
+        <td><%= link_to 'Destroy', installation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+

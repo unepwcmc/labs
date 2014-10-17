@@ -2,143 +2,161 @@
   <h1><%= @project.title %></h1>
 </div>
 
-<%= link_to 'Back', projects_path, :class => 'btn' %>
-<%= link_to 'Edit', edit_project_path(@project), :class => 'btn primary' %>
+<div class="btn-group">
+  <%= button_to 'Back', projects_path, method: :get, :class => 'btn' %>
+  <%= button_to 'Edit', edit_project_path(@project), method: :get, :class => 'btn btn-primary' %>
+</div>
 
 <div class="row">
-  <div class="page-header">
-    <h3>About the Project</h3>
-  </div>
+  <div class="col-lg-6">
+    <div class="page-header">
+      <h2>About the Project</h2>
+    </div>
+    <p>
+      <strong>URL:</strong>
+      <%= @project.url %>
+    </p>
 
-  <div class="span6">
-    <dl>
-      <dt>URL:</dt>
-      <dd><%= @project.url %></dd>
+    <p>
+      <strong>Description:</strong>
+      <%= @project.description %>
+    </p>
 
-      <dt>Description:</dt>
-      <dd><%= @project.description %></dd>
+    <p>
+      <strong>Project Leads:</strong>
+      <% if !@project.project_leads.blank? %>
+        <ul>
+          <% @project.project_leads.each do |lead| %>
+            <li><%= lead %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no leads
+      <% end %>
+    </p>
 
-      <dt>Project Leads:</dt>
-      <dd>
-        <% if !@project.project_leads.blank? %>
-          <ul>
-            <% @project.project_leads.each do |lead| %>
-              <li><%= lead %></li>
-            <% end %>
-          </ul>
-        <% else %>
-          <p>This project has no leads<p>
-        <% end %>
-      </dd>
-
-      
-      <dt>External Clients:</dt>
-      <dd>
-        <% if !@project.external_clients.blank? %>
-          <ul>
-            <% @project.external_clients.each do |external_client| %>
-              <li><%= external_client %></li>
-            <% end %>
-          </ul>
-        <% else %>
-          <p>This project has no external clients<p>
-        <% end %>
-      </dd>
-
-      <dt>Developers:</dt>
-      <dd>
-        <% if !@project.developers.blank? %>
-          <ul>
-            <% @project.developers.each do |developer| %>
-              <li><%= developer %></li>
-            <% end %>
-          </ul>
-        <% else %>
-          <p>This project has no developers<p>
-        <% end %>
-      </dd>
+    <p>
+      <strong>External Clients:</strong>
     
-      <dt>Published?</dt>
-      <dd><%= @project.published ? "Yes" : "No" %></dd>
-    </dl>
+      <% if !@project.external_clients.blank? %>
+        <ul>
+          <% @project.external_clients.each do |external_client| %>
+            <li><%= external_client %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no external clients
+      <% end %>
+    </p>
+
+    <p>
+      <strong>Developers:</strong>
+      <% if !@project.developers.blank? %>
+        <ul>
+          <% @project.developers.each do |developer| %>
+            <li><%= developer %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no developers
+      <% end %>
+    </p>
+
+
+    <p>
+      <strong>Published?</strong>
+      <%= @project.published ? "Yes" : "No" %>
+    </p>
   </div>
 
-  <div class="span6">
-    <dl>
-      <dt>Screenshot:</dt>
-      <dd><%= project_preview @project %></dd>
-    </dl>
+  <div class="col-lg-6">
+    <div class="page-header">
+      <h2>This Projects Installations</h2>
+    </div>
+    <p>
+      <% if !@project.developers.blank? %>
+        <% @installations.each do |installation| %>
+            <%= link_to installation.name, installation_path(installation) %> (<%= installation.stage %>) on <%= link_to installation.server.name, server_path(installation.server) %><br>
+        <% end %>
+      <% else %>
+        This project has no installations
+      <% end %>
+    </p>
   </div>
 </div>
 
 <div class="row">
   <div class="page-header">
-    <h3>About the Application</h3>
+    <h2>About the Application</h2>
   </div>
 
-  <div class="span6">
-    <dl>
-      <dt>State:</dt>
-      <dd><%= @project.state %></dd>
+  <div class="col-lg-6">
+    <p>
+      <strong>State:</strong>
+      <%= @project.state %>
+    </p>
 
-      <dt>Internal Client:</dt>
-      <dd><%= @project.internal_client %></dd>
+    <p>
+      <strong>Internal Client:</strong>
+      <%= @project.internal_client %>
+    </p>
 
-      <dt>Current Lead:</dt>
-      <dd><%= @project.current_lead %></dd>
+    <p>
+      <strong>Current Lead:</strong>
+      <%= @project.current_lead %>
+    </p>
 
-      <dt>Hacks:</dt>
-      <dd><%= @project.hacks %></dd>
-    </dl>
+    <p>
+      <strong>Hacks:</strong>
+      <%= @project.hacks %>
+    </p>
   </div>
 
-  <div class="span6">
-    <dl>
-      <dt>Repository URL:</dt>
-      <dd><%= @project.repository_url %></dd>
+  <div class="col-lg-6">
+    <p>
+      <strong>Repository URL:</strong>
+      <%= @project.repository_url %>
+    </p>
 
-      <dt>Dependencies:</dt>
-      <dd><%= @project.dependencies %></dd>
-    </dl>
+    <p>
+      <strong>Dependencies:</strong>
+      <%= @project.dependencies %>
+    </p>
   </div>
 </div>
 
 <div class="row">
   <div class="page-header">
-    <h3>Resources</h3>
+    <h2>Resources</h2>
   </div>
 
-  <div class="span6">
-    <dl>
-      <dt>P Drive Folders:</dt>
-      <dd>
-        <% if !@project.pdrive_folders.blank? %>
-          <ul>
-            <% @project.pdrive_folders.each do |folder| %>
-              <li><%= folder %></li>
-            <% end %>
-          </ul>
-        <% else %>
-          <p>This project has no P Drive folders<p>
-        <% end %>
-      </dd>
-    </dl>
+  <div class="col-lg-6">
+    <p>
+      <strong>P Drive Folders:</strong>
+      <% if !@project.pdrive_folders.blank? %>
+        <ul>
+          <% @project.pdrive_folders.each do |folder| %>
+            <li><%= folder %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no P Drive folders
+      <% end %>
+    </p>
   </div>
 
-  <div class="span6">
-    <dl>
-      <dt>Dropbox Folders:</dt>
-      <dd>
-        <% if !@project.dropbox_folders.blank? %>
-          <ul>
-            <% @project.dropbox_folders.each do |folder| %>
-              <li><%= folder %></li>
-            <% end %>
-          </ul>
-        <% else %>
-          <p>This project has no Dropbox folders<p>
-        <% end %>
-      </dd>
-    </dl>
+  <div class="col-lg-6">
+    <p>
+      <strong>Dropbox Folders:</strong>
+      <% if !@project.dropbox_folders.blank? %>
+        <ul>
+          <% @project.dropbox_folders.each do |folder| %>
+            <li><%= folder %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no Dropbox folders
+      <% end %>
+    </p>
   </div>
 </div>
