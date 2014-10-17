@@ -69,6 +69,19 @@
     <dl>
       <dt>Screenshot:</dt>
       <dd><%= project_preview @project %></dd>
+
+      <dt>Installations:</dt>
+      <dd>
+        <% if !@project.developers.blank? %>
+          <ul>
+            <% @installations.each do |installation| %>
+              <li><%= link_to installation.name, installation_path(installation) %> (<%= installation.stage %>) on <%= link_to installation.server.name, server_path(installation.server) %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p>This project has no installations<p>
+        <% end %>
+      </dd>
     </dl>
   </div>
 </div>

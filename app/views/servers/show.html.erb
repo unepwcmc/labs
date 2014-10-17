@@ -38,7 +38,7 @@
   <div class="span6">
     <h3>Installations on this Server</h3>
     <% @installations.each do |installation| %>
-      <%= link_to "#{installation.name} (#{installation.role} / #{installation.stage})", installation_path(installation) %><br>
+      <%= link_to installation.name, installation_path(installation) %> for <%= link_to installation.project.title, project_path(installation.project) %> (<%= installation.stage %>/<%= installation.role %>)<br>
     <% end %>
   </div>
 </div>

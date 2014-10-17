@@ -9,14 +9,14 @@
 </div>
 
 <div class="row">
-  <div class="span6">
+  <div class="span6 col-lg-6">
     <% if user_signed_in? %>
       <%= button_to "Add a new Project", new_project_path, method: :get, class: 'btn primary' %>
     <% end %>
     &nbsp;
   </div>
 
-  <div id="search-box" class="span6">
+  <div id="search-box" class="span6 col-lg-6">
     <%= form_tag projects_path, :method => "get", class: 'form-search' do %>
       <%= text_field_tag "search", params[:search], placeholder: "Search projects..." %>
       <%= submit_tag "Search", class: 'btn primary' %>
@@ -26,7 +26,7 @@
 
 <div class="row">
   <% if params[:search].present? %>
-    <div class="span12 search-results-text">
+    <div class="span12 col-lg-12 search-results-text">
       <h3>Showing <%= @projects.length %> <%= "project".pluralize @projects.length %> found matching "<%= params[:search] %>".</h3>
     </div>
   <% end %>
@@ -35,7 +35,7 @@
   <% unless @projects.length == 0 %>
     <div class="row">
     <% @projects.each_with_index do |project, i| %>
-      <div class="span4 project <%= project_style project %>">
+      <div class="span4 col-lg-4 project <%= project_style project %>">
         <%= link_to project_preview(project), project.url %>
         <p>
           <h3><%= link_to project.title, project.url %></h3>
