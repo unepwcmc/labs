@@ -13,65 +13,65 @@
 
 
 
-  <div class="field control-group">
-    <%= f.label :project_id, class: "control-label" %>
-    <div class="controls">
+  <div class="form-group">
+    <%= f.label :project_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
     <%= f.collection_select :project_id, Project.order(:title),:id,:title, 
-        {prompt: "Select the project this Installation refers to"} %>
+        {prompt: "Select the project this Installation refers to"}, class: "form-control" %>
       </div>
   </div>
 
-  <div class="field control-group">
-    <%= f.label :server_id, class: "control-label" %>
-    <div class="controls">
+  <div class="form-group">
+    <%= f.label :server_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
       <%= f.collection_select :server_id, Server.order(:name),:id,:name, 
-        {prompt: "Select the server this Installation belongs to"} %>
+        {prompt: "Select the server this Installation belongs to"}, class: "form-control" %>
     </div>
   </div>
 
-  <div class="field control-group">
-    <%= f.label :name, class: "control-label" %>
-    <div class="controls">
-      <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.label :name, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :name, class: "form-control" %>
     </div>
   </div>
 
-  <div class="field control-group">
-    <%= f.label :role, class: "control-label" %>
-    <div class="controls">
-      <%= f.select :role, [["Web", "Web"],["Database", "Database"],["Web & Database", "Web & Database"]] %>
+  <div class="form-group">
+    <%= f.label :role, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.select :role, [["Web","Web"],["Database","Database"],["Web & Database","Web & Database"]], {}, class: "form-control" %>
     </div>
   </div>
 
-  <div class="field control-group">
-    <%= f.label :stage, class: "control-label" %>
-    <div class="controls">
-      <%= f.select :stage, [["Staging", "Staging"],["Production", "Production"]] %>
+  <div class="form-group">
+    <%= f.label :stage, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.select :stage, [["Staging", "Staging"],["Production", "Production"]], {}, class: "form-control" %>
     </div>
   </div>
 
-  <div class="field control-group">
-    <%= f.label :branch, class: "control-label" %>
-    <div class="controls">
-      <%= f.text_field :branch %>
+  <div class="form-group">
+    <%= f.label :branch, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :branch, class: "form-control" %>
     </div>
   </div>
 
-  <div class="field control-group">
-    <%= f.label :url, class: "control-label" %>
-    <div class="controls">
-      <%= f.text_field :url %>
+  <div class="form-group">
+    <%= f.label :url, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :url, class: "form-control" %>
     </div>
   </div>
 
-  <div class="field control-group">
-    <%= f.label :description, class: "control-label" %>
-    <div class="controls">
-      <%= f.text_area :description %>
+  <div class="form-group">
+    <%= f.label :description, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_area :description, class: "form-control" %>
     </div>
   </div>
   
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>

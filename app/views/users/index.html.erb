@@ -16,7 +16,7 @@
 	<tbody>
 		<% @users.each do |user| %>
 			<tr class="user_row">
-				<td><%= image_tag gravatar user %></td>
+				<td><%= image_tag gravatar(user), class: 'gravatar-round' %></td>
 				<td valign="middle"><%= user.github %></td>
 				<td valign="middle"><%= user.email %></td>
 				<td valign="middle"><%= user.current_sign_in_at ? user.current_sign_in_at.to_formatted_s(:long) : "User has not signed in yet"  %></td>

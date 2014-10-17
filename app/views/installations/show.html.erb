@@ -3,12 +3,15 @@
 </div>
 
 <div class="btn-group">
-  <%= button_to 'Edit', edit_installation_path(@installation), method: :get, class: "btn primary" %>
-  <%= button_to 'Back', installations_path, method: :get, class: "btn primary" %>
+  <%= button_to 'Edit', edit_installation_path(@installation), method: :get, class: "btn btn-primary" %>
+  <%= button_to 'Back', installations_path, method: :get, class: "btn btn-primary" %>
 </div>
 
 <div class="row">
-  <div class="span12">
+  <div class="col-lg-12">
+    <div class="page-header">
+      <h2>About this Installation</h2>
+    </div>
     <p>
       <strong>Project:</strong>
       <%= link_to @installation.project.title, project_path(@installation.project) %>

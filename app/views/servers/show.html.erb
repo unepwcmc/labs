@@ -3,12 +3,15 @@
 </div>
 
 <div class="btn-group">
-  <%= button_to 'Back', servers_path, method: :get, :class => 'btn primary' %>
-  <%= button_to 'Edit', edit_server_path(@server), method: :get, :class => 'btn primary' %>
+  <%= button_to 'Back', servers_path, method: :get, :class => 'btn btn-primary' %>
+  <%= button_to 'Edit', edit_server_path(@server), method: :get, :class => 'btn btn-primary' %>
 </div>
 
 <div class="row">
-  <div class="span6">
+  <div class="col-lg-6">
+    <div class="page-header">
+      <h2>About this Server</h2>
+    </div>
     <p>
       <strong>Domain:</strong>
       <%= @server.domain %>
@@ -35,8 +38,10 @@
     </p>
   </div>
 
-  <div class="span6">
-    <h3>Installations on this Server</h3>
+  <div class="col-lg-6">
+    <div class="page-header">
+      <h2>Installations on this Server</h2>
+    </div>
     <% @installations.each do |installation| %>
       <%= link_to installation.name, installation_path(installation) %> for <%= link_to installation.project.title, project_path(installation.project) %> (<%= installation.stage %>/<%= installation.role %>)<br>
     <% end %>
