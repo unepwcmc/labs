@@ -1,3 +1,6 @@
+[![Code Climate](https://codeclimate.com/github/unepwcmc/labs/badges/gpa.svg)](https://codeclimate.com/github/unepwcmc/labs)
+[![Build Status](https://travis-ci.org/unepwcmc/labs.svg?branch=develop)](https://travis-ci.org/unepwcmc/labs)
+
 # WCMC Labs
 
 The homepage for the WCMC Informatics team. A basic rails app for showing off the Informatics team's projects, storing Servers, and information about the installations of projects across servers.
