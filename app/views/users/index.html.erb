@@ -9,7 +9,6 @@
 			<th>Github Username</th>
 			<th>Github Email</th>
 			<th>Last Login</th>
-			<th>Suspended User</th>
 		</tr>
 	</thead>
 
@@ -20,7 +19,6 @@
 				<td valign="middle"><%= user.github %></td>
 				<td valign="middle"><%= user.email %></td>
 				<td valign="middle"><%= user.current_sign_in_at ? user.current_sign_in_at.to_formatted_s(:long) : "User has not signed in yet"  %></td>
-				<td><%= link_to 'Suspend', suspend_user_path(user), method: :post, data: { confirm: "Are you sure?" } %></td>
 			</tr>
 		<% end %>
 	</tbody>
