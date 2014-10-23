@@ -1,8 +1,14 @@
 class ProjectsController < ApplicationController
+  before_action :authenticate_user!, :except => [:index]
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.where(:is_dashboard_only => false).order("created_at ASC")
+
+    @projects = params[:search].present? ?
+        Project.search(params[:search]).order("created_at DESC") :
+        Project.order("created_at DESC")
+    
+    @projects = @projects.published unless user_signed_in?
 
     respond_to do |format|
       format.html # index.html.erb
@@ -10,10 +16,15 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def list
+    @projects = Project.all
+  end
+
   # GET /projects/1
   # GET /projects/1.json
   def show
     @project = Project.find(params[:id])
+    @installations = @project.installations
 
     respond_to do |format|
       format.html # show.html.erb
@@ -84,8 +95,11 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:title,
+    params.require(:project).permit(:developers_array, :title,
       :description, :url, :github_id, :pivotal_tracker_id,
-      :toggl_id, :deadline, :screenshot_file_name)
+      :toggl_id, :deadline, :screenshot, :state, 
+      :repository_url, :dependencies, :internal_client, :current_lead, 
+      :hacks, :external_clients_array, :project_leads_array, :pdrive_folders_array, 
+      :dropbox_folders_array, :published)
   end
 end

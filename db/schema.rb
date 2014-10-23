@@ -9,43 +9,92 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended to check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140925144637) do
+ActiveRecord::Schema.define(version: 20141016102530) do
 
-  create_table "projects", :force => true do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+  enable_extension "pg_trgm"
+  enable_extension "fuzzystrmatch"
+
+  create_table "installations", force: true do |t|
+    t.integer  "project_id"
+    t.integer  "server_id"
+    t.string   "name"
+    t.string   "role"
+    t.string   "stage"
+    t.string   "branch"
+    t.string   "url"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "installations", ["project_id"], name: "index_installations_on_project_id", using: :btree
+  add_index "installations", ["server_id"], name: "index_installations_on_server_id", using: :btree
+
+  create_table "pg_search_documents", force: true do |t|
+    t.text     "content"
+    t.integer  "searchable_id"
+    t.string   "searchable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "projects", force: true do |t|
     t.string   "title"
     t.text     "description"
     t.string   "url"
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
-    t.string   "screenshot_file_name"
-    t.string   "screenshot_content_type"
-    t.integer  "screenshot_file_size"
-    t.datetime "screenshot_updated_at"
-    t.string   "github_id"
-    t.integer  "pivotal_tracker_id"
-    t.integer  "toggl_id"
-    t.date     "deadline"
-    t.boolean  "is_dashboard_only",       :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "published",        default: false
+    t.string   "screenshot"
+    t.string   "repository_url"
+    t.text     "dependencies"
+    t.string   "state"
+    t.string   "internal_client"
+    t.string   "current_lead"
+    t.text     "hacks"
+    t.text     "external_clients", default: [],    array: true
+    t.text     "project_leads",    default: [],    array: true
+    t.text     "developers",       default: [],    array: true
+    t.text     "pdrive_folders",   default: [],    array: true
+    t.text     "dropbox_folders",  default: [],    array: true
   end
 
-  create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+  create_table "servers", force: true do |t|
+    t.string   "name"
+    t.string   "domain"
+    t.string   "username"
+    t.string   "admin_url"
+    t.string   "os"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", force: true do |t|
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
+    t.integer  "sign_in_count",          default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "github"
+    t.string   "token"
+    t.boolean  "suspended",              default: false
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

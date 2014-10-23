@@ -2,26 +2,47 @@
 #
 # Table name: projects
 #
-#  id                      :integer          not null, primary key
-#  title                   :string(255)
-#  description             :text
-#  url                     :string(255)
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  screenshot_file_name    :string(255)
-#  screenshot_content_type :string(255)
-#  screenshot_file_size    :integer
-#  screenshot_updated_at   :datetime
-#  github_id               :string(255)
-#  pivotal_tracker_id      :integer
-#  toggl_id                :integer
-#  deadline                :date
+#  id               :integer          not null, primary key
+#  title            :string(255)
+#  description      :text
+#  url              :string(255)
+#  created_at       :datetime
+#  updated_at       :datetime
+#  published        :boolean          default(FALSE)
+#  screenshot       :string(255)
+#  repository_url   :string(255)
+#  dependencies     :text
+#  state            :string(255)
+#  internal_client  :string(255)
+#  current_lead     :string(255)
+#  hacks            :text
+#  external_clients :text             default([]), is an Array
+#  project_leads    :text             default([]), is an Array
+#  developers       :text             default([]), is an Array
+#  pdrive_folders   :text             default([]), is an Array
+#  dropbox_folders  :text             default([]), is an Array
 #
 
 require 'test_helper'
 
 class ProjectTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+	should validate_presence_of :title
+	should validate_presence_of :description
+	should validate_presence_of :repository_url
+	should validate_presence_of :state
+	should validate_inclusion_of(:state).in_array(['Under Development', 'Delivered', 'Project Development'])
+	should validate_presence_of :internal_client
+	should validate_presence_of :current_lead
+	should validate_presence_of :external_clients
+	should validate_presence_of :project_leads
+	should validate_presence_of :developers
+
+	test "responds to metaprogrammed array methods" do
+		@project = FactoryGirl.build(:project)
+		assert @project.respond_to?(:developers)
+		assert @project.respond_to?(:external_clients)
+		assert @project.respond_to?(:project_leads)
+		assert @project.respond_to?(:pdrive_folders)
+		assert @project.respond_to?(:dropbox_folders)
+	end
 end

@@ -1,17 +1,162 @@
 <div class="page-header">
-  <%= link_to 'Back', projects_path, :class => 'btn' %>
-  <%= link_to 'Edit', edit_project_path(@project), :class => 'btn primary' %>
-  <h1>Listing projects</h1>
+  <h1><%= @project.title %></h1>
 </div>
 
-<dl>
-  <dt>Title:</dt>
-  <dd><%= @project.title %></dd>
+<div class="btn-group">
+  <%= button_to 'Back', projects_path, method: :get, :class => 'btn' %>
+  <%= button_to 'Edit', edit_project_path(@project), method: :get, :class => 'btn btn-primary' %>
+</div>
 
-  <dt>Description:</dt>
-  <dd><%= @project.description %></dd>
+<div class="row">
+  <div class="col-lg-6">
+    <div class="page-header">
+      <h2>About the Project</h2>
+    </div>
+    <p>
+      <strong>URL:</strong>
+      <%= @project.url %>
+    </p>
 
-  <dt>Url:</dt>
-  <dd><%= @project.url %></dd>
+    <p>
+      <strong>Description:</strong>
+      <%= @project.description %>
+    </p>
 
-</dl>
+    <p>
+      <strong>Project Leads:</strong>
+      <% if !@project.project_leads.blank? %>
+        <ul>
+          <% @project.project_leads.each do |lead| %>
+            <li><%= lead %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no leads
+      <% end %>
+    </p>
+
+    <p>
+      <strong>External Clients:</strong>
+    
+      <% if !@project.external_clients.blank? %>
+        <ul>
+          <% @project.external_clients.each do |external_client| %>
+            <li><%= external_client %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no external clients
+      <% end %>
+    </p>
+
+    <p>
+      <strong>Developers:</strong>
+      <% if !@project.developers.blank? %>
+        <ul>
+          <% @project.developers.each do |developer| %>
+            <li><%= developer %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no developers
+      <% end %>
+    </p>
+
+
+    <p>
+      <strong>Published?</strong>
+      <%= @project.published ? "Yes" : "No" %>
+    </p>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="page-header">
+      <h2>This Projects Installations</h2>
+    </div>
+    <p>
+      <% if !@project.developers.blank? %>
+        <% @installations.each do |installation| %>
+            <%= link_to installation.name, installation_path(installation) %> (<%= installation.stage %>) on <%= link_to installation.server.name, server_path(installation.server) %><br>
+        <% end %>
+      <% else %>
+        This project has no installations
+      <% end %>
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="page-header">
+    <h2>About the Application</h2>
+  </div>
+
+  <div class="col-lg-6">
+    <p>
+      <strong>State:</strong>
+      <%= @project.state %>
+    </p>
+
+    <p>
+      <strong>Internal Client:</strong>
+      <%= @project.internal_client %>
+    </p>
+
+    <p>
+      <strong>Current Lead:</strong>
+      <%= @project.current_lead %>
+    </p>
+
+    <p>
+      <strong>Hacks:</strong>
+      <%= @project.hacks %>
+    </p>
+  </div>
+
+  <div class="col-lg-6">
+    <p>
+      <strong>Repository URL:</strong>
+      <%= @project.repository_url %>
+    </p>
+
+    <p>
+      <strong>Dependencies:</strong>
+      <%= @project.dependencies %>
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="page-header">
+    <h2>Resources</h2>
+  </div>
+
+  <div class="col-lg-6">
+    <p>
+      <strong>P Drive Folders:</strong>
+      <% if !@project.pdrive_folders.blank? %>
+        <ul>
+          <% @project.pdrive_folders.each do |folder| %>
+            <li><%= folder %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no P Drive folders
+      <% end %>
+    </p>
+  </div>
+
+  <div class="col-lg-6">
+    <p>
+      <strong>Dropbox Folders:</strong>
+      <% if !@project.dropbox_folders.blank? %>
+        <ul>
+          <% @project.dropbox_folders.each do |folder| %>
+            <li><%= folder %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no Dropbox folders
+      <% end %>
+    </p>
+  </div>
+</div>

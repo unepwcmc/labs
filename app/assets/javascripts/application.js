@@ -6,19 +6,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require select2
+//= require bootstrap.min
 //= require_tree .
 //
 
-$(document).ready(function(){
-  $(".project").hover(function(event){
-    $(this).find('a').css('text-decoration', 'underline');
-    $(this).css('cursor', 'pointer');
-  }, function(event){
-    $(this).find('a').css('text-decoration', 'none');
-  });
-
-  $(".project").click(function(event){
-    event.preventDefault();
-    window.location = $(this).attr("data-url");
-  });
-});

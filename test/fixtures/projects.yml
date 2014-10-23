@@ -2,30 +2,35 @@
 #
 # Table name: projects
 #
-#  id                      :integer          not null, primary key
-#  title                   :string(255)
-#  description             :text
-#  url                     :string(255)
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  screenshot_file_name    :string(255)
-#  screenshot_content_type :string(255)
-#  screenshot_file_size    :integer
-#  screenshot_updated_at   :datetime
-#  github_id               :string(255)
-#  pivotal_tracker_id      :integer
-#  toggl_id                :integer
-#  deadline                :date
+#  id               :integer          not null, primary key
+#  title            :string(255)
+#  description      :text
+#  url              :string(255)
+#  created_at       :datetime
+#  updated_at       :datetime
+#  published        :boolean          default(FALSE)
+#  screenshot       :string(255)
+#  repository_url   :string(255)
+#  dependencies     :text
+#  state            :string(255)
+#  internal_client  :string(255)
+#  current_lead     :string(255)
+#  hacks            :text
+#  external_clients :text             default([]), is an Array
+#  project_leads    :text             default([]), is an Array
+#  developers       :text             default([]), is an Array
+#  pdrive_folders   :text             default([]), is an Array
+#  dropbox_folders  :text             default([]), is an Array
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  title: MyString
-  description: MyText
-  url: MyString
+# one:
+#   title: MyString
+#   description: MyText
+#   url: MyString
 
-two:
-  title: MyString
-  description: MyText
-  url: MyString
+# two:
+#   title: MyString
+#   description: MyText
+#   url: MyString

@@ -1,0 +1,25 @@
+<div class="page-header">
+	<h1>Users</h1>
+</div>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Gravatar</th>
+			<th>Github Username</th>
+			<th>Github Email</th>
+			<th>Last Login</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @users.each do |user| %>
+			<tr class="user_row">
+				<td><%= image_tag gravatar(user), class: 'gravatar-round' %></td>
+				<td valign="middle"><%= user.github %></td>
+				<td valign="middle"><%= user.email %></td>
+				<td valign="middle"><%= user.current_sign_in_at ? user.current_sign_in_at.to_formatted_s(:long) : "User has not signed in yet"  %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

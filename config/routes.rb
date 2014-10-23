@@ -1,8 +1,22 @@
 Labs::Application.routes.draw do
 
-  devise_for :users
+  resources :installations
 
-  resources :projects, :only => ['index']
+  resources :servers
+
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }, :skip => [:registrations, :sessions, :passwords]
+  devise_scope :user do
+    delete '/users/sign_out', to: 'devise/sessions#destroy', as: 'destroy_user_session'
+  end
+
+  get '/projects/list', to: 'projects#list', as: 'list_projects'
+  
+  resources :projects
+
+
+
+  get '/users', to: 'users#index'
+  post '/users/suspend/:id', to: 'users#suspend', as: 'suspend_user'
 
   get '/contact', :to => 'home#contact'
   # You can have the root of your site routed with "root"

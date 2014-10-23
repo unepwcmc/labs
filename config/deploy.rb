@@ -2,7 +2,7 @@ set :default_stage, 'staging'
 require 'capistrano/ext/multistage'
 
 require 'rvm/capistrano'
-set :rvm_ruby_string, '1.9.3-p484'
+set :rvm_ruby_string, '2.0.0'
 
 set :whenever_command, "bundle exec whenever"
 #require "whenever/capistrano"
@@ -28,6 +28,18 @@ set :branch, "master"
 set :scm_username, "unepwcmc-read"
 set :git_enable_submodules, 1
 default_run_options[:pty] = true # Must be set for the password prompt from git to work
+
+# Slack Notifications
+require 'capistrano/slack'
+require 'yaml'
+set :secrets, YAML.load(File.open('config/secrets.yml'))
+
+set :slack_token, secrets["slack_token"] # comes from inbound webhook integration
+set :slack_room, "#labs"
+set :slack_subdomain, "wcmc" # if your subdomain is kohactive.slack.com
+set :slack_application, "Labs"
+set :slack_username, "Capistrano"
+set :slack_emoji, ":thumbsup:"
 
 ## Dependencies
 # Set the commands and gems that your application requires. e.g.
@@ -55,7 +67,7 @@ default_run_options[:pty] = true # Must be set for the password prompt from git 
 # items are symlinked in when the code is updated.
 set :local_shared_files, %w(config/database.yml config/initializers/rails_admin.rb config/config.yml
                            config/secrets.yml)
-set :local_shared_dirs, %w(public/system)
+set :local_shared_dirs, %w(public/system assets)
 
 desc "Configure VHost"
 task :config_vhost do
