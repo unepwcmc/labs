@@ -45,7 +45,8 @@ class Project < ActiveRecord::Base
   #           :dependencies, :hacks, :pdrive_folders, :dropbox_folders, :published]
 
   # Validations
-  validates :title, :state, presence: true
+  validates :title, :description, :state, presence: true
+  validates :url, if: :published, presence: true
 
   validates :state, inclusion: { in: ['Under Development', 'Delivered', 'Project Development'] }
 
