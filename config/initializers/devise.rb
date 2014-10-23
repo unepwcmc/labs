@@ -207,7 +207,7 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   require 'yaml'
-  secrets = YAML.load(File.open('config/secrets.yml'))
+  secrets = YAML.load(File.open('config/secrets.yml'))[Rails.env]
   
   config.omniauth :github, secrets["github_key"], secrets["github_secret"], :scope => 'user:email,repo,read:org'
 
