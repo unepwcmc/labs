@@ -63,6 +63,7 @@ class ProjectsControllerTest < ActionController::TestCase
     sign_in @user
     assert_difference('Project.count') do
     post :create, project: {  title: @project.title,
+                              url: @project.url,
                               description: @project.description,
                               repository_url: @project.repository_url,
                               state: @project.state,
