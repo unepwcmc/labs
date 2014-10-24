@@ -62,6 +62,31 @@
       <% end %>
     </p>
 
+    <p>
+      <strong>Pivotal Tracker IDs:</strong>
+      <% if !@project.pivotal_tracker_ids.blank? %>
+        <ul>
+          <% @project.pivotal_tracker_ids.each do |pivotal_tracker_id| %>
+            <li><%= pivotal_tracker_id %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no Pivotal Tracker IDs
+      <% end %>
+    </p>
+
+    <p>
+      <strong>Trello IDs:</strong>
+      <% if !@project.trello_ids.blank? %>
+        <ul>
+          <% @project.trello_ids.each do |trello_id| %>
+            <li><%= trello_id %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no Trello IDs
+      <% end %>
+    </p>
 
     <p>
       <strong>Published?</strong>
