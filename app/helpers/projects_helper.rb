@@ -4,6 +4,11 @@ module ProjectsHelper
     image_tag(source)
   end
 
+  def project_mini_preview project
+    source = project.screenshot.mini.url.blank? ? "http://placehold.it/200x120" : project.screenshot.mini.url
+    image_tag(source)
+  end
+
   def project_style project
     if !project.published?
       "unpublished-project"

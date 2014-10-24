@@ -1,5 +1,6 @@
-<div class="page-header">
-  <h1><%= @project.title %></h1>
+<div class="page-header project-header">
+	<h1><%= @project.title %></h1>
+	<%= link_to project_mini_preview(@project)%>
 </div>
 
 <div class="btn-group">
@@ -12,6 +13,7 @@
     <div class="page-header">
       <h2>About the Project</h2>
     </div>
+
     <p>
       <strong>URL:</strong>
       <%= @project.url %>
