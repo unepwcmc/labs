@@ -21,6 +21,8 @@
 #  developers       :text             default([]), is an Array
 #  pdrive_folders   :text             default([]), is an Array
 #  dropbox_folders  :text             default([]), is an Array
+#  pivotal_tracker_ids :text          default([]), is an Array
+#  trello_ids       :text             default([]), is an Array
 #
 
 class Project < ActiveRecord::Base
@@ -36,7 +38,8 @@ class Project < ActiveRecord::Base
   pg_search_scope :search,
     :against => [:title, :description, :repository_url, :state, :internal_client, 
             :current_lead, :external_clients, :project_leads, :developers, 
-            :dependencies, :hacks, :pdrive_folders, :dropbox_folders]
+            :dependencies, :hacks, :pdrive_folders, :dropbox_folders,
+            :pivotal_tracker_ids, :trello_ids]
 
   scope :published, -> { where(published: true) }
 
@@ -54,7 +57,7 @@ class Project < ActiveRecord::Base
   mount_uploader :screenshot, ScreenshotUploader
 
   # Create array getter and setter methods for postgres
-  ["developers","external_clients","project_leads","pdrive_folders","dropbox_folders"].each do |attribute|
+  ["developers","external_clients","project_leads","pdrive_folders","dropbox_folders","pivotal_tracker_ids","trello_ids"].each do |attribute|
   	define_method("#{attribute}_array") do
   		self.send(attribute).join(',')
   	end

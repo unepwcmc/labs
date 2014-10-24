@@ -100,6 +100,6 @@ class ProjectsController < ApplicationController
       :toggl_id, :deadline, :screenshot, :state, 
       :repository_url, :dependencies, :internal_client, :current_lead, 
       :hacks, :external_clients_array, :project_leads_array, :pdrive_folders_array, 
-      :dropbox_folders_array, :published)
+      :dropbox_folders_array, :pivotal_tracker_ids_array, :trello_ids_array, :published)
   end
 end

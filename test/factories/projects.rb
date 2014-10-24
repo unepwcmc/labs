@@ -35,6 +35,8 @@ FactoryGirl.define do
     external_clients {[ Faker::Name.name, Faker::Name.name, Faker::Name.name] }
     project_leads {[ Faker::Name.name, Faker::Name.name, Faker::Name.name] }
     developers {[ Faker::Name.name, Faker::Name.name, Faker::Name.name] }
+    pivotal_tracker_ids {[ Faker::Name.name, Faker::Name.name, Faker::Name.name] }
+    trello_ids {[ Faker::Name.name, Faker::Name.name, Faker::Name.name] }
     published true
 
     factory :draft_project do
