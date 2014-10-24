@@ -28,6 +28,20 @@ div.project {
   text-align: center;
 }
 
+div.project-header {
+	padding-bottom: 60px;
+}
+
+div.project-header h1 {
+	display: inline-block;
+	position: relative;
+	top: 25px;
+}
+
+div.project-header a {
+	float: right;
+}
+
 .button_to,
 .button_to div {
   display: inline;
