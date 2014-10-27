@@ -1,11 +1,10 @@
 <div class="page-header project-header">
+	<%= link_to project_preview(@project)%>
 	<h1><%= @project.title %></h1>
-	<%= link_to project_mini_preview(@project)%>
-</div>
-
-<div class="btn-group">
-  <%= button_to 'Back', projects_path, method: :get, :class => 'btn' %>
-  <%= button_to 'Edit', edit_project_path(@project), method: :get, :class => 'btn btn-primary' %>
+	<div class="btn-group">
+	  <%= button_to 'Back', projects_path, method: :get, :class => 'btn' %>
+	  <%= button_to 'Edit', edit_project_path(@project), method: :get, :class => 'btn btn-primary' %>
+	</div>
 </div>
 
 <div class="row">
