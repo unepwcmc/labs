@@ -42,8 +42,9 @@ div.project-header a {
   display: inline;
 }
 
-.btn-group { margin-bottom: 20px; top: 100px;}
+.btn-group { margin-bottom: 20px}
 
+div.project-header div.btn-group {top: 100px}
 
 .gravatar-round {
   -moz-border-radius: 50%;
