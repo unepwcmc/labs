@@ -39,6 +39,7 @@ module Labs
     config.assets.version = '1.0'
 
     config.assets.paths << Rails.root.join("app", "vendor", "assets")
+    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 
   end
 end
