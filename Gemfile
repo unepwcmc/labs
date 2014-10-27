@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 ruby '2.0.0'
-gem 'rails', '4.1.0'
+gem 'rails', '~> 4.1.1'
 #gem 'rake', '0.8.7'
 
 gem 'rvm-capistrano'
@@ -20,6 +20,8 @@ gem 'omniauth-github'
 gem 'pg_array_parser'
 gem "codeclimate-test-reporter", group: :test, require: nil
 gem 'pg_search', '~> 0.7.8'
+gem 'select2-rails'
+gem 'sass-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
