@@ -46,8 +46,8 @@ ActiveRecord::Schema.define(version: 20141024141948) do
     t.string   "title"
     t.text     "description"
     t.string   "url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.boolean  "published",           default: false
     t.string   "screenshot"
     t.string   "repository_url"
@@ -56,13 +56,13 @@ ActiveRecord::Schema.define(version: 20141024141948) do
     t.string   "internal_client"
     t.string   "current_lead"
     t.text     "hacks"
-    t.text     "external_clients",    default: [],    array: true
-    t.text     "project_leads",       default: [],    array: true
-    t.text     "developers",          default: [],    array: true
-    t.text     "pdrive_folders",      default: [],    array: true
-    t.text     "dropbox_folders",     default: [],    array: true
-    t.text     "pivotal_tracker_ids", default: [],    array: true
-    t.text     "trello_ids",          default: [],    array: true
+    t.text     "external_clients",    default: [],                 array: true
+    t.text     "project_leads",       default: [],                 array: true
+    t.text     "developers",          default: [],                 array: true
+    t.text     "pdrive_folders",      default: [],                 array: true
+    t.text     "dropbox_folders",     default: [],                 array: true
+    t.text     "pivotal_tracker_ids", default: [],                 array: true
+    t.text     "trello_ids",          default: [],                 array: true
   end
 
   create_table "servers", force: true do |t|
@@ -87,8 +87,8 @@ ActiveRecord::Schema.define(version: 20141024141948) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "provider"
     t.string   "uid"
     t.string   "github"
