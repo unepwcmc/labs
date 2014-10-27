@@ -73,6 +73,22 @@
       </div>
 
       <div class="form-group">
+        <%= f.label :pivotal_tracker_ids, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :pivotal_tracker_ids_array, class: "form-control tag-field" %>
+          <p class="help-block">Add a tag for each Pivotal Tracker ID</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :trello_ids, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :trello_ids_array, class: "form-control tag-field" %>
+          <p class="help-block">Add a tag for each Trello ID</p>
+        </div>
+      </div>
+
+      <div class="form-group">
         <div class="col-sm-2 control-label">
         <%= f.label :published %>
       </div>
