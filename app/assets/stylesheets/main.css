@@ -1,0 +1,32 @@
+body {
+  margin-top: 70px;
+}
+
+#search-box { text-align: right; }  
+
+footer {
+  margin-top: 20px;
+  padding: 20px 0;
+  border-top: 2px solid #33B5E5;
+}
+
+.button_to,
+.button_to div {
+  display: inline;
+}
+
+.btn-group { margin-bottom: 20px}
+
+.gravatar-round {
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.unpublished-project h3, .unpublished-project a {
+  color: #777;
+}
+
+.unpublished-project a:hover {
+  color: #fff;
+}
