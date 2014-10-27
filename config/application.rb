@@ -38,7 +38,7 @@ module Labs
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
-    config.assets.precompile += %w(vendor/assets/images/*.png vendor/assets/images/*.gif)
+    config.assets.paths << Rails.root.join("vendor", "assets")
 
   end
 end
