@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!, :except => [:index]
+  before_action :available_developers, :only => [:new, :edit]
   # GET /projects
   # GET /projects.json
   def index
@@ -58,7 +59,10 @@ class ProjectsController < ApplicationController
         format.html { redirect_to @project, :notice => 'Project was successfully created.' }
         format.json { render :json => @project, :status => :created, :location => @project }
       else
-        format.html { render :action => "new" }
+        format.html {
+          available_developers
+          render :action => "new"
+        }
         format.json { render :json => @project.errors, :status => :unprocessable_entity }
       end
     end
@@ -74,7 +78,10 @@ class ProjectsController < ApplicationController
         format.html { redirect_to @project, :notice => 'Project was successfully updated.' }
         format.json { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html {
+          available_developers
+          render :action => "edit"
+        }
         format.json { render :json => @project.errors, :status => :unprocessable_entity }
       end
     end
@@ -93,6 +100,11 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def available_developers
+    @developers = (Project.select("unnest(developers) as developers").where('developers IS NOT NULL').
+      uniq.map(&:developers) + User.all.map(&:github)).uniq.sort
+  end
 
   def project_params
     params.require(:project).permit(:developers_array, :title,
