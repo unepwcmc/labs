@@ -60,6 +60,7 @@ end
 
 group :test, :development do
   gem 'faker'
+  gem 'byebug'
 end
 
 
