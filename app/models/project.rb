@@ -67,4 +67,5 @@ class Project < ActiveRecord::Base
       self.send(:save)
   	end
   end
+
 end

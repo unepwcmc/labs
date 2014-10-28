@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!, :except => [:index]
+  before_action :available_developers, :only => [:new, :edit]
   # GET /projects
   # GET /projects.json
   def index
@@ -93,6 +94,11 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def available_developers
+    @developers = (Project.select("unnest(developers) as developers").uniq.
+      map(&:developers) + User.all.map(&:github)).uniq.sort
+  end
 
   def project_params
     params.require(:project).permit(:developers_array, :title,
