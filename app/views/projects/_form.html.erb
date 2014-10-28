@@ -67,7 +67,8 @@
       <div class="form-group">
         <%= f.label :developers, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-          <%= f.text_field :developers_array, class: "form-control tag-field" %>
+        <%= f.text_field :developers_array, class: "form-control tag-field2",
+			data: {tags: @developers.map{|t| {id: t, text: t}} }  %>
           <p class="help-block">Add a tag for each developer</p>
         </div>
       </div>
