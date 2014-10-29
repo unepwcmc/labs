@@ -13,11 +13,15 @@ Labs::Application.routes.draw do
   end
 
   resources :projects do
+    resources :comments
     collection do
       get :list
     end
   end
-  resources :installations
+
+  resources :installations do
+    resources :comments
+  end
   resources :servers
 
   get '/contact', :to => 'home#contact'

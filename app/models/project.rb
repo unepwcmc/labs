@@ -33,6 +33,7 @@ class Project < ActiveRecord::Base
   # Relationships
   has_many :installations
   has_many :projects, through: :installation
+  has_many :comments, as: :commentable
 
 
   # Custom search scope for publically viewable projects

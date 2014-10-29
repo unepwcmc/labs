@@ -7,6 +7,10 @@ class InstallationsController < ApplicationController
 
   def show
     set_installation
+
+    @commentable = @installation
+    @comments = @commentable.comments
+    @comment = Comment.new
   end
 
   def new

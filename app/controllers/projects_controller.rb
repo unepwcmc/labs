@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
     @projects = params[:search].present? ?
         Project.search(params[:search]).order("created_at DESC") :
         Project.order("created_at DESC")
-    
+
     @projects = @projects.published unless user_signed_in?
 
     respond_to do |format|
@@ -26,6 +26,10 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
     @installations = @project.installations
+
+    @commentable = @project
+    @comments = @commentable.comments
+    @comment = Comment.new
 
     respond_to do |format|
       format.html # show.html.erb

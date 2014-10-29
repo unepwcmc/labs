@@ -1,0 +1,17 @@
+<% if @comments.count == 0 %>
+  <div id="no_comments">
+	  <p> No comments </p>
+  </div>
+<% else %>
+  <div id="comments">
+	  <% @comments.each do |comment| %>
+	  <div class="comment">
+		  <div class="details">
+			  <%= simple_format User.find(comment.user_id).github %>
+			  <%= simple_format comment.created_at.to_s(:db)%>
+		  </div>
+		  <%= simple_format comment.content%>
+	  </div>
+	  <% end %>
+  </div>
+<% end %>
