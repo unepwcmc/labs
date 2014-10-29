@@ -30,6 +30,8 @@ class User < ActiveRecord::Base
     :omniauthable,
     :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :comments
+
   #include PgSearch
   #multisearchable against: :github
 
