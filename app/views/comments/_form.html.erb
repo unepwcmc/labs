@@ -10,10 +10,15 @@
     </div>
   <% end %>
 
-  <div class="comment_field">
-    <%= f.text_area :content, rows: 8 %>
-  </div>
-  <div class="comment_actions">
-    <%= f.submit %>
-  </div>
+<article class="comment">
+	<a class="comment-img" href="#non">
+		<%= image_tag gravatar(@user), class: 'gravatar-round' %>
+	</a>
+	<div class="comment-body">
+		<%= f.text_area :content, class: 'text'%>
+	</div>
+</article>
+<div class="comment-actions">
+	<%= f.submit %>
+</div>
 <% end %>

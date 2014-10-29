@@ -3,15 +3,21 @@
 	  <p> No comments </p>
   </div>
 <% else %>
-  <div id="comments">
-	  <% @comments.each do |comment| %>
-	  <div class="comment">
-		  <div class="details">
-			  <%= simple_format User.find(comment.user_id).github %>
-			  <%= simple_format comment.created_at.to_s(:db)%>
-		  </div>
-		  <%= simple_format comment.content%>
-	  </div>
-	  <% end %>
-  </div>
+
+<section class="comments">
+  <% @comments.each do |comment| @c_user = User.find(comment.user_id)%>
+    <article class="comment">
+		<a class="comment-img" href="#non">
+			<%= image_tag gravatar(@c_user), class: 'gravatar-round' %>
+		</a>
+		<div class="comment-body">
+			<div class="text">
+				<p><%= comment.content %></p>
+			</div>
+			<p class="attribution">by <a href="#non"><%= @c_user.github %></a> at <%= comment.created_at.to_s(:db) %></p>
+		</div>
+	</article>
+	<% end %>
+</section>​
+
 <% end %>

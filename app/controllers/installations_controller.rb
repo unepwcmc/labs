@@ -11,6 +11,9 @@ class InstallationsController < ApplicationController
     @commentable = @installation
     @comments = @commentable.comments
     @comment = Comment.new
+
+    @user = User.find(current_user.id)
+
   end
 
   def new
