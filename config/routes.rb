@@ -22,7 +22,10 @@ Labs::Application.routes.draw do
   resources :installations do
     resources :comments
   end
-  resources :servers
+
+  resources :servers do
+    resources :comments
+  end
 
   get '/contact', :to => 'home#contact'
   # You can have the root of your site routed with "root"

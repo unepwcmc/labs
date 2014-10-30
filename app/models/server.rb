@@ -16,6 +16,7 @@
 class Server < ActiveRecord::Base
   has_many :installations
   has_many :projects, through: :installations
+  has_many :comments, as: :commentable
 
   #Validations
   validates :name, :domain, :os, presence: true
