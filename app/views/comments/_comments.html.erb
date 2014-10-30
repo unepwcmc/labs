@@ -1,12 +1,6 @@
-<% if @comments.count == 0 %>
-  <div id="no_comments">
-	  <p> No comments </p>
-  </div>
-<% else %>
-
 <section class="comments">
-  <% @comments.each do |comment| @c_user = User.find(comment.user_id)%>
-    <article class="comment">
+	<% @comments.each do |comment| @c_user = User.find(comment.user_id)%>
+	<article class="comment">
 		<a class="comment-img" href="#non">
 			<%= image_tag gravatar(@c_user), class: 'gravatar-round' %>
 		</a>
@@ -19,5 +13,3 @@
 	</article>
 	<% end %>
 </section>​
-
-<% end %>
