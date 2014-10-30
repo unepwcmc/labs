@@ -8,11 +8,8 @@ class InstallationsController < ApplicationController
   def show
     set_installation
 
-    @commentable = @installation
-    @comments = @commentable.comments
+    @comments = @installation.comments
     @comment = Comment.new
-
-    @user = User.find(current_user.id)
 
   end
 

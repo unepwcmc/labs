@@ -27,11 +27,8 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @installations = @project.installations
 
-    @commentable = @project
-    @comments = @commentable.comments
+    @comments = @project.comments
     @comment = Comment.new
-
-    @user = User.find(current_user.id)
 
     respond_to do |format|
       format.html # show.html.erb

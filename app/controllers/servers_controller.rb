@@ -9,17 +9,13 @@ class ServersController < ApplicationController
     @server = Server.find(params[:id])
     @installations = @server.installations
 
-    @commentable = @server
-    @comments = @commentable.comments
+    @comments = @server.comments
     @comment = Comment.new
-
-    @user = User.find(current_user.id)
 
   end
 
   def new
     @server = Server.new
-    #respond_with(@server)
   end
 
   def edit
