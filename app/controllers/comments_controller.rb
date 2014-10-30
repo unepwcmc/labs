@@ -8,8 +8,9 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to @commentable, notice: "Comment created."}
-        format.json { render :json => @comment, :status => :created, :location => @comment }
+        #format.html { redirect_to @commentable, notice: "Comment created."}
+        format.json { render :json => {content: @comment.content, created_at: @comment.created_at.to_s(:db), 
+          gravatar_id: Digest::MD5.hexdigest(current_user.email.downcase), github: current_user.github}, :status => :created}
       else
         format.html {
           available_developers

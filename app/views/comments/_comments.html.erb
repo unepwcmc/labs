@@ -14,7 +14,7 @@
 			<div class="text">
 				<p><%= comment.content %></p>
 			</div>
-			<p class="attribution">by <a href="#non"><%= @c_user.github %></a> at <%= comment.created_at.to_s(:db) %></p>
+			<p class="attribution">by <span class="comment-user"><%= @c_user.github %></span> at <%= comment.created_at.to_s(:db) %></p>
 		</div>
 	</article>
 	<% end %>

@@ -105,6 +105,11 @@ form .comment_field, form .comment_actions {
     background: orange;
 }
 
+
+.comment-user {
+	color: blue;
+}
+
 .comment .text:before {
     top: 18px;
     left: 78px;
