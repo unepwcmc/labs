@@ -9,7 +9,7 @@ class ServersController < ApplicationController
     @server = Server.find(params[:id])
     @installations = @server.installations
 
-    @comments = @server.comments
+    @comments = @server.comments.sort_by &:created_at
     @comment = Comment.new
 
   end
