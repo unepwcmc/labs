@@ -11,14 +11,14 @@
   <% end %>
 
 <article class="comment">
-	<a class="comment-img" href="#non">
-		<%= image_tag gravatar(current_user), class: 'gravatar-round' %>
-	</a>
-	<div class="comment-body">
-		<%= f.text_area :content, class: 'text'%>
-	</div>
+  <a class="comment-img" href="#non">
+    <%= image_tag gravatar(current_user), class: 'gravatar-round' %>
+  </a>
+  <div class="comment-body">
+    <%= f.text_area :content, class: 'text'%>
+  </div>
 </article>
 <div class="comment-actions">
-	<%= f.submit %>
+  <%= f.submit %>
 </div>
 <% end %>
