@@ -66,6 +66,6 @@ class ServersController < ApplicationController
     end
 
     def server_params
-      params.require(:server).permit(:name, :domain, :username, :admin_url, :os, :description)
+      params.require(:server).permit(:name, :domain, :username, :admin_url, :os, :description, :ssh_key_name)
     end
 end
