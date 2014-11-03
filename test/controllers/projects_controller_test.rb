@@ -74,6 +74,7 @@ class ProjectsControllerTest < ActionController::TestCase
                               developers_array: @project.developers.join(','),
                               pivotal_tracker_ids: @project.pivotal_tracker_ids.join(','),
                               trello_ids: @project.trello_ids.join(','),
+                              backup_information: @project.backup_information,
                               published: @project.published
                             }
     end
