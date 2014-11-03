@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @installations = @project.installations
 
-    @comments = @project.comments.sort_by &:created_at
+    @comments = @project.comments.order(:created_at)
     @comment = Comment.new
 
     respond_to do |format|
