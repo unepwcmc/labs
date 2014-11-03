@@ -105,8 +105,10 @@ class ProjectsController < ApplicationController
   private
 
   def available_developers
-    @developers = (Project.select("unnest(developers) as developers").where('developers IS NOT NULL').
-      uniq.map(&:developers) + User.all.map(&:github)).uniq.sort
+    devs = Project.select("unnest(developers) as developers").where('developers IS NOT NULL').uniq.
+      map(&:developers)
+    users = User.select(:github).map(&:github)
+    @developers = (devs + users).uniq.reject{|t| t.nil?}.sort || []
   end
 
   def project_params
