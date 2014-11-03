@@ -8,7 +8,7 @@ class InstallationsController < ApplicationController
   def show
     set_installation
 
-    @comments = @installation.comments.sort_by &:created_at
+    @comments = @installation.comments.order(:created_at)
     @comment = Comment.new
 
   end
