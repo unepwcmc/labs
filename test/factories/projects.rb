@@ -37,6 +37,7 @@ FactoryGirl.define do
     developers {[ Faker::Name.name, Faker::Name.name, Faker::Name.name] }
     pivotal_tracker_ids {[ Faker::Name.name, Faker::Name.name, Faker::Name.name] }
     trello_ids {[ Faker::Name.name, Faker::Name.name, Faker::Name.name] }
+    backup_information Faker::Lorem.paragraph
     published true
 
     factory :draft_project do
