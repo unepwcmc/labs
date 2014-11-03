@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 ruby '2.0.0'
-gem 'rails', '4.1.0'
+gem 'rails', '~> 4.1.7'
 #gem 'rake', '0.8.7'
 
 gem 'rvm-capistrano'
@@ -20,6 +20,8 @@ gem 'omniauth-github'
 gem 'pg_array_parser'
 gem "codeclimate-test-reporter", group: :test, require: nil
 gem 'pg_search', '~> 0.7.8'
+gem 'select2-rails'
+gem 'sass-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -31,7 +33,7 @@ gem 'pg_search', '~> 0.7.8'
 gem 'capistrano'
 gem 'brightbox'
 gem 'capistrano-ext'
-gem 'capistrano-slack', :git => 'https://github.com/j-mcnally/capistrano-slack.git'
+gem 'capistrano-slack', '1.3.1'
 gem 'whenever'
 gem 'exception_notification', :git => 'https://github.com/smartinez87/exception_notification.git'
 gem 'slack-notifier'
@@ -58,6 +60,7 @@ end
 
 group :test, :development do
   gem 'faker'
+  gem 'byebug'
 end
 
 

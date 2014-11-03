@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!, :except => [:index]
+  before_action :available_developers, :only => [:new, :edit]
   # GET /projects
   # GET /projects.json
   def index
@@ -58,7 +59,10 @@ class ProjectsController < ApplicationController
         format.html { redirect_to @project, :notice => 'Project was successfully created.' }
         format.json { render :json => @project, :status => :created, :location => @project }
       else
-        format.html { render :action => "new" }
+        format.html {
+          available_developers
+          render :action => "new"
+        }
         format.json { render :json => @project.errors, :status => :unprocessable_entity }
       end
     end
@@ -74,7 +78,10 @@ class ProjectsController < ApplicationController
         format.html { redirect_to @project, :notice => 'Project was successfully updated.' }
         format.json { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html {
+          available_developers
+          render :action => "edit"
+        }
         format.json { render :json => @project.errors, :status => :unprocessable_entity }
       end
     end
@@ -94,12 +101,17 @@ class ProjectsController < ApplicationController
 
   private
 
+  def available_developers
+    @developers = (Project.select("unnest(developers) as developers").where('developers IS NOT NULL').
+      uniq.map(&:developers) + User.all.map(&:github)).uniq.sort
+  end
+
   def project_params
     params.require(:project).permit(:developers_array, :title,
       :description, :url, :github_id, :pivotal_tracker_id,
       :toggl_id, :deadline, :screenshot, :state, 
       :repository_url, :dependencies, :internal_client, :current_lead, 
       :hacks, :external_clients_array, :project_leads_array, :pdrive_folders_array, 
-      :dropbox_folders_array, :published)
+      :dropbox_folders_array, :pivotal_tracker_ids_array, :trello_ids_array, :backup_information, :published)
   end
 end

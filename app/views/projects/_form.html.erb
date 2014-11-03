@@ -46,6 +46,13 @@
           <p class="help-block">Add a tag for each project lead</p>
         </div>
       </div>
+
+      <div class="form-group">
+        <%= f.label :backup_information, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :backup_information, class: "form-control" %>
+        </div>
+      </div>
     </div>
 
     <div class="col-lg-6">
@@ -67,8 +74,25 @@
       <div class="form-group">
         <%= f.label :developers, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-          <%= f.text_field :developers_array, class: "form-control tag-field" %>
+        <%= f.text_field :developers_array, class: "form-control tag-field2",
+			data: {tags: @developers.map{|t| {id: t, text: t}} }  %>
           <p class="help-block">Add a tag for each developer</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :pivotal_tracker_ids, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :pivotal_tracker_ids_array, class: "form-control tag-field" %>
+          <p class="help-block">Add a tag for each Pivotal Tracker ID</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :trello_ids, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :trello_ids_array, class: "form-control tag-field" %>
+          <p class="help-block">Add a tag for each Trello ID</p>
         </div>
       </div>
 

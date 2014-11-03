@@ -1,10 +1,10 @@
-<div class="page-header">
-  <h1><%= @project.title %></h1>
-</div>
-
-<div class="btn-group">
-  <%= button_to 'Back', projects_path, method: :get, :class => 'btn' %>
-  <%= button_to 'Edit', edit_project_path(@project), method: :get, :class => 'btn btn-primary' %>
+<div class="page-header project-header">
+	<%= link_to project_preview(@project)%>
+	<h1><%= @project.title %></h1>
+	<div class="btn-group">
+	  <%= button_to 'Back', projects_path, method: :get, :class => 'btn' %>
+	  <%= button_to 'Edit', edit_project_path(@project), method: :get, :class => 'btn btn-primary' %>
+	</div>
 </div>
 
 <div class="row">
@@ -12,6 +12,7 @@
     <div class="page-header">
       <h2>About the Project</h2>
     </div>
+
     <p>
       <strong>URL:</strong>
       <%= @project.url %>
@@ -37,7 +38,7 @@
 
     <p>
       <strong>External Clients:</strong>
-    
+
       <% if !@project.external_clients.blank? %>
         <ul>
           <% @project.external_clients.each do |external_client| %>
@@ -62,6 +63,36 @@
       <% end %>
     </p>
 
+    <p>
+      <strong>Pivotal Tracker IDs:</strong>
+      <% if !@project.pivotal_tracker_ids.blank? %>
+        <ul>
+          <% @project.pivotal_tracker_ids.each do |pivotal_tracker_id| %>
+            <li><%= pivotal_tracker_id %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no Pivotal Tracker IDs
+      <% end %>
+    </p>
+
+    <p>
+      <strong>Trello IDs:</strong>
+      <% if !@project.trello_ids.blank? %>
+        <ul>
+          <% @project.trello_ids.each do |trello_id| %>
+            <li><%= trello_id %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no Trello IDs
+      <% end %>
+    </p>
+
+    <p>
+      <strong>Backup Information:</strong>
+      <%= @project.backup_information %>
+    </p>
 
     <p>
       <strong>Published?</strong>
@@ -74,9 +105,10 @@
       <h2>This Projects Installations</h2>
     </div>
     <p>
-      <% if !@project.developers.blank? %>
+      <% if !@installations.empty? %>
         <% @installations.each do |installation| %>
-            <%= link_to installation.name, installation_path(installation) %> (<%= installation.stage %>) on <%= link_to installation.server.name, server_path(installation.server) %><br>
+            <%= link_to installation.name, installation_path(installation) %> (<%= installation.stage %>)
+              on <%= link_to installation.server.name, server_path(installation.server) %><br>
         <% end %>
       <% else %>
         This project has no installations
