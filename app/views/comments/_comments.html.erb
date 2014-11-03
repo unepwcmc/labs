@@ -1,21 +1,21 @@
 <section class="comments">
-	<% @comments.each do |comment| @c_user = User.find(comment.user_id)%>
-	<article class="comment">
-		<a class="comment-img" href="#non">
-			<%= image_tag gravatar(@c_user), class: 'gravatar-round' %>
-		</a>
-		<div class="comment-body">
-			<div class="text">
-				<p><%= comment.content %></p>
-			</div>
-			<p class="attribution"><span>by </span><span class="comment-user"><%= @c_user.github %></span>
-			<span> at <%= comment.created_at.to_s(:db) %></span>
-			  <% if current_user.id == @c_user.id%>
-			    <%= link_to "Delete", comment_path(comment), method: :delete, data: { confirm: "Are you sure you want to delete this comment?"},
-				class: "comment-delete" %>
-			  <% end %>
-			</p>
-		</div>
-	</article>
-	<% end %>
+  <% @comments.each do |comment| @c_user = User.find(comment.user_id)%>
+    <article class="comment">
+      <a class="comment-img" href="#non">
+        <%= image_tag gravatar(@c_user), class: 'gravatar-round' %>
+      </a>
+      <div class="comment-body">
+        <div class="text">
+          <p><%= comment.content %></p>
+        </div>
+        <p class="attribution"><span>by </span><span class="comment-user"><%= @c_user.github %></span>
+          <span> at <%= comment.created_at.to_s(:db) %></span>
+            <% if current_user.id == @c_user.id%>
+              <%= link_to "Delete", comment_path(comment), method: :delete, data: { confirm: "Are you sure you want to delete this comment?"},
+              class: "comment-delete" %>
+            <% end %>
+        </p>
+      </div>
+    </article>
+  <% end %>
 </section>​
