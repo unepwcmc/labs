@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141103110750) do
+ActiveRecord::Schema.define(version: 20141103165307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,6 @@ ActiveRecord::Schema.define(version: 20141103110750) do
   create_table "installations", force: true do |t|
     t.integer  "project_id"
     t.integer  "server_id"
-    t.string   "name"
     t.string   "role"
     t.string   "stage"
     t.string   "branch"
@@ -60,7 +59,7 @@ ActiveRecord::Schema.define(version: 20141103110750) do
     t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "published",           default: false
+    t.boolean  "published",             default: false
     t.string   "screenshot"
     t.string   "repository_url"
     t.text     "dependencies"
@@ -68,14 +67,19 @@ ActiveRecord::Schema.define(version: 20141103110750) do
     t.string   "internal_client"
     t.string   "current_lead"
     t.text     "hacks"
-    t.text     "external_clients",    default: [],    array: true
-    t.text     "project_leads",       default: [],    array: true
-    t.text     "developers",          default: [],    array: true
-    t.text     "pdrive_folders",      default: [],    array: true
-    t.text     "dropbox_folders",     default: [],    array: true
-    t.text     "pivotal_tracker_ids", default: [],    array: true
-    t.text     "trello_ids",          default: [],    array: true
+    t.text     "external_clients",      default: [],    array: true
+    t.text     "project_leads",         default: [],    array: true
+    t.text     "developers",            default: [],    array: true
+    t.text     "pdrive_folders",        default: [],    array: true
+    t.text     "dropbox_folders",       default: [],    array: true
+    t.text     "pivotal_tracker_ids",   default: [],    array: true
+    t.text     "trello_ids",            default: [],    array: true
     t.text     "backup_information"
+    t.date     "expected_release_date"
+    t.string   "rails_version"
+    t.string   "ruby_version"
+    t.string   "postgresql_version"
+    t.text     "other_technologies",    default: [],    array: true
   end
 
   create_table "servers", force: true do |t|
@@ -87,6 +91,7 @@ ActiveRecord::Schema.define(version: 20141103110750) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "ssh_key_name"
   end
 
   create_table "users", force: true do |t|
