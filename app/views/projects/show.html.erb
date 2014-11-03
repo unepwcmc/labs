@@ -38,7 +38,7 @@
 
     <p>
       <strong>External Clients:</strong>
-    
+
       <% if !@project.external_clients.blank? %>
         <ul>
           <% @project.external_clients.each do |external_client| %>
@@ -105,9 +105,10 @@
       <h2>This Projects Installations</h2>
     </div>
     <p>
-      <% if !@project.developers.blank? %>
+      <% if !@installations.empty? %>
         <% @installations.each do |installation| %>
-            <%= link_to installation.name, installation_path(installation) %> (<%= installation.stage %>) on <%= link_to installation.server.name, server_path(installation.server) %><br>
+            <%= link_to installation.name, installation_path(installation) %> (<%= installation.stage %>)
+              on <%= link_to installation.server.name, server_path(installation.server) %><br>
         <% end %>
       <% else %>
         This project has no installations
