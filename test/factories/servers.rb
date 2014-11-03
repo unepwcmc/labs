@@ -21,5 +21,6 @@ FactoryGirl.define do
     admin_url Faker::Internet.url
     os { ['Windows', 'Linux'].sample }
     description Faker::Lorem.paragraph
+    ssh_key_name Faker::Lorem.paragraph
   end
 end

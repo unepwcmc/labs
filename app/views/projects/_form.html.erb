@@ -97,6 +97,14 @@
       </div>
 
       <div class="form-group">
+        <%= f.label :expected_release_date, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.date_field :expected_release_date, class: "form-control" %>
+          <p class="help-block">Expected release date</p>
+        </div>
+      </div>
+
+      <div class="form-group">
         <div class="col-sm-2 control-label">
         <%= f.label :published %>
       </div>
@@ -141,13 +149,43 @@
           <%= f.text_area :hacks, class: "form-control" %>
         </div>
       </div>
-    </div>
 
-    <div class="col-lg-6">
       <div class="form-group">
         <%= f.label :repository_url, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
           <%= f.text_field :repository_url, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+
+      <div class="form-group">
+        <%= f.label :rails_version, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :rails_version, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :ruby_version, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :ruby_version, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :postgresql_version, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :postgresql_version, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :other_technologies, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :other_technologies_array, class: "form-control tag-field" %>
+          <p class="help-block">Add a tag for each technology</p>
         </div>
       </div>
 
