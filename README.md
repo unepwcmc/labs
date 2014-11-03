@@ -19,3 +19,6 @@ You will need to register an application with Github to use this and stub out th
 For local development, homepage URL for the github application will need to be http://0.0.0.0:3000 and Authorization Callback URL will be http://0.0.0.0:3000/users/auth/github/callback
 
 
+## Gem Description
+
+[Dependency Status]: https://gemnasium.com/unepwcmc/labs 
