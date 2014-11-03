@@ -7,15 +7,6 @@ GIT
       rake (>= 0.8.7)
 
 GIT
-  remote: https://github.com/j-mcnally/capistrano-slack.git
-  revision: 35112edc71d338fe8f881e36a9275e51d22e903c
-  specs:
-    capistrano-slack (1.3.2)
-      activesupport (>= 3)
-      capistrano
-      capistrano-log_with_awesome (~> 0.0.2)
-
-GIT
   remote: https://github.com/smartinez87/exception_notification.git
   revision: 9341d9a799c6ef731c7f1f2cf2da3b1d407e596c
   specs:
@@ -75,6 +66,10 @@ GEM
       capistrano (>= 1.0.0)
     capistrano-log_with_awesome (0.0.2)
       capistrano (>= 2.5.14)
+    capistrano-slack (1.3.1)
+      activesupport (>= 3)
+      capistrano (~> 2.15.5)
+      capistrano-log_with_awesome (~> 0.0.2)
     capybara (2.4.4)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -259,7 +254,7 @@ DEPENDENCIES
   byebug
   capistrano
   capistrano-ext
-  capistrano-slack!
+  capistrano-slack (= 1.3.1)
   capybara
   carrierwave
   codeclimate-test-reporter
