@@ -1,5 +1,5 @@
 [![Code Climate](https://codeclimate.com/github/unepwcmc/labs/badges/gpa.svg)](https://codeclimate.com/github/unepwcmc/labs)
-[![Build Status](https://travis-ci.org/unepwcmc/labs.svg?branch=master)](https://travis-ci.org/unepwcmc/labs)
+[![Build Status](https://travis-ci.org/unepwcmc/labs.svg?branch=master)](https://travis-ci.org/unepwcmc/abs)
 
 # WCMC Labs
 
