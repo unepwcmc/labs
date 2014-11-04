@@ -27,6 +27,6 @@ class Installation < ActiveRecord::Base
   validates :stage, inclusion: { in: ['Staging', 'Production']}
 
   def name
-    "#{Project.find(project_id).title}_#{role}_#{stage}"
+    "#{self.project.title}_#{role}_#{stage}"
   end
 end
