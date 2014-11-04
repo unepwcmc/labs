@@ -8,6 +8,6 @@ $(document).ready(function(){
     $(this).replaceWith(this.alt)
   };
 
-  $(".badge_img").error(showAlt).attr("src", $(selector).src)
+  $(".badge_img").error(showAlt)
 
 });
