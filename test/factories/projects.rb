@@ -41,6 +41,11 @@ FactoryGirl.define do
     pivotal_tracker_ids {[ Faker::Name.name, Faker::Name.name, Faker::Name.name] }
     trello_ids {[ Faker::Name.name, Faker::Name.name, Faker::Name.name] }
     backup_information Faker::Lorem.paragraph
+    expected_release_date {Date.today + Faker::Number.number(3).to_i.days}
+    rails_version {Faker::Name.name}
+    ruby_version {Faker::Name.name}
+    postgresql_version {Faker::Name.name}
+    other_technologies {[Faker::Name.name, Faker::Name.name, Faker::Name.name]}
     published true
 
     factory :draft_project do
