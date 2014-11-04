@@ -15,3 +15,7 @@ div.project-header a {
 }
 
 div.project-header div.btn-group {top: 100px}
+
+.badge_img {
+	margin-left: 15px;
+}
