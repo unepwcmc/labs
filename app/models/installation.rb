@@ -21,8 +21,12 @@ class Installation < ActiveRecord::Base
   has_many :comments, as: :commentable
 
   #Validations
-  validates :project_id, :server_id, :name, :role, :stage, :branch, :url, presence: true
+  validates :project_id, :server_id, :role, :stage, :branch, presence: true
+  validates :url, presence: true, if: lambda { |installation| installation.role != "Database"}
   validates :role, inclusion: { in: ['Web', 'Database', 'Web & Database']}
   validates :stage, inclusion: { in: ['Staging', 'Production']}
-  validates :name, uniqueness: true
+
+  def name
+    "#{self.project.title}_#{role}_#{stage}"
+  end
 end
