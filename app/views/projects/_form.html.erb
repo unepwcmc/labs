@@ -151,9 +151,10 @@
       </div>
 
       <div class="form-group">
-        <%= f.label :repository_url, class: "col-sm-2 control-label" %>
+        <%= f.label :github_identifier, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-          <%= f.text_field :repository_url, class: "form-control" %>
+          <%= f.text_field :github_identifier, class: "form-control" %>
+          <p class="help-block">E.g.: unepwcmc/SAPI (make sure to use the exact name of the repo, case sensitive)</p>
         </div>
       </div>
     </div>

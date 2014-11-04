@@ -29,7 +29,7 @@ class CrudProjectsTest < ActionDispatch::IntegrationTest
       within("#new_project") do
         fill_in 'Title', :with => @project.title
         fill_in 'Description', :with => @project.description
-        fill_in 'Repository url', :with => @project.repository_url
+        fill_in 'Github identifier', :with => @project.github_identifier
         select @project.state, :from => 'State'
         fill_in 'Internal client', :with => @project.internal_client
         fill_in 'Current lead', :with => @project.current_lead

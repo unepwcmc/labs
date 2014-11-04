@@ -65,7 +65,7 @@ class ProjectsControllerTest < ActionController::TestCase
     post :create, project: {  title: @project.title,
                               url: @project.url,
                               description: @project.description,
-                              repository_url: @project.repository_url,
+                              github_identifier: @project.github_identifier,
                               state: @project.state,
                               internal_client: @project.internal_client,
                               current_lead: @project.current_lead,
