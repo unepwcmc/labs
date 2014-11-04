@@ -2,28 +2,33 @@
 #
 # Table name: projects
 #
-#  id                  :integer          not null, primary key
-#  title               :string(255)
-#  description         :text
-#  url                 :string(255)
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  published           :boolean          default(FALSE)
-#  screenshot          :string(255)
-#  repository_url      :string(255)
-#  dependencies        :text
-#  state               :string(255)
-#  internal_client     :string(255)
-#  current_lead        :string(255)
-#  hacks               :text
-#  external_clients    :text             default([]), is an Array
-#  project_leads       :text             default([]), is an Array
-#  developers          :text             default([]), is an Array
-#  pdrive_folders      :text             default([]), is an Array
-#  dropbox_folders     :text             default([]), is an Array
-#  pivotal_tracker_ids :text             default([]), is an Array
-#  trello_ids          :text             default([]), is an Array
-#  backup_information  :text
+#  id                    :integer          not null, primary key
+#  title                 :string(255)
+#  description           :text
+#  url                   :string(255)
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  published             :boolean          default(FALSE)
+#  screenshot            :string(255)
+#  repository_url        :string(255)
+#  dependencies          :text
+#  state                 :string(255)
+#  internal_client       :string(255)
+#  current_lead          :string(255)
+#  hacks                 :text
+#  external_clients      :text             default([]), is an Array
+#  project_leads         :text             default([]), is an Array
+#  developers            :text             default([]), is an Array
+#  pdrive_folders        :text             default([]), is an Array
+#  dropbox_folders       :text             default([]), is an Array
+#  pivotal_tracker_ids   :text             default([]), is an Array
+#  trello_ids            :text             default([]), is an Array
+#  backup_information    :text
+#  expected_release_date :date
+#  rails_version         :string(255)
+#  ruby_version          :string(255)
+#  postgresql_version    :string(255)
+#  other_technologies    :text             default([]), is an Array
 #
 
 class Project < ActiveRecord::Base
