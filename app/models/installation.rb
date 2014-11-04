@@ -5,7 +5,6 @@
 #  id          :integer          not null, primary key
 #  project_id  :integer
 #  server_id   :integer
-#  name        :string(255)
 #  role        :string(255)
 #  stage       :string(255)
 #  branch      :string(255)
