@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
     @projects = params[:search].present? ?
         Project.search(params[:search]).order("created_at DESC") :
         Project.order("created_at DESC")
-    
+
     @projects = @projects.published unless user_signed_in?
 
     respond_to do |format|
@@ -26,6 +26,9 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
     @installations = @project.installations
+
+    @comments = @project.comments.order(:created_at)
+    @comment = Comment.new
 
     respond_to do |format|
       format.html # show.html.erb
@@ -102,8 +105,10 @@ class ProjectsController < ApplicationController
   private
 
   def available_developers
-    @developers = (Project.select("unnest(developers) as developers").where('developers IS NOT NULL').
-      uniq.map(&:developers) + User.all.map(&:github)).uniq.sort
+    devs = Project.select("unnest(developers) as developers").where('developers IS NOT NULL').uniq.
+      map(&:developers)
+    users = User.select(:github).map(&:github)
+    @developers = (devs + users).uniq.reject{|t| t.nil?}.sort || []
   end
 
   def project_params

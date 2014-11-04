@@ -19,6 +19,8 @@ class Installation < ActiveRecord::Base
   belongs_to :project
   belongs_to :server
 
+  has_many :comments, as: :commentable
+
   #Validations
   validates :project_id, :server_id, :name, :role, :stage, :branch, :url, presence: true
   validates :role, inclusion: { in: ['Web', 'Database', 'Web & Database']}

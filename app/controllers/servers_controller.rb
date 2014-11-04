@@ -8,11 +8,14 @@ class ServersController < ApplicationController
   def show
     @server = Server.find(params[:id])
     @installations = @server.installations
+
+    @comments = @server.comments.order(:created_at)
+    @comment = Comment.new
+
   end
 
   def new
     @server = Server.new
-    #respond_with(@server)
   end
 
   def edit
