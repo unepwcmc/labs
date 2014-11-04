@@ -18,4 +18,9 @@ div.project-header div.btn-group {top: 100px}
 
 .badge_link {
 	margin-left: 15px;
+	font-size: 10px;
+}
+
+.badge_img {
+	height: 14px;
 }
