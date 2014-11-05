@@ -42,16 +42,16 @@ class Project < ActiveRecord::Base
 
 
   # Custom search scope for publically viewable projects
-  pg_search_scope :search,
-    :against => [:title, :description, :repository_url, :state, :internal_client, 
-            :current_lead, :external_clients, :project_leads, :developers, 
+  pg_search_scope :search, :using => { :tsearch => {:prefix => true} },
+    :against => [:title, :description, :github_identifier, :state, :internal_client,
+            :current_lead, :external_clients, :project_leads, :developers,
             :dependencies, :hacks, :pdrive_folders, :dropbox_folders,
             :pivotal_tracker_ids, :trello_ids, :expected_release_date, :backup_information,
             :rails_version, :ruby_version, :postgresql_version, :other_technologies]
 
   scope :published, -> { where(published: true) }
 
-  # multisearchable against: [:title, :description, :repository_url, :state, :internal_client, 
+  # multisearchable against: [:title, :description, :github_identifier, :state, :internal_client, 
   #           :current_lead, :external_clients, :project_leads, :developers, 
   #           :dependencies, :hacks, :pdrive_folders, :dropbox_folders, :published]
 

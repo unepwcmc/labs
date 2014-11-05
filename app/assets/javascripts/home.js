@@ -25,4 +25,6 @@ $(document).ready(function(){
     minimumInputLength: 1,
     width: '100%'
   });
+
+  $(".datatable").DataTable();
 });
