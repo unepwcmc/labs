@@ -34,6 +34,7 @@ $(document).ready(function(){
     width: '100%'
   });
 
-
-  $(".datatable").DataTable();
+  $(".datatable").DataTable({
+    "iDisplayLength": 50
+  });
 });
