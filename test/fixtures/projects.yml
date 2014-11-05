@@ -13,7 +13,7 @@
 #  github_identifier      :string(255)
 #  dependencies        :text
 #  state               :string(255)
-#  internal_client     :string(255)
+#  internal_clients    :text             default([]), is an Array
 #  current_lead        :string(255)
 #  hacks               :text
 #  external_clients    :text             default([]), is an Array

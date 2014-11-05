@@ -67,7 +67,7 @@ class ProjectsControllerTest < ActionController::TestCase
                               description: @project.description,
                               github_identifier: @project.github_identifier,
                               state: @project.state,
-                              internal_client: @project.internal_client,
+                              internal_clients_array: @project.internal_clients.join(','),
                               current_lead: @project.current_lead,
                               external_clients_array: @project.external_clients.join(','),
                               project_leads_array: @project.project_leads.join(','),

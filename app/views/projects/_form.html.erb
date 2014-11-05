@@ -74,7 +74,7 @@
       <div class="form-group">
         <%= f.label :developers, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-        <%= f.text_field :developers_array, class: "form-control tag-field2",
+        <%= f.text_field :developers_array, class: "form-control tag-field",
 			data: {tags: @developers.map{|t| {id: t, text: t}} }  %>
           <p class="help-block">Add a tag for each developer</p>
         </div>
@@ -130,9 +130,11 @@
       </div>
 
       <div class="form-group">
-        <%= f.label :internal_client, class: "col-sm-2 control-label" %>
+        <%= f.label :internal_clients, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-          <%= f.text_field :internal_client, class: "form-control" %>
+          <%= f.text_area :internal_clients_array, class: "form-control tag-field",
+          data: {tags: @employees.map{|t| {id: t, text: t}} } %>
+          <p class="help-block">Add a tag for each internal client</p>
         </div>
       </div>
 

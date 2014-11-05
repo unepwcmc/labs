@@ -13,7 +13,7 @@
 #  repository_url        :string(255)
 #  dependencies          :text
 #  state                 :string(255)
-#  internal_client       :string(255)
+#  internal_clients      :text             default([]), is an Array
 #  current_lead          :string(255)
 #  hacks                 :text
 #  external_clients      :text             default([]), is an Array
@@ -42,6 +42,7 @@ class ProjectTest < ActiveSupport::TestCase
   test "responds to metaprogrammed array methods" do
     @project = FactoryGirl.build(:project)
     assert @project.respond_to?(:developers)
+    assert @project.respond_to?(:internal_clients)
     assert @project.respond_to?(:external_clients)
     assert @project.respond_to?(:project_leads)
     assert @project.respond_to?(:pdrive_folders)
