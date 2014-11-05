@@ -42,7 +42,7 @@ class Project < ActiveRecord::Base
 
 
   # Custom search scope for publically viewable projects
-  pg_search_scope :search,
+  pg_search_scope :search, :using => { :tsearch => {:prefix => true} },
     :against => [:title, :description, :github_identifier, :state, :internal_client,
             :current_lead, :external_clients, :project_leads, :developers,
             :dependencies, :hacks, :pdrive_folders, :dropbox_folders,
