@@ -8,11 +8,14 @@ class ServersController < ApplicationController
   def show
     @server = Server.find(params[:id])
     @installations = @server.installations
+
+    @comments = @server.comments.order(:created_at)
+    @comment = Comment.new
+
   end
 
   def new
     @server = Server.new
-    #respond_with(@server)
   end
 
   def edit
@@ -63,6 +66,6 @@ class ServersController < ApplicationController
     end
 
     def server_params
-      params.require(:server).permit(:name, :domain, :username, :admin_url, :os, :description)
+      params.require(:server).permit(:name, :domain, :username, :admin_url, :os, :description, :ssh_key_name)
     end
 end

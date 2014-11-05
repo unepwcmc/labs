@@ -65,7 +65,7 @@ class ProjectsControllerTest < ActionController::TestCase
     post :create, project: {  title: @project.title,
                               url: @project.url,
                               description: @project.description,
-                              repository_url: @project.repository_url,
+                              github_identifier: @project.github_identifier,
                               state: @project.state,
                               internal_client: @project.internal_client,
                               current_lead: @project.current_lead,
@@ -75,6 +75,11 @@ class ProjectsControllerTest < ActionController::TestCase
                               pivotal_tracker_ids: @project.pivotal_tracker_ids.join(','),
                               trello_ids: @project.trello_ids.join(','),
                               backup_information: @project.backup_information,
+                              expected_release_date: @project.expected_release_date,
+                              rails_version: @project.rails_version,
+                              ruby_version: @project.ruby_version,
+                              postgresql_version: @project.postgresql_version,
+                              other_technologies: @project.other_technologies.join(','),
                               published: @project.published
                             }
     end

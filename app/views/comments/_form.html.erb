@@ -1,0 +1,24 @@
+<%= form_for [commentable, @comment] do |f| %>
+  <% if @comment.errors.any? %>
+    <div class="error_messages">
+      <h2>Please correct the following errors.</h2>
+      <ul>
+      <% @comment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<article class="comment">
+  <a class="comment-img" href="#non">
+    <%= image_tag gravatar(current_user), class: 'gravatar-round' %>
+  </a>
+  <div class="comment-body">
+    <%= f.text_area :content, class: 'text'%>
+  </div>
+</article>
+<div class="comment-actions">
+  <%= f.submit %>
+</div>
+<% end %>

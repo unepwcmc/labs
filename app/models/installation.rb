@@ -5,7 +5,6 @@
 #  id          :integer          not null, primary key
 #  project_id  :integer
 #  server_id   :integer
-#  name        :string(255)
 #  role        :string(255)
 #  stage       :string(255)
 #  branch      :string(255)
@@ -19,9 +18,15 @@ class Installation < ActiveRecord::Base
   belongs_to :project
   belongs_to :server
 
+  has_many :comments, as: :commentable
+
   #Validations
-  validates :project_id, :server_id, :name, :role, :stage, :branch, :url, presence: true
+  validates :project_id, :server_id, :role, :stage, :branch, presence: true
+  validates :url, presence: true, if: lambda { |installation| installation.role != "Database"}
   validates :role, inclusion: { in: ['Web', 'Database', 'Web & Database']}
   validates :stage, inclusion: { in: ['Staging', 'Production']}
-  validates :name, uniqueness: true
+
+  def name
+    "#{self.project.title}_#{role}_#{stage}"
+  end
 end

@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
     @projects = params[:search].present? ?
         Project.search(params[:search]).order("created_at DESC") :
         Project.order("created_at DESC")
-    
+
     @projects = @projects.published unless user_signed_in?
 
     respond_to do |format|
@@ -26,6 +26,9 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
     @installations = @project.installations
+
+    @comments = @project.comments.order(:created_at)
+    @comment = Comment.new
 
     respond_to do |format|
       format.html # show.html.erb
@@ -102,16 +105,19 @@ class ProjectsController < ApplicationController
   private
 
   def available_developers
-    @developers = (Project.select("unnest(developers) as developers").where('developers IS NOT NULL').
-      uniq.map(&:developers) + User.all.map(&:github)).uniq.sort
+    devs = Project.select("unnest(developers) as developers").where('developers IS NOT NULL').uniq.
+      map(&:developers)
+    users = User.select(:github).map(&:github)
+    @developers = (devs + users).uniq.reject{|t| t.nil?}.sort || []
   end
 
   def project_params
     params.require(:project).permit(:developers_array, :title,
       :description, :url, :github_id, :pivotal_tracker_id,
       :toggl_id, :deadline, :screenshot, :state, 
-      :repository_url, :dependencies, :internal_client, :current_lead, 
+      :github_identifier, :dependencies, :internal_client, :current_lead, 
       :hacks, :external_clients_array, :project_leads_array, :pdrive_folders_array, 
-      :dropbox_folders_array, :pivotal_tracker_ids_array, :trello_ids_array, :backup_information, :published)
+      :dropbox_folders_array, :pivotal_tracker_ids_array, :trello_ids_array, :backup_information, :expected_release_date,
+      :rails_version, :ruby_version, :postgresql_version, :other_technologies_array, :published)
   end
 end

@@ -2,15 +2,16 @@
 #
 # Table name: servers
 #
-#  id          :integer          not null, primary key
-#  name        :string(255)
-#  domain      :string(255)
-#  username    :string(255)
-#  admin_url   :string(255)
-#  os          :string(255)
-#  description :text
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id           :integer          not null, primary key
+#  name         :string(255)
+#  domain       :string(255)
+#  username     :string(255)
+#  admin_url    :string(255)
+#  os           :string(255)
+#  description  :text
+#  created_at   :datetime
+#  updated_at   :datetime
+#  ssh_key_name :text
 #
 
 FactoryGirl.define do
@@ -21,5 +22,6 @@ FactoryGirl.define do
     admin_url Faker::Internet.url
     os { ['Windows', 'Linux'].sample }
     description Faker::Lorem.paragraph
+    ssh_key_name Faker::Lorem.paragraph
   end
 end

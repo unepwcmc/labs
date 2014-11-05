@@ -23,7 +23,14 @@ class ServersControllerTest < ActionController::TestCase
 
   test "should create server" do
     assert_difference('Server.count') do
-      post :create, server: { admin_url: @new_server.admin_url, description: @new_server.description, domain: @new_server.domain, name: @new_server.name, os: @new_server.os, username: @new_server.username }
+      post :create, server: { admin_url: @new_server.admin_url,
+                              description: @new_server.description,
+                              domain: @new_server.domain,
+                              name: @new_server.name,
+                              os: @new_server.os,
+                              username: @new_server.username,
+                              ssh_key_name: @new_server.ssh_key_name
+                            }
     end
     assert_redirected_to server_path(assigns(:server))
   end

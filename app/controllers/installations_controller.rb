@@ -7,6 +7,10 @@ class InstallationsController < ApplicationController
 
   def show
     set_installation
+
+    @comments = @installation.comments.order(:created_at)
+    @comment = Comment.new
+
   end
 
   def new
@@ -23,7 +27,7 @@ class InstallationsController < ApplicationController
 
     respond_to do |format|
       if @installation.save
-        format.html { redirect_to @installation, :notice => 'Installation was successfully created.' }
+        format.html { redirect_to installations_path, :notice => 'Installation was successfully created.' }
         format.json { render :json => @installation, :status => :created, :location => @installation }
       else
         format.html { render :action => "new" }
@@ -62,6 +66,6 @@ class InstallationsController < ApplicationController
     end
 
     def installation_params
-      params.require(:installation).permit(:project_id, :server_id, :name, :role, :stage, :branch, :url, :description)
+      params.require(:installation).permit(:project_id, :server_id, :role, :stage, :branch, :url, :description)
     end
 end

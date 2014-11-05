@@ -67,7 +67,7 @@ set :slack_emoji, ":thumbsup:"
 # items are symlinked in when the code is updated.
 set :local_shared_files, %w(config/database.yml config/config.yml
                            config/secrets.yml)
-set :local_shared_dirs, %w(public/system assets)
+set :local_shared_dirs, %w(public/system assets public/uploads)
 
 desc "Configure VHost"
 task :config_vhost do

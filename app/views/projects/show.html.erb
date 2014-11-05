@@ -95,6 +95,11 @@
     </p>
 
     <p>
+      <strong>Expected Release Date:</strong>
+      <%= @project.expected_release_date %>
+    </p>
+
+    <p>
       <strong>Published?</strong>
       <%= @project.published ? "Yes" : "No" %>
     </p>
@@ -142,17 +147,41 @@
       <strong>Hacks:</strong>
       <%= @project.hacks %>
     </p>
+
+    <p>
+      <strong>Repository URL:</strong>
+      <%= @project.github_identifier %>
+    </p>
   </div>
 
   <div class="col-lg-6">
+
     <p>
-      <strong>Repository URL:</strong>
-      <%= @project.repository_url %>
+      <strong>Rails Version:</strong>
+      <%= @project.rails_version %>
     </p>
 
     <p>
-      <strong>Dependencies:</strong>
-      <%= @project.dependencies %>
+      <strong>Ruby Version:</strong>
+      <%= @project.ruby_version %>
+    </p>
+
+    <p>
+      <strong>PostgreSQL Version:</strong>
+      <%= @project.postgresql_version %>
+    </p>
+
+    <p>
+      <strong>Other technologies:</strong>
+      <% if !@project.other_technologies.blank? %>
+        <ul>
+          <% @project.other_technologies.each do |technology| %>
+            <li><%= technology %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no other technologies
+      <% end %>
     </p>
   </div>
 </div>
@@ -191,4 +220,12 @@
       <% end %>
     </p>
   </div>
+</div>
+
+<div class="row">
+	<div class="page-header">
+		<h2>Comments<h2>
+	</div>
+	<%= render "comments/comments" %>
+	<%= render "comments/form", commentable: @project %>
 </div>

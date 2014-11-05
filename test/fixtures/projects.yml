@@ -10,7 +10,7 @@
 #  updated_at          :datetime         not null
 #  published           :boolean          default(FALSE)
 #  screenshot          :string(255)
-#  repository_url      :string(255)
+#  github_identifier      :string(255)
 #  dependencies        :text
 #  state               :string(255)
 #  internal_client     :string(255)
