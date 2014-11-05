@@ -59,7 +59,7 @@ class Project < ActiveRecord::Base
   validates :title, :description, :state, presence: true
   validates :url, if: :published, presence: true
 
-  validates :state, inclusion: { in: ['Under Development', 'Delivered', 'Project Development'] }
+  validates :state, inclusion: { in: ['Under Development', 'Delivered', 'Project Development', 'Discontinued'] }
 
   # Mount uploader for carrierwave
   mount_uploader :screenshot, ScreenshotUploader
