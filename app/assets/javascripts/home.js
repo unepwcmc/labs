@@ -19,12 +19,21 @@ $(document).ready(function(){
   });
 
   $("#project_developers_array").select2({
-	tags: $("#project_developers_array").data("tags"),
-  	placeholder: "Select tag",
+    tags: $("#project_developers_array").data("tags"),
+    placeholder: "Select tag",
     allowClear: true,
     minimumInputLength: 1,
     width: '100%'
   });
+
+  $("#project_internal_clients_array").select2({
+    tags: $("#project_internal_clients_array").data("tags"),
+    placeholder: "Select tag",
+    allowClear: true,
+    minimumInputLength: 1,
+    width: '100%'
+  });
+
 
   $(".datatable").DataTable();
 });

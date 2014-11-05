@@ -134,8 +134,16 @@
     </p>
 
     <p>
-      <strong>Internal Client:</strong>
-      <%= @project.internal_client %>
+      <strong>Internal Clients:</strong>
+      <% if !@project.internal_clients.blank? %>
+        <ul>
+          <% @project.internal_clients.each do |internal_client| %>
+            <li><%= internal_client %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no internal clients
+      <% end %>
     </p>
 
     <p>

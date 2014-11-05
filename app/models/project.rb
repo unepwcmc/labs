@@ -43,7 +43,7 @@ class Project < ActiveRecord::Base
 
   # Custom search scope for publically viewable projects
   pg_search_scope :search, :using => { :tsearch => {:prefix => true} },
-    :against => [:title, :description, :github_identifier, :state, :internal_client,
+    :against => [:title, :description, :github_identifier, :state, :internal_clients,
             :current_lead, :external_clients, :project_leads, :developers,
             :dependencies, :hacks, :pdrive_folders, :dropbox_folders,
             :pivotal_tracker_ids, :trello_ids, :expected_release_date, :backup_information,
@@ -51,7 +51,7 @@ class Project < ActiveRecord::Base
 
   scope :published, -> { where(published: true) }
 
-  # multisearchable against: [:title, :description, :github_identifier, :state, :internal_client, 
+  # multisearchable against: [:title, :description, :github_identifier, :state, :internal_clients,
   #           :current_lead, :external_clients, :project_leads, :developers, 
   #           :dependencies, :hacks, :pdrive_folders, :dropbox_folders, :published]
 
@@ -65,7 +65,8 @@ class Project < ActiveRecord::Base
   mount_uploader :screenshot, ScreenshotUploader
 
   # Create array getter and setter methods for postgres
-  ["developers","external_clients","project_leads","pdrive_folders","dropbox_folders","pivotal_tracker_ids","trello_ids","other_technologies"].each do |attribute|
+  ["developers","internal_clients","external_clients","project_leads","pdrive_folders","dropbox_folders",
+    "pivotal_tracker_ids","trello_ids","other_technologies"].each do |attribute|
   	define_method("#{attribute}_array") do
   		self.send(attribute).join(',')
   	end
