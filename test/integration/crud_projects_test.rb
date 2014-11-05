@@ -31,7 +31,7 @@ class CrudProjectsTest < ActionDispatch::IntegrationTest
         fill_in 'Description', :with => @project.description
         fill_in 'Github identifier', :with => @project.github_identifier
         select @project.state, :from => 'State'
-        fill_in 'Internal client', :with => @project.internal_client
+        fill_in 'Internal client', :with => @project.internal_clients.join("\n")
         fill_in 'Current lead', :with => @project.current_lead
         fill_in 'project_external_clients_array', :with => @project.external_clients.join("\n")
         fill_in 'project_project_leads_array', :with => @project.project_leads.join("\n")
