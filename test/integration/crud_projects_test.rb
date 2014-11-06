@@ -5,6 +5,10 @@ class CrudProjectsTest < ActionDispatch::IntegrationTest
     @user = FactoryGirl.build(:user)
     @project = FactoryGirl.create(:project)
     @draft_project = FactoryGirl.create(:draft_project)
+
+    stub_request(:get, "http://unep-wcmc.org/api/employees.json").
+    to_return(:status => 200, :body => {"employees" => ['Test','Test']}.to_json,
+      :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby', :content_type => "application/json"})
   end
 
   test "index page shows public projects to public user" do
@@ -31,7 +35,7 @@ class CrudProjectsTest < ActionDispatch::IntegrationTest
         fill_in 'Description', :with => @project.description
         fill_in 'Github identifier', :with => @project.github_identifier
         select @project.state, :from => 'State'
-        fill_in 'Internal client', :with => @project.internal_clients.join("\n")
+        fill_in 'project_internal_clients_array', :with => @project.internal_clients.join("\n")
         fill_in 'Current lead', :with => @project.current_lead
         fill_in 'project_external_clients_array', :with => @project.external_clients.join("\n")
         fill_in 'project_project_leads_array', :with => @project.project_leads.join("\n")

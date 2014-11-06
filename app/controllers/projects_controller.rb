@@ -65,6 +65,7 @@ class ProjectsController < ApplicationController
       else
         format.html {
           available_developers
+          available_employees
           render :action => "new"
         }
         format.json { render :json => @project.errors, :status => :unprocessable_entity }
@@ -84,6 +85,7 @@ class ProjectsController < ApplicationController
       else
         format.html {
           available_developers
+          available_employees
           render :action => "edit"
         }
         format.json { render :json => @project.errors, :status => :unprocessable_entity }
@@ -113,7 +115,10 @@ class ProjectsController < ApplicationController
   end
 
   def available_employees
-    @employees = HTTParty.get('http://unep-wcmc.org//api/all_employees.json')
+    @employees = HTTParty.get('http://unep-wcmc.org/api/employees.json')
+    if @employees.code != 200
+      @employees = []
+    end
   end
 
   def project_params
