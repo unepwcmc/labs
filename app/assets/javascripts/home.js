@@ -34,7 +34,36 @@ $(document).ready(function(){
     width: '100%'
   });
 
-  $(".datatable").DataTable({
+  $(".filters").bind("DOMNodeInserted", function(){
+    $(this).find(".search_init").addClass("projects_filter");
+  });
+
+  $("#installations_table").dataTable();
+
+  $("#servers_table").dataTable();
+
+  $("#projects_table").dataTable({
     "iDisplayLength": 50
+  }).columnFilter({
+    aoColumns: [
+    {
+      type: "text",
+    },
+    null,
+    {
+      type: "select",
+      values: ["Discontinued"]
+    },
+    {
+      type: "text"
+    },
+    {
+      type: "text"
+    },
+    {
+      type: "text"
+    },
+    null
+    ]
   });
 });

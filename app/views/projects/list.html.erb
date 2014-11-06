@@ -6,7 +6,7 @@
   <%= button_to 'New Project', new_project_path, method: :get, class: "btn btn-primary" %>
 </div>
 
-<table class="table datatable" id="list_view">
+<table class="table datatable" id="projects_table">
   <thead>
     <tr>
       <th>Title</th>
@@ -40,4 +40,16 @@
       </tr>
     <% end %>
   </tbody>
+
+  <tfoot class="filters">
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </tfoot>
 </table>

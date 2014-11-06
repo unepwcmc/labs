@@ -8,6 +8,7 @@
 //= require jquery_ujs
 //= require select2
 //= require jquery.dataTables.min
+//= require jquery.dataTables.columnFilter
 //= require bootstrap.min
 //= require_tree .
 //
