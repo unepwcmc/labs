@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141105144405) do
+ActiveRecord::Schema.define(version: 20141104161910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 20141105144405) do
     t.string   "ruby_version"
     t.string   "postgresql_version"
     t.text     "other_technologies",    default: [],    array: true
-    t.text     "internal_clients",      default: [],    array: true
+    t.string   "internal_client"
   end
 
   create_table "servers", force: true do |t|
