@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141104161910) do
+ActiveRecord::Schema.define(version: 20141105144405) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20141104161910) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
 
   add_index "installations", ["project_id"], name: "index_installations_on_project_id", using: :btree
@@ -57,29 +58,29 @@ ActiveRecord::Schema.define(version: 20141104161910) do
     t.string   "title"
     t.text     "description"
     t.string   "url"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "published",             default: false
     t.string   "screenshot"
     t.string   "github_identifier"
     t.text     "dependencies"
     t.string   "state"
-    t.string   "internal_client"
     t.string   "current_lead"
     t.text     "hacks"
-    t.text     "external_clients",      default: [],                 array: true
-    t.text     "project_leads",         default: [],                 array: true
-    t.text     "developers",            default: [],                 array: true
-    t.text     "pdrive_folders",        default: [],                 array: true
-    t.text     "dropbox_folders",       default: [],                 array: true
-    t.text     "pivotal_tracker_ids",   default: [],                 array: true
-    t.text     "trello_ids",            default: [],                 array: true
+    t.text     "external_clients",      default: [],    array: true
+    t.text     "project_leads",         default: [],    array: true
+    t.text     "developers",            default: [],    array: true
+    t.text     "pdrive_folders",        default: [],    array: true
+    t.text     "dropbox_folders",       default: [],    array: true
+    t.text     "pivotal_tracker_ids",   default: [],    array: true
+    t.text     "trello_ids",            default: [],    array: true
     t.text     "backup_information"
     t.date     "expected_release_date"
     t.string   "rails_version"
     t.string   "ruby_version"
     t.string   "postgresql_version"
-    t.text     "other_technologies",    default: [],                 array: true
+    t.text     "other_technologies",    default: [],    array: true
+    t.text     "internal_clients",      default: [],    array: true
   end
 
   create_table "servers", force: true do |t|
@@ -105,8 +106,8 @@ ActiveRecord::Schema.define(version: 20141104161910) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "provider"
     t.string   "uid"
     t.string   "github"

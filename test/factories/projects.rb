@@ -13,7 +13,7 @@
 #  repository_url        :string(255)
 #  dependencies          :text
 #  state                 :string(255)
-#  internal_client       :string(255)
+#  internal_clients      :text             default([]), is an Array
 #  current_lead          :string(255)
 #  hacks                 :text
 #  external_clients      :text             default([]), is an Array
@@ -38,7 +38,7 @@ FactoryGirl.define do
     url Faker::Internet.url
     github_identifier Faker::Internet.url
     state { ['Under Development', 'Delivered', 'Project Development'].sample }
-    internal_client Faker::Name.name
+    internal_clients {[ Faker::Name.name, Faker::Name.name, Faker::Name.name] }
     current_lead Faker::Name.name
     external_clients {[ Faker::Name.name, Faker::Name.name, Faker::Name.name] }
     project_leads {[ Faker::Name.name, Faker::Name.name, Faker::Name.name] }

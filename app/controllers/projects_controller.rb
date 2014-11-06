@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!, :except => [:index]
   before_action :available_developers, :only => [:new, :edit]
+  before_action :available_employees, :only => [:new, :edit]
   # GET /projects
   # GET /projects.json
   def index
@@ -64,6 +65,7 @@ class ProjectsController < ApplicationController
       else
         format.html {
           available_developers
+          available_employees
           render :action => "new"
         }
         format.json { render :json => @project.errors, :status => :unprocessable_entity }
@@ -83,6 +85,7 @@ class ProjectsController < ApplicationController
       else
         format.html {
           available_developers
+          available_employees
           render :action => "edit"
         }
         format.json { render :json => @project.errors, :status => :unprocessable_entity }
@@ -111,11 +114,18 @@ class ProjectsController < ApplicationController
     @developers = (devs + users).uniq.reject{|t| t.nil?}.sort || []
   end
 
+  def available_employees
+    @employees = HTTParty.get('http://unep-wcmc.org/api/employees.json')
+    if @employees.code != 200
+      @employees = []
+    end
+  end
+
   def project_params
     params.require(:project).permit(:developers_array, :title,
       :description, :url, :github_id, :pivotal_tracker_id,
       :toggl_id, :deadline, :screenshot, :state, 
-      :github_identifier, :dependencies, :internal_client, :current_lead, 
+      :github_identifier, :dependencies, :internal_clients_array, :current_lead,
       :hacks, :external_clients_array, :project_leads_array, :pdrive_folders_array, 
       :dropbox_folders_array, :pivotal_tracker_ids_array, :trello_ids_array, :backup_information, :expected_release_date,
       :rails_version, :ruby_version, :postgresql_version, :other_technologies_array, :published)
