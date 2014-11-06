@@ -29,3 +29,7 @@ div.project-header div.btn-group {top: 100px}
   width: 100% !important;
   height: 30px !important;
 }
+
+.form-inline .form-control {
+	padding: 5px !important;
+}
