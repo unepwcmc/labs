@@ -133,7 +133,7 @@
         <%= f.label :internal_clients, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
           <%= f.text_area :internal_clients_array, class: "form-control tag-field",
-          data: {tags: @employees.map{|t| {id: t, text: t}} } %>
+            data: {tags: @employees.map{|t| {id: t, text: t}} } %>
           <p class="help-block">Add a tag for each internal client</p>
         </div>
       </div>

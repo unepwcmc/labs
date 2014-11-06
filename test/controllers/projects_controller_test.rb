@@ -11,6 +11,10 @@ class ProjectsControllerTest < ActionController::TestCase
     @project_a = FactoryGirl.create(:project, title: "Abacus", description: "cod", published: false)
     @project_b = FactoryGirl.create(:project, title: "Beef", description: "cod")
     @project_c = FactoryGirl.create(:project, title: "Car", description: "haddock")
+
+    stub_request(:get, "http://unep-wcmc.org/api/employees.json").
+    to_return(:status => 200, :body => {"employees" => ['Test','Test']}.to_json,
+      :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby', :content_type => "application/json"})
   end
 
   test "should get lists" do
