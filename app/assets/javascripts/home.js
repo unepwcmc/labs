@@ -52,7 +52,7 @@ $(document).ready(function(){
     null,
     {
       type: "select",
-      values: ["Discontinued"]
+      values: ["Under Development", "Delivered", "Project Development", "Discontinued"]
     },
     {
       type: "text"
