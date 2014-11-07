@@ -95,6 +95,32 @@
     </p>
 
     <p>
+      <strong>Depends On:</strong>
+      <% if !@depends_on.empty? %>
+        <ul>
+          <% @depends_on.each do |project| %>
+            <li><%= link_to project.id, project_path(project) %> <%= project.title %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project does not depend on other projects
+      <% end %>
+    </p>
+
+    <p>
+      <strong>Has Dependents:</strong>
+      <% if !@has_dependants.empty? %>
+        <ul>
+          <% @has_dependants.each do |project| %>
+            <li><%= link_to project.id, project_path(project) %> <%= project.title %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no dependants
+      <% end %>
+    </p>
+
+    <p>
       <strong>Expected Release Date:</strong>
       <%= @project.expected_release_date %>
     </p>
