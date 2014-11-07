@@ -6,7 +6,7 @@
   <%= button_to 'New Project', new_project_path, method: :get, class: "btn btn-primary" %>
 </div>
 
-<table class="table datatable" id="list_view">
+<table class="table datatable" id="projects_table">
   <thead>
     <tr>
       <th>Title</th>
@@ -15,6 +15,7 @@
       <th>Rails</th>
       <th>Ruby</th>
       <th>PostgreSQL</th>
+      <th></th>
     </tr>
   </thead>
 
@@ -35,7 +36,20 @@
         <td><%= project.rails_version %></td>
         <td><%= project.ruby_version %></td>
         <td><%= project.postgresql_version %></td>
+        <td><%= link_to 'Edit', edit_project_path(project) %></td>
       </tr>
     <% end %>
   </tbody>
+
+  <tfoot class="filters">
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </tfoot>
 </table>

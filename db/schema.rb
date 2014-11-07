@@ -40,7 +40,6 @@ ActiveRecord::Schema.define(version: 20141105144405) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
   end
 
   add_index "installations", ["project_id"], name: "index_installations_on_project_id", using: :btree

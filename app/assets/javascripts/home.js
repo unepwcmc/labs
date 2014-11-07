@@ -34,6 +34,36 @@ $(document).ready(function(){
     width: '100%'
   });
 
+  $(".filters").bind("DOMNodeInserted", function(){
+    $(this).find(".search_init").addClass("projects_filter");
+  });
 
-  $(".datatable").DataTable();
+  $("#installations_table").dataTable();
+
+  $("#servers_table").dataTable();
+
+  $("#projects_table").dataTable({
+    "iDisplayLength": 50
+  }).columnFilter({
+    aoColumns: [
+    {
+      type: "text",
+    },
+    null,
+    {
+      type: "select",
+      values: ["Under Development", "Delivered", "Project Development", "Discontinued"]
+    },
+    {
+      type: "text"
+    },
+    {
+      type: "text"
+    },
+    {
+      type: "text"
+    },
+    null
+    ]
+  });
 });
