@@ -70,4 +70,10 @@ class User < ActiveRecord::Base
   def inactive_message
     !self.suspended? ? super : :suspended
   end
+
+  def set_name
+    response = HTTParty.get("https://api.github.com/users/#{self.github}?access_token=#{self.token}", headers: {"User-Agent" => "Labs"})
+    response_hash = JSON.parse(response.body)
+    self.name = response_hash["name"]
+  end
 end
