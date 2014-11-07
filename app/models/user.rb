@@ -42,6 +42,7 @@ class User < ActiveRecord::Base
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
       user.github = auth.info.nickname
+      user.name = auth.info.name
     end
   end
 
@@ -71,9 +72,4 @@ class User < ActiveRecord::Base
     !self.suspended? ? super : :suspended
   end
 
-  def set_name
-    response = HTTParty.get("https://api.github.com/users/#{self.github}?access_token=#{self.token}", headers: {"User-Agent" => "Labs"})
-    response_hash = JSON.parse(response.body)
-    self.name = response_hash["name"]
-  end
 end

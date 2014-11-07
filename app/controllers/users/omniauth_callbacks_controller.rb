@@ -2,7 +2,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def github
     @user = User.from_omniauth(request.env["omniauth.auth"])
     @user.set_token(request.env["omniauth.auth"])
-    @user.set_name if @user.name.nil?
 
     if @user.persisted?
         if @user.is_dev_team?
