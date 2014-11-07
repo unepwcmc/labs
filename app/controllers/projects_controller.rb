@@ -31,8 +31,8 @@ class ProjectsController < ApplicationController
     @comments = @project.comments.order(:created_at)
     @comment = Comment.new
 
-    @depends_on = @project.master_projects.select("title, projects.id")
-    @has_dependants = @project.sub_projects.select("title, projects.id")
+    @master_projects = @project.master_projects.select("title, projects.id")
+    @sub_projects = @project.sub_projects.select("title, projects.id")
 
     respond_to do |format|
       format.html # show.html.erb

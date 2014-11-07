@@ -96,9 +96,9 @@
 
     <p>
       <strong>Depends On:</strong>
-      <% if !@depends_on.empty? %>
+      <% if !@master_projects.empty? %>
         <ul>
-          <% @depends_on.each do |project| %>
+          <% @master_projects.each do |project| %>
             <li><%= link_to project.id, project_path(project) %> <%= project.title %></li>
           <% end %>
         </ul>
@@ -109,9 +109,9 @@
 
     <p>
       <strong>Has Dependents:</strong>
-      <% if !@has_dependants.empty? %>
+      <% if !@sub_projects.empty? %>
         <ul>
-          <% @has_dependants.each do |project| %>
+          <% @sub_projects.each do |project| %>
             <li><%= link_to project.id, project_path(project) %> <%= project.title %></li>
           <% end %>
         </ul>
