@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141104161910) do
+ActiveRecord::Schema.define(version: 20141105144405) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,7 +40,6 @@ ActiveRecord::Schema.define(version: 20141104161910) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
   end
 
   add_index "installations", ["project_id"], name: "index_installations_on_project_id", using: :btree
@@ -80,7 +79,7 @@ ActiveRecord::Schema.define(version: 20141104161910) do
     t.string   "ruby_version"
     t.string   "postgresql_version"
     t.text     "other_technologies",    default: [],    array: true
-    t.string   "internal_client"
+    t.text     "internal_clients",      default: [],    array: true
   end
 
   create_table "servers", force: true do |t|
