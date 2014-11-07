@@ -40,10 +40,12 @@ class Project < ActiveRecord::Base
   has_many :projects, through: :installation
   has_many :comments, as: :commentable
 
-  has_many :master_sub_relationship, :foreign_key => 'sub_project_id', :class_name => 'Dependency', :dependent => :destroy
+  has_many :master_sub_relationship, :foreign_key => 'sub_project_id',
+    :class_name => 'Dependency', :dependent => :destroy
   has_many :master_projects, :through => :master_sub_relationship
 
-  has_many :sub_master_relationship, :foreign_key => 'master_project_id', :class_name => 'Dependency', :dependent => :destroy
+  has_many :sub_master_relationship, :foreign_key => 'master_project_id',
+    :class_name => 'Dependency', :dependent => :destroy
   has_many :sub_projects, :through => :sub_master_relationship
 
   # Custom search scope for publically viewable projects
