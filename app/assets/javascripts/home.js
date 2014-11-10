@@ -19,12 +19,51 @@ $(document).ready(function(){
   });
 
   $("#project_developers_array").select2({
-	tags: $("#project_developers_array").data("tags"),
-  	placeholder: "Select tag",
+    tags: $("#project_developers_array").data("tags"),
+    placeholder: "Select tag",
     allowClear: true,
     minimumInputLength: 1,
     width: '100%'
   });
 
-  $(".datatable").DataTable();
+  $("#project_internal_clients_array").select2({
+    tags: $("#project_internal_clients_array").data("tags"),
+    placeholder: "Select tag",
+    allowClear: true,
+    minimumInputLength: 1,
+    width: '100%'
+  });
+
+  $(".filters").bind("DOMNodeInserted", function(){
+    $(this).find(".search_init").addClass("projects_filter");
+  });
+
+  $("#installations_table").dataTable();
+
+  $("#servers_table").dataTable();
+
+  $("#projects_table").dataTable({
+    "iDisplayLength": 50
+  }).columnFilter({
+    aoColumns: [
+    {
+      type: "text",
+    },
+    null,
+    {
+      type: "select",
+      values: ["Under Development", "Delivered", "Project Development", "Discontinued"]
+    },
+    {
+      type: "text"
+    },
+    {
+      type: "text"
+    },
+    {
+      type: "text"
+    },
+    null
+    ]
+  });
 });
