@@ -42,6 +42,7 @@ class User < ActiveRecord::Base
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
       user.github = auth.info.nickname
+      user.name = auth.info.name
     end
   end
 
@@ -70,4 +71,5 @@ class User < ActiveRecord::Base
   def inactive_message
     !self.suspended? ? super : :suspended
   end
+
 end
