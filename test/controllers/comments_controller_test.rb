@@ -5,10 +5,11 @@ class CommentsControllerTest < ActionController::TestCase
   include Devise::TestHelpers
 
   def setup
-    @project_comment = FactoryGirl.create(:project_comment)
-    @installation_comment = FactoryGirl.create(:installation_comment)
-    @server_comment = FactoryGirl.create(:server_comment)
     @user = FactoryGirl.create(:user)
+    @project_comment = FactoryGirl.create(:project_comment, user_id: @user.id)
+    @installation_comment = FactoryGirl.create(:installation_comment, user_id: @user.id)
+    @server_comment = FactoryGirl.create(:server_comment, user_id: @user.id)
+
     sign_in @user
   end
 
