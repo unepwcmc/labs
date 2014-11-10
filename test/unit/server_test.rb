@@ -17,10 +17,13 @@
 require 'test_helper'
 
 class ServerTest < ActiveSupport::TestCase
+  subject {FactoryGirl.build(:server)}
+
   should validate_presence_of :name
   should validate_presence_of :domain
   should validate_presence_of :os
   
   should validate_inclusion_of(:os).in_array(['Windows', 'Linux'])
+
   should validate_uniqueness_of :name
 end

@@ -95,6 +95,32 @@
     </p>
 
     <p>
+      <strong>Depends On:</strong>
+      <% if !@master_projects.empty? %>
+        <ul>
+          <% @master_projects.each do |project| %>
+            <li><%= link_to project.id, project_path(project) %> <%= project.title %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project does not depend on other projects
+      <% end %>
+    </p>
+
+    <p>
+      <strong>Has Dependents:</strong>
+      <% if !@sub_projects.empty? %>
+        <ul>
+          <% @sub_projects.each do |project| %>
+            <li><%= link_to project.id, project_path(project) %> <%= project.title %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no dependants
+      <% end %>
+    </p>
+
+    <p>
       <strong>Expected Release Date:</strong>
       <%= @project.expected_release_date %>
     </p>
@@ -134,8 +160,16 @@
     </p>
 
     <p>
-      <strong>Internal Client:</strong>
-      <%= @project.internal_client %>
+      <strong>Internal Clients:</strong>
+      <% if !@project.internal_clients.blank? %>
+        <ul>
+          <% @project.internal_clients.each do |internal_client| %>
+            <li><%= internal_client %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no internal clients
+      <% end %>
     </p>
 
     <p>

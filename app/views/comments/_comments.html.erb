@@ -6,7 +6,7 @@
       </a>
       <div class="comment-body">
         <div class="text">
-          <p><%= comment.content %></p>
+          <p><%= raw comment.content %></p>
         </div>
         <p class="attribution"><span>by </span><span class="comment-user"><%= @c_user.github %></span>
           <span> at <%= comment.created_at.to_s(:db) %></span>

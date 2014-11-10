@@ -15,7 +15,7 @@
 #
 
 class Server < ActiveRecord::Base
-  has_many :installations
+  has_many :installations, dependent: :destroy
   has_many :projects, through: :installations
   has_many :comments, as: :commentable
 
