@@ -14,4 +14,9 @@ module ProjectsHelper
       "unpublished-project"
     end
   end
+
+  def display_text project, field, display_text=nil
+    content_tag(:p, content_tag(:strong, (display || field.to_s.titleize)+":")) +
+      content_tag(:div, simple_format(h project.send(field)), class: "block-of-text")
+  end
 end

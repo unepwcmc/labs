@@ -40,6 +40,13 @@
       </div>
 
       <div class="form-group">
+        <%= f.label :internal_description, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :internal_description, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
         <%= f.label :project_leads, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
           <%= f.text_area :project_leads_array, class: "form-control tag-field" %>

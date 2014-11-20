@@ -33,3 +33,10 @@ div.project-header div.btn-group {top: 100px}
 .form-inline .form-control {
 	padding: 5px !important;
 }
+
+div.block-of-text {
+  border: 1px dashed #eee;
+  padding-top: 5px;
+  padding-left: 5px;
+  margin-bottom: 10px;
+}

@@ -2,7 +2,7 @@
 	<%= link_to project_preview(@project)%>
 	<h1><%= @project.title %></h1>
 	<div class="btn-group">
-	  <%= button_to 'Back', projects_path, method: :get, :class => 'btn' %>
+	  <%= button_to 'Back', list_projects_path, method: :get, :class => 'btn' %>
 	  <%= button_to 'Edit', edit_project_path(@project), method: :get, :class => 'btn btn-primary' %>
 	</div>
 </div>
@@ -18,10 +18,9 @@
       <%= @project.url %>
     </p>
 
-    <p>
-      <strong>Description:</strong>
-      <%= @project.description %>
-    </p>
+    <%= display_text @project, :description %>
+
+    <%= display_text @project, :internal_description %>
 
     <p>
       <strong>Project Leads:</strong>
@@ -89,10 +88,7 @@
       <% end %>
     </p>
 
-    <p>
-      <strong>Backup Information:</strong>
-      <%= @project.backup_information %>
-    </p>
+    <%= display_text @project, :backup_information %>
 
     <p>
       <strong>Depends On:</strong>
@@ -177,10 +173,7 @@
       <%= @project.current_lead %>
     </p>
 
-    <p>
-      <strong>Hacks:</strong>
-      <%= @project.hacks %>
-    </p>
+    <%= display_text @project, :hacks %>
 
     <p>
       <strong>Repository URL:</strong>
