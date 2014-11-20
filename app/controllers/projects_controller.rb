@@ -131,6 +131,6 @@ class ProjectsController < ApplicationController
       :github_identifier, :dependencies, :internal_clients_array, :current_lead,
       :hacks, :external_clients_array, :project_leads_array, :pdrive_folders_array, 
       :dropbox_folders_array, :pivotal_tracker_ids_array, :trello_ids_array, :backup_information, :expected_release_date,
-      :rails_version, :ruby_version, :postgresql_version, :other_technologies_array, :published)
+      :rails_version, :ruby_version, :postgresql_version, :other_technologies_array, :published, :internal_description)
   end
 end
