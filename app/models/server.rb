@@ -3,11 +3,11 @@
 # Table name: servers
 #
 #  id           :integer          not null, primary key
-#  name         :string(255)
-#  domain       :string(255)
+#  name         :string(255)      not null
+#  domain       :string(255)      not null
 #  username     :string(255)
 #  admin_url    :string(255)
-#  os           :string(255)
+#  os           :string(255)      not null
 #  description  :text
 #  created_at   :datetime
 #  updated_at   :datetime

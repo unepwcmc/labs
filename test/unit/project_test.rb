@@ -3,17 +3,16 @@
 # Table name: projects
 #
 #  id                    :integer          not null, primary key
-#  title                 :string(255)
-#  description           :text
+#  title                 :string(255)      not null
+#  description           :text             not null
 #  url                   :string(255)
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  published             :boolean          default(FALSE)
 #  screenshot            :string(255)
-#  repository_url        :string(255)
+#  github_identifier     :string(255)
 #  dependencies          :text
-#  state                 :string(255)
-#  internal_clients      :text             default([]), is an Array
+#  state                 :string(255)      not null
 #  current_lead          :string(255)
 #  hacks                 :text
 #  external_clients      :text             default([]), is an Array
@@ -29,6 +28,8 @@
 #  ruby_version          :string(255)
 #  postgresql_version    :string(255)
 #  other_technologies    :text             default([]), is an Array
+#  internal_clients      :text             default([]), is an Array
+#  internal_description  :text
 #
 
 require 'test_helper'

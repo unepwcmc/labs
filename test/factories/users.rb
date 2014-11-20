@@ -20,6 +20,7 @@
 #  github                 :string(255)
 #  token                  :string(255)
 #  suspended              :boolean          default(FALSE)
+#  name                   :string(255)
 #
 
 FactoryGirl.define do

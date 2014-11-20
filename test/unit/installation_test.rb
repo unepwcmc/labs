@@ -3,11 +3,11 @@
 # Table name: installations
 #
 #  id          :integer          not null, primary key
-#  project_id  :integer
-#  server_id   :integer
-#  role        :string(255)
-#  stage       :string(255)
-#  branch      :string(255)
+#  project_id  :integer          not null
+#  server_id   :integer          not null
+#  role        :string(255)      not null
+#  stage       :string(255)      not null
+#  branch      :string(255)      not null
 #  url         :string(255)
 #  description :text
 #  created_at  :datetime
