@@ -167,6 +167,9 @@ GEM
     orm_adapter (0.5.0)
     pg (0.17.1)
     pg_array_parser (0.0.9)
+    pg_csv (0.1.8)
+      activerecord
+      pg (~> 0.17)
     pg_search (0.7.8)
       activerecord (>= 3.1)
       activesupport (>= 3.1)
@@ -275,6 +278,7 @@ DEPENDENCIES
   omniauth-github
   pg
   pg_array_parser
+  pg_csv
   pg_search (~> 0.7.8)
   rails (~> 4.1.7)
   rvm-capistrano

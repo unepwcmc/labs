@@ -6,6 +6,10 @@
   <%= button_to 'New Installation', new_installation_path, method: :get, class: "btn btn-primary" %>
 </div>
 
+<div class="btn-group pull-right">
+  <%= button_to 'Download all', installations_path(format: :csv), method: :get, class: "btn btn-default" %>
+</div>
+
 <table class="table datatable" id="installations_table">
   <thead>
     <tr>

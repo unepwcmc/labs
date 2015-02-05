@@ -16,6 +16,12 @@ class InstallationsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:installations)
   end
 
+  test "should get index in csv" do
+    get :index, format: :csv
+    assert_response :success
+    assert_equal "text/csv", response.headers['Content-Type']
+  end
+
   test "should get new" do
     get :new
     assert_response :success

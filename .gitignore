@@ -17,6 +17,7 @@
 /config/database.yml
 /nbproject/*
 /public/system/*
+/public/downloads/*.csv
 /config/initializers/rails_admin.rb
 
 # VIM

@@ -2,7 +2,15 @@ class InstallationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @installations = Installation.all
+    respond_to do |format|
+      format.html {
+        @installations = Installation.all
+        render 'index'
+      }
+      format.csv {
+        send_file(Pathname.new(InstallationsExport.new.export).realpath, type: 'text/csv')
+      }
+    end
   end
 
   def show

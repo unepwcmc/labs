@@ -23,6 +23,7 @@ gem 'pg_search', '~> 0.7.8'
 gem 'select2-rails'
 gem 'sass-rails'
 gem 'foreigner'
+gem 'pg_csv'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
