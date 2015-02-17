@@ -1,0 +1,27 @@
+<div class="page-header">
+  <h1><%= "#{@dependency.master_project.title} -> #{@dependency.sub_project.title}" %></h1>
+</div>
+
+<div class="btn-group">
+  <%= button_to 'Edit', edit_dependency_path(@dependency), method: :get, class: "btn btn-primary" %>
+  <%= button_to 'Back', dependencies_path, method: :get, class: "btn btn-primary" %>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="page-header">
+      <h2>About this Dependency</h2>
+    </div>
+    <p>
+      <strong>Master Project:</strong>
+      <%= link_to @dependency.master_project.title, project_path(@dependency.master_project) %>
+    </p>
+
+    <p>
+      <strong>Sub Project:</strong>
+      <%= link_to @dependency.sub_project.title, project_path(@dependency.sub_project) %>
+    </p>
+  </div>
+</div>
+
+

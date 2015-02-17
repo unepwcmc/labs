@@ -1,0 +1,7 @@
+<h1> All dependencies </h1>
+
+<ul>
+  <% @dependencies.each do |d| %>
+    <li><%= link_to d.id, dependency_path(d) %></li>
+  <% end %>
+</ul>
