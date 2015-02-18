@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141120180511) do
+ActiveRecord::Schema.define(version: 20150217145352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,8 +65,8 @@ ActiveRecord::Schema.define(version: 20141120180511) do
     t.string   "title",                                 null: false
     t.text     "description",                           null: false
     t.string   "url"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "published",             default: false
     t.string   "screenshot"
     t.string   "github_identifier"
@@ -89,6 +89,8 @@ ActiveRecord::Schema.define(version: 20141120180511) do
     t.text     "other_technologies",    default: [],                 array: true
     t.text     "internal_clients",      default: [],                 array: true
     t.text     "internal_description"
+    t.text     "background_jobs"
+    t.text     "cron_jobs"
   end
 
   create_table "servers", force: true do |t|
@@ -114,8 +116,8 @@ ActiveRecord::Schema.define(version: 20141120180511) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "provider"
     t.string   "uid"
     t.string   "github"

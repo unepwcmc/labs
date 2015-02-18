@@ -15,7 +15,7 @@
 
     <p>
       <strong>URL:</strong>
-      <%= @project.url %>
+      <%= link_to @project.url, @project.url, target: '_blank' %>
     </p>
 
     <%= display_text @project, :description %>
@@ -177,7 +177,12 @@
 
     <p>
       <strong>Repository URL:</strong>
-      <%= @project.github_identifier %>
+      <%= link_to @project.github_identifier, @project.github_identifier, target: '_blank' %>
+    </p>
+
+    <p>
+      <strong>Background Jobs:</strong>
+      <%= @project.background_jobs %>
     </p>
   </div>
 
@@ -209,6 +214,11 @@
       <% else %>
         This project has no other technologies
       <% end %>
+    </p>
+
+    <p>
+      <strong>Cron Jobs:</strong>
+      <%= @project.cron_jobs %>
     </p>
   </div>
 </div>

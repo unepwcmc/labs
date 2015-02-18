@@ -167,6 +167,13 @@
           <p class="help-block">E.g.: unepwcmc/SAPI (make sure to use the exact name of the repo, case sensitive)</p>
         </div>
       </div>
+
+      <div class="form-group">
+        <%= f.label :background_jobs, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :background_jobs, class: "form-control" %>
+        </div>
+      </div>
     </div>
 
     <div class="col-lg-6">
@@ -204,6 +211,13 @@
         <%= f.label :dependencies, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
           <%= f.text_area :dependencies, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :cron_jobs, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :cron_jobs, class: "form-control" %>
         </div>
       </div>
     </div>
