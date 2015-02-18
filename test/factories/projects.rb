@@ -52,6 +52,8 @@ FactoryGirl.define do
     ruby_version {Faker::Name.name}
     postgresql_version {Faker::Name.name}
     other_technologies {[Faker::Name.name, Faker::Name.name, Faker::Name.name]}
+    background_jobs Faker::Lorem.paragraph
+    cron_jobs Faker::Lorem.paragraph
     published true
 
     factory :draft_project do

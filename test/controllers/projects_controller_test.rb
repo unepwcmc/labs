@@ -84,6 +84,8 @@ class ProjectsControllerTest < ActionController::TestCase
                               ruby_version: @project.ruby_version,
                               postgresql_version: @project.postgresql_version,
                               other_technologies: @project.other_technologies.join(','),
+                              background_jobs: @project.background_jobs,
+                              cron_jobs: @project.cron_jobs,
                               published: @project.published
                             }
     end
