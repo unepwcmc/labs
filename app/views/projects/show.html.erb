@@ -129,16 +129,16 @@
 
   <div class="col-lg-6">
     <div class="page-header">
-      <h2>This Projects Installations</h2>
+      <h2>This Projects Instances</h2>
     </div>
     <p>
-      <% if !@installations.empty? %>
-        <% @installations.each do |installation| %>
-            <%= link_to installation.name, installation_path(installation) %> (<%= installation.stage %>)
-              on <%= link_to installation.server.name, server_path(installation.server) %><br>
+      <% if !@instances.empty? %>
+        <% @instances.each do |instance| %>
+            <%= link_to instance.name, project_instance_path(instance) %>
+            (<%= instance.stage %>)<br>
         <% end %>
       <% else %>
-        This project has no installations
+        This project has no instances
       <% end %>
     </p>
   </div>

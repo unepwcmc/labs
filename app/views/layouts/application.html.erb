@@ -67,6 +67,14 @@
               </ul>
             </li>
 
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Project's Instances <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <li><%= link_to "List Projects Instances", project_instances_path %></li>
+                <li><%= link_to "Add a Project Instance", new_project_instance_path %></li>
+              </ul>
+            </li>
+
             <li><%= link_to "Users", users_path %></li>
             
           <% else %>

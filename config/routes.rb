@@ -27,6 +27,9 @@ Labs::Application.routes.draw do
     resources :comments
   end
 
+  resources :project_instances do
+  end
+
   resources :comments do
   end
 

@@ -16,6 +16,8 @@ class Dependency < ActiveRecord::Base
 
   has_many :comments, as: :commentable
 
+  validates :master_project_id, :sub_project_id, presence: true
+
   def relationship
     "#{self.sub_project.title} <- #{self.master_project.title}"
   end
