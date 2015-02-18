@@ -1,0 +1,35 @@
+<div class="page-header">
+  <h1>Listing Dependencies</h1>
+</div>
+
+<div class="btn-group">
+  <%= button_to 'New Dependency', new_dependency_path, method: :get, class: "btn btn-primary" %>
+</div>
+
+<table class="table datatable" id="dependencies_table">
+  <thead>
+    <tr>
+      <th>Dependant Project</th>
+      <th>Depends on</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dependencies.each do |dependency| %>
+      <tr>
+        <td>
+          <%= link_to dependency.sub_project.title, project_path(dependency.sub_project) %>
+        </td>
+        <td>
+          <%= link_to dependency.master_project.title, server_path(dependency.master_project) %>
+        </td>
+        <td><%= link_to 'Show', dependency %></td>
+        <td><%= link_to 'Edit', edit_dependency_path(dependency) %></td>
+        <td><%= link_to 'Destroy', dependency, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

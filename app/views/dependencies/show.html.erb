@@ -1,0 +1,25 @@
+<div class="page-header">
+  <h1><%= @dependency.relationship %></h1>
+</div>
+
+<div class="btn-group">
+  <%= button_to 'Edit', edit_dependency_path(@dependency), method: :get, class: "btn btn-primary" %>
+  <%= button_to 'Back', dependencies_path, method: :get, class: "btn btn-primary" %>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="page-header">
+      <h2>About this Dependency</h2>
+    </div>
+    <%= render "shared/projects" %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="page-header">
+    <h2>Comments<h2>
+  </div>
+  <%= render "comments/comments" %>
+  <%= render "comments/form", commentable: @dependency %>
+</div>

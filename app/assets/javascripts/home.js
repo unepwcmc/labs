@@ -42,6 +42,8 @@ $(document).ready(function(){
 
   $("#servers_table").dataTable();
 
+  $("#dependencies_table").dataTable();
+
   $("#projects_table").dataTable({
     "iDisplayLength": 50
   }).columnFilter({
