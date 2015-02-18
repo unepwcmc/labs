@@ -11,6 +11,10 @@ class DependenciesController < ApplicationController
 
   def show
     @dependency = Dependency.find(params[:id])
+    @projects = [@dependency.master_project, @dependency.sub_project]
+
+    @comments = @dependency.comments.order(:created_at)
+    @comment = Comment.new
 
     respond_to do |format|
       format.html
@@ -76,6 +80,6 @@ class DependenciesController < ApplicationController
   private
 
   def dependency_params
-    params.require(:dependency).permit(:master_project, :sub_project)
+    params.require(:dependency).permit(:master_project_id, :sub_project_id)
   end
 end

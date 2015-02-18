@@ -31,6 +31,7 @@ Labs::Application.routes.draw do
   end
 
   resources :dependencies do
+    resources :comments
   end
 
   get '/contact', :to => 'home#contact'

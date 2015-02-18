@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h1><%= "#{@dependency.master_project.title} -> #{@dependency.sub_project.title}" %></h1>
+  <h1><%= @dependency.relationship %></h1>
 </div>
 
 <div class="btn-group">
@@ -12,16 +12,14 @@
     <div class="page-header">
       <h2>About this Dependency</h2>
     </div>
-    <p>
-      <strong>Master Project:</strong>
-      <%= link_to @dependency.master_project.title, project_path(@dependency.master_project) %>
-    </p>
-
-    <p>
-      <strong>Sub Project:</strong>
-      <%= link_to @dependency.sub_project.title, project_path(@dependency.sub_project) %>
-    </p>
+    <%= render "shared/projects" %>
   </div>
 </div>
 
-
+<div class="row">
+  <div class="page-header">
+    <h2>Comments<h2>
+  </div>
+  <%= render "comments/comments" %>
+  <%= render "comments/form", commentable: @dependency %>
+</div>
