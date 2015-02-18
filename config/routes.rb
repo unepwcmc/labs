@@ -27,13 +27,14 @@ Labs::Application.routes.draw do
     resources :comments
   end
 
-  resources :project_instances do
-  end
-
   resources :comments do
   end
 
   resources :dependencies do
+    resources :comments
+  end
+
+  resources :project_instances do
     resources :comments
   end
 

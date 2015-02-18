@@ -2,10 +2,23 @@ class ProjectInstancesController < ApplicationController
 
   def index
     @projects_instances = ProjectInstance.all
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => @projects_instance }
+    end
   end
 
   def show
     @project_instance = ProjectInstance.find(params[:id])
+
+    @comments = @project_instance.comments.order(:created_at)
+    @comment = Comment.new
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => @project_instance }
+    end
   end
 
   def edit
@@ -29,6 +42,11 @@ class ProjectInstancesController < ApplicationController
 
   def new
     @project_instance = ProjectInstance.new
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => @project_instance }
+    end
   end
 
   def create
