@@ -1,6 +1,5 @@
 Labs::Application.routes.draw do
 
-
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }, :skip => [:registrations, :sessions, :passwords]
   devise_scope :user do
     delete '/users/sign_out', to: 'devise/sessions#destroy', as: 'destroy_user_session'
@@ -11,6 +10,9 @@ Labs::Application.routes.draw do
       post :suspend
     end
   end
+
+  get '/projects/sync', to: 'github_sync#index', as: 'sync_projects'
+  post '/projects/sync', to: 'github_sync#sync'
 
   resources :projects do
     resources :comments

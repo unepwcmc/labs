@@ -6,8 +6,8 @@
 #  title                 :string(255)      not null
 #  description           :text             not null
 #  url                   :string(255)
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
+#  created_at            :datetime
+#  updated_at            :datetime
 #  published             :boolean          default(FALSE)
 #  screenshot            :string(255)
 #  github_identifier     :string(255)
@@ -30,6 +30,8 @@
 #  other_technologies    :text             default([]), is an Array
 #  internal_clients      :text             default([]), is an Array
 #  internal_description  :text
+#  background_jobs       :text
+#  cron_jobs             :text
 #
 
 require 'test_helper'

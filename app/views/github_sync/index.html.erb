@@ -1,0 +1,25 @@
+<h1>Sync Projects</h1>
+<p>Select projects from Github to sync with Labs</p>
+
+<%= form_tag sync_projects_path do %>
+  <table class="table" id="sync_table">
+    <thead>
+      <tr>
+        <th>Selected</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @repos.each do |repo| %>
+        <tr>
+          <td><%= check_box_tag "repos[]", repo.name %></td>
+          <td><%= repo.name %></td>
+          <td><%= repo.description %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= submit_tag 'Sync marked Projects', class: 'btn btn-large btn-success' %>
+<% end %>
