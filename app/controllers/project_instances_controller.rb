@@ -31,7 +31,7 @@ class ProjectInstancesController < ApplicationController
     respond_to do |format|
       if @project_instance.update_attributes(project_instance_params)
         format.html { redirect_to @project_instance,
-          :notice => "Project's Instance was successfully updated." }
+          :notice => "Instance was successfully updated." }
         format.json { head :ok }
       else
         format.html { render :action => "edit" }
@@ -55,7 +55,7 @@ class ProjectInstancesController < ApplicationController
     respond_to do |format|
       if @project_instance.save
         format.html { redirect_to @project_instance,
-          :notice => "This Project's Instance was successfully created." }
+          :notice => "Instance was successfully created." }
         format.json { render :json => @project_instance, :status => :created,
           :location => @project_instance }
       else
