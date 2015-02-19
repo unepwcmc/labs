@@ -22,10 +22,6 @@
       <%= link_to @project_instance.url, @project_instance.url, target: '_blank' %>
     </p>
 
-    <%= display_text @project_instance, :description %>
-
-    <%= display_text @project_instance, :backup_information %>
-
     <p>
       <strong>Stage:</strong>
       <%= @project_instance.stage %>
@@ -36,10 +32,9 @@
       <%= @project_instance.branch %>
     </p>
 
-    <p>
-      <strong>Description:</strong>
-      <%= @project_instance.description %>
-    </p>
+    <%= display_text @project_instance, :description %>
+
+    <%= display_text @project_instance, :backup_information %>
 </div>
 
 <div class="row">
