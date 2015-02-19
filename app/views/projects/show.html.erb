@@ -23,19 +23,6 @@
     <%= display_text @project, :internal_description %>
 
     <p>
-      <strong>Project Leads:</strong>
-      <% if !@project.project_leads.blank? %>
-        <ul>
-          <% @project.project_leads.each do |lead| %>
-            <li><%= lead %></li>
-          <% end %>
-        </ul>
-      <% else %>
-        This project has no leads
-      <% end %>
-    </p>
-
-    <p>
       <strong>External Clients:</strong>
 
       <% if !@project.external_clients.blank? %>
@@ -50,6 +37,37 @@
     </p>
 
     <p>
+      <strong>Internal Clients:</strong>
+      <% if !@project.internal_clients.blank? %>
+        <ul>
+          <% @project.internal_clients.each do |internal_client| %>
+            <li><%= internal_client %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no internal clients
+      <% end %>
+    </p>
+
+    <p>
+      <strong>Project Leads:</strong>
+      <% if !@project.project_leads.blank? %>
+        <ul>
+          <% @project.project_leads.each do |lead| %>
+            <li><%= lead %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no leads
+      <% end %>
+    </p>
+
+    <p>
+      <strong>Current Lead:</strong>
+      <%= @project.current_lead %>
+    </p>
+
+    <p>
       <strong>Developers:</strong>
       <% if !@project.developers.blank? %>
         <ul>
@@ -59,32 +77,6 @@
         </ul>
       <% else %>
         This project has no developers
-      <% end %>
-    </p>
-
-    <p>
-      <strong>Pivotal Tracker IDs:</strong>
-      <% if !@project.pivotal_tracker_ids.blank? %>
-        <ul>
-          <% @project.pivotal_tracker_ids.each do |pivotal_tracker_id| %>
-            <li><%= pivotal_tracker_id %></li>
-          <% end %>
-        </ul>
-      <% else %>
-        This project has no Pivotal Tracker IDs
-      <% end %>
-    </p>
-
-    <p>
-      <strong>Trello IDs:</strong>
-      <% if !@project.trello_ids.blank? %>
-        <ul>
-          <% @project.trello_ids.each do |trello_id| %>
-            <li><%= trello_id %></li>
-          <% end %>
-        </ul>
-      <% else %>
-        This project has no Trello IDs
       <% end %>
     </p>
 
@@ -155,24 +147,6 @@
       <%= @project.state %>
     </p>
 
-    <p>
-      <strong>Internal Clients:</strong>
-      <% if !@project.internal_clients.blank? %>
-        <ul>
-          <% @project.internal_clients.each do |internal_client| %>
-            <li><%= internal_client %></li>
-          <% end %>
-        </ul>
-      <% else %>
-        This project has no internal clients
-      <% end %>
-    </p>
-
-    <p>
-      <strong>Current Lead:</strong>
-      <%= @project.current_lead %>
-    </p>
-
     <%= display_text @project, :hacks %>
 
     <p>
@@ -230,6 +204,34 @@
 
   <div class="col-lg-6">
     <p>
+      <strong>Pivotal Tracker IDs:</strong>
+      <% if !@project.pivotal_tracker_ids.blank? %>
+        <ul>
+          <% @project.pivotal_tracker_ids.each do |pivotal_tracker_id| %>
+            <li><%= pivotal_tracker_id %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no Pivotal Tracker IDs
+      <% end %>
+    </p>
+
+    <p>
+      <strong>Trello IDs:</strong>
+      <% if !@project.trello_ids.blank? %>
+        <ul>
+          <% @project.trello_ids.each do |trello_id| %>
+            <li><%= trello_id %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no Trello IDs
+      <% end %>
+    </p>
+  </div>
+
+  <div class="col-lg-6">
+    <p>
       <strong>P Drive Folders:</strong>
       <% if !@project.pdrive_folders.blank? %>
         <ul>
@@ -241,9 +243,7 @@
         This project has no P Drive folders
       <% end %>
     </p>
-  </div>
 
-  <div class="col-lg-6">
     <p>
       <strong>Dropbox Folders:</strong>
       <% if !@project.dropbox_folders.blank? %>
