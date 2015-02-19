@@ -15,14 +15,14 @@ class CreateProjectInstances < ActiveRecord::Migration
 
     Installation.reset_column_information
 
-    Installation.all.each do |installation|
+    Installation.order('project_id, stage, CASE WHEN branch = \'Web\' THEN 1 WHEN branch = \'Database\' THEN 3 ELSE 2 END').each do |installation|
       project = installation.project
       project_instance = ProjectInstance.find_by_project_id_and_stage_and_branch(project.id,
         installation.stage, installation.branch)
 
       if project_instance.present?
         project_instance.installations << installation
-      else  
+      else
         ProjectInstance.create({name: project.title, project_id: project.id, url: project.url,
           backup_information: project.backup_information, stage: installation.stage,
           branch: installation.branch, description: installation.description,
