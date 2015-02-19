@@ -1,5 +1,5 @@
 class CreateProjectInstances < ActiveRecord::Migration
-  def change
+  def up
     create_table :project_instances do |t|
       t.references :project, index: true, null: false
       t.string :name, null: false
@@ -17,7 +17,8 @@ class CreateProjectInstances < ActiveRecord::Migration
 
     Installation.all.each do |installation|
       project = installation.project
-      project_instance = ProjectInstance.find_by_project_id_and_stage(project.id,installation.stage)
+      project_instance = ProjectInstance.find_by_project_id_and_stage_and_branch(project.id,
+        installation.stage, installation.branch)
 
       if project_instance.present?
         project_instance.installations << installation
@@ -32,5 +33,12 @@ class CreateProjectInstances < ActiveRecord::Migration
 
     change_column :installations, :project_instance_id, :integer, null: false
 
+  end
+
+  def down
+    ProjectInstance.destroy_all
+    drop_table :project_instances
+
+    remove_column :installations, :project_instance_id
   end
 end
