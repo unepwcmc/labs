@@ -1,12 +1,11 @@
 FactoryGirl.define do
-  factory :installation do
+  factory :project_instance do
     project_id { FactoryGirl.create(:project).id }
-    server_id { FactoryGirl.create(:server).id }
-    project_instance_id {FactoryGirl.create(:project_instance).id}
-    role { ['Web', 'Database', 'Web & Database'].sample }
     stage { ['Staging', 'Production'].sample }
     branch { ['develop', 'master'].sample }
     url Faker::Internet.url
     description Faker::Lorem.paragraph
+    name Faker::Company.name
+    backup_information Faker::Lorem.paragraph
   end
 end

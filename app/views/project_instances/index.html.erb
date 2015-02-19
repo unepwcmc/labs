@@ -1,0 +1,37 @@
+<div class="page-header">
+  <h1>Listing Projects Instances</h1>
+</div>
+
+<div class="btn-group">
+  <%= button_to 'New Project Instance', new_project_instance_path, method: :get, class: "btn btn-primary" %>
+</div>
+
+<table class="table datatable" id="project_instances_table">
+  <thead>
+    <tr>
+      <th>Instance Name</th>
+      <th>Project Title</th>
+      <th>URL</th>
+      <th>Stage</th>
+      <th>Branch</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @projects_instances.each do |instance| %>
+      <tr>
+        <td><%= instance.name %></td>
+        <td><%= instance.project.title %></td>
+        <td><%= instance.url %></td>
+        <td><%= instance.stage %></td>
+        <td><%= instance.branch %></td>
+        <td><%= link_to 'Show', instance %></td>
+        <td><%= link_to 'Edit', edit_project_instance_path(instance) %></td>
+        <td><%= link_to 'Destroy', instance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

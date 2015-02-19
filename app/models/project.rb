@@ -49,6 +49,8 @@ class Project < ActiveRecord::Base
     :class_name => 'Dependency', :dependent => :destroy
   has_many :sub_projects, :through => :sub_master_relationship
 
+  has_many :project_instances
+
   # Custom search scope for publically viewable projects
   pg_search_scope :search, :using => { :tsearch => {:prefix => true} },
     :against => [:title, :description, :github_identifier, :state, :internal_clients,

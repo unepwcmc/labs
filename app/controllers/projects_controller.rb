@@ -26,7 +26,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   def show
     @project = Project.find(params[:id])
-    @installations = @project.installations
+    @instances = @project.project_instances
 
     @comments = @project.comments.order(:created_at)
     @comment = Comment.new

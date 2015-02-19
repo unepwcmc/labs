@@ -34,6 +34,10 @@ Labs::Application.routes.draw do
     resources :comments
   end
 
+  resources :project_instances do
+    resources :comments
+  end
+
   get '/contact', :to => 'home#contact'
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.

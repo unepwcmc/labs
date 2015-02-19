@@ -17,7 +17,8 @@
 class Installation < ActiveRecord::Base
   belongs_to :project
   belongs_to :server
-
+  belongs_to :project_instance
+  
   has_many :comments, as: :commentable
 
   #Validations

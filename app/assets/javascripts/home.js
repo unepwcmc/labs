@@ -34,6 +34,14 @@ $(document).ready(function(){
     width: '100%'
   });
 
+  $("#project_instance_installation_ids").select2({
+    tags: $("#project_instance_installation_ids").data("tags"),
+    placeholder: "Select tag",
+    allowClear: true,
+    minimumInputLength: 1,
+    width: '100%'
+  });
+
   $(".filters").bind("DOMNodeInserted", function(){
     $(this).find(".search_init").addClass("projects_filter");
   });
@@ -43,6 +51,8 @@ $(document).ready(function(){
   $("#servers_table").dataTable();
 
   $("#dependencies_table").dataTable();
+
+  $("#project_instances_table").dataTable();
 
   $("#projects_table").dataTable({
     "iDisplayLength": 50
