@@ -1,5 +1,3 @@
-require 'ostruct'
-
 class GithubSyncController < ApplicationController
   def index
     @repos = Github.repos
