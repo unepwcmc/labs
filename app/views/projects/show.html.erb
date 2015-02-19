@@ -81,6 +81,7 @@
     </p>
 
     <%= display_text @project, :backup_information %>
+    <%= display_text @project, :dependencies %>
 
     <p>
       <strong>Depends On:</strong>
@@ -100,7 +101,7 @@
       <% if !@sub_projects.empty? %>
         <ul>
           <% @sub_projects.each do |project| %>
-            <li><%= link_to project.id, project_path(project) %> <%= project.title %></li>
+            <li><%= link_to project.title, project_path(project) %></li>
           <% end %>
         </ul>
       <% else %>
@@ -151,7 +152,9 @@
 
     <p>
       <strong>Repository URL:</strong>
-      <%= link_to @project.github_identifier, @project.github_identifier, target: '_blank' %>
+      <%= link_to @project.github_identifier,
+        "https://github.com/#{@project.github_identifier}"
+      %>
     </p>
 
     <p>
@@ -208,7 +211,10 @@
       <% if !@project.pivotal_tracker_ids.blank? %>
         <ul>
           <% @project.pivotal_tracker_ids.each do |pivotal_tracker_id| %>
-            <li><%= pivotal_tracker_id %></li>
+            <li>
+              <%= link_to pivotal_tracker_id,
+              "https://www.pivotaltracker.com/projects/#{pivotal_tracker_id}" %>
+            </li>
           <% end %>
         </ul>
       <% else %>
@@ -221,7 +227,9 @@
       <% if !@project.trello_ids.blank? %>
         <ul>
           <% @project.trello_ids.each do |trello_id| %>
-            <li><%= trello_id %></li>
+            <li>
+              <%= link_to trello_id, "https://trello.com/b/#{trello_id}" %>
+            </li>
           <% end %>
         </ul>
       <% else %>
