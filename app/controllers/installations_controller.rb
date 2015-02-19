@@ -74,6 +74,6 @@ class InstallationsController < ApplicationController
     end
 
     def installation_params
-      params.require(:installation).permit(:project_id, :server_id, :role, :stage, :branch, :url, :description)
+      params.require(:installation).permit(:project_id, :project_instance_id, :server_id, :role, :stage, :branch, :url, :description)
     end
 end

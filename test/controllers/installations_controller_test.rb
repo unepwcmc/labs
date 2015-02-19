@@ -29,7 +29,12 @@ class InstallationsControllerTest < ActionController::TestCase
 
   test "should create installation" do
     assert_difference('Installation.count') do
-      post :create, installation: { branch: @new_installation.branch, description: @new_installation.description, project_id: @new_installation.project_id, role: @new_installation.role, server_id: @new_installation.server_id, stage: @new_installation.stage, url: @new_installation.url }
+      post :create, installation: { branch: @new_installation.branch,
+        description: @new_installation.description, project_id: @new_installation.project_id,
+        project_instance_id: @new_installation.project_instance_id,
+        role: @new_installation.role, server_id: @new_installation.server_id,
+        stage: @new_installation.stage, url: @new_installation.url
+      }
     end
 
     assert_redirected_to installations_path
@@ -46,7 +51,12 @@ class InstallationsControllerTest < ActionController::TestCase
   end
 
   test "should update installation" do
-    patch :update, id: @installation, installation: { branch: @installation.branch, description: @installation.description, project_id: @installation.project_id, role: @installation.role, server_id: @installation.server_id, stage: @installation.stage, url: @installation.url }
+    patch :update, id: @installation, installation: { branch: @installation.branch,
+      description: @installation.description, project_id: @installation.project_id,
+      project_instance_id: @new_installation.project_instance_id,
+      role: @installation.role, server_id: @installation.server_id,
+      stage: @installation.stage, url: @installation.url
+    }
     assert_redirected_to installation_path(assigns(:installation))
   end
 
