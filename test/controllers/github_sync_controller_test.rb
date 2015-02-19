@@ -16,12 +16,12 @@ class GithubSyncControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  # test "should get sync" do
-  #   stub_request(:get, "https://api.github.com/repos/unepwcmc/*").
-  #   to_return(:status => 200, :body => [{name: 'derp', description: 'derp'}].to_json) 
+  test "should create a project on post to sync" do
+    stub_request(:get, "https://api.github.com/repos/unepwcmc/first_repo").
+    to_return(:status => 200, :body => {"name" => 'derp', "description" => 'derp'}.to_json) 
 
-  #   get :sync, repo: ["first_repo", "second_repo"]
-  #   assert_response :success
-  # end
-
+    assert_difference 'Project.count' do
+      post :sync, repos: ["first_repo"]
+    end
+  end
 end
