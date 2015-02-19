@@ -107,5 +107,4 @@ class Project < ActiveRecord::Base
       errors.add(:pivotal_tracker_ids, :invalid)
     end
   end
-
 end

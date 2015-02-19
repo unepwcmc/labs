@@ -1,6 +1,7 @@
 class GithubSyncController < ApplicationController
   def index
-    @repos = Github.repos
+    existing_repo_names = Project.pluck(:github_identifier)
+    @repos = Github.repos.reject{ |repo| existing_repo_names.include?(repo.full_name) }
   end
 
   def sync
