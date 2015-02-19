@@ -1,11 +1,11 @@
 class CreateProjectInstances < ActiveRecord::Migration
   def change
     create_table :project_instances do |t|
-      t.references :project, index: true
-      t.string :name
-      t.string :url
+      t.references :project, index: true, null: false
+      t.string :name, null: false
+      t.string :url, null: false
       t.text :backup_information
-      t.string :stage
+      t.string :stage, null: false
       t.string :branch
       t.text :description
       t.timestamps
@@ -29,6 +29,8 @@ class CreateProjectInstances < ActiveRecord::Migration
         })
       end
     end
+
+    change_column :installations, :project_instance_id, :integer, null: false
 
   end
 end
