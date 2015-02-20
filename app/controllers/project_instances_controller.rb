@@ -6,6 +6,7 @@ class ProjectInstancesController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render :json => @projects_instance }
+      format.csv { send_data @projects_instances.to_csv }
     end
   end
 
