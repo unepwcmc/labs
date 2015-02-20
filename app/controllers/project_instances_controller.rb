@@ -1,12 +1,15 @@
 class ProjectInstancesController < ApplicationController
 
   def index
-    @projects_instances = ProjectInstance.all
-
     respond_to do |format|
-      format.html
+      format.html {
+        @projects_instances = ProjectInstance.all
+        render 'index'
+      }
       format.json { render :json => @projects_instance }
-      format.csv { send_data @projects_instances.to_csv }
+      format.csv {
+        send_file(Pathname.new(ProjectInstancesExport.new.export).realpath, type: 'text/csv')
+      }
     end
   end
 
