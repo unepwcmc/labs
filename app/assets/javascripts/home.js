@@ -3,6 +3,8 @@
 
 $(document).ready(function(){
 
+  $(".datepicker").datepicker()
+
   $(".project").hover(function(event){
     $(this).find('a').css('text-decoration', 'underline');
     $(this).find('img').css('border', '2px solid #33B5E5');
