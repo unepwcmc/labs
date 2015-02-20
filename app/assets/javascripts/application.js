@@ -6,6 +6,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.all
 //= require select2
 //= require jquery.dataTables.min
 //= require jquery.dataTables.columnFilter

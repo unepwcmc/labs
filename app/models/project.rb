@@ -69,6 +69,11 @@ class Project < ActiveRecord::Base
   validates :title, :description, :state, presence: true
   validates :url, if: :published, presence: true
 
+  validates :url, format: { with: URI.regexp }, if: Proc.new { |a| a.url.present? }
+  validates :github_identifier, format: { with: /\Aunepwcmc\/[-a-zA-Z0-9_]+\z/i }
+  validate :validate_trello_ids
+  validate :validate_pivotal_tracker_ids
+
   validates :state, inclusion: { in: ['Under Development', 'Delivered', 'Project Development', 'Discontinued'] }
 
   # Mount uploader for carrierwave
@@ -85,6 +90,20 @@ class Project < ActiveRecord::Base
       self.send("#{attribute}=", params.split(','))
       self.send(:save)
   	end
+  end
+
+  private
+
+  def validate_trello_ids
+    if self.trello_ids.detect{ |trello_id| !(/\A([a-z0-9]+\/[-a-z0-9_]+)\z/i.match(trello_id)) }
+      errors.add(:trello_ids, :invalid)
+    end
+  end
+
+  def validate_pivotal_tracker_ids
+    if self.pivotal_tracker_ids.detect{ |pt_id| !(/\A\d+(,\d+)*\z/i.match(pt_id)) }
+      errors.add(:pivotal_tracker_ids, :invalid)
+    end
   end
 
 end

@@ -47,28 +47,22 @@
       </div>
 
       <div class="form-group">
-        <%= f.label :project_leads, class: "col-sm-2 control-label" %>
-        <div class="input col-sm-10">
-          <%= f.text_area :project_leads_array, class: "form-control tag-field" %>
-          <p class="help-block">Add a tag for each project lead</p>
-        </div>
-      </div>
-
-      <div class="form-group">
         <%= f.label :backup_information, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
           <%= f.text_area :backup_information, class: "form-control" %>
         </div>
       </div>
-    </div>
 
-    <div class="col-lg-6">
       <div class="form-group">
         <%= f.label :screenshot, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
           <%= f.file_field :screenshot %>
         </div>
       </div>
+
+    </div>
+
+    <div class="col-lg-6">
 
       <div class="form-group">
         <%= f.label :external_clients, class: "col-sm-2 control-label" %>
@@ -79,34 +73,43 @@
       </div>
 
       <div class="form-group">
+        <%= f.label :internal_clients, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :internal_clients_array, class: "form-control tag-field",
+            data: {tags: @employees.map{|t| {id: t, text: t}} } %>
+          <p class="help-block">Add a tag for each internal client</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :project_leads, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :project_leads_array, class: "form-control tag-field" %>
+          <p class="help-block">Add a tag for each project lead</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :current_lead, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :current_lead, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
         <%= f.label :developers, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
         <%= f.text_field :developers_array, class: "form-control tag-field",
-			data: {tags: @developers.map{|t| {id: t, text: t}} }  %>
+      data: {tags: @developers.map{|t| {id: t, text: t}} }  %>
           <p class="help-block">Add a tag for each developer</p>
         </div>
       </div>
 
-      <div class="form-group">
-        <%= f.label :pivotal_tracker_ids, class: "col-sm-2 control-label" %>
-        <div class="input col-sm-10">
-          <%= f.text_field :pivotal_tracker_ids_array, class: "form-control tag-field" %>
-          <p class="help-block">Add a tag for each Pivotal Tracker ID</p>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :trello_ids, class: "col-sm-2 control-label" %>
-        <div class="input col-sm-10">
-          <%= f.text_field :trello_ids_array, class: "form-control tag-field" %>
-          <p class="help-block">Add a tag for each Trello ID</p>
-        </div>
-      </div>
 
       <div class="form-group">
         <%= f.label :expected_release_date, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-          <%= f.date_field :expected_release_date, class: "form-control" %>
+          <%= f.date_field :expected_release_date, class: "form-control datepicker" %>
           <p class="help-block">Expected release date</p>
         </div>
       </div>
@@ -138,22 +141,6 @@
       </div>
 
       <div class="form-group">
-        <%= f.label :internal_clients, class: "col-sm-2 control-label" %>
-        <div class="input col-sm-10">
-          <%= f.text_area :internal_clients_array, class: "form-control tag-field",
-            data: {tags: @employees.map{|t| {id: t, text: t}} } %>
-          <p class="help-block">Add a tag for each internal client</p>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :current_lead, class: "col-sm-2 control-label" %>
-        <div class="input col-sm-10">
-          <%= f.text_field :current_lead, class: "form-control" %>
-        </div>
-      </div>
-
-      <div class="form-group">
         <%= f.label :hacks, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
           <%= f.text_area :hacks, class: "form-control" %>
@@ -174,6 +161,14 @@
           <%= f.text_area :background_jobs, class: "form-control" %>
         </div>
       </div>
+
+      <div class="form-group">
+        <%= f.label :cron_jobs, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :cron_jobs, class: "form-control" %>
+        </div>
+      </div>
+
     </div>
 
     <div class="col-lg-6">
@@ -181,21 +176,21 @@
       <div class="form-group">
         <%= f.label :rails_version, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-          <%= f.text_area :rails_version, class: "form-control" %>
+          <%= f.text_field :rails_version, class: "form-control" %>
         </div>
       </div>
 
       <div class="form-group">
         <%= f.label :ruby_version, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-          <%= f.text_area :ruby_version, class: "form-control" %>
+          <%= f.text_field :ruby_version, class: "form-control" %>
         </div>
       </div>
 
       <div class="form-group">
         <%= f.label :postgresql_version, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-          <%= f.text_area :postgresql_version, class: "form-control" %>
+          <%= f.text_field :postgresql_version, class: "form-control" %>
         </div>
       </div>
 
@@ -208,18 +203,13 @@
       </div>
 
       <div class="form-group">
-        <%= f.label :dependencies, class: "col-sm-2 control-label" %>
+        <%= f.label :system_dependencies, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
           <%= f.text_area :dependencies, class: "form-control" %>
+          <p class="help-block">e.g. LaTeX, redis</p>
         </div>
       </div>
 
-      <div class="form-group">
-        <%= f.label :cron_jobs, class: "col-sm-2 control-label" %>
-        <div class="input col-sm-10">
-          <%= f.text_area :cron_jobs, class: "form-control" %>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -230,15 +220,33 @@
 
     <div class="col-lg-6">
       <div class="form-group">
+        <%= f.label :pivotal_tracker_ids, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :pivotal_tracker_ids_array, class: "form-control tag-field" %>
+          <p class="help-block">Add a tag for each Pivotal Tracker ID (format: number)</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :trello_ids, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :trello_ids_array, class: "form-control tag-field" %>
+          <p class="help-block">
+            Add a tag for each Trello ID (format: k19vkqb3/ors-new-hope)
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
         <%= f.label :pdrive_folders, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
           <%= f.text_area :pdrive_folders_array, class: "form-control tag-field" %>
           <p class="help-block">Add a tag for each folder</p>
         </div>
       </div>
-    </div>
 
-    <div class="col-lg-6">
       <div class="form-group">
         <%= f.label :dropbox_folders, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">

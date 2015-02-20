@@ -8,4 +8,5 @@
  *= require select2
  *= require select2-bootstrap
  *= require bootswatch
+ *= require jquery.ui.all
  */

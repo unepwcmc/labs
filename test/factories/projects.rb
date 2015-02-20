@@ -37,15 +37,18 @@ FactoryGirl.define do
     title Faker::Company.name
     description Faker::Lorem.paragraph
     url Faker::Internet.url
-    github_identifier Faker::Internet.url
+    github_identifier "unepwcmc/#{Faker::Lorem.word}"
     state { ['Under Development', 'Delivered', 'Project Development'].sample }
     internal_clients {[ Faker::Name.name, Faker::Name.name, Faker::Name.name] }
     current_lead Faker::Name.name
     external_clients {[ Faker::Name.name, Faker::Name.name, Faker::Name.name] }
     project_leads {[ Faker::Name.name, Faker::Name.name, Faker::Name.name] }
     developers {[ Faker::Name.name, Faker::Name.name, Faker::Name.name] }
-    pivotal_tracker_ids {[ Faker::Name.name, Faker::Name.name, Faker::Name.name] }
-    trello_ids {[ Faker::Name.name, Faker::Name.name, Faker::Name.name] }
+    pivotal_tracker_ids [ Faker::Number.number(8), Faker::Number.number(8), Faker::Number.number(8)]
+    trello_ids [ "#{Faker::Lorem.characters(10)}/#{Faker::Lorem.characters(10)}",
+        "#{Faker::Lorem.characters(10)}/#{Faker::Lorem.characters(10)}",
+        "#{Faker::Lorem.characters(10)}/#{Faker::Lorem.characters(10)}"
+    ]
     backup_information Faker::Lorem.paragraph
     expected_release_date {Date.today + Faker::Number.number(3).to_i.days}
     rails_version {Faker::Name.name}
