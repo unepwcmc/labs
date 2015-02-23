@@ -61,11 +61,11 @@ $(document).ready(function(){
     },
     {
       type: "select",
-      values: ["Web", "Database", "Web & Database"]
+      values: gon.roles
     },
     {
       type: "select",
-      values: ["Staging", "Production"]
+      values: gon.stages
     },
     {
       type: "text"
@@ -95,11 +95,11 @@ $(document).ready(function(){
     },
     {
       type: "select",
-      values: ["Web", "Database", "Web & Database"]
+      values: gon.roles
     },
     {
       type: "select",
-      values: ["Staging", "Production"]
+      values: gon.stages
     },
     {
       type: "text"
@@ -125,7 +125,7 @@ $(document).ready(function(){
     null,
     {
       type: "select",
-      values: ["Under Development", "Delivered", "Project Development", "Discontinued"]
+      values: gon.states
     },
     {
       type: "text"

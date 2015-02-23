@@ -6,6 +6,7 @@ class InstallationsControllerTest < ActionController::TestCase
   setup do
     @installation = FactoryGirl.create(:installation)
     @new_installation = FactoryGirl.build(:installation)
+    @soft_deleted_installation = FactoryGirl.create(:soft_deleted_installation)
     @user = FactoryGirl.create(:user)
     sign_in @user
   end
@@ -66,5 +67,36 @@ class InstallationsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to installations_path
+  end
+
+  test "should get deleted list" do
+    get :deleted_list
+    assert_response :success
+    assert_not_nil assigns(:installations)
+  end
+
+  test "should soft-delete installation" do
+    assert_difference('Installation.count', -1) do
+      patch :soft_delete, id: @installation, comment:
+      {
+        content: "Shut down message",
+        user_id: @user.id
+      }
+    end
+
+    assert_equal 2, Installation.only_deleted.count
+    assert_equal 1, @installation.comments.count
+  end
+
+  test "should restore soft_deleted installation" do
+    assert_difference('Installation.count') do
+      patch :restore, id: @soft_deleted_installation, comment:
+      {
+        content: "Shut down message",
+        user_id: @user.id
+      }
+    end
+
+    assert_equal 0, Installation.only_deleted.count
   end
 end

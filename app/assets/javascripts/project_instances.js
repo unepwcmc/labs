@@ -20,7 +20,7 @@ $(document).ready(function(){
     null,
     {
       type: "select",
-      values: ["Staging", "Production"]
+      values: gon.stages
     },
     {
       type: "text"

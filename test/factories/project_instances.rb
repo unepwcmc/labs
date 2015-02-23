@@ -7,5 +7,38 @@ FactoryGirl.define do
     description Faker::Lorem.paragraph
     name Faker::Company.name
     backup_information Faker::Lorem.paragraph
+
+    factory :project_instance_with_installations do
+
+      transient do
+        installations_count 3
+      end
+
+      after(:create) do |project_instance, evaluator|
+        create_list(
+          :installation, evaluator.installations_count,
+          project_instance: project_instance
+        )
+      end
+    end
+
+    factory :soft_deleted_project_instance_with_installations do
+      deleted_at Date.today
+
+      transient do
+        installations_count 2
+      end
+
+      after(:create) do |project_instance, evaluator|
+        create_list(
+          :soft_deleted_installation, evaluator.installations_count,
+          project_instance: project_instance
+        )
+      end
+    end
+  end
+
+  factory :soft_deleted_project_instance do
+    deleted_at Date.today
   end
 end

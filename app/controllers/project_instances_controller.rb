@@ -1,6 +1,12 @@
 class ProjectInstancesController < ApplicationController
 
   def index
+    @projects_instances = ProjectInstance.all
+
+    gon.push({
+      :stages => ProjectInstance.select("stage").map(&:stage).uniq
+    })
+
     respond_to do |format|
       format.html {
         @projects_instances = ProjectInstance.all

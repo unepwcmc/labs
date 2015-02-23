@@ -2,6 +2,12 @@ class InstallationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
+
+    gon.push({
+      :roles => Installation.select("role").map(&:role).uniq,
+      :stages => Installation.select("stage").map(&:stage).uniq
+    })
+
     respond_to do |format|
       format.html {
         @installations = Installation.all
@@ -86,11 +92,13 @@ class InstallationsController < ApplicationController
   def deleted_list
     @installations = Installation.only_deleted
 
+    gon.push({
+      :roles => Installation.only_deleted.select("role").map(&:role).uniq,
+      :stages => Installation.only_deleted.select("stage").map(&:stage).uniq
+    })
+
     respond_to do |format|
       format.html
-      format.csv {
-        send_file(Pathname.new(InstallationsExport.new.export).realpath, type: 'text/csv')
-      }
     end
   end
 

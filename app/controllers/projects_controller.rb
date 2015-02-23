@@ -12,6 +12,10 @@ class ProjectsController < ApplicationController
 
     @projects = @projects.published unless user_signed_in?
 
+    gon.push({
+      :states => Project.select("state").map(&:state).uniq
+    })
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @projects }
