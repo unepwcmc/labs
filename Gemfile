@@ -24,6 +24,7 @@ gem 'select2-rails'
 gem 'sass-rails'
 gem 'foreigner'
 gem 'pg_csv'
+gem "paranoia", "~> 2.0"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

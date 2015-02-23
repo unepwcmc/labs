@@ -1,0 +1,32 @@
+<div id="commentModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Reasons for shutting down</h4>
+      </div>
+      <div class="modal-body soft_delete_form">
+        <%= form_for :comment,
+          :html => {class: "form-horizontal comment_form"},
+          url: {controller: params[:controller], action: "soft_delete",
+            id: id
+          },
+          method: :put do |f| 
+        %>
+          <div class="form-group">
+            <%= f.label :comment, class: "col-sm-2 control-label" %>
+            <div class='col-sm-10'>
+              <%= f.text_area :content, class: "form-control" %>
+              <p class="error-block">Please insert a comment</p>
+            </div>
+            <%= f.hidden_field :user_id, value: current_user.id %> 
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%= f.submit class: "btn btn-primary" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

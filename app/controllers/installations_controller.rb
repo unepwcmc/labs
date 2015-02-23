@@ -68,12 +68,54 @@ class InstallationsController < ApplicationController
     end
   end
 
+  def soft_delete
+    @installation = Installation.find(params[:id])
+
+    params[:comment][:content][/\A/] =
+      '<i style="color: red;"> SHUT DOWN </i></br>'
+
+    @installation.comments.create(comment_params)
+
+    @installation.destroy
+
+    respond_to do |format|
+      format.html { redirect_to installations_url }
+    end
+  end
+
+  def deleted_list
+    @installations = Installation.only_deleted
+
+    respond_to do |format|
+      format.html
+      format.csv {
+        send_file(Pathname.new(InstallationsExport.new.export).realpath, type: 'text/csv')
+      }
+    end
+  end
+
+  def restore
+    @installation = Installation.only_deleted.find(params[:id])
+
+    @installation.restore
+
+    respond_to do |format|
+      format.html { redirect_to installations_url }
+      format.json { head :ok }
+    end
+  end
+
   private
     def set_installation
-      @installation = Installation.find(params[:id])
+      @installation = Installation.with_deleted.find(params[:id])
     end
 
     def installation_params
-      params.require(:installation).permit(:project_id, :project_instance_id, :server_id, :role, :stage, :branch, :url, :description)
+      params.require(:installation).permit(:project_id, :project_instance_id,
+        :server_id, :role, :stage, :branch, :url, :description, :closing)
+    end
+
+    def comment_params
+      params[:comment].permit(:content, :user_id)
     end
 end

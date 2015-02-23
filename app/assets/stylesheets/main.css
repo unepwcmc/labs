@@ -30,3 +30,16 @@ footer {
 .unpublished-project a:hover {
   color: #fff;
 }
+
+.isClosing {
+  color: green ;
+}
+
+.isOpen {
+  color: red;
+}
+
+.error-block {
+  display: none;
+  color: red;
+}

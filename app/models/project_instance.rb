@@ -1,6 +1,8 @@
 class ProjectInstance < ActiveRecord::Base
+  acts_as_paranoid
+
   belongs_to :project
-  has_many :installations
+  has_many :installations, dependent: :destroy
 
   has_many :comments, as: :commentable
 
@@ -14,4 +16,7 @@ class ProjectInstance < ActiveRecord::Base
       end
     end
   end
+
+  accepts_nested_attributes_for :comments, :reject_if => lambda { |a| a[:content].blank? }
+
 end

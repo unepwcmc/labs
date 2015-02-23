@@ -23,6 +23,11 @@ Labs::Application.routes.draw do
 
   resources :installations do
     resources :comments
+    collection do
+      put :soft_delete
+      get :deleted_list
+      put :restore
+    end
   end
 
   resources :servers do
@@ -38,6 +43,11 @@ Labs::Application.routes.draw do
 
   resources :project_instances do
     resources :comments
+    collection do
+      put :soft_delete
+      get :deleted_list
+      put :restore
+    end
   end
 
   get '/contact', :to => 'home#contact'

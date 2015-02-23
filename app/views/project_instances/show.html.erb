@@ -23,6 +23,11 @@
     </p>
 
     <p>
+      <strong>Scheduled for close down:</strong>
+      <span class='closing'><%= @project_instance.closing %></span>
+    </p>
+
+    <p>
       <strong>Stage:</strong>
       <%= @project_instance.stage %>
     </p>
@@ -43,8 +48,8 @@
       <h2>This Instance Installations</h2>
     </div>
     <p>
-      <% if !@project_instance.installations.empty? %>
-        <% @project_instance.installations.each do |installation| %>
+      <% if !@project_instance.installations.with_deleted.empty? %>
+        <% @project_instance.installations.with_deleted.each do |installation| %>
             <%= link_to installation.name, installation_path(installation) %> (<%= installation.stage %>)
               on <%= link_to installation.server.name, server_path(installation.server) %><br>
         <% end %>

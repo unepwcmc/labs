@@ -163,6 +163,8 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
+    paranoia (2.1.0)
+      activerecord (~> 4.0)
     pg (0.18.1)
     pg_array_parser (0.0.9)
     pg_csv (0.1.8)
@@ -274,6 +276,7 @@ DEPENDENCIES
   mini_magick
   mocha
   omniauth-github
+  paranoia (~> 2.0)
   pg
   pg_array_parser
   pg_csv

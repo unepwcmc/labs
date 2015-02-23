@@ -71,8 +71,23 @@
       %>
       </div>
   </div>
+
+  <div class="form-group">
+    <div class="col-sm-2 control-label">
+      <%= f.label :closing %>
+    </div>
+    <div class="col-sm-offset-2 col-sm-10" style="margin: 10px 0px 0px 0px;">
+      <%= f.check_box :closing, class: "inline" %>
+    </div>
+  </div>
   
   <div class="actions">
     <%= f.submit class: "btn btn-primary" %>
+    <% unless @project_instance.new_record?  || @project_instance.deleted? %>
+      <%= link_to "Soft-Delete",
+        {action: "soft_delete", id: @project_instance.id},
+        method: :put, class: "btn btn-primary", id: "soft_delete_btn", type: "button"
+      %>
+    <% end %>
   </div>
 <% end %>
