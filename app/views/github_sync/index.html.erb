@@ -1,6 +1,8 @@
 <h1>Sync Projects</h1>
 <p>Select projects from Github to sync with Labs</p>
 
+<%= render 'error_messages' %>
+
 <%= form_tag sync_projects_path do %>
   <table class="table" id="sync_table">
     <thead>

@@ -4669,6 +4669,9 @@ a.thumbnail.active {
   border-color: transparent;
   color: #ffffff;
 }
+.alert-danger p {
+  color: #ffffff;
+}
 .alert-danger hr {
   border-top-color: rgba(0, 0, 0, 0);
 }
