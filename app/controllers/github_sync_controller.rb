@@ -4,7 +4,8 @@ class GithubSyncController < ApplicationController
   end
 
   def sync
-    repos = GithubProjectSynchroniser.create_from_repos params[:repos]
+    github_sync = GithubProjectSynchroniser.new(params[:repos])
+    repos = github_sync.run
 
     if contains_invalid_repository? repos
       @repos = Github.repos

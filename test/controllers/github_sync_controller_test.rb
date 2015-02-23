@@ -9,7 +9,7 @@ class GithubSyncControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    stub_request(:get, "https://api.github.com/orgs/unepwcmc/repos").
+    stub_request(:get, "https://api.github.com/orgs/unepwcmc/repos?client_id=&client_secret=").
     to_return(:status => 200, :body => [{name: 'derp', description: 'derp'}].to_json) 
 
     get :index
@@ -17,7 +17,7 @@ class GithubSyncControllerTest < ActionController::TestCase
   end
 
   test "should create a project on post to sync" do
-    stub_request(:get, "https://api.github.com/repos/unepwcmc/first_repo").
+    stub_request(:get, "https://api.github.com/repos/unepwcmc/first_repo?client_id=&client_secret=").
     to_return(:status => 200, :body => {"name" => 'derp', "description" => 'derp'}.to_json) 
 
     assert_difference 'Project.count' do
