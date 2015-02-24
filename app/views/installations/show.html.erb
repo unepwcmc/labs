@@ -18,6 +18,12 @@
     </p>
 
     <p>
+      <strong>Project Instance:</strong>
+      <%= link_to @installation.project_instance.name,
+        project_instance_path(@installation.project_instance) %>
+    </p>
+
+    <p>
       <strong>Server:</strong>
       <%= link_to @installation.server.name, server_path(@installation.server) %>
     </p>

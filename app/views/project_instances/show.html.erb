@@ -18,6 +18,11 @@
     </p>
 
     <p>
+      <strong>Project:</strong>
+      <%= link_to @project_instance.project.title, project_path(@project_instance.project) %>
+    </p>
+
+    <p>
       <strong>URL:</strong>
       <%= link_to @project_instance.url, @project_instance.url, target: '_blank' %>
     </p>
