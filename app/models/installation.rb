@@ -22,15 +22,11 @@ class Installation < ActiveRecord::Base
   validates :server_id, :role, presence: true
   validates :role, inclusion: { in: ['Web', 'Database', 'Web & Database']}
 
+  delegate :stage, to: :project_instance
+  delegate :project, to: :project_instance
+
   def name
     "#{self.project.title} - #{role} (#{stage})"
   end
 
-  def project
-    project_instance.project
-  end
-
-  def stage
-    project_instance.stage
-  end
 end
