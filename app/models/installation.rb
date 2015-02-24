@@ -15,6 +15,8 @@
 #
 
 class Installation < ActiveRecord::Base
+  acts_as_paranoid
+
   belongs_to :project
   belongs_to :server
   belongs_to :project_instance

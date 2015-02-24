@@ -2,6 +2,12 @@ class InstallationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
+
+    gon.push({
+      :roles => Installation.select("role").map(&:role).uniq,
+      :stages => Installation.select("stage").map(&:stage).uniq
+    })
+
     respond_to do |format|
       format.html {
         @installations = Installation.all
@@ -68,12 +74,52 @@ class InstallationsController < ApplicationController
     end
   end
 
+  def soft_delete
+    @installation = Installation.with_deleted.find(params[:id])
+
+    if @installation.deleted?
+      params[:comment][:content][/\A/] =
+        '<i style="color: green;"> REACTIVATED </i></br>'
+
+      @installation.restore
+    else
+      params[:comment][:content][/\A/] =
+        '<i style="color: red;"> SHUT DOWN </i></br>'
+
+      @installation.destroy
+    end
+
+    @installation.comments.create(comment_params)
+
+    respond_to do |format|
+      format.html { redirect_to installations_url }
+    end
+  end
+
+  def deleted_list
+    @installations = Installation.only_deleted
+
+    gon.push({
+      :roles => Installation.only_deleted.select("role").map(&:role).uniq,
+      :stages => Installation.only_deleted.select("stage").map(&:stage).uniq
+    })
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
   private
     def set_installation
-      @installation = Installation.find(params[:id])
+      @installation = Installation.with_deleted.find(params[:id])
     end
 
     def installation_params
-      params.require(:installation).permit(:project_id, :project_instance_id, :server_id, :role, :stage, :branch, :url, :description)
+      params.require(:installation).permit(:project_id, :project_instance_id,
+        :server_id, :role, :stage, :branch, :url, :description, :closing)
+    end
+
+    def comment_params
+      params[:comment].permit(:content, :user_id)
     end
 end

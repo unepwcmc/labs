@@ -1,0 +1,10 @@
+<div class="page-header">
+  <h1>Listing Soft-Deleted Installations</h1>
+</div>
+
+<div class="btn-group">
+  <%= button_to 'Active Installations', installations_path, method: :get, class: "btn btn-primary" %>
+</div>
+
+<%= render 'table' %>
+<br>

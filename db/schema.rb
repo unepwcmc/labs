@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150217145352) do
+ActiveRecord::Schema.define(version: 20150221144958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,18 +39,23 @@ ActiveRecord::Schema.define(version: 20150217145352) do
   end
 
   create_table "installations", force: true do |t|
-    t.integer  "project_id",  null: false
-    t.integer  "server_id",   null: false
-    t.string   "role",        null: false
-    t.string   "stage",       null: false
-    t.string   "branch",      null: false
+    t.integer  "project_id",                          null: false
+    t.integer  "server_id",                           null: false
+    t.string   "role",                                null: false
+    t.string   "stage",                               null: false
+    t.string   "branch",                              null: false
     t.string   "url"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "project_instance_id",                 null: false
+    t.datetime "deleted_at"
+    t.boolean  "closing",             default: false
   end
 
+  add_index "installations", ["deleted_at"], name: "index_installations_on_deleted_at", using: :btree
   add_index "installations", ["project_id"], name: "index_installations_on_project_id", using: :btree
+  add_index "installations", ["project_instance_id"], name: "index_installations_on_project_instance_id", using: :btree
   add_index "installations", ["server_id"], name: "index_installations_on_server_id", using: :btree
 
   create_table "pg_search_documents", force: true do |t|
@@ -60,6 +65,23 @@ ActiveRecord::Schema.define(version: 20150217145352) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "project_instances", force: true do |t|
+    t.integer  "project_id",                         null: false
+    t.string   "name",                               null: false
+    t.string   "url",                                null: false
+    t.text     "backup_information"
+    t.string   "stage",                              null: false
+    t.string   "branch"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+    t.boolean  "closing",            default: false
+  end
+
+  add_index "project_instances", ["deleted_at"], name: "index_project_instances_on_deleted_at", using: :btree
+  add_index "project_instances", ["project_id"], name: "index_project_instances_on_project_id", using: :btree
 
   create_table "projects", force: true do |t|
     t.string   "title",                                 null: false

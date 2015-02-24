@@ -19,7 +19,7 @@ Installation.delete_all
     url: Faker::Internet.url,
     github_identifier: Faker::Internet.url,
     state: ['Under Development', 'Delivered', 'Project Development'].sample,
-    internal_client: Faker::Name.name,
+    internal_clients: [ Faker::Name.name, Faker::Name.name, Faker::Name.name],
     current_lead: Faker::Name.name,
     external_clients: [ Faker::Name.name, Faker::Name.name, Faker::Name.name],
     project_leads: [ Faker::Name.name, Faker::Name.name, Faker::Name.name],
@@ -43,7 +43,6 @@ end
     Installation.create!(
         project_id: Project.order("RANDOM()").first.id,
         server_id: Server.order("RANDOM()").first.id,
-        name: "Installation_#{n}",
         role: ['Web', 'Database', 'Web & Database'].sample,
         stage: ['Staging', 'Production'].sample,
         branch: ['develop', 'master'].sample,

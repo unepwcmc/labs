@@ -18,9 +18,22 @@
     </p>
 
     <p>
+      <strong>Project Instance:</strong>
+      <%= link_to @installation.project_instance.name,
+        project_instance_path(@installation.project_instance) %>
+    </p>
+
+    <p>
       <strong>Server:</strong>
       <%= link_to @installation.server.name, server_path(@installation.server) %>
     </p>
+
+    <% if !@installation.deleted? %>
+      <p>
+        <strong>Scheduled for close down:</strong>
+        <span class='closing'><%= @installation.project_instance.closing %></span>
+      </p>
+    <% end %>
 
     <p>
       <strong>Role:</strong>

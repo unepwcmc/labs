@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <%= Gon::Base.render_data({}) %>
     <meta charset="utf-8">
     <title>UNEP-WCMC Informatics Labs</title>
     <meta name="description" content="">
@@ -48,6 +49,9 @@
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">Instances <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                 <li><%= link_to "List Instances", project_instances_path %></li>
+                <li>
+                  <%= link_to "List Deleted Instances", deleted_list_project_instances_path %>
+                </li>
                 <li><%= link_to "Add an Instance", new_project_instance_path %></li>
               </ul>
             </li>
@@ -56,6 +60,9 @@
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">Installations <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                 <li><%= link_to "List Installations", installations_path %></li>
+                <li>
+                  <%= link_to "List Deleted Installations", deleted_list_installations_path %>
+                </li>
                 <li><%= link_to "Add an Installation", new_installation_path %></li>
               </ul>
             </li>

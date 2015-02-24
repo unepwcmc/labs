@@ -110,6 +110,11 @@ GEM
     fastercsv (1.5.5)
     foreigner (1.7.2)
       activerecord (>= 3.0.0)
+    gon (5.2.0)
+      actionpack (>= 2.3.0)
+      json
+      multi_json
+      request_store (>= 1.0.5)
     hashie (3.4.0)
     highline (1.6.21)
     hike (1.2.3)
@@ -163,6 +168,8 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
+    paranoia (2.1.0)
+      activerecord (~> 4.0)
     pg (0.18.1)
     pg_array_parser (0.0.9)
     pg_csv (0.1.8)
@@ -191,6 +198,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
+    request_store (1.1.0)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
     rvm-capistrano (1.5.6)
@@ -268,12 +276,14 @@ DEPENDENCIES
   faker
   fastercsv
   foreigner
+  gon
   httparty
   jquery-rails
   launchy
   mini_magick
   mocha
   omniauth-github
+  paranoia (~> 2.0)
   pg
   pg_array_parser
   pg_csv
