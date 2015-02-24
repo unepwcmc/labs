@@ -118,4 +118,20 @@ class ProjectInstancesControllerTest < ActionController::TestCase
     assert_equal 0, ProjectInstance.only_deleted.count
     assert_equal 0, Installation.only_deleted.count
   end
+
+  test "should get nagios list" do
+    stub_request(:get, "https://raw.githubusercontent.com/strtwtsn/strtwtsn.github.io/master/data.tsv").
+      to_return(:status => 200, :body => "name\tvalue\napi.speciesplus.net\t100.000\nbern-ors.unep-wcmc.org\t100.000", :headers => {})
+    get :nagios_list
+    assert_not_nil assigns(:sites)
+    assert_response :success
+  end
+
+  test "should populate new project_instance" do
+    FactoryGirl.create(:project, url: "http://www.google.com")
+    url = "google.com"
+    get :new, nagios_url: url
+    assert_equal Project.last.id, assigns(:project_instance).project_id
+    assert_equal url, assigns(:project_instance).url
+  end
 end

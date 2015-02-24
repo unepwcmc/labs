@@ -59,7 +59,9 @@ class ProjectInstancesController < ApplicationController
   end
 
   def new
-    @project_instance = ProjectInstance.new
+    project_id = Project.where("url like ?", "%#{params[:nagios_url]}%").first.try(:id) if params[:nagios_url]
+
+    @project_instance = ProjectInstance.new(project_id: project_id, url: params[:nagios_url])
 
     respond_to do |format|
       format.html
@@ -127,6 +129,10 @@ class ProjectInstancesController < ApplicationController
       format.html
       format.json { render :json => { data: @projects_instances }.to_json }
     end
+  end
+
+  def nagios_list
+    @sites = Github.get_nagios_sites
   end
 
   private
