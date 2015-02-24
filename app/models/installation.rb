@@ -23,6 +23,6 @@ class Installation < ActiveRecord::Base
   validates :role, inclusion: { in: ['Web', 'Database', 'Web & Database']}
 
   def name
-    "#{self.project.title}_#{role}_#{stage}"
+    "#{role}"
   end
 end
