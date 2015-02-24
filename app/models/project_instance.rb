@@ -23,7 +23,7 @@ class ProjectInstance < ActiveRecord::Base
   has_many :comments, as: :commentable
 
   validates :project_id, :url, presence: true
-  validates :url, url: true
+  validates_format_of :url, :with => URI::regexp(%w(http https))
 
   accepts_nested_attributes_for :comments, :reject_if => lambda { |a| a[:content].blank? }
 

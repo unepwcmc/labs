@@ -262,9 +262,6 @@ GEM
     uglifier (2.7.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    validate_url (1.0.0)
-      activemodel (>= 3.0.0)
-      addressable
     warden (1.2.3)
       rack (>= 1.0)
     webmock (1.18.0)
@@ -318,6 +315,5 @@ DEPENDENCIES
   spring
   turn (= 0.8.2)
   uglifier (>= 1.0.3)
-  validate_url
   webmock (~> 1.18.0)
   whenever

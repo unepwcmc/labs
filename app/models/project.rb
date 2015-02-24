@@ -70,6 +70,7 @@ class Project < ActiveRecord::Base
   validates :url, if: :published, presence: true
 
   validates :url, format: { with: URI.regexp }, if: Proc.new { |a| a.url.present? }
+  validates_format_of :url, :with => URI::regexp(%w(http https))
   validates :github_identifier, format: { with: /\Aunepwcmc\/[-a-zA-Z0-9_]+\z/i }
   validate :validate_trello_ids
   validate :validate_pivotal_tracker_ids
