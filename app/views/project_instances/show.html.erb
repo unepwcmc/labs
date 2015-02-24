@@ -55,7 +55,7 @@
     <p>
       <% if !@project_instance.installations.with_deleted.empty? %>
         <% @project_instance.installations.with_deleted.each do |installation| %>
-            <%= link_to installation.name, installation_path(installation) %> (<%= installation.stage %>)
+            <%= link_to installation.name, installation_path(installation) %>
               on <%= link_to installation.server.name, server_path(installation.server) %><br>
         <% end %>
       <% else %>

@@ -11,13 +11,6 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= f.label :project_id, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-    <%= f.collection_select :project_id, Project.order(:title),:id,:title, 
-        {prompt: "Select the project this Installation refers to"}, class: "form-control" %>
-      </div>
-  </div>
 
   <div class="form-group">
     <%= f.label :project_instance_id, class: "col-sm-2 control-label" %>
@@ -39,27 +32,6 @@
     <%= f.label :role, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.select :role, [["Web","Web"],["Database","Database"],["Web & Database","Web & Database"]], {}, class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :stage, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.select :stage, [["Staging", "Staging"],["Production", "Production"]], {}, class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :branch, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_field :branch, class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :url, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_field :url, class: "form-control" %>
     </div>
   </div>
 

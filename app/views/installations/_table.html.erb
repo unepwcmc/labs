@@ -2,11 +2,8 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Project</th>
       <th>Server</th>
       <th>Role</th>
-      <th>Stage</th>
-      <th>Branch</th>
       <th>Closing</th>
       <th></th>
       <th></th>
@@ -18,11 +15,8 @@
     <% @installations.each do |installation| %>
       <tr>
         <td><%= installation.name %></td>
-        <td><%= link_to installation.project.title, project_path(installation.project) %></td>
         <td><%= link_to installation.server.name, server_path(installation.server) %></td>
         <td><%= installation.role %></td>
-        <td><%= installation.stage %></td>
-        <td><%= installation.branch %></td>
         <td class='closing'><%= installation.closing %></td>
         <td><%= link_to 'Show', installation %></td>
         <td><%= link_to 'Edit', edit_installation_path(installation) %></td>
@@ -33,9 +27,6 @@
 
   <tfoot class="filters">
     <tr>
-      <th></th>
-      <th></th>
-      <th></th>
       <th></th>
       <th></th>
       <th></th>

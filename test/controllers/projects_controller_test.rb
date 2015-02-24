@@ -78,7 +78,6 @@ class ProjectsControllerTest < ActionController::TestCase
                               developers_array: @project.developers.join(','),
                               pivotal_tracker_ids: @project.pivotal_tracker_ids.join(','),
                               trello_ids: @project.trello_ids.join(','),
-                              backup_information: @project.backup_information,
                               expected_release_date: @project.expected_release_date,
                               rails_version: @project.rails_version,
                               ruby_version: @project.ruby_version,

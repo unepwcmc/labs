@@ -48,7 +48,7 @@
       <h2>Installations on this Server</h2>
     </div>
     <% @installations.each do |installation| %>
-      <%= link_to installation.name, installation_path(installation) %> for <%= link_to installation.project.title, project_path(installation.project) %> (<%= installation.stage %>/<%= installation.role %>)<br>
+      <%= link_to installation.role, installation_path(installation) %> (<%= installation.stage %>) for <%= link_to installation.project.title, project_path(installation.project) %><br>
     <% end %>
   </div>
 </div>

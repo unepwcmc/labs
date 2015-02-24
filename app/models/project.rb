@@ -22,7 +22,6 @@
 #  dropbox_folders       :text             default([]), is an Array
 #  pivotal_tracker_ids   :text             default([]), is an Array
 #  trello_ids            :text             default([]), is an Array
-#  backup_information    :text
 #  expected_release_date :date
 #  rails_version         :string(255)
 #  ruby_version          :string(255)
@@ -39,7 +38,6 @@ class Project < ActiveRecord::Base
   include PgSearch
 
   # Relationships
-  has_many :installations
   has_many :projects, through: :installation
   has_many :comments, as: :commentable
 
@@ -58,7 +56,7 @@ class Project < ActiveRecord::Base
     :against => [:title, :description, :github_identifier, :state, :internal_clients,
             :current_lead, :external_clients, :project_leads, :developers,
             :dependencies, :hacks, :pdrive_folders, :dropbox_folders,
-            :pivotal_tracker_ids, :trello_ids, :expected_release_date, :backup_information,
+            :pivotal_tracker_ids, :trello_ids, :expected_release_date,
             :rails_version, :ruby_version, :postgresql_version, :other_technologies]
 
   scope :published, -> { where(published: true) }

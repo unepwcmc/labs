@@ -12,10 +12,6 @@
     <div class="page-header">
       <h2>About this Installation</h2>
     </div>
-    <p>
-      <strong>Project:</strong>
-      <%= link_to @installation.project.title, project_path(@installation.project) %>
-    </p>
 
     <p>
       <strong>Project Instance:</strong>
@@ -38,21 +34,6 @@
     <p>
       <strong>Role:</strong>
       <%= @installation.role %>
-    </p>
-
-    <p>
-      <strong>Stage:</strong>
-      <%= @installation.stage %>
-    </p>
-
-    <p>
-      <strong>Branch:</strong>
-      <%= @installation.branch %>
-    </p>
-
-    <p>
-      <strong>Url:</strong>
-      <%= @installation.url %>
     </p>
 
     <p>
