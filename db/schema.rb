@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150221144958) do
+ActiveRecord::Schema.define(version: 20150223162940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_trgm"
   enable_extension "fuzzystrmatch"
+  enable_extension "pg_trgm"
 
   create_table "comments", force: true do |t|
     t.text     "content",          null: false
@@ -39,12 +39,8 @@ ActiveRecord::Schema.define(version: 20150221144958) do
   end
 
   create_table "installations", force: true do |t|
-    t.integer  "project_id",                          null: false
     t.integer  "server_id",                           null: false
     t.string   "role",                                null: false
-    t.string   "stage",                               null: false
-    t.string   "branch",                              null: false
-    t.string   "url"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -54,7 +50,6 @@ ActiveRecord::Schema.define(version: 20150221144958) do
   end
 
   add_index "installations", ["deleted_at"], name: "index_installations_on_deleted_at", using: :btree
-  add_index "installations", ["project_id"], name: "index_installations_on_project_id", using: :btree
   add_index "installations", ["project_instance_id"], name: "index_installations_on_project_instance_id", using: :btree
   add_index "installations", ["server_id"], name: "index_installations_on_server_id", using: :btree
 
@@ -103,7 +98,6 @@ ActiveRecord::Schema.define(version: 20150221144958) do
     t.text     "dropbox_folders",       default: [],                 array: true
     t.text     "pivotal_tracker_ids",   default: [],                 array: true
     t.text     "trello_ids",            default: [],                 array: true
-    t.text     "backup_information"
     t.date     "expected_release_date"
     t.string   "rails_version"
     t.string   "ruby_version"
@@ -151,12 +145,12 @@ ActiveRecord::Schema.define(version: 20150221144958) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  Foreigner.load
   add_foreign_key "comments", "users", name: "comments_user_id_fk"
 
   add_foreign_key "dependencies", "projects", name: "dependencies_master_project_id_fk", column: "master_project_id"
   add_foreign_key "dependencies", "projects", name: "dependencies_sub_project_id_fk", column: "sub_project_id"
 
-  add_foreign_key "installations", "projects", name: "installations_project_id_fk", dependent: :delete
   add_foreign_key "installations", "servers", name: "installations_server_id_fk", dependent: :delete
 
 end
