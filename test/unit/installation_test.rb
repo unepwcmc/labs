@@ -2,29 +2,20 @@
 #
 # Table name: installations
 #
-#  id          :integer          not null, primary key
-#  project_id  :integer          not null
-#  server_id   :integer          not null
-#  role        :string(255)      not null
-#  stage       :string(255)      not null
-#  branch      :string(255)      not null
-#  url         :string(255)
-#  description :text
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id                  :integer          not null, primary key
+#  server_id           :integer          not null
+#  role                :string(255)      not null
+#  description         :text
+#  created_at          :datetime
+#  updated_at          :datetime
+#  project_instance_id :integer          not null
 #
 
 require 'test_helper'
 
 class InstallationTest < ActiveSupport::TestCase
-  should validate_presence_of :project_id
   should validate_presence_of :server_id
   should validate_presence_of :role
-  should validate_presence_of :stage
-  should validate_presence_of :branch
-  should validate_presence_of :url
 
   should validate_inclusion_of(:role).in_array(['Web', 'Database', 'Web & Database'])
-  should validate_inclusion_of(:stage).in_array(['Staging', 'Production'])
-
 end

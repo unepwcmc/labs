@@ -22,7 +22,6 @@
 #  dropbox_folders       :text             default([]), is an Array
 #  pivotal_tracker_ids   :text             default([]), is an Array
 #  trello_ids            :text             default([]), is an Array
-#  backup_information    :text
 #  expected_release_date :date
 #  rails_version         :string(255)
 #  ruby_version          :string(255)

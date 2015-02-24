@@ -22,7 +22,6 @@
 #  dropbox_folders       :text             default([]), is an Array
 #  pivotal_tracker_ids   :text             default([]), is an Array
 #  trello_ids            :text             default([]), is an Array
-#  backup_information    :text
 #  expected_release_date :date
 #  rails_version         :string(255)
 #  ruby_version          :string(255)
@@ -51,7 +50,6 @@ FactoryGirl.define do
         "#{Faker::Lorem.characters(10)}/#{Faker::Lorem.characters(10)}",
         "#{Faker::Lorem.characters(10)}/#{Faker::Lorem.characters(10)}"
     ]
-    backup_information Faker::Lorem.paragraph
     expected_release_date {Date.today + Faker::Number.number(3).to_i.days}
     rails_version {Faker::Name.name}
     ruby_version {Faker::Name.name}

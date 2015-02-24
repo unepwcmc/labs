@@ -4,18 +4,15 @@ class InstallationsExport
     @installations = Installation.
       select([
         'servers.name', 'servers.domain',
-        'installations.stage', 'installations.role',
+        'installations.role',
         'projects.title', 'projects.github_identifier',
-        'installations.branch', 'installations.url',
         'installations.description'
       ]).
       joins(:project, :server).
       order('servers.name, role, projects.title')
     @columns = [
       'Server', 'Domain',
-      'Stage', 'Role',
       'Project', 'Github id',
-      'Branch', 'URL',
       'Notes'
     ]
     @file_name = "public/downloads/installations_#{Date.today}.csv"

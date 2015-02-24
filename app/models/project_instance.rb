@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: project_instances
+#
+#  id                 :integer          not null, primary key
+#  project_id         :integer          not null
+#  name               :string(255)      not null
+#  url                :string(255)      not null
+#  backup_information :text
+#  stage              :string(255)      not null
+#  branch             :string(255)
+#  description        :text
+#  created_at         :datetime
+#  updated_at         :datetime
+#
+
 class ProjectInstance < ActiveRecord::Base
   acts_as_paranoid
 
