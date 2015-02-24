@@ -4,6 +4,9 @@ class ProjectsController < ApplicationController
   before_action :available_employees, :only => [:new, :edit]
   # GET /projects
   # GET /projects.json
+
+  rescue_from StandardError, with: :rescue_standard_exception
+
   def index
 
     @projects = params[:search].present? ?
@@ -136,5 +139,9 @@ class ProjectsController < ApplicationController
       :hacks, :external_clients_array, :project_leads_array, :pdrive_folders_array, 
       :dropbox_folders_array, :pivotal_tracker_ids_array, :trello_ids_array, :expected_release_date,
       :rails_version, :ruby_version, :postgresql_version, :other_technologies_array, :published, :internal_description, :background_jobs, :cron_jobs)
+  end
+
+  def rescue_standard_exception(exception)
+    redirect_to :back, notice: "#{exception}"
   end
 end
