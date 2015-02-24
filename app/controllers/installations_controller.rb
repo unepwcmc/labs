@@ -4,8 +4,7 @@ class InstallationsController < ApplicationController
   def index
 
     gon.push({
-      :roles => Installation.select("role").map(&:role).uniq,
-      :stages => Installation.select("stage").map(&:stage).uniq
+      :roles => Installation.pluck(:role).uniq
     })
 
     respond_to do |format|
@@ -100,8 +99,7 @@ class InstallationsController < ApplicationController
     @installations = Installation.only_deleted
 
     gon.push({
-      :roles => Installation.only_deleted.select("role").map(&:role).uniq,
-      :stages => Installation.only_deleted.select("stage").map(&:stage).uniq
+      :roles => Installation.only_deleted.pluck(:role).uniq
     })
 
     respond_to do |format|

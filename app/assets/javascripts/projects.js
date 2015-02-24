@@ -10,4 +10,68 @@ $(document).ready(function(){
 
   $(".badge_img").error(showAlt)
 
+  $(".project").hover(function(event){
+    $(this).find('a').css('text-decoration', 'underline');
+    $(this).find('img').css('border', '2px solid #33B5E5');
+  }, function(event){
+    $(this).find('a').css('text-decoration', 'none');
+    $(this).find('img').css('border', 'none');
+  });
+
+  $(".tag-field").select2({tags:[]}, {
+    placeholder: "Select tag",
+    allowClear: true,
+    minimumInputLength: 1,
+    width: '100%'
+  });
+
+  $("#project_developers_array").select2({
+    tags: $("#project_developers_array").data("tags"),
+    placeholder: "Select tag",
+    allowClear: true,
+    minimumInputLength: 1,
+    width: '100%'
+  });
+
+  $("#project_internal_clients_array").select2({
+    tags: $("#project_internal_clients_array").data("tags"),
+    placeholder: "Select tag",
+    allowClear: true,
+    minimumInputLength: 1,
+    width: '100%'
+  });
+
+  $("#project_instance_installation_ids").select2({
+    tags: $("#project_instance_installation_ids").data("tags"),
+    placeholder: "Select tag",
+    allowClear: true,
+    minimumInputLength: 1,
+    width: '100%'
+  });
+
+  $("#projects_table").dataTable({
+    "iDisplayLength": 50
+  }).columnFilter({
+    aoColumns: [
+    {
+      type: "text",
+    },
+    null,
+    {
+      type: "select",
+      values: gon.states
+    },
+    {
+      type: "text"
+    },
+    {
+      type: "text"
+    },
+    {
+      type: "text"
+    },
+    null
+    ]
+  });
+
 });
