@@ -3,16 +3,14 @@ class ProjectInstancesController < ApplicationController
   def index
     @projects_instances = ProjectInstance.all
 
-    gon.push({
-      :stages => ProjectInstance.select("stage").map(&:stage).uniq
-    })
-
     respond_to do |format|
       format.html {
-        @projects_instances = ProjectInstance.all
+        gon.push({
+          :stages => @projects_instances.pluck(:stage).uniq
+        })
         render 'index'
       }
-      format.json { render :json => @projects_instance }
+      format.json { render :json => @projects_instances }
       format.csv {
         send_file(Pathname.new(ProjectInstancesExport.new.export).realpath, type: 'text/csv')
       }
