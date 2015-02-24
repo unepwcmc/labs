@@ -80,37 +80,6 @@ $(document).ready(function(){
     ]
   });
 
-  $("#deleted_installations_table").dataTable({
-    "iDisplayLength": 50
-  }).columnFilter({
-    aoColumns: [
-    {
-      type: "text",
-    },
-    {
-      type: "text",
-    },
-    {
-      type: "text",
-    },
-    {
-      type: "select",
-      values: gon.roles
-    },
-    {
-      type: "select",
-      values: gon.stages
-    },
-    {
-      type: "text"
-    },
-    null,
-    null,
-    null,
-    null
-    ]
-  });
-
   $("#servers_table").dataTable();
 
   $("#dependencies_table").dataTable();
@@ -140,7 +109,7 @@ $(document).ready(function(){
     ]
   });
 
-  $('#soft_delete_btn').on('click', function(e){
+  $('.comment_btn').on('click', function(e){
     $('#commentModal').modal("show");
     return false;
   })

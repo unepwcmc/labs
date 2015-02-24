@@ -108,7 +108,11 @@ class ProjectInstancesControllerTest < ActionController::TestCase
   test "should restore soft-deleted project_instance and associated installations" do
 
     assert_differences([['ProjectInstance.count', 1],['Installation.count', 2]]) do
-      patch :restore, id: @soft_deleted_project_instance_with_installations
+      patch :soft_delete, id: @soft_deleted_project_instance_with_installations, comment:
+      {
+        content: "Restore message",
+        user_id: @user.id
+      }
     end
 
     assert_equal 0, ProjectInstance.only_deleted.count

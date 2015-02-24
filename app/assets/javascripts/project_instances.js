@@ -35,28 +35,4 @@ $(document).ready(function(){
     null
     ]
   });
-
-  $("#deleted_project_instances_table").dataTable({
-    "iDisplayLength": 50
-  }).columnFilter({
-    aoColumns: [
-    {
-      type: "text"
-    },
-    {
-      type: "text"
-    },
-    null,
-    {
-      type: "select",
-      values: ["Staging", "Production"]
-    },
-    {
-      type: "text"
-    },
-    null,
-    null,
-    null
-    ]
-  });
 })

@@ -70,22 +70,31 @@
     </div>
   </div>
 
-  <div class="form-group">
-    <div class="col-sm-2 control-label">
-      <%= f.label :closing %>
+  <% unless @installation.new_record? %>
+    <div class="form-group">
+      <div class="col-sm-2 control-label">
+        <%= f.label :closing %>
+      </div>
+      <div class="col-sm-offset-2 col-sm-10" style="margin: 10px 0px 0px 0px;">
+        <%= f.check_box :closing, class: "inline" %>
+      </div>
     </div>
-    <div class="col-sm-offset-2 col-sm-10" style="margin: 10px 0px 0px 0px;">
-      <%= f.check_box :closing, class: "inline" %>
-    </div>
-  </div>
+  <% end %>
   
   <div class="actions">
     <%= f.submit class: "btn btn-primary" %>
-    <% unless @installation.new_record? || @installation.deleted? %>
-      <%= link_to "Soft-Delete",
-        {action: "soft_delete", id: @installation.id},
-        method: :put, class: "btn btn-primary", id: "soft_delete_btn", type: "button"
-      %>
+    <% unless @installation.new_record? %>
+      <% unless @installation.deleted? %>
+        <%= link_to "Soft-Delete",
+          {action: "soft_delete", id: @installation.id},
+          method: :put, class: "btn btn-primary comment_btn", id: "soft_delete_btn", type: "button"
+        %>
+      <% else %>
+        <%= link_to "Restore",
+          {action: "restore", id: @installation.id},
+          method: :put, class: "btn btn-primary comment_btn", id: "restore_btn", type: "button"
+        %>
+      <% end %>
     <% end %>
   </div>
 <% end %>

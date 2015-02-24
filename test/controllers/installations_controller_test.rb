@@ -90,9 +90,9 @@ class InstallationsControllerTest < ActionController::TestCase
 
   test "should restore soft_deleted installation" do
     assert_difference('Installation.count') do
-      patch :restore, id: @soft_deleted_installation, comment:
+      patch :soft_delete, id: @soft_deleted_installation, comment:
       {
-        content: "Shut down message",
+        content: "Restore message",
         user_id: @user.id
       }
     end

@@ -96,19 +96,26 @@ class ProjectInstancesController < ApplicationController
   end
 
   def soft_delete
-    @project_instance = ProjectInstance.find(params[:id])
-    @installations = @project_instance.installations
+    @project_instance = ProjectInstance.with_deleted.find(params[:id])
 
-    params[:comment][:content][/\A/] =
-      '<i style="color: red;"> SHUT DOWN </i></br>'
+    if @project_instance.deleted?
+      params[:comment][:content][/\A/] =
+        '<i style="color: green;"> REACTIVATED </i></br>'
+
+      @project_instance.restore(recursive: true)
+    else
+      params[:comment][:content][/\A/] =
+        '<i style="color: red;"> SHUT DOWN </i></br>'
+
+      @project_instance.destroy
+    end
 
     @project_instance.comments.create(comment_params)
+    @installations = @project_instance.installations.with_deleted
 
     @installations.each do |installation|
       installation.comments.create(comment_params)
     end
-
-    @project_instance.destroy
 
     respond_to do |format|
       format.html { redirect_to project_instances_url }
@@ -121,17 +128,6 @@ class ProjectInstancesController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render :json => { data: @projects_instances }.to_json }
-    end
-  end
-
-  def restore
-    @project_instance = ProjectInstance.only_deleted.find(params[:id])
-
-    @project_instance.restore(recursive: true)
-
-    respond_to do |format|
-      format.html { redirect_to project_instances_url }
-      format.json { head :ok }
     end
   end
 

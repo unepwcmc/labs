@@ -75,14 +75,21 @@ class InstallationsController < ApplicationController
   end
 
   def soft_delete
-    @installation = Installation.find(params[:id])
+    @installation = Installation.with_deleted.find(params[:id])
 
-    params[:comment][:content][/\A/] =
-      '<i style="color: red;"> SHUT DOWN </i></br>'
+    if @installation.deleted?
+      params[:comment][:content][/\A/] =
+        '<i style="color: green;"> REACTIVATED </i></br>'
+
+      @installation.restore
+    else
+      params[:comment][:content][/\A/] =
+        '<i style="color: red;"> SHUT DOWN </i></br>'
+
+      @installation.destroy
+    end
 
     @installation.comments.create(comment_params)
-
-    @installation.destroy
 
     respond_to do |format|
       format.html { redirect_to installations_url }
@@ -99,17 +106,6 @@ class InstallationsController < ApplicationController
 
     respond_to do |format|
       format.html
-    end
-  end
-
-  def restore
-    @installation = Installation.only_deleted.find(params[:id])
-
-    @installation.restore
-
-    respond_to do |format|
-      format.html { redirect_to installations_url }
-      format.json { head :ok }
     end
   end
 
