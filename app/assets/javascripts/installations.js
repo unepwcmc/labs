@@ -12,6 +12,9 @@ $(document).ready(function(){
       type: "text",
     },
     {
+      type: "text",
+    },
+    {
       type: "select",
       values: gon.roles
     },

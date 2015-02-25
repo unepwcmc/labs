@@ -2,19 +2,19 @@ class ProjectInstancesExport
   def initialize
     @project_instances = ProjectInstance.
       select([
-        'id', 'project_id', 
-        'name', 'url', 
-        'backup_information', 'stage', 
-        'branch', 'description', 
+        'id', 'project_id',
+        'name', 'url',
+        'backup_information', 'stage',
+        'branch', 'closing', 'description',
         'created_at', 'updated_at'
       ]).
       joins(:project).
       order('created_at')
     @columns = [
-      'ID', 'Project ID', 
-      'Name', 'Url', 
-      'Backup Information', 'Stage', 
-      'Branch', 'Description', 
+      'ID', 'Project ID',
+      'Name', 'Url',
+      'Backup Information', 'Stage',
+      'Branch', 'Closing', 'Description',
       'Created At', 'Updated At'
     ]
     @file_name = "public/downloads/project_instances_#{Date.today}.csv"
