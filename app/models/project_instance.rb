@@ -36,7 +36,7 @@ class ProjectInstance < ActiveRecord::Base
   end
 
   def info
-    "<i style='color: #00BFFF'>Description:</i> #{self.description}<br/><i style='color: #00BFFF'>Backup Information:</i> #{self.backup_information}"
+    "<i style='color: #00BFFF'>Description:</i> #{self.description.presence || "-"}<br/><i style='color: #00BFFF'>Backup Information:</i> #{self.backup_information.presence || "-"}"
   end
 
 end

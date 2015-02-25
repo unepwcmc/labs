@@ -49,3 +49,7 @@ footer {
   padding: 0px;
   height: 30px;
 }
+
+.tooltip-inner{
+  max-width: 500px !important;
+}

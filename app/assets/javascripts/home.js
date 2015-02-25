@@ -28,6 +28,6 @@ $(document).ready(function(){
     }
   })
 
-  $('a[title]').tooltips();
+  $('a[title]').tooltip();
 
 });

@@ -10,6 +10,5 @@
 //= require bootstrap-sprockets
 //= require select2
 //= require jquery.dataTables.columnFilter
-//= require tooltips
 //= require_tree .
 //
