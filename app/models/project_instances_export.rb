@@ -6,10 +6,11 @@ class ProjectInstancesExport
         'name', 'url',
         'backup_information', 'stage',
         'branch', 'closing', 'description',
-        'created_at', 'updated_at'
+        "to_char(project_instances.created_at,'YYYY-MM-DD HH:MM')",
+        "to_char(project_instances.updated_at,'YYYY-MM-DD HH:MM')"
       ]).
       joins(:project).
-      order('created_at')
+      order('project_instances.created_at')
     @columns = [
       'ID', 'Project ID',
       'Name', 'Url',

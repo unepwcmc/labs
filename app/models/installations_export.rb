@@ -7,7 +7,8 @@ class InstallationsExport
         'servers.name', 'servers.domain',
         'installations.role', 'installations.closing',
         'installations.description',
-        'installations.created_at', 'installations.updated_at'
+        "to_char(installations.created_at,'YYYY-MM-DD HH:MM')",
+        "to_char(installations.updated_at,'YYYY-MM-DD HH:MM')"
       ]).
       joins(:server, :project_instance => :project).
       order('servers.name, role')
