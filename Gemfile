@@ -21,11 +21,12 @@ gem 'pg_array_parser'
 gem "codeclimate-test-reporter", group: :test, require: nil
 gem 'pg_search', '~> 0.7.8'
 gem 'select2-rails'
-gem 'sass-rails'
 gem 'foreigner'
 gem 'pg_csv'
 gem "paranoia", "~> 2.0"
 gem 'gon'
+gem 'bootstrap-sass', '~> 3.3.3'
+gem 'sass-rails', '>= 3.2'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

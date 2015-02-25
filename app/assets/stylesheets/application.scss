@@ -1,0 +1,11 @@
+/* Use import to require files as not to clash with bootstrap gem */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "dataTables.bootstrap";
+@import "select2";
+@import "select2-bootstrap";
+@import "bootswatch";
+@import "main";
+@import "comments";
+@import "project";
