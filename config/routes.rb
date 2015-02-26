@@ -41,6 +41,8 @@ Labs::Application.routes.draw do
     resources :comments
   end
 
+  get '/project_instances/nagios_list', to: 'project_instances#nagios_list', as: 'nagios_list'
+
   resources :project_instances do
     resources :comments
     collection do
