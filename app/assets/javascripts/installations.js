@@ -3,6 +3,7 @@ $(document).ready(function(){
   $("#installations_table").dataTable({
     "iDisplayLength": 25
   }).columnFilter({
+    sPlaceHolder: "head:before",
     aoColumns: [
     {
       type: "text",

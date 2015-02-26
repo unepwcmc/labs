@@ -52,6 +52,7 @@ $(document).ready(function(){
   $("#projects_table").dataTable({
     "iDisplayLength": 25
   }).columnFilter({
+    sPlaceHolder: "head:before",
     aoColumns: [
     {
       type: "text",

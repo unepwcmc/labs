@@ -43,3 +43,7 @@ footer {
   display: none;
   color: red;
 }
+
+.projects_filter {
+  height: 30px !important;
+}
