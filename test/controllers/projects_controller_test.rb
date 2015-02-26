@@ -12,6 +12,8 @@ class ProjectsControllerTest < ActionController::TestCase
     @project_b = FactoryGirl.create(:project, title: "Beef", description: "cod")
     @project_c = FactoryGirl.create(:project, title: "Car", description: "haddock")
 
+    @project_with_instances = FactoryGirl.create(:project_with_instances)
+
     stub_request(:get, "http://unep-wcmc.org/api/employees.json").
     to_return(:status => 200, :body => {"employees" => ['Test','Test']}.to_json,
       :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby', :content_type => "application/json"})
@@ -115,5 +117,11 @@ class ProjectsControllerTest < ActionController::TestCase
       delete :destroy, id: @saved_project
     end
     assert_redirected_to projects_path
+  end
+
+  test "should raise exception if deleting project with project instances" do
+    sign_in @user
+    assert_raises(ActionController::RedirectBackError) { delete :destroy, id: @project_with_instances.id }
+    assert_equal "This project has project instances. Delete its project instances first", flash[:notice]
   end
 end

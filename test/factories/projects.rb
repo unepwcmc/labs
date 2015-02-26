@@ -62,5 +62,18 @@ FactoryGirl.define do
     factory :draft_project do
         published false
     end
+
+    factory :project_with_instances do
+        transient do
+          instances_count 2
+        end
+
+        after(:create) do |project, evaluator|
+          create_list(
+            :project_instance, evaluator.instances_count,
+            project: project
+          )
+        end
+    end
   end
 end
