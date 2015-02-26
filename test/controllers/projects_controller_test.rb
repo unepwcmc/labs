@@ -122,6 +122,6 @@ class ProjectsControllerTest < ActionController::TestCase
   test "should raise exception if deleting project with project instances" do
     sign_in @user
     assert_raises(ActionController::RedirectBackError) { delete :destroy, id: @project_with_instances.id }
-    assert_equal "This project has project instances. Delete its project instances first", flash[:notice]
+    assert_equal "This project has project instances. Delete its project instances first", flash[:alert]
   end
 end
