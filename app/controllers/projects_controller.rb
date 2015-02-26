@@ -142,6 +142,6 @@ class ProjectsController < ApplicationController
   end
 
   def rescue_standard_exception(exception)
-    redirect_to :back, flash: { notice: "#{exception}" }
+    redirect_to :back, notice: "#{exception}"
   end
 end
