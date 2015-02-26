@@ -34,7 +34,9 @@
         <td><%= instance.branch %></td>
         <td><%= instance.installations.count %></td>
         <td class='closing'><%= instance.closing %></td>
-        <td><%= link_to 'Notes', '#', {title: "#{instance.info}", :'data-html' => 'true'} %></td>
+        <td>
+          <%= link_to 'Notes', '#', {title: display_info(instance), :'data-html' => 'true'} %>
+        </td>
         <td><%= link_to 'Show', instance %></td>
         <td><%= link_to 'Edit', edit_project_instance_path(instance) %></td>
         <td><%= link_to 'Destroy', instance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
