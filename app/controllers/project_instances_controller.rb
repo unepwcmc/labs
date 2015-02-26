@@ -132,7 +132,8 @@ class ProjectInstancesController < ApplicationController
   end
 
   def nagios_list
-    @sites = Github.get_nagios_sites
+    @sites = Nagios.get_sites
+    @sites.delete_if{ |site| ProjectInstance.where("url like ?", "%#{site}%").present? }
   end
 
   private
