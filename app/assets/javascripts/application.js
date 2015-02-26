@@ -6,10 +6,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require dataTables/jquery.dataTables
 //= require bootstrap-sprockets
 //= require select2
-//= require jquery.dataTables.min
 //= require jquery.dataTables.columnFilter
-//= require dataTables.bootstrap
 //= require_tree .
 //
