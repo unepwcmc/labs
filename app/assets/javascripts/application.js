@@ -10,5 +10,6 @@
 //= require select2
 //= require jquery.dataTables.min
 //= require jquery.dataTables.columnFilter
+//= require dataTables.bootstrap
 //= require_tree .
 //
