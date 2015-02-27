@@ -18,10 +18,12 @@ $(document).ready(function(){
     {
       type: "text"
     },
-    null,
     {
       type: "select",
       values: gon.stages
+    },
+    {
+      type: "text"
     },
     {
       type: "text"

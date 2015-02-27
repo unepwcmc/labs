@@ -12,12 +12,13 @@
       <th></th>
     </tr>
     <tr>
-      <th>Instance Name</th>
-      <th>Project Title</th>
-      <th>URL</th>
+      <th>Name</th>
+      <th>Project</th>
       <th>Stage</th>
       <th>Branch</th>
+      <th>Installations</th>
       <th>Closing</th>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -28,15 +29,19 @@
     <% @projects_instances.each do |instance| %>
       <tr>
         <td><%= instance.name %></td>
-        <td><%= instance.project.title %></td>
-        <td><%= instance.url %></td>
+        <td><%= link_to instance.project.title, project_path(instance.project) %></td>
         <td><%= instance.stage %></td>
         <td><%= instance.branch %></td>
+        <td><%= instance.installations.count %></td>
         <td class='closing'><%= instance.closing %></td>
+        <td>
+          <%= link_to 'Notes', '#', {title: "#{display_info(instance)}", :'data-html' => 'true'} %>
+        </td>
         <td><%= link_to 'Show', instance %></td>
         <td><%= link_to 'Edit', edit_project_instance_path(instance) %></td>
         <td><%= link_to 'Destroy', instance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
+
 </table>

@@ -3,15 +3,23 @@ class InstallationsExport
   def initialize
     @installations = Installation.
       select([
+        'installations.id',
+        'project_instances.name', 'projects.title',
         'servers.name', 'servers.domain',
-        'installations.role',
-        'installations.description'
+        'installations.role', 'installations.closing',
+        'installations.description',
+        "to_char(installations.created_at,'YYYY-MM-DD HH:MM')",
+        "to_char(installations.updated_at,'YYYY-MM-DD HH:MM')"
       ]).
-      joins(:server).
+      joins(:server, :project_instance => :project).
       order('servers.name, role')
     @columns = [
+      'ID',
+      'Instance', 'Project',
       'Server', 'Domain',
-      'Notes'
+      'Role', 'Closing',
+      'Description',
+      'Created_at', 'Updated_at'
     ]
     @file_name = "public/downloads/installations_#{Date.today}.csv"
   end

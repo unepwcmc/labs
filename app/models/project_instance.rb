@@ -24,6 +24,8 @@ class ProjectInstance < ActiveRecord::Base
 
   validates :project_id, presence: true
 
+  accepts_nested_attributes_for :comments, :reject_if => lambda { |a| a[:content].blank? }
+
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
       csv << column_names
@@ -32,7 +34,5 @@ class ProjectInstance < ActiveRecord::Base
       end
     end
   end
-
-  accepts_nested_attributes_for :comments, :reject_if => lambda { |a| a[:content].blank? }
 
 end
