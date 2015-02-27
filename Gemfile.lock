@@ -7,6 +7,16 @@ GIT
       rake (>= 0.8.7)
 
 GIT
+  remote: git://github.com/rweng/jquery-datatables-rails.git
+  revision: 9b427794b9afc7d52d5b50801f9ad4088ecab7eb
+  specs:
+    jquery-datatables-rails (3.1.1)
+      actionpack (>= 3.1)
+      jquery-rails
+      railties (>= 3.1)
+      sass-rails
+
+GIT
   remote: https://github.com/smartinez87/exception_notification.git
   revision: f9dee5b5f6a1e1823bb274f719f1ae9c551e2f84
   specs:
@@ -128,11 +138,6 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
-    jquery-datatables-rails (3.1.1)
-      actionpack (>= 3.1)
-      jquery-rails
-      railties (>= 3.1)
-      sass-rails
     jquery-rails (3.1.2)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
@@ -290,7 +295,7 @@ DEPENDENCIES
   foreigner
   gon
   httparty
-  jquery-datatables-rails (~> 3.1.1)
+  jquery-datatables-rails!
   jquery-rails
   launchy
   mini_magick

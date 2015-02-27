@@ -27,7 +27,8 @@ gem "paranoia", "~> 2.0"
 gem 'gon'
 gem 'bootstrap-sass', '~> 3.3.3'
 gem 'sass-rails', '>= 3.2'
-gem 'jquery-datatables-rails', '~> 3.1.1'
+# https://github.com/rweng/jquery-datatables-rails/issues/153
+gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
