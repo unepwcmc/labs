@@ -3,6 +3,7 @@ class InstallationsExport
   def initialize
     @installations = Installation.
       select([
+        'installations.id',
         'project_instances.name', 'projects.title',
         'servers.name', 'servers.domain',
         'installations.role', 'installations.closing',
@@ -13,6 +14,7 @@ class InstallationsExport
       joins(:server, :project_instance => :project).
       order('servers.name, role')
     @columns = [
+      'ID',
       'Instance', 'Project',
       'Server', 'Domain',
       'Role', 'Closing',

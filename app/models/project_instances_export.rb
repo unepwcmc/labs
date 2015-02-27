@@ -2,7 +2,7 @@ class ProjectInstancesExport
   def initialize
     @project_instances = ProjectInstance.
       select([
-        'id', 'project_id',
+        'id',
         'name', 'url',
         'backup_information', 'stage',
         'branch', 'closing', 'description',
@@ -12,7 +12,7 @@ class ProjectInstancesExport
       joins(:project).
       order('project_instances.created_at')
     @columns = [
-      'ID', 'Project ID',
+      'ID',
       'Name', 'Url',
       'Backup Information', 'Stage',
       'Branch', 'Closing', 'Description',
