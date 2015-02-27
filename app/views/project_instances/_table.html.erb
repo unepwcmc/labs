@@ -35,7 +35,7 @@
         <td><%= instance.installations.count %></td>
         <td class='closing'><%= instance.closing %></td>
         <td>
-          <%= link_to 'Notes', '#', {title: display_info(instance), :'data-html' => 'true'} %>
+          <%= link_to 'Notes', '#', {title: "#{display_info(instance)}", :'data-html' => 'true'} %>
         </td>
         <td><%= link_to 'Show', instance %></td>
         <td><%= link_to 'Edit', edit_project_instance_path(instance) %></td>
