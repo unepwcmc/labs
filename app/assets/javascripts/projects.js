@@ -50,8 +50,9 @@ $(document).ready(function(){
   });
 
   $("#projects_table").dataTable({
-    "iDisplayLength": 50
+    "iDisplayLength": 25
   }).columnFilter({
+    sPlaceHolder: "head:before",
     aoColumns: [
     {
       type: "text",
@@ -62,13 +63,16 @@ $(document).ready(function(){
       values: gon.states
     },
     {
-      type: "text"
+      type: "select",
+      values: gon.rails_versions
     },
     {
-      type: "text"
+      type: "select",
+      values: gon.ruby_versions
     },
     {
-      type: "text"
+      type: "select",
+      values: gon.postgresql_versions
     },
     null
     ]

@@ -1,8 +1,9 @@
 $(document).ready(function(){
 
   $("#installations_table").dataTable({
-    "iDisplayLength": 50
+    "iDisplayLength": 25
   }).columnFilter({
+    sPlaceHolder: "head:before",
     aoColumns: [
     {
       type: "text",

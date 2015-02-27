@@ -15,10 +15,6 @@ class ProjectsController < ApplicationController
 
     @projects = @projects.published unless user_signed_in?
 
-    gon.push({
-      :states => Project.select("state").map(&:state).uniq
-    })
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @projects }
@@ -27,6 +23,13 @@ class ProjectsController < ApplicationController
 
   def list
     @projects = Project.all
+
+    gon.push({
+      :states => Project.pluck(:state).compact.uniq.reject(&:empty?),
+      :rails_versions => Project.pluck(:rails_version).compact.uniq.reject(&:empty?),
+      :ruby_versions => Project.pluck(:ruby_version).compact.uniq.reject(&:empty?),
+      :postgresql_versions => Project.pluck(:postgresql_version).compact.uniq.reject(&:empty?)
+    })
   end
 
   # GET /projects/1
