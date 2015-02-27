@@ -1,12 +1,12 @@
 /* Use import to require files as not to clash with bootstrap gem */
 
+@import "comments";
+@import "main";
+@import "project";
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "dataTables/jquery.dataTables";
 @import "select2";
 @import "select2-bootstrap";
 @import "bootswatch";
-@import "main";
-@import "comments";
-@import "project";
 @import "bootstrap-datepicker3";
