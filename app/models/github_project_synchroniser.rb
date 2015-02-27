@@ -8,7 +8,9 @@ class GithubProjectSynchroniser
   # Returns an array of the projects to loop through for errors
   def run
     @repo_names.map! { |name|
-      repo = Github.get_repo(name)
+      github = Github.new
+      repo = github.get_single_repo(name)
+
       Project.where(github_identifier: repo.full_name).first_or_create do |r|
         r.title = repo.name
         r.state = "Under Development"

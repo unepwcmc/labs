@@ -1,7 +1,12 @@
 class GithubSyncController < ApplicationController
   def index
+    github = Github.new
+    repos = github.get_all_repos
+
     existing_repo_names = Project.pluck(:github_identifier)
-    @repos = Github.repos.reject{ |repo| existing_repo_names.include?(repo.full_name) }
+    
+    @link_headers = repos.shift
+    @repos = repos.reject{ |repo| existing_repo_names.include?(repo.full_name) }
   end
 
   def sync
@@ -9,7 +14,11 @@ class GithubSyncController < ApplicationController
     repos = github_sync.run
 
     if contains_invalid_repository? repos
-      @repos = Github.repos
+      github = Github.new
+      repos = github.get_all_repos
+
+      @link_headers = repos.shift
+      @repos = repos
       @errored_repos = repos.select { |r| r.errors }
       render :index
     else
