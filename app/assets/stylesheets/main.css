@@ -53,7 +53,3 @@ footer {
 .tooltip-inner{
   max-width: 500px !important;
 }
-
-#commentModal .modal-backdrop {
-  z-index: 0
-}
