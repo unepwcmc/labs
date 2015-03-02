@@ -9,7 +9,7 @@ class GithubSyncControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    stub_request(:get, "https://api.github.com/orgs/unepwcmc/repos?client_id=&client_secret=").
+    stub_request(:get, "https://api.github.com/orgs/unepwcmc/repos?client_id=&client_secret=&page=").
     with(:headers => {'User-Agent'=>'Labs'}).
     to_return(:status => 200, :body => [{name: 'derp', full_name: "herp", description: 'derp'}].to_json) 
 
