@@ -4,6 +4,7 @@ class ProjectInstancesExport
       select([
         'id',
         'name', 'url',
+        'projects.title',
         'backup_information', 'stage',
         'branch', 'closing', 'description',
         "to_char(project_instances.created_at,'YYYY-MM-DD HH:MM')",
@@ -14,6 +15,7 @@ class ProjectInstancesExport
     @columns = [
       'ID',
       'Name', 'Url',
+      'Project',
       'Backup Information', 'Stage',
       'Branch', 'Closing', 'Description',
       'Created At', 'Updated At'
