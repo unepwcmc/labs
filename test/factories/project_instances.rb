@@ -57,4 +57,5 @@ FactoryGirl.define do
   factory :soft_deleted_project_instance do
     deleted_at Date.today
   end
+
 end
