@@ -102,7 +102,7 @@
       <div class="form-group">
         <%= f.label :expected_release_date, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-          <%= f.date_field :expected_release_date, class: "form-control" %>
+          <%= f.date_field :expected_release_date, class: "form-control", data: { provide: 'datepicker'} %>
           <p class="help-block">Expected release date</p>
         </div>
       </div>
