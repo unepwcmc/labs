@@ -25,6 +25,7 @@ gem 'foreigner'
 gem 'pg_csv'
 gem "paranoia", "~> 2.0"
 gem 'gon'
+gem 'nested_form'
 gem 'bootstrap-sass', '~> 3.3.3'
 gem 'sass-rails', '>= 3.2'
 # https://github.com/rweng/jquery-datatables-rails/issues/153

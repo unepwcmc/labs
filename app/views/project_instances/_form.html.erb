@@ -1,4 +1,4 @@
-<%= form_for(@project_instance, :html => {class: "form-horizontal"}) do |f| %>
+<%= nested_form_for(@project_instance, :html => {class: "form-horizontal"}) do |f| %>
   <% if @project_instance.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@project_instance.errors.count, "error") %> prohibited this instance from being saved:</h2>
@@ -83,6 +83,39 @@
       </div>
     </div>
   <% end %>
+
+  <h2> Installations </h2>
+
+  <ol>
+    <%= f.fields_for :installations do |ff| %>
+      <li>
+        <div class="form-group">
+          <%= ff.label :server, class: "col-sm-2 control-label" %>
+          <div class="col-sm-10">
+            <%= ff.collection_select :server_id, Server.order(:name),:id,:name,
+              {prompt: "Select the server this Installation belongs to"}, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= ff.label :role, class: "col-sm-2 control-label" %>
+          <div class="col-sm-10">
+            <%= ff.select :role, [["Web","Web"],["Database","Database"],["Web & Database","Web & Database"]], {}, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= ff.label :description, class: "col-sm-2 control-label" %>
+          <div class="col-sm-10">
+            <%= ff.text_area :description, class: "form-control" %>
+          </div>
+        </div>
+     </li>
+     <%= content_tag(:span, ff.link_to_remove('Remove installation'), {style: 'float:right'}) %>
+     <%= content_tag(:br) %>
+    <% end %>
+    <%= f.link_to_add 'Add installation', :installations %>
+  </ol>
 
   <div class="actions">
     <%= f.submit class: "btn btn-primary" %>

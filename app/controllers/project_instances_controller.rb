@@ -140,7 +140,8 @@ class ProjectInstancesController < ApplicationController
 
   def project_instance_params
     params.require(:project_instance).permit(:project_id, :name, :url, :backup_information,
-      :stage, :branch, :description, :closing, :closed, comment: [:id, :content, :user_id], installation_ids: [])
+      :stage, :branch, :description, :closing, :closed,
+      installations_attributes: [:id, :server_id, :role, :description, :_destroy], comment: [:id, :content, :user_id], installation_ids: [])
   end
 
   def comment_params
