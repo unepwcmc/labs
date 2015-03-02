@@ -15,8 +15,8 @@ ActiveRecord::Schema.define(version: 20150223162940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_trgm"
   enable_extension "fuzzystrmatch"
+  enable_extension "pg_trgm"
 
   create_table "comments", force: true do |t|
     t.text     "content",          null: false
