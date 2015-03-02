@@ -1,8 +1,8 @@
 class GithubSyncController < ApplicationController
   def index
-    page = params[:page]
+    @page = params[:page]
     github = Github.new
-    repos = github.get_all_repos(page)
+    repos = github.get_all_repos(@page)
 
     existing_repo_names = Project.pluck(:github_identifier)
     
@@ -16,7 +16,8 @@ class GithubSyncController < ApplicationController
 
     if contains_invalid_repository? repos
       github = Github.new
-      repositories = github.get_all_repos # thus
+      @page = params[:page]
+      repositories = github.get_all_repos(@page)
 
       @link_headers = repositories.shift
       @repos = repositories
