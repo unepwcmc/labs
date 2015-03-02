@@ -61,17 +61,6 @@
     </div>
   </div>
 
-  <div class="form-group">
-    <%= f.label :installation_ids, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.collection_select :installation_ids, Installation.includes(:project_instance => :project).
-        order('projects.title'), :id, :name,
-        {:selected => @project_instance.installation_ids},
-        {class: "form-control", multiple: true}
-      %>
-      </div>
-  </div>
-
   <% unless @project_instance.new_record? %>
     <div class="form-group">
       <div class="col-sm-2 control-label">
@@ -89,27 +78,7 @@
   <ol>
     <%= f.fields_for :installations do |ff| %>
       <li>
-        <div class="form-group">
-          <%= ff.label :server, class: "col-sm-2 control-label" %>
-          <div class="col-sm-10">
-            <%= ff.collection_select :server_id, Server.order(:name),:id,:name,
-              {prompt: "Select the server this Installation belongs to"}, class: "form-control" %>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <%= ff.label :role, class: "col-sm-2 control-label" %>
-          <div class="col-sm-10">
-            <%= ff.select :role, [["Web","Web"],["Database","Database"],["Web & Database","Web & Database"]], {}, class: "form-control" %>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <%= ff.label :description, class: "col-sm-2 control-label" %>
-          <div class="col-sm-10">
-            <%= ff.text_area :description, class: "form-control" %>
-          </div>
-        </div>
+        <%= render :partial => "shared/installations_form", locals: {f: ff} %>
      </li>
      <%= content_tag(:span, ff.link_to_remove('Remove installation'), {style: 'float:right'}) %>
      <%= content_tag(:br) %>
