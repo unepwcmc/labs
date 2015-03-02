@@ -3,7 +3,12 @@
 
 <%= render 'error_messages' %>
 
-<%= @link_headers.inspect %>
+<nav>
+  <ul class="pagination">
+    <li><%= link_to 'Previous 25', sync_projects_path(page: @link_headers['prev_page']) if @link_headers.try(:[], 'prev_page') %></li>
+    <li><%= link_to 'Next 25', sync_projects_path(page: @link_headers['next_page']) if @link_headers.try(:[], 'next_page') %></li>
+  </ul>
+</nav>
 
 <%= form_tag sync_projects_path do %>
   <table class="table" id="sync_table">

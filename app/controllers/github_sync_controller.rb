@@ -1,7 +1,8 @@
 class GithubSyncController < ApplicationController
   def index
+    page = params[:page]
     github = Github.new
-    repos = github.get_all_repos
+    repos = github.get_all_repos(page)
 
     existing_repo_names = Project.pluck(:github_identifier)
     
