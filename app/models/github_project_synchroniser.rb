@@ -15,7 +15,7 @@ class GithubProjectSynchroniser
         r.title = repo.name
         r.state = "Under Development"
         r.github_identifier = repo.full_name
-        r.description = repo.description.presence || '(empty)'
+        r.description = repo.description
       end
     }.compact
   end

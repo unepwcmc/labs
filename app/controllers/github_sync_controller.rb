@@ -16,10 +16,10 @@ class GithubSyncController < ApplicationController
 
     if contains_invalid_repository? repos
       github = Github.new
-      repos = github.get_all_repos
+      repositories = github.get_all_repos # thus
 
-      @link_headers = repos.shift
-      @repos = repos
+      @link_headers = repositories.shift
+      @repos = repositories
       @errored_repos = repos.select { |r| r.errors }
       render :index
     else
