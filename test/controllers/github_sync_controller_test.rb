@@ -11,7 +11,7 @@ class GithubSyncControllerTest < ActionController::TestCase
   test "should get index" do
     stub_request(:get, "https://api.github.com/orgs/unepwcmc/repos?client_id=&client_secret=&page=").
     with(:headers => {'User-Agent'=>'Labs'}).
-    to_return(:status => 200, :body => [{name: 'derp', full_name: "herp", description: 'derp'}].to_json) 
+    to_return(:status => 200, :body => [{name: 'derp', full_name: "herp", description: 'derp'}].to_json, :headers => {'link' => '<https://api.github.com/organizations/513080/repos?client_id=&client_secret=&page=2>; rel="next", <https://api.github.com/organizations/513080/repos?client_id=&client_secret=&page=3>; rel="last"'}) 
 
     get :index
     assert_response :success
