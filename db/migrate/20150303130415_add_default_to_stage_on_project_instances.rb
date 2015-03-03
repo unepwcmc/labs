@@ -7,3 +7,4 @@ class AddDefaultToStageOnProjectInstances < ActiveRecord::Migration
     change_column :project_instances, :stage, :string, default: nil
   end
 end
+ 
