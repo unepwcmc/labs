@@ -24,9 +24,9 @@
         <td><%= server.name %></td>
         <td><%= server.domain %></td>
         <td><%= server.os %></td>
-        <td><%= link_to 'Show', server %></td>
-        <td><%= link_to 'Edit', edit_server_path(server) %></td>
-        <td><%= link_to 'Destroy', server, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to(server) { fa_icon "eye" } %></td>
+        <td><%= link_to(edit_server_path(server) { fa_icon "pencil" } %></td>
+        <td><%= link_to(server, method: :delete, data: { confirm: "Are you sure?" }){ fa_icon "trash" } %></td>
       </tr>
     <% end %>
   </tbody>
