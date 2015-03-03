@@ -54,9 +54,11 @@
     </div>
     <p>
       <% if !@project_instance.installations.with_deleted.empty? %>
-        <% @project_instance.installations.with_deleted.each do |installation| %>
-            <%= link_to installation.name, installation_path(installation) %>
-              on <%= link_to installation.server.name, server_path(installation.server) %><br>
+        <%= render :partial => 'installations', locals: {installations: @project_instance.installations,
+          deleted: false} %>
+        <% unless @project_instance.installations.only_deleted.empty? %>
+          <%= render :partial => 'installations', locals: {installations: @project_instance.installations.only_deleted,
+            deleted: true} %>
         <% end %>
       <% else %>
         This project's instance has no installations

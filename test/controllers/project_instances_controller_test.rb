@@ -8,6 +8,7 @@ class ProjectInstancesControllerTest < ActionController::TestCase
     @new_project_instance = FactoryGirl.build(:project_instance)
     @project_instance_with_installations = FactoryGirl.create(:project_instance_with_installations)
     @soft_deleted_project_instance_with_installations = FactoryGirl.create(:soft_deleted_project_instance_with_installations)
+    @installation = FactoryGirl.build(:installation)
     @user = FactoryGirl.create(:user)
     sign_in @user
   end
@@ -24,12 +25,17 @@ class ProjectInstancesControllerTest < ActionController::TestCase
   end
 
   test "should create project_instance" do
-    assert_difference('ProjectInstance.count') do
+    assert_differences([['ProjectInstance.count', 1],['Installation.count', 1]]) do
       post :create, project_instance: { branch: @new_project_instance.branch,
         description: @new_project_instance.description, 
         project_id: @new_project_instance.project_id, name: @new_project_instance.name,
         backup_information: @new_project_instance.backup_information,
-        stage: @new_project_instance.stage, url: @new_project_instance.url
+        stage: @new_project_instance.stage, url: @new_project_instance.url,
+        installations_attributes: [{
+          server_id: @installation.server_id,
+          role: @installation.role,
+          description: @installation.description
+        }]
       }
     end
 
@@ -47,12 +53,19 @@ class ProjectInstancesControllerTest < ActionController::TestCase
   end
 
   test "should update project_instance" do
-    patch :update, id: @project_instance, project_instance:
+    installation = @project_instance_with_installations.installations.first
+    patch :update, id: @project_instance_with_installations, project_instance:
       { 
         branch: @new_project_instance.branch, description: @new_project_instance.description, 
         project_id: @new_project_instance.project_id, name: @new_project_instance.name,
         backup_information: @new_project_instance.backup_information,
-        stage: @new_project_instance.stage, url: @new_project_instance.url
+        stage: @new_project_instance.stage, url: @new_project_instance.url,
+        installations_attributes: [{
+          id: installation.id,
+          server_id: @installation.server_id,
+          role: @installation.role,
+          description: @installation.description
+        }]
       }
     assert_redirected_to project_instance_path(assigns(:project_instance))
   end
@@ -133,5 +146,43 @@ class ProjectInstancesControllerTest < ActionController::TestCase
     get :new, nagios_url: url
     assert_equal Project.last.id, assigns(:project_instance).project_id
     assert_equal url, assigns(:project_instance).url
+  end
+
+  test "should add installations" do
+    another_installation = FactoryGirl.build(:installation)
+    assert_difference("Installation.count", 2) do
+      patch :update, id: @project_instance, project_instance:
+        {
+          installations_attributes: [
+            {
+              server_id: @installation.server_id,
+              role: @installation.role,
+              description: @installation.description
+            },
+            {
+              server_id: another_installation.server_id,
+              role: another_installation.role,
+              description: another_installation.description
+            }
+          ]
+        }
+    end
+    assert_equal 2, @project_instance.installations.count
+  end
+
+  test "should remove installations" do
+    installation = @project_instance_with_installations.installations.first
+    assert_differences([["Installation.count", -1],["Installation.only_deleted.count", 1]]) do
+      patch :update, id: @project_instance_with_installations, project_instance:
+        {
+          installations_attributes: [
+            {
+              id: installation.id,
+              _destroy: 1
+            }
+          ]
+        }
+    end
+    assert_equal 2, @project_instance_with_installations.installations.count
   end
 end

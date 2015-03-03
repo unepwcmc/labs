@@ -65,7 +65,7 @@ class InstallationsController < ApplicationController
 
   def destroy
     set_installation
-    @installation.destroy
+    @installation.really_destroy!
 
     respond_to do |format|
       format.html { redirect_to installations_url }

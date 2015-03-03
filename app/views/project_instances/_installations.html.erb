@@ -1,0 +1,19 @@
+<% if deleted %>
+  <div id="soft-deleted_installations" style="display:none">
+    <h2> Soft-Deleted Installations </h2>
+<% else %>
+  <div id="active_installations">
+    <h2> Active Installations </h2>
+<% end %>
+
+<% installations.each do |installation| %>
+  <%= link_to installation.name, installation_path(installation) %>
+  on <%= link_to installation.server.name, server_path(installation.server)%>
+  <%= "| #{(link_to "Destroy", installation, {method: :delete, style: "margin:0 8px;"})}".html_safe if deleted %>
+  <br/>
+<% end %>
+</div>
+<br/>
+<% if deleted %>
+  <%= button_tag("Soft-Deleted Installations", {id: "show_soft-deleted", class: 'btn btn-primary', style: 'float:right'}) %>
+<% end %>

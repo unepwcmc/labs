@@ -27,6 +27,7 @@ class ProjectInstance < ActiveRecord::Base
     if: Proc.new { |a| a.url.present? }
 
   accepts_nested_attributes_for :comments, :reject_if => lambda { |a| a[:content].blank? }
+  accepts_nested_attributes_for :installations, allow_destroy: true
 
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|

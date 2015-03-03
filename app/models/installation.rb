@@ -29,4 +29,8 @@ class Installation < ActiveRecord::Base
     "#{self.project.title} - #{role} (#{stage})"
   end
 
+  def project_instance
+    ProjectInstance.unscoped { super }
+  end
+
 end
