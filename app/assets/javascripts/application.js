@@ -5,12 +5,13 @@
 // the compiled file.
 //
 //= require jquery
+//= require bootstrap-sprockets
 //= require jquery_ujs
 //= require dataTables/jquery.dataTables
-//= require bootstrap-sprockets
 //= require select2
 //= require jquery.dataTables.columnFilter
 //= require bootstrap-datepicker
 //= require jquery_nested_form
+//= require dataTables.bootstrap
 //= require_tree .
 //
