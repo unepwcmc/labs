@@ -64,6 +64,10 @@ $(document).ready(function(){
     },
     {
       type: "select",
+      values: gon.instances
+    },
+    {
+      type: "select",
       values: gon.rails_versions
     },
     {

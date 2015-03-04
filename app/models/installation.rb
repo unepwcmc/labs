@@ -13,6 +13,7 @@
 
 class Installation < ActiveRecord::Base
   acts_as_paranoid
+  acts_as_copy_target
 
   belongs_to :server
   belongs_to :project_instance

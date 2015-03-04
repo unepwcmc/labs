@@ -16,6 +16,7 @@
 
 class ProjectInstance < ActiveRecord::Base
   acts_as_paranoid
+  acts_as_copy_target
 
   belongs_to :project
   has_many :installations, dependent: :destroy

@@ -13,22 +13,11 @@ class InstallationsExport
       ]).
       joins(:server, :project_instance => :project).
       order('servers.name, role')
-    @columns = [
-      'ID',
-      'Instance', 'Project',
-      'Server', 'Domain',
-      'Role', 'Closing',
-      'Description',
-      'Created_at', 'Updated_at'
-    ]
-    @file_name = "public/downloads/installations_#{Date.today}.csv"
+    @file_name = "#{Rails.root}/public/downloads/installations_#{Date.today}.csv"
   end
 
   def export
-    PgCsv.new(
-      sql: @installations.to_sql,
-      columns: @columns
-    ).export(@file_name)
+    @installations.copy_to @file_name
     @file_name
   end
 

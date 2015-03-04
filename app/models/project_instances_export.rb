@@ -20,14 +20,11 @@ class ProjectInstancesExport
       'Branch', 'Closing', 'Description',
       'Created At', 'Updated At'
     ]
-    @file_name = "public/downloads/project_instances_#{Date.today}.csv"
+    @file_name = "#{Rails.root}/public/downloads/project_instances_#{Date.today}.csv"
   end
 
   def export
-    PgCsv.new(
-      sql: @project_instances.to_sql,
-      columns: @columns
-    ).export(@file_name)
+    @project_instances.copy_to @file_name
     @file_name
   end
 end

@@ -22,14 +22,23 @@ class ProjectsController < ApplicationController
   end
 
   def list
-    @projects = Project.all
 
-    gon.push({
-      :states => Project.pluck(:state).compact.uniq.reject(&:empty?),
-      :rails_versions => Project.pluck(:rails_version).compact.uniq.reject(&:empty?),
-      :ruby_versions => Project.pluck(:ruby_version).compact.uniq.reject(&:empty?),
-      :postgresql_versions => Project.pluck(:postgresql_version).compact.uniq.reject(&:empty?)
-    })
+    respond_to do |format|
+      format.html {
+        @projects = Project.all
+
+        gon.push({
+          :states => Project.pluck(:state).compact.uniq.reject(&:empty?),
+          :rails_versions => Project.pluck(:rails_version).compact.uniq.reject(&:empty?),
+          :ruby_versions => Project.pluck(:ruby_version).compact.uniq.reject(&:empty?),
+          :postgresql_versions => Project.pluck(:postgresql_version).compact.uniq.reject(&:empty?),
+          :instances => Project.all.map{ |project| project.project_instances.count }.uniq
+        })
+      }
+      format.csv {
+        send_file(Pathname.new(ProjectsExport.new.export).realpath, type: 'text/csv')
+      }
+    end
   end
 
   # GET /projects/1
