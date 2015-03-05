@@ -32,7 +32,7 @@
         <td><%= link_to instance.project.title, project_path(instance.project) %></td>
         <td><%= instance.stage %></td>
         <td><%= instance.branch %></td>
-        <td><%= instance.installations.count %></td>
+        <td><%= instance.installations.size %></td>
         <td class='closing'><%= instance.closing %></td>
         <td>
           <%= link_to 'Notes', '#', {title: "#{display_info(instance)}", :'data-html' => 'true'} %>
