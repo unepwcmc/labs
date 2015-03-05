@@ -59,7 +59,7 @@ class ProjectInstancesController < ApplicationController
   end
 
   def new
-    nagios_url = params[:nagios_url]
+    nagios_url = params[:nagios_url].presence || ""
     project_id = Project.where("url like ?", "%#{params[:nagios_url]}%").first.try(:id) if nagios_url
 
     nagios_url[/\A/] = 'http://' unless /\Ahttp:\/\//.match(nagios_url)
