@@ -14,7 +14,7 @@ class ProjectInstancesExport
       joins(:project).
       joins('LEFT OUTER JOIN installations ON installations.project_instance_id = project_instances.id').
       order('project_instances.created_at').
-      group('project_instances.id')
+      group('project_instances.id', 'projects.title')
     @columns = [
       'ID',
       'Name', 'URL',
