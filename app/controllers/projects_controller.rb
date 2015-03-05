@@ -25,7 +25,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       format.html {
-        @projects = Project.includes(:project_instances).references(:project_instances)
+        @projects = Project.includes(:project_instances)
 
         gon.push({
           :states => Project.pluck(:state).compact.uniq.reject(&:empty?),
