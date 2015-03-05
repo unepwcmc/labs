@@ -9,7 +9,6 @@ gem 'rvm-capistrano'
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-gem 'fastercsv'
 gem 'httparty'
 gem 'devise'
 gem 'uglifier', '>= 1.0.3'
@@ -22,7 +21,6 @@ gem "codeclimate-test-reporter", group: :test, require: nil
 gem 'pg_search', '~> 0.7.8'
 gem 'select2-rails'
 gem 'foreigner'
-gem 'pg_csv'
 gem "paranoia", "~> 2.0"
 gem 'gon'
 gem 'nested_form'
@@ -31,6 +29,7 @@ gem 'sass-rails', '>= 3.2'
 # https://github.com/rweng/jquery-datatables-rails/issues/153
 gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 gem 'bootstrap-datepicker-rails'
+gem 'pg_csv'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

@@ -62,6 +62,7 @@ $(document).ready(function(){
       type: "select",
       values: gon.states
     },
+    null,
     {
       type: "select",
       values: gon.rails_versions

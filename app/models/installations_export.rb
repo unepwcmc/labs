@@ -19,16 +19,20 @@ class InstallationsExport
       'Server', 'Domain',
       'Role', 'Closing',
       'Description',
-      'Created_at', 'Updated_at'
+      'Created at', 'Updated at'
     ]
-    @file_name = "public/downloads/installations_#{Date.today}.csv"
+    @file_name = "#{Rails.root}/public/downloads/installations_#{Date.today}.csv"
   end
 
   def export
-    PgCsv.new(
-      sql: @installations.to_sql,
-      columns: @columns
-    ).export(@file_name)
+    File.open(@file_name, 'w') do |f|
+      f.write PgCsv.new(
+        sql: @installations.to_sql,
+        columns: @columns,
+        encoding: 'UTF8',
+        type: :plain
+      ).export
+    end
     @file_name
   end
 

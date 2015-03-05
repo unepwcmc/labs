@@ -25,9 +25,7 @@ $(document).ready(function(){
     {
       type: "text"
     },
-    {
-      type: "text"
-    },
+    null,
     {
       type: "select",
       values: ["true", "false"]

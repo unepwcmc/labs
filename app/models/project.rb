@@ -38,7 +38,6 @@ class Project < ActiveRecord::Base
   include PgSearch
 
   # Relationships
-  has_many :projects, through: :installation
   has_many :comments, as: :commentable
 
   has_many :master_sub_relationship, :foreign_key => 'sub_project_id',

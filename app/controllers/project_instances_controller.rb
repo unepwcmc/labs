@@ -1,7 +1,7 @@
 class ProjectInstancesController < ApplicationController
 
   def index
-    @projects_instances = ProjectInstance.all
+    @projects_instances = ProjectInstance.includes(:project, :installations)
 
     respond_to do |format|
       format.html {
