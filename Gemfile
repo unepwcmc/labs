@@ -9,7 +9,6 @@ gem 'rvm-capistrano'
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-gem 'fastercsv'
 gem 'httparty'
 gem 'devise'
 gem 'uglifier', '>= 1.0.3'
