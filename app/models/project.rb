@@ -34,7 +34,6 @@
 #
 
 class Project < ActiveRecord::Base
-  acts_as_copy_target
   # Add pg_search
   include PgSearch
 
