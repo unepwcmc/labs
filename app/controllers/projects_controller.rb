@@ -31,8 +31,7 @@ class ProjectsController < ApplicationController
           :states => Project.pluck(:state).compact.uniq.reject(&:empty?),
           :rails_versions => Project.pluck(:rails_version).compact.uniq.reject(&:empty?),
           :ruby_versions => Project.pluck(:ruby_version).compact.uniq.reject(&:empty?),
-          :postgresql_versions => Project.pluck(:postgresql_version).compact.uniq.reject(&:empty?),
-          :instances => Project.all.map{ |project| project.project_instances.count }.uniq
+          :postgresql_versions => Project.pluck(:postgresql_version).compact.uniq.reject(&:empty?)
         })
       }
       format.csv {
