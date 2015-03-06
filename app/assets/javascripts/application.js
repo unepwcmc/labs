@@ -11,7 +11,8 @@
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require select2
 //= require jquery.dataTables.columnFilter
-//= require bootstrap-datepicker
+//= require bootstrap-datepicker/core
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.en-GB.js
 //= require jquery_nested_form
 //= require_tree .
 //
