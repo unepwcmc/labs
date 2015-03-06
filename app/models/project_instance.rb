@@ -29,13 +29,11 @@ class ProjectInstance < ActiveRecord::Base
   accepts_nested_attributes_for :comments, :reject_if => lambda { |a| a[:content].blank? }
   accepts_nested_attributes_for :installations, allow_destroy: true
 
-  def self.to_csv(options = {})
-    CSV.generate(options) do |csv|
-      csv << column_names
-      all.each do |project_instance|
-        csv << project_instance.attributes.values_at(*column_names)
-      end
-    end
+  after_initialize :init_default_values
+
+  def init_default_values
+    return unless new_record?
+    self.stage  ||= 'Production'
   end
 
 end

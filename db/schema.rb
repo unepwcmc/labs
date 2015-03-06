@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150223162940) do
+ActiveRecord::Schema.define(version: 20150303130415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "fuzzystrmatch"
   enable_extension "pg_trgm"
+  enable_extension "fuzzystrmatch"
 
   create_table "comments", force: true do |t|
     t.text     "content",          null: false
@@ -62,11 +62,11 @@ ActiveRecord::Schema.define(version: 20150223162940) do
   end
 
   create_table "project_instances", force: true do |t|
-    t.integer  "project_id",                         null: false
-    t.string   "name",                               null: false
-    t.string   "url",                                null: false
+    t.integer  "project_id",                                null: false
+    t.string   "name",                                      null: false
+    t.string   "url",                                       null: false
     t.text     "backup_information"
-    t.string   "stage",                              null: false
+    t.string   "stage",              default: "Production", null: false
     t.string   "branch"
     t.text     "description"
     t.datetime "created_at"

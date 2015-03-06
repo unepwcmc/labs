@@ -13,4 +13,17 @@ class ProjectInstanceTest < ActiveSupport::TestCase
     @project = FactoryGirl.build(:project_instance, url: "1234")
     assert_not @project.valid?
   end
+
+  test "should initialize project_instance with production as default stage" do
+    attrs = FactoryGirl.attributes_for(:project_instance).except(:stage)
+    @project_instance = ProjectInstance.build(attrs)
+    assert_equal "Production", @project_instance.stage
+  end
+
+  test "should create project_instance with production as default stage" do
+    attrs = FactoryGirl.attributes_for(:project_instance).except(:stage)
+    @project_instance = ProjectInstance.create(attrs)
+    assert_equal "Production", @project_instance.stage
+  end
+
 end

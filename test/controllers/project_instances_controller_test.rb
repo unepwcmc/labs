@@ -185,4 +185,5 @@ class ProjectInstancesControllerTest < ActionController::TestCase
     end
     assert_equal 2, @project_instance_with_installations.installations.count
   end
+
 end
