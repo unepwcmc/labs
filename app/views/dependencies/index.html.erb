@@ -6,7 +6,7 @@
   <%= button_to 'New Dependency', new_dependency_path, method: :get, class: "btn btn-primary" %>
 </div>
 
-<table class="display" id="dependencies_table">
+<table class="display table" id="dependencies_table">
   <thead>
     <tr>
       <th>Dependant Project</th>
@@ -26,9 +26,9 @@
         <td>
           <%= link_to dependency.master_project.title, server_path(dependency.master_project) %>
         </td>
-        <td><%= link_to 'Show', dependency %></td>
-        <td><%= link_to 'Edit', edit_dependency_path(dependency) %></td>
-        <td><%= link_to 'Destroy', dependency, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to(dependency) { fa_icon "eye" } %></td>
+        <td><%= link_to(edit_dependency_path(dependency)) { fa_icon "pencil" } %></td>
+        <td><%= link_to(dependency, method: :delete, data: { confirm: "Are you sure?" }){ fa_icon "trash" } %></td>
       </tr>
     <% end %>
   </tbody>

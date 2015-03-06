@@ -1,4 +1,4 @@
-<table class="display" id="projects_table">
+<table class="display table" id="projects_table">
   <thead>
     <tr class="filters">
       <th></th>
@@ -18,6 +18,8 @@
       <th>Rails</th>
       <th>Ruby</th>
       <th>PostgreSQL</th>
+      <th></th>
+      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -40,7 +42,9 @@
         <td><%= project.rails_version %></td>
         <td><%= project.ruby_version %></td>
         <td><%= project.postgresql_version %></td>
-        <td><%= link_to 'Edit', edit_project_path(project) %></td>
+        <td><%= link_to(project_path(project)) { fa_icon "eye" } %></td>
+        <td><%= link_to(edit_project_path(project)) { fa_icon "pencil" } %></td>
+        <td><%= link_to(project_path(project), method: :delete, data: { confirm: "Are you sure?" }){ fa_icon "trash" } %></td>
       </tr>
     <% end %>
   </tbody>

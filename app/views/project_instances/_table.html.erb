@@ -1,4 +1,4 @@
-<table class="display" id="project_instances_table">
+<table class="display table" id="project_instances_table">
   <thead>
     <tr class="filters">
       <th></th>
@@ -37,9 +37,9 @@
         <td>
           <%= link_to 'Notes', '#', {title: "#{display_info(instance)}", :'data-html' => 'true'} %>
         </td>
-        <td><%= link_to 'Show', instance %></td>
-        <td><%= link_to 'Edit', edit_project_instance_path(instance) %></td>
-        <td><%= link_to 'Destroy', instance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to(instance) { fa_icon "eye" } %></td>
+        <td><%= link_to(edit_project_instance_path(instance)) { fa_icon "pencil" } %></td>
+        <td><%= link_to(instance, method: :delete, data: { confirm: "Are you sure?" }){ fa_icon "trash" } %></td>
       </tr>
     <% end %>
   </tbody>

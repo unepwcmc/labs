@@ -19,7 +19,6 @@ class ProjectInstance < ActiveRecord::Base
 
   belongs_to :project
   has_many :installations, dependent: :destroy
-
   has_many :comments, as: :commentable
 
   validates :project_id, :url, presence: true
@@ -35,5 +34,4 @@ class ProjectInstance < ActiveRecord::Base
     return unless new_record?
     self.stage  ||= 'Production'
   end
-
 end

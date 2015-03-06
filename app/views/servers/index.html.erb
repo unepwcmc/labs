@@ -6,7 +6,7 @@
   <%= button_to 'New Server', new_server_path, method: :get, class: "btn btn-primary" %>
 </div>
 
-<table class="display" id="servers_table">
+<table class="display table" id="servers_table">
   <thead>
     <tr>
       <th>Name</th>
@@ -24,14 +24,10 @@
         <td><%= server.name %></td>
         <td><%= server.domain %></td>
         <td><%= server.os %></td>
-        <td><%= link_to 'Show', server %></td>
-        <td><%= link_to 'Edit', edit_server_path(server) %></td>
-        <td><%= link_to 'Destroy', server, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to(server) { fa_icon "eye" } %></td>
+        <td><%= link_to(edit_server_path(server)) { fa_icon "pencil" } %></td>
+        <td><%= link_to(server, method: :delete, data: { confirm: "Are you sure?" }){ fa_icon "trash" } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-
