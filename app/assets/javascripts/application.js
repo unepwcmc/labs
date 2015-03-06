@@ -8,10 +8,10 @@
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require dataTables/jquery.dataTables
+//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require select2
 //= require jquery.dataTables.columnFilter
 //= require bootstrap-datepicker
 //= require jquery_nested_form
-//= require dataTables.bootstrap
 //= require_tree .
 //
