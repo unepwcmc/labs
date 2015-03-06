@@ -85,13 +85,15 @@ server {
   add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
   add_header 'Access-Control-Allow-Headers' "X-Requested-With, X-Prototype-Version";
   add_header 'Access-Control-Max-Age' 1728000;
-  
+
+  passenger_ruby /home/rails/.rvm/gems/ruby-#{rvm_ruby_string}/wrappers/ruby;
+
   gzip on;
   location ^~ /assets/ {
     expires max;
     add_header Cache-Control public;
   }
-  
+
   if (-f $document_root/system/maintenance.html) {
     return 503;
   }
