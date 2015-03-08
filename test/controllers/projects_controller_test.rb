@@ -87,7 +87,13 @@ class ProjectsControllerTest < ActionController::TestCase
                               other_technologies: @project.other_technologies.join(','),
                               background_jobs: @project.background_jobs,
                               cron_jobs: @project.cron_jobs,
-                              published: @project.published
+                              published: @project.published,
+                              master_sub_relationship_attributes: [{
+                                master_project_id: @project_with_instances.id
+                              }],
+                              sub_master_relationshio_attributes: [{
+                                sub_project_id: @saved_project.id
+                              }]
                             }
     end
     assert_redirected_to project_path(assigns(:project))
@@ -124,4 +130,31 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_raises(ActionController::RedirectBackError) { delete :destroy, id: @project_with_instances.id }
     assert_equal "This project has project instances. Delete its project instances first", flash[:alert]
   end
+
+  # test "should add dependencies" do
+  #   master_project = FactoryGirl.build(:project)
+  #   sub_project = FactoryGirl.build(:project)
+  #   patch :update, id: @saved_project, project:
+  #     {
+  #       master_sub_relationship_attributes: [
+  #         {
+  #           master_project_id: master_project.id
+  #         },
+  #         {
+  #           master_project_id: @project_with_instances.id
+  #         }
+  #       ],
+  #       sub_master_relationship_attributes: [
+  #         {
+  #           sub_project_id: @project.id
+  #         },
+  #         {
+  #           sub_project_id: sub_project.id
+  #         }
+  #       ]
+  #     }
+
+  #   assert_equal 2, @saved_project.master_projects.count
+  #   assert_equal 2, @saved_project.sub_projects.count
+  # end
 end
