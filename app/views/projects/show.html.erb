@@ -87,7 +87,7 @@
       <% if !@master_projects.empty? %>
         <ul>
           <% @master_projects.each do |project| %>
-            <li><%= link_to project.id, project_path(project) %> <%= project.title %></li>
+            <li><%= link_to project.title, project_path(project) %></li>
           <% end %>
         </ul>
       <% else %>
