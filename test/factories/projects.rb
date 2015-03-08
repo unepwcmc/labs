@@ -63,6 +63,13 @@ FactoryGirl.define do
         published false
     end
 
+    factory :project_with_dependencies do
+        after(:create) do |project|
+            project.master_projects << FactoryGirl.build(:project)
+            project.sub_projects << FactoryGirl.build(:project)
+        end
+    end
+
     factory :project_with_instances do
         transient do
           instances_count 2

@@ -13,6 +13,7 @@ class ProjectsControllerTest < ActionController::TestCase
     @project_c = FactoryGirl.create(:project, title: "Car", description: "haddock")
 
     @project_with_instances = FactoryGirl.create(:project_with_instances)
+    @project_with_dependencies = FactoryGirl.create(:project_with_dependencies)
 
     stub_request(:get, "http://unep-wcmc.org/api/employees.json").
     to_return(:status => 200, :body => {"employees" => ['Test','Test']}.to_json,
@@ -131,30 +132,44 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_equal "This project has project instances. Delete its project instances first", flash[:alert]
   end
 
-  # test "should add dependencies" do
-  #   master_project = FactoryGirl.build(:project)
-  #   sub_project = FactoryGirl.build(:project)
-  #   patch :update, id: @saved_project, project:
-  #     {
-  #       master_sub_relationship_attributes: [
-  #         {
-  #           master_project_id: master_project.id
-  #         },
-  #         {
-  #           master_project_id: @project_with_instances.id
-  #         }
-  #       ],
-  #       sub_master_relationship_attributes: [
-  #         {
-  #           sub_project_id: @project.id
-  #         },
-  #         {
-  #           sub_project_id: sub_project.id
-  #         }
-  #       ]
-  #     }
+  test "should add dependencies" do
+    sign_in @user
+    master_project = FactoryGirl.create(:project)
+    sub_project = FactoryGirl.create(:project)
+    assert_difference("Dependency.count", 2) do
+      patch :update, id: @saved_project, project:
+        {
+          master_sub_relationship_attributes: [
+            {
+              master_project_id: master_project.id
+            }
+          ],
+          sub_master_relationship_attributes: [
+            {
+              sub_project_id: sub_project.id
+            }
+          ]
+        }
+    end
 
-  #   assert_equal 2, @saved_project.master_projects.count
-  #   assert_equal 2, @saved_project.sub_projects.count
-  # end
+    assert_equal 1, assigns(:project).master_projects.count
+    assert_equal 1, assigns(:project).sub_projects.count
+  end
+
+  test "should remove dependencies" do
+    sign_in @user
+    dependency = Dependency.where(sub_project_id: @project_with_dependencies.id).first
+    assert_difference("Dependency.count", -1) do
+      patch :update, id: @project_with_dependencies, project:
+        {
+          master_sub_relationship_attributes: [
+            {
+              id: dependency.id,
+              _destroy: 1
+            }
+          ]
+        }
+    end
+    assert_equal 0, @project_with_dependencies.master_projects.count
+  end
 end
