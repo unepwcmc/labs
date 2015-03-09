@@ -27,7 +27,13 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.html {
         @projects = Project.includes(:project_instances)
-        set_gon_variables
+        
+        gon.push({
+          :states => pluck_field(:state),
+          :rails_versions => pluck_field(:rails_version),
+          :ruby_versions => pluck_field(:ruby_version),
+          :postgresql_versions => pluck_field(:postgresql_version)
+        })
       }
       format.csv {
         send_file(Pathname.new(ProjectsExport.new.export).realpath, type: 'text/csv')
@@ -156,12 +162,7 @@ class ProjectsController < ApplicationController
     redirect_to :back, alert: "This project has project instances. Delete its project instances first"
   end
 
-  def set_gon_variables
-    gon.push({
-      :states => Project.pluck(:state).compact.uniq.reject(&:empty?),
-      :rails_versions => Project.pluck(:rails_version).compact.uniq.reject(&:empty?),
-      :ruby_versions => Project.pluck(:ruby_version).compact.uniq.reject(&:empty?),
-      :postgresql_versions => Project.pluck(:postgresql_version).compact.uniq.reject(&:empty?)
-    })
+  def pluck_field symbol
+    Project.pluck(symbol).compact.uniq.reject(&:empty?)
   end
 end
