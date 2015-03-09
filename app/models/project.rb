@@ -77,6 +77,9 @@ class Project < ActiveRecord::Base
 
   validates :state, inclusion: { in: ['Under Development', 'Delivered', 'Project Development', 'Discontinued'] }
 
+  accepts_nested_attributes_for :master_sub_relationship, allow_destroy: true
+  accepts_nested_attributes_for :sub_master_relationship, allow_destroy: true
+
   # Mount uploader for carrierwave
   mount_uploader :screenshot, ScreenshotUploader
 
