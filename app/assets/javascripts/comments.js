@@ -3,7 +3,6 @@
 
 $(document).ready(function(){
   $("form#new_comment").submit(function(){
-    var text = $("textarea#comment_content").val();
 	var valuesToSubmit = $(this).serialize();
 	$.ajax({
 	  type: 'POST',
