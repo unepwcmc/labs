@@ -80,8 +80,6 @@ class Project < ActiveRecord::Base
   # Mount uploader for carrierwave
   mount_uploader :screenshot, ScreenshotUploader
 
-  before_destroy :has_project_instances
-
   # Create array getter and setter methods for postgres
   ["developers","internal_clients","external_clients","project_leads","pdrive_folders","dropbox_folders",
     "pivotal_tracker_ids","trello_ids","other_technologies"].each do |attribute|
@@ -106,12 +104,6 @@ class Project < ActiveRecord::Base
   def validate_pivotal_tracker_ids
     if self.pivotal_tracker_ids.detect{ |pt_id| !(/\A\d+(,\d+)*\z/i.match(pt_id)) }
       errors.add(:pivotal_tracker_ids, :invalid)
-    end
-  end
-
-  def has_project_instances
-    unless self.project_instances.empty?
-      raise "This project has project instances. Delete its project instances first"
     end
   end
 end

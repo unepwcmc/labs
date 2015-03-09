@@ -1,11 +1,12 @@
 class ProjectsController < ApplicationController
+  include Errors
   before_action :authenticate_user!, :except => [:index]
   before_action :available_developers, :only => [:new, :edit]
   before_action :available_employees, :only => [:new, :edit]
   # GET /projects
   # GET /projects.json
 
-  rescue_from StandardError, with: :rescue_standard_exception
+  rescue_from HasInstances, with: :rescue_has_instances_exception
 
   def index
 
@@ -118,6 +119,7 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1.json
   def destroy
     @project = Project.find(params[:id])
+    raise HasInstances unless @project.project_instances.empty?
     @project.destroy
 
     respond_to do |format|
@@ -152,7 +154,7 @@ class ProjectsController < ApplicationController
       :rails_version, :ruby_version, :postgresql_version, :other_technologies_array, :published, :internal_description, :background_jobs, :cron_jobs)
   end
 
-  def rescue_standard_exception(exception)
-    redirect_to :back, alert: "#{exception}"
+  def rescue_has_instances_exception(exception)
+    redirect_to :back, alert: "This project has project instances. Delete its project instances first"
   end
 end
