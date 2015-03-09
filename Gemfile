@@ -60,6 +60,7 @@ group :test do
   gem 'launchy'
   gem 'database_cleaner'
   gem 'webmock', '~> 1.18.0', require: false
+  gem "codeclimate-test-reporter", require: nil
 end
 
 group :development do
