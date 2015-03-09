@@ -37,29 +37,20 @@ class InstallationsController < ApplicationController
   def create
     @installation = Installation.new(installation_params)
 
-
-    respond_to do |format|
-      if @installation.save
-        format.html { redirect_to installations_path, :notice => 'Installation was successfully created.' }
-        format.json { render :json => @installation, :status => :created, :location => @installation }
-      else
-        format.html { render :action => "new" }
-        format.json { render :json => @installation.errors, :status => :unprocessable_entity }
-      end
+    if @installation.save
+      redirect_to installations_path, :notice => 'Installation was successfully created.'
+    else
+      render :action => "new"
     end
   end
 
   def update
     set_installation
 
-    respond_to do |format|
-      if @installation.update_attributes(installation_params)
-        format.html { redirect_to @installation, :notice => 'Installation was successfully updated.' }
-        format.json { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.json { render :json => @installation.errors, :status => :unprocessable_entity }
-      end
+    if @installation.update_attributes(installation_params)
+      redirect_to @installation, :notice => 'Installation was successfully updated.'
+    else
+      render :action => "edit"
     end
   end
 
@@ -67,10 +58,7 @@ class InstallationsController < ApplicationController
     set_installation
     @installation.really_destroy!
 
-    respond_to do |format|
-      format.html { redirect_to installations_url }
-      format.json { head :ok }
-    end
+    redirect_to installations_url
   end
 
   def soft_delete

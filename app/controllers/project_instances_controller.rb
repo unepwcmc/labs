@@ -10,7 +10,6 @@ class ProjectInstancesController < ApplicationController
         })
         render 'index'
       }
-      format.json { render :json => @projects_instances }
       format.csv {
         send_file(Pathname.new(ProjectInstancesExport.new.export).realpath, type: 'text/csv')
       }
@@ -22,11 +21,6 @@ class ProjectInstancesController < ApplicationController
 
     @comments = @project_instance.comments.order(:created_at)
     @comment = Comment.new
-
-    respond_to do |format|
-      format.html
-      format.json { render :json => @project_instance }
-    end
   end
 
   def edit
@@ -39,22 +33,16 @@ class ProjectInstancesController < ApplicationController
     @installations = @project_instance.installations
     closing_flag = @project_instance.closing
 
-    respond_to do |format|
-      if @project_instance.update_attributes(project_instance_params)
+    if @project_instance.update_attributes(project_instance_params)
 
-        if @project_instance.closing != closing_flag
-          @installations.each do |installation|
-            installation.update_attributes(closing: project_instance_params[:closing])
-          end
+      if @project_instance.closing != closing_flag
+        @installations.each do |installation|
+          installation.update_attributes(closing: project_instance_params[:closing])
         end
-
-        format.html { redirect_to @project_instance,
-          :notice => "Instance was successfully updated." }
-        format.json { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.json { render :json => @project_instance.errors, :status => :unprocessable_entity }
       end
+      redirect_to @project_instance, :notice => "Instance was successfully updated."
+    else
+      render :action => "edit"
     end
   end
 
@@ -67,27 +55,16 @@ class ProjectInstancesController < ApplicationController
     end
 
     @project_instance = ProjectInstance.new(project_id: project_id, url: nagios_url)
-
-    respond_to do |format|
-      format.html
-      format.json { render :json => @project_instance }
-    end
   end
 
   def create
     @project_instance = ProjectInstance.new(project_instance_params)
     @project_instance.populate_name
 
-    respond_to do |format|
-      if @project_instance.save
-        format.html { redirect_to @project_instance,
-          :notice => "Instance was successfully created." }
-        format.json { render :json => @project_instance, :status => :created,
-          :location => @project_instance }
-      else
-        format.html { render :action => "new" }
-        format.json { render :json => @project_instance.errors, :status => :unprocessable_entity }
-      end
+    if @project_instance.save
+     redirect_to @project_instance, :notice => "Instance was successfully created."
+    else
+      render :action => "new"
     end
   end
 
@@ -95,10 +72,7 @@ class ProjectInstancesController < ApplicationController
     @project_instance = ProjectInstance.with_deleted.find(params[:id])
     @project_instance.really_destroy!
 
-    respond_to do |format|
-      format.html { redirect_to project_instances_url }
-      format.json { head :ok }
-    end
+    redirect_to project_instances_url
   end
 
   def soft_delete
@@ -123,18 +97,11 @@ class ProjectInstancesController < ApplicationController
       installation.comments.create(comment_params)
     end
 
-    respond_to do |format|
-      format.html { redirect_to project_instances_url }
-    end
+    redirect_to project_instances_url
   end
 
   def deleted_list
     @projects_instances = ProjectInstance.only_deleted
-
-    respond_to do |format|
-      format.html
-      format.json { render :json => { data: @projects_instances }.to_json }
-    end
   end
 
   def nagios_list
