@@ -33,6 +33,7 @@ class ProjectInstance < ActiveRecord::Base
   def init_default_values
     return unless new_record?
     self.stage  ||= 'Production'
+    populate_name
   end
 
   def populate_name
