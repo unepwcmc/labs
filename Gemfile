@@ -17,7 +17,6 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'omniauth-github'
 gem 'pg_array_parser'
-gem "codeclimate-test-reporter", group: :test, require: nil
 gem 'pg_search', '~> 0.7.8'
 gem 'select2-rails'
 gem 'foreigner'
