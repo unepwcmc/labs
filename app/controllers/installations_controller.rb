@@ -77,22 +77,15 @@ class InstallationsController < ApplicationController
     @installation = Installation.with_deleted.find(params[:id])
 
     if @installation.deleted?
-      params[:comment][:content][/\A/] =
-        '<i style="color: green;"> REACTIVATED </i></br>'
-
+      params[:comment][:content][/\A/] = '<i style="color: green;"> REACTIVATED </i></br>'
       @installation.restore
     else
-      params[:comment][:content][/\A/] =
-        '<i style="color: red;"> SHUT DOWN </i></br>'
-
+      params[:comment][:content][/\A/] = '<i style="color: red;"> SHUT DOWN </i></br>'
       @installation.destroy
     end
 
     @installation.comments.create(comment_params)
-
-    respond_to do |format|
-      format.html { redirect_to installations_url }
-    end
+    redirect_to installations_url
   end
 
   def deleted_list
