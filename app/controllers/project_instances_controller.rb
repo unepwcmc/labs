@@ -71,7 +71,7 @@ class ProjectInstancesController < ApplicationController
 
   def create
     @project_instance = ProjectInstance.new(project_instance_params)
-    @project_instance.populate_name(project_instance_params[:project_id], project_instance_params[:stage])
+    @project_instance.populate_name
 
     respond_to do |format|
       if @project_instance.save

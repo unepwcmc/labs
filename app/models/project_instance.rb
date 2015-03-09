@@ -35,7 +35,7 @@ class ProjectInstance < ActiveRecord::Base
     self.stage  ||= 'Production'
   end
 
-  def populate_name(project_id, stage)
+  def populate_name
     project = Project.find(project_id)
     self.name = "#{project.title} (#{stage})" if self.name.blank?
   end
