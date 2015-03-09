@@ -27,13 +27,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.html {
         @projects = Project.includes(:project_instances)
-
-        gon.push({
-          :states => Project.pluck(:state).compact.uniq.reject(&:empty?),
-          :rails_versions => Project.pluck(:rails_version).compact.uniq.reject(&:empty?),
-          :ruby_versions => Project.pluck(:ruby_version).compact.uniq.reject(&:empty?),
-          :postgresql_versions => Project.pluck(:postgresql_version).compact.uniq.reject(&:empty?)
-        })
+        set_gon_variables
       }
       format.csv {
         send_file(Pathname.new(ProjectsExport.new.export).realpath, type: 'text/csv')
@@ -160,5 +154,14 @@ class ProjectsController < ApplicationController
 
   def rescue_has_instances_exception(exception)
     redirect_to :back, alert: "This project has project instances. Delete its project instances first"
+  end
+
+  def set_gon_variables
+    gon.push({
+      :states => Project.pluck(:state).compact.uniq.reject(&:empty?),
+      :rails_versions => Project.pluck(:rails_version).compact.uniq.reject(&:empty?),
+      :ruby_versions => Project.pluck(:ruby_version).compact.uniq.reject(&:empty?),
+      :postgresql_versions => Project.pluck(:postgresql_version).compact.uniq.reject(&:empty?)
+    })
   end
 end
