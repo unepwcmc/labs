@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  
+  include Formatter
   before_filter :load_commentable
 
   def create
@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        format.json { render :json => {content: kramdown(@comment.content), comment_id: @comment.id, created_at: @comment.created_at.to_s(:db),
+        format.json { render :json => {content: format(@comment.content), comment_id: @comment.id, created_at: @comment.created_at.to_s(:db),
           gravatar_id: Digest::MD5.hexdigest(current_user.email.downcase), github: current_user.github}, :status => :created}
       else
         format.json { render :json => @comment.errors, :status => :unprocessable_entity }

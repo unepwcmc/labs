@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include Formatter
+
   protect_from_forgery
 
   helper_method :kramdown
