@@ -42,6 +42,25 @@ class ProjectInstancesControllerTest < ActionController::TestCase
     assert_redirected_to "/project_instances/#{ProjectInstance.last.id}"
   end
 
+  test "should generate name for project_instance if not provided" do
+    assert_differences([['ProjectInstance.count', 1],['Installation.count', 1]]) do
+      post :create, project_instance: { branch: @new_project_instance.branch,
+        description: @new_project_instance.description, 
+        project_id: @new_project_instance.project_id, name: nil,
+        backup_information: @new_project_instance.backup_information,
+        stage: @new_project_instance.stage, url: @new_project_instance.url,
+        installations_attributes: [{
+          server_id: @installation.server_id,
+          role: @installation.role,
+          description: @installation.description
+        }]
+      }
+    end
+
+    project = Project.find(@new_project_instance.project_id)
+    assert_equal "#{project.title} (#{@new_project_instance.stage})", ProjectInstance.last.name
+  end
+
   test "should show project_instance" do
     get :show, id: @project_instance
     assert_response :success
