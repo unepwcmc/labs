@@ -79,14 +79,10 @@ class ProjectInstancesController < ApplicationController
     @project_instance = ProjectInstance.with_deleted.find(params[:id])
 
     if @project_instance.deleted?
-      params[:comment][:content][/\A/] =
-        '<i style="color: green;"> REACTIVATED </i></br>'
-
+      params[:comment][:content][/\A/] = '<i style="color: green;"> REACTIVATED </i></br>'
       @project_instance.restore(recursive: true)
     else
-      params[:comment][:content][/\A/] =
-        '<i style="color: red;"> SHUT DOWN </i></br>'
-
+      params[:comment][:content][/\A/] = '<i style="color: red;"> SHUT DOWN </i></br>'
       @project_instance.destroy
     end
 
