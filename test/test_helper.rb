@@ -42,7 +42,7 @@ class ActiveSupport::TestCase
   def assert_differences(expression_array, message = nil, &block)
     b = block.send(:binding)
     before = expression_array.map { |expr| eval(expr[0], b) }
-
+    puts "YHEILD"
     yield
 
     expression_array.each_with_index do |pair, i|
