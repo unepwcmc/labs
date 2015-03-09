@@ -27,7 +27,6 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.html {
         @projects = Project.includes(:project_instances)
-        
         gon.push({
           :states => pluck_field(:state),
           :rails_versions => pluck_field(:rails_version),
@@ -131,10 +130,9 @@ class ProjectsController < ApplicationController
   private
 
   def available_developers
-    devs = Project.select("unnest(developers) as developers").where('developers IS NOT NULL').uniq.
-      map(&:developers)
-    users = User.select(:name).map(&:name)
-    @developers = (devs + users).uniq.reject{|t| t.nil?}.sort || []
+    devs = Project.pluck(:developers).flatten
+    users = User.pluck(:name)
+    @developers = (devs + users).compact.uniq.sort || []
   end
 
   def available_employees
