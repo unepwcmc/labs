@@ -33,5 +33,10 @@ class ProjectInstance < ActiveRecord::Base
   def init_default_values
     return unless new_record?
     self.stage  ||= 'Production'
+    populate_name
+  end
+
+  def populate_name
+    self.name = "#{project.try(:title)} (#{stage})" if self.name.blank?
   end
 end
