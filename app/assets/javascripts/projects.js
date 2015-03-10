@@ -2,7 +2,6 @@
 // All this logic will automatically be available in application.js.
 
 $(document).ready(function(){
-
   function showAlt(){
     $(this).closest('a').attr("href", "#non")
     $(this).replaceWith(this.alt)
@@ -50,19 +49,21 @@ $(document).ready(function(){
   });
 
   $("#projects_table").dataTable({
-    "iDisplayLength": 25
+    "iDisplayLength": 25,
+    "aoColumnDefs" : [{
+      "bSortable": false,
+      "aTargets": ["no-sort"]
+    }]
   }).columnFilter({
     sPlaceHolder: "head:before",
     aoColumns: [
     {
       type: "text",
     },
-    null,
     {
       type: "select",
       values: gon.states
-    },
-    null,
+    },null,
     {
       type: "select",
       values: gon.rails_versions
