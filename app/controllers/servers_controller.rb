@@ -1,5 +1,7 @@
 class ServersController < ApplicationController
   before_action :authenticate_user!
+
+  respond_to :html, :json
   
   def index
     @servers = Server.all
@@ -23,28 +25,22 @@ class ServersController < ApplicationController
   def create
     @server = Server.new(server_params)
 
-    if @server.save
-      redirect_to @server, notice: 'Server was successfully created.'
-    else
-      render action: "new"
-    end
+    flash[:notice] = 'Server was successfully created' if @server.save
+    respond_with(@server)
   end
 
   def update
     @server = Server.find(params[:id])
 
-    if @server.update_attributes(server_params)
-      redirect_to @server, notice: 'Server was successfully updated.'
-    else
-      render action: "edit"
-    end
+    flash[:notice] = 'Server was successfully updated.' if @server.update_attributes(server_params)
+    respond_with(@server)
   end
 
   def destroy
     @server = Server.find(params[:id])
     @server.destroy
 
-    redirect_to servers_url
+    respond_with(@server)
   end
 
   private

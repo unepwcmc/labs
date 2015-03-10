@@ -1,9 +1,11 @@
 class ProjectInstancesController < ApplicationController
 
+  respond_to :html, :json
+
   def index
     @projects_instances = ProjectInstance.includes(:project, :installations)
 
-    respond_to do |format|
+    respond_with(@project_instance) do |format|
       format.html {
         gon.push({
           :stages => @projects_instances.pluck(:stage).uniq
@@ -21,6 +23,8 @@ class ProjectInstancesController < ApplicationController
 
     @comments = @project_instance.comments.order(:created_at)
     @comment = Comment.new
+
+    respond_with(@project_instance)
   end
 
   def edit
@@ -40,10 +44,10 @@ class ProjectInstancesController < ApplicationController
           installation.update_attributes(closing: project_instance_params[:closing])
         end
       end
-      redirect_to @project_instance, :notice => "Instance was successfully updated."
-    else
-      render :action => "edit"
+      flash[:notice] = "Instance was successfully updated."
     end
+
+    respond_with(@project_instance)
   end
 
   def new
@@ -61,18 +65,15 @@ class ProjectInstancesController < ApplicationController
     @project_instance = ProjectInstance.new(project_instance_params)
     @project_instance.populate_name
 
-    if @project_instance.save
-     redirect_to @project_instance, :notice => "Instance was successfully created."
-    else
-      render :action => "new"
-    end
+    flash[:notice] = "Instance was successfully created." if @project_instance.save
+    respond_with(@project_instance)
   end
 
   def destroy
     @project_instance = ProjectInstance.with_deleted.find(params[:id])
     @project_instance.really_destroy!
 
-    redirect_to project_instances_url
+    respond_with(@project_instance)
   end
 
   def soft_delete

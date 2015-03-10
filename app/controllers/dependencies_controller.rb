@@ -1,5 +1,7 @@
 class DependenciesController < ApplicationController
 
+  respond_to :html, :json
+
   def index
     @dependencies = Dependency.all
   end
@@ -19,11 +21,8 @@ class DependenciesController < ApplicationController
   def update
     @dependency = Dependency.find(params[:id])
 
-    if @dependency.update_attributes(dependency_params)
-      redirect_to @dependency, notice: 'Dependency was successfully updated.'
-    else
-      render action: "edit"
-    end
+    flash[:notice] = 'Dependency was successfully updated' if @dependency.update_attributes(dependency_params)
+    respond_with(@dependency)
   end
 
   def new
@@ -33,11 +32,8 @@ class DependenciesController < ApplicationController
   def create
     @dependency = Dependency.new(dependency_params)
 
-    if @dependency.save
-      redirect_to @dependency, notice: 'Dependency was successfully created.'
-    else
-      render action: "new"
-    end
+    flash[:notice] = 'Dependency was successfully created'
+    respond_with(@dependency)
   end
 
   def destroy

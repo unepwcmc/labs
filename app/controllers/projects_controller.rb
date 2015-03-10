@@ -8,6 +8,8 @@ class ProjectsController < ApplicationController
 
   rescue_from HasInstances, with: :rescue_has_instances_exception
 
+  respond_to :html, :json
+
   def index
 
     @projects = params[:search].present? ?
@@ -16,10 +18,7 @@ class ProjectsController < ApplicationController
 
     @projects = @projects.published unless user_signed_in?
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render :json => @projects }
-    end
+    respond_with(@projects)
   end
 
   def list
@@ -52,10 +51,7 @@ class ProjectsController < ApplicationController
     @master_projects = @project.master_projects.select("title, projects.id")
     @sub_projects = @project.sub_projects.select("title, projects.id")
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render :json => @project }
-    end
+    respond_with(@project)
   end
 
   # GET /projects/new
@@ -63,10 +59,7 @@ class ProjectsController < ApplicationController
   def new
     @project = Project.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render :json => @project }
-    end
+    respond_with(@project)
   end
 
   # GET /projects/1/edit
@@ -79,17 +72,15 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
 
-    respond_to do |format|
+    respond_with(@project) do |format|
       if @project.save
         format.html { redirect_to @project, :notice => 'Project was successfully created.' }
-        format.json { render :json => @project, :status => :created, :location => @project }
       else
         format.html {
           available_developers
           available_employees
           render :action => "new"
         }
-        format.json { render :json => @project.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -99,17 +90,15 @@ class ProjectsController < ApplicationController
   def update
     @project = Project.find(params[:id])
 
-    respond_to do |format|
+    respond_with(@project) do |format|
       if @project.update_attributes(project_params)
         format.html { redirect_to @project, :notice => 'Project was successfully updated.' }
-        format.json { head :ok }
       else
         format.html {
           available_developers
           available_employees
           render :action => "edit"
         }
-        format.json { render :json => @project.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -121,10 +110,7 @@ class ProjectsController < ApplicationController
     raise HasInstances unless @project.project_instances.empty?
     @project.destroy
 
-    respond_to do |format|
-      format.html { redirect_to projects_url }
-      format.json { head :ok }
-    end
+    respond_with(@project)
   end
 
   private

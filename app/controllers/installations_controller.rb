@@ -1,6 +1,8 @@
 class InstallationsController < ApplicationController
   before_action :authenticate_user!
 
+  respond_to :html, :json
+
   def index
 
     gon.push({
@@ -37,28 +39,23 @@ class InstallationsController < ApplicationController
   def create
     @installation = Installation.new(installation_params)
 
-    if @installation.save
-      redirect_to installations_path, :notice => 'Installation was successfully created.'
-    else
-      render :action => "new"
-    end
+    flash[:notice] = 'Installation was successfully created' if @installation.save
+    respond_with(@installation, location: installations_path)
   end
 
   def update
     set_installation
 
-    if @installation.update_attributes(installation_params)
-      redirect_to @installation, :notice => 'Installation was successfully updated.'
-    else
-      render :action => "edit"
-    end
+    flash[:notice] = 'Installation was successfully updated' if @installation.update_attributes(installation_params)
+    respond_with(@installation)
   end
 
   def destroy
     set_installation
     @installation.really_destroy!
 
-    redirect_to installations_url
+    flash[:notice] = 'Installation was successfully deleted'
+    respond_with(@installation)
   end
 
   def soft_delete
