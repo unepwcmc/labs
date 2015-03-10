@@ -27,10 +27,10 @@ class ProjectsController < ApplicationController
       format.html {
         @projects = Project.includes(:project_instances)
         gon.push({
-          :states => pluck_field(:state),
-          :rails_versions => pluck_field(:rails_version),
-          :ruby_versions => pluck_field(:ruby_version),
-          :postgresql_versions => pluck_field(:postgresql_version)
+          :states => Project.pluck_field(:state),
+          :rails_versions => Project.pluck_field(:rails_version),
+          :ruby_versions => Project.pluck_field(:ruby_version),
+          :postgresql_versions => Project.pluck_field(:postgresql_version)
         })
       }
       format.csv {
@@ -144,9 +144,5 @@ class ProjectsController < ApplicationController
 
   def rescue_has_instances_exception(exception)
     redirect_to :back, alert: "This project has project instances. Delete its project instances first"
-  end
-
-  def pluck_field symbol
-    Project.pluck(symbol).compact.uniq.reject(&:empty?).sort
   end
 end
