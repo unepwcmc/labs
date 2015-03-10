@@ -161,6 +161,6 @@ class ProjectsController < ApplicationController
   end
 
   def pluck_field symbol
-    Project.pluck(symbol).compact.uniq.reject(&:empty?)
+    Project.pluck(symbol).compact.uniq.reject(&:empty?).sort
   end
 end
