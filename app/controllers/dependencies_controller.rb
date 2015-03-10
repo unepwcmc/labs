@@ -32,7 +32,7 @@ class DependenciesController < ApplicationController
   def create
     @dependency = Dependency.new(dependency_params)
 
-    flash[:notice] = 'Dependency was successfully created'
+    flash[:notice] = 'Dependency was successfully created' if @dependency.save
     respond_with(@dependency)
   end
 
