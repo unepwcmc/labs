@@ -8,11 +8,9 @@
       <th></th>
       <th></th>
       <th></th>
-      <th></th>
     </tr>
     <tr>
       <th>Title</th>
-      <th>URL</th>
       <th>State</th>
       <th>Instances</th>
       <th>Rails</th>
@@ -27,16 +25,14 @@
   <tbody>
     <% @projects.each do |project| %>
       <tr class="user_row">
-        <td><%= link_to project.title, project %>
+        <td><%= link_to project.title, project, data: { toggle: "tooltip", placement: "right", title: project.url } %><br>
         <%= link_to (image_tag("https://secure.travis-ci.org/#{project.github_identifier}.png", class: "badge_img",
-            alt: "No Travis")), "https://travis-ci.org/#{project.github_identifier}", class: "badge_link"%>
+            alt: "No Travis")), "https://travis-ci.org/#{project.github_identifier}", class: "badge_link"%><br>
         <%= link_to (image_tag("https://gemnasium.com/#{project.github_identifier}.png", class: "badge_img",
-            alt: "No Gemnasium")), "https://gemnasium.com/#{project.github_identifier}", class: "badge_link"%>
+            alt: "No Gemnasium")), "https://gemnasium.com/#{project.github_identifier}", class: "badge_link"%><br>
         <%= link_to (image_tag("https://codeclimate.com/github/#{project.github_identifier}.png", class: "badge_img",
             alt: "No Code Climate")), "https://codeclimate.com/github/#{project.github_identifier}", class: "badge_link"%>
         </td>
-        </td>
-        <td><%= link_to project.url, project.url %></td>
         <td><%= project.state %></td>
         <td><%= project.project_instances.size %></td>
         <td><%= project.rails_version %></td>

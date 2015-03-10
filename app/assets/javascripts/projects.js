@@ -2,6 +2,9 @@
 // All this logic will automatically be available in application.js.
 
 $(document).ready(function(){
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
 
   function showAlt(){
     $(this).closest('a').attr("href", "#non")
@@ -57,12 +60,10 @@ $(document).ready(function(){
     {
       type: "text",
     },
-    null,
     {
       type: "select",
       values: gon.states
-    },
-    null,
+    },null,
     {
       type: "select",
       values: gon.rails_versions
