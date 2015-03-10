@@ -49,7 +49,11 @@ $(document).ready(function(){
   });
 
   $("#projects_table").dataTable({
-    "iDisplayLength": 25
+    "iDisplayLength": 25,
+    "aoColumnDefs" : [{
+      "bSortable": false,
+      "aTargets": ["no-sort"]
+    }]
   }).columnFilter({
     sPlaceHolder: "head:before",
     aoColumns: [
