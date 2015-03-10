@@ -2,10 +2,6 @@
 // All this logic will automatically be available in application.js.
 
 $(document).ready(function(){
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-  })
-
   function showAlt(){
     $(this).closest('a').attr("href", "#non")
     $(this).replaceWith(this.alt)
