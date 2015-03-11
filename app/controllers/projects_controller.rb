@@ -109,6 +109,7 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     raise HasInstances unless @project.project_instances.empty?
     @project.destroy
+    flash[:notice] = 'Project was successfully deleted.'
 
     respond_with(@project)
   end

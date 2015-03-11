@@ -21,7 +21,7 @@ class DependenciesController < ApplicationController
   def update
     @dependency = Dependency.find(params[:id])
 
-    flash[:notice] = 'Dependency was successfully updated' if @dependency.update_attributes(dependency_params)
+    flash[:notice] = 'Dependency was successfully updated.' if @dependency.update_attributes(dependency_params)
     respond_with(@dependency)
   end
 
@@ -32,13 +32,14 @@ class DependenciesController < ApplicationController
   def create
     @dependency = Dependency.new(dependency_params)
 
-    flash[:notice] = 'Dependency was successfully created' if @dependency.save
+    flash[:notice] = 'Dependency was successfully created.' if @dependency.save
     respond_with(@dependency)
   end
 
   def destroy
     @dependency = Dependency.find(params[:id])
     @dependency.destroy
+    flash[:notice] = 'Dependency was successfully deleted.'
 
     redirect_to dependencies_url
   end

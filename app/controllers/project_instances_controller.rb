@@ -72,6 +72,7 @@ class ProjectInstancesController < ApplicationController
   def destroy
     @project_instance = ProjectInstance.with_deleted.find(params[:id])
     @project_instance.really_destroy!
+    flash[:notice] = 'Instance was successfully deleted.'
 
     respond_with(@project_instance)
   end
