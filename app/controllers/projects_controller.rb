@@ -8,6 +8,8 @@ class ProjectsController < ApplicationController
 
   rescue_from HasInstances, with: :rescue_has_instances_exception
 
+  respond_to :html, :json
+
   def index
 
     @projects = params[:search].present? ?
@@ -16,10 +18,7 @@ class ProjectsController < ApplicationController
 
     @projects = @projects.published unless user_signed_in?
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render :json => @projects }
-    end
+    respond_with(@projects)
   end
 
   def list
@@ -27,12 +26,11 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.html {
         @projects = Project.includes(:project_instances)
-
         gon.push({
-          :states => Project.pluck(:state).compact.uniq.reject(&:empty?),
-          :rails_versions => Project.pluck(:rails_version).compact.uniq.reject(&:empty?),
-          :ruby_versions => Project.pluck(:ruby_version).compact.uniq.reject(&:empty?),
-          :postgresql_versions => Project.pluck(:postgresql_version).compact.uniq.reject(&:empty?)
+          :states => Project.pluck_field(:state),
+          :rails_versions => Project.pluck_field(:rails_version),
+          :ruby_versions => Project.pluck_field(:ruby_version),
+          :postgresql_versions => Project.pluck_field(:postgresql_version)
         })
       }
       format.csv {
@@ -53,10 +51,7 @@ class ProjectsController < ApplicationController
     @master_projects = @project.master_projects.select("title, projects.id")
     @sub_projects = @project.sub_projects.select("title, projects.id")
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render :json => @project }
-    end
+    respond_with(@project)
   end
 
   # GET /projects/new
@@ -64,10 +59,7 @@ class ProjectsController < ApplicationController
   def new
     @project = Project.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render :json => @project }
-    end
+    respond_with(@project)
   end
 
   # GET /projects/1/edit
@@ -80,17 +72,15 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
 
-    respond_to do |format|
+    respond_with(@project) do |format|
       if @project.save
         format.html { redirect_to @project, :notice => 'Project was successfully created.' }
-        format.json { render :json => @project, :status => :created, :location => @project }
       else
         format.html {
           available_developers
           available_employees
           render :action => "new"
         }
-        format.json { render :json => @project.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -100,17 +90,15 @@ class ProjectsController < ApplicationController
   def update
     @project = Project.find(params[:id])
 
-    respond_to do |format|
+    respond_with(@project) do |format|
       if @project.update_attributes(project_params)
         format.html { redirect_to @project, :notice => 'Project was successfully updated.' }
-        format.json { head :ok }
       else
         format.html {
           available_developers
           available_employees
           render :action => "edit"
         }
-        format.json { render :json => @project.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -121,20 +109,17 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     raise HasInstances unless @project.project_instances.empty?
     @project.destroy
+    flash[:notice] = 'Project was successfully deleted.'
 
-    respond_to do |format|
-      format.html { redirect_to projects_url }
-      format.json { head :ok }
-    end
+    respond_with(@project)
   end
 
   private
 
   def available_developers
-    devs = Project.select("unnest(developers) as developers").where('developers IS NOT NULL').uniq.
-      map(&:developers)
-    users = User.select(:name).map(&:name)
-    @developers = (devs + users).uniq.reject{|t| t.nil?}.sort || []
+    devs = Project.pluck(:developers).flatten
+    users = User.pluck(:name)
+    @developers = (devs + users).compact.uniq.sort || []
   end
 
   def available_employees

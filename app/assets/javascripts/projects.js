@@ -3,11 +3,11 @@
 
 $(document).ready(function(){
   function showAlt(){
-    $(this).closest('a').attr("href", "#non")
-    $(this).replaceWith(this.alt)
-  };
+    $(this).closest('a').attr("href", "#non");
+    $(this).replaceWith(this.alt);
+  }
 
-  $(".badge_img").error(showAlt)
+  $(".badge_img").error(showAlt);
 
   $(".project").hover(function(event){
     $(this).find('a').css('text-decoration', 'underline');

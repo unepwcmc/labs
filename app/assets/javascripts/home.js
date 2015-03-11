@@ -13,20 +13,20 @@ $(document).ready(function(){
   })
 
   $('.comment_form').submit(function() {
-    comment = $('.soft_delete_form textarea').first()
+    comment = $('.soft_delete_form textarea').first();
     if(comment.val() == "" ) {
-      $('.error-block').show()
+      $('.error-block').show();
       comment.css({ "border": '#FF0000 1px solid'});
       return false;
     }
-  })
+  });
 
   $('.soft_delete_form textarea').bind('input propertychange', function() {
     if($(this).val().length) {
-      $(this).removeAttr('style')
-      $(this).parent().find('.error-block').hide()
+      $(this).removeAttr('style');
+      $(this).parent().find('.error-block').hide();
     }
-  })
+  });
 
   $('a[title]').tooltip();
 

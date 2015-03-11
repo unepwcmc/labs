@@ -109,4 +109,9 @@ class Project < ActiveRecord::Base
       errors.add(:pivotal_tracker_ids, :invalid)
     end
   end
+
+  def self.pluck_field symbol
+    pluck(symbol).compact.uniq.reject(&:empty?).sort
+  end
+
 end

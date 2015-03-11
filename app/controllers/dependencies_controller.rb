@@ -1,12 +1,9 @@
 class DependenciesController < ApplicationController
 
+  respond_to :html, :json
+
   def index
     @dependencies = Dependency.all
-
-    respond_to do |format|
-      format.html
-      format.json { render :json => @dependencies }
-    end
   end
 
   def show
@@ -15,11 +12,6 @@ class DependenciesController < ApplicationController
 
     @comments = @dependency.comments.order(:created_at)
     @comment = Comment.new
-
-    respond_to do |format|
-      format.html
-      format.json { render :json => @dependency }
-    end
   end
 
   def edit
@@ -29,52 +21,27 @@ class DependenciesController < ApplicationController
   def update
     @dependency = Dependency.find(params[:id])
 
-    respond_to do |format|
-      if @dependency.update_attributes(dependency_params)
-        format.html { redirect_to @dependency, :notice => 'Dependency was successfully updated.' }
-        format.json { head :ok }
-      else
-        format.html {
-          render :action => "edit"
-        }
-        format.json { render :json => @dependency.errors, :status => :unprocessable_entity }
-      end
-    end
+    flash[:notice] = 'Dependency was successfully updated.' if @dependency.update_attributes(dependency_params)
+    respond_with(@dependency)
   end
 
   def new
     @dependency = Dependency.new
-
-    respond_to do |format|
-      format.html
-      format.json { render :json => @dependency }
-    end
   end
 
   def create
     @dependency = Dependency.new(dependency_params)
 
-    respond_to do |format|
-      if @dependency.save
-        format.html { redirect_to @dependency, :notice => 'Dependency was successfully created.' }
-        format.json { render :json => @dependency, :status => :created, :location => @dependency }
-      else
-        format.html {
-          render :action => "new"
-        }
-        format.json { render :json => @dependency.errors, :status => :unprocessable_entity }
-      end
-    end
+    flash[:notice] = 'Dependency was successfully created.' if @dependency.save
+    respond_with(@dependency)
   end
 
   def destroy
     @dependency = Dependency.find(params[:id])
     @dependency.destroy
+    flash[:notice] = 'Dependency was successfully deleted.'
 
-    respond_to do |format|
-      format.html { redirect_to dependencies_url }
-      format.json { head :ok }
-    end
+    redirect_to dependencies_url
   end
 
   private

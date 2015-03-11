@@ -1,5 +1,7 @@
 class ServersController < ApplicationController
   before_action :authenticate_user!
+
+  respond_to :html, :json
   
   def index
     @servers = Server.all
@@ -8,10 +10,8 @@ class ServersController < ApplicationController
   def show
     @server = Server.find(params[:id])
     @installations = @server.installations
-
     @comments = @server.comments.order(:created_at)
     @comment = Comment.new
-
   end
 
   def new
@@ -25,39 +25,23 @@ class ServersController < ApplicationController
   def create
     @server = Server.new(server_params)
 
-    respond_to do |format|
-      if @server.save
-        format.html { redirect_to @server, :notice => 'Server was successfully created.' }
-        format.json { render :json => @server, :status => :created, :location => @server }
-      else
-        format.html { render :action => "new" }
-        format.json { render :json => @server.errors, :status => :unprocessable_entity }
-      end
-    end
+    flash[:notice] = 'Server was successfully created' if @server.save
+    respond_with(@server)
   end
 
   def update
     @server = Server.find(params[:id])
 
-    respond_to do |format|
-      if @server.update_attributes(server_params)
-        format.html { redirect_to @server, :notice => 'Server was successfully updated.' }
-        format.json { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.json { render :json => @server.errors, :status => :unprocessable_entity }
-      end
-    end
+    flash[:notice] = 'Server was successfully updated.' if @server.update_attributes(server_params)
+    respond_with(@server)
   end
 
   def destroy
     @server = Server.find(params[:id])
     @server.destroy
+    flash[:notice] = 'Server was successfully deleted'
 
-    respond_to do |format|
-      format.html { redirect_to servers_url }
-      format.json { head :ok }
-    end
+    respond_with(@server)
   end
 
   private

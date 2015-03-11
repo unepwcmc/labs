@@ -44,4 +44,4 @@ $(document).ready(function(){
   $('#show_soft-deleted').click(function(){
     $('#soft-deleted_installations').slideToggle();
   });
-})
+});
