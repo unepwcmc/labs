@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
     @comment = @commentable.comments.new(comment_params)
     @comment.user_id = current_user.id
 
-    LabsChannel.post @comment.content
+    SlackChannel.post("#labs", @comment.content)
 
     respond_to do |format|
       if @comment.save
