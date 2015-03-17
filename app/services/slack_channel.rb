@@ -3,7 +3,7 @@ require 'yaml'
 
 class SlackChannel
   def self.post channel, message
-    url = "https://hooks.slack.com/services/T028F7AGY/B040KHJPX/#{Rails.application.secrets.slack_channel_notification_token}"
+    url = Rails.application.secrets.slack_notification_webhook_url
  
     payload = {
       channel: channel, 
