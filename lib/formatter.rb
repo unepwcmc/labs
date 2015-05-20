@@ -19,7 +19,8 @@ module Formatter
       'table'      => ['summary', 'width'],
       'td'         => ['abbr', 'axis', 'colspan', 'rowspan', 'width'],
       'th'         => ['abbr', 'axis', 'colspan', 'rowspan', 'scope', 'width'],
-      'ul'         => ['type']
+      'ul'         => ['type'],
+      'i'          => ['style']
     },
 
     :protocols => {
@@ -35,7 +36,7 @@ module Formatter
 
     html = kramdown(text)
 
-    Sanitize.clean(html, RELAXED) 
+    Sanitize.clean(html, RELAXED)
   end
 
   def self.included base
