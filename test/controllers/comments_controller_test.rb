@@ -19,12 +19,6 @@ class CommentsControllerTest < ActionController::TestCase
     assert_equal "<p>#{comment.content}</p>\n", json['content']
   end
 
-  def stub_slack_comment
-    SlackChannel.stub(:post, {:status => 200, :body => "", :headers => {}}) do
-      yield
-    end
-  end
-
   test "should have content" do
     assert_not_nil(@project_comment.content, "Content should not be nil")
   end
