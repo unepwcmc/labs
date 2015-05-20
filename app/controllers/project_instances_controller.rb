@@ -44,7 +44,7 @@ class ProjectInstancesController < ApplicationController
           installation.update_attributes(closing: project_instance_params[:closing])
         end
         status = @project_instance.closing ? "scheduled for close down" : "unscheduled for close down"
-        SlackChannel.post("#labs", "\"#{@project_instance.name}\" project instance and its installations have been #{status}")
+        SlackChannel.post("#labs", "*#{@project_instance.name}* project instance and its installations have been #{status}")
       end
       flash[:notice] = "Instance was successfully updated."
     end
@@ -82,11 +82,17 @@ class ProjectInstancesController < ApplicationController
   def soft_delete
     @project_instance = ProjectInstance.with_deleted.find(params[:id])
 
-    if @project_instance.deleted?
+    deleted = @project_instance.deleted?
+    message = "*#{@project_instance.name}* project instance has been #{deleted ? 'restarted' : 'shut down'} with the following comment: " +
+      "```#{params[:comment][:content]}```"
+
+    if deleted
       params[:comment][:content][/\A/] = '<i style="color: green;"> RESTARTED </i><br>'
+      SlackChannel.post("#labs", message)
       @project_instance.restore(recursive: true)
     else
       params[:comment][:content][/\A/] = '<i style="color: red;"> SHUT DOWN </i><br>'
+      SlackChannel.post("#labs", message)
       @project_instance.destroy
     end
 

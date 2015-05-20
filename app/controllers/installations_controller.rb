@@ -51,7 +51,7 @@ class InstallationsController < ApplicationController
     if @installation.update_attributes(installation_params)
       if old_closing != @installation.closing
         status = @installation.closing ? "scheduled for close down" : "unscheduled for close down"
-        SlackChannel.post("#labs", "\"#{@installation.name}\" installation has been #{status}")
+        SlackChannel.post("#labs", "*#{@installation.name}* installation has been #{status}")
       end
       flash[:notice] = 'Installation was successfully updated'
     end
@@ -69,11 +69,17 @@ class InstallationsController < ApplicationController
   def soft_delete
     @installation = Installation.with_deleted.find(params[:id])
 
-    if @installation.deleted?
+    deleted = @installation.deleted?
+    message = "*#{@installation.name}* installation has been #{deleted ? 'restarted' : 'shut down'} with the following comment: " +
+      "```#{params[:comment][:content]}```"
+
+    if deleted
       params[:comment][:content][/\A/] = '<i style="color: green;"> RESTARTED </i><br>'
+      SlackChannel.post("#labs", message)
       @installation.restore
     else
       params[:comment][:content][/\A/] = '<i style="color: red;"> SHUT DOWN </i><br>'
+      SlackChannel.post("#labs", message)
       @installation.destroy
     end
 
