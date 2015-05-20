@@ -43,6 +43,8 @@ class ProjectInstancesController < ApplicationController
         @installations.each do |installation|
           installation.update_attributes(closing: project_instance_params[:closing])
         end
+        status = @project_instance.closing ? "scheduled for close down" : "reopened"
+        SlackChannel.post("#labs", "\"#{@project_instance.name}\" project instance and its installations have been #{status}")
       end
       flash[:notice] = "Instance was successfully updated."
     end
