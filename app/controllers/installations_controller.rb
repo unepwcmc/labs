@@ -75,11 +75,11 @@ class InstallationsController < ApplicationController
 
     if deleted
       params[:comment][:content][/\A/] = '<i style="color: green;"> RESTARTED </i><br>'
-      SlackChannel.post("#labs", message)
+      SlackChannel.post("#labs", "Labs detective", message, ":squirrel:")
       @installation.restore
     else
       params[:comment][:content][/\A/] = '<i style="color: red;"> SHUT DOWN </i><br>'
-      SlackChannel.post("#labs", message)
+      SlackChannel.post("#labs", "Labs detective", message, ":squirrel:")
       @installation.destroy
     end
 
