@@ -27,7 +27,7 @@ class ProjectInstancesControllerTest < ActionController::TestCase
   test "should create project_instance" do
     assert_differences([['ProjectInstance.count', 1],['Installation.count', 1]]) do
       post :create, project_instance: { branch: @new_project_instance.branch,
-        description: @new_project_instance.description, 
+        description: @new_project_instance.description,
         project_id: @new_project_instance.project_id, name: @new_project_instance.name,
         backup_information: @new_project_instance.backup_information,
         stage: @new_project_instance.stage, url: @new_project_instance.url,
@@ -45,7 +45,7 @@ class ProjectInstancesControllerTest < ActionController::TestCase
   test "should generate name for project_instance if not provided" do
     assert_differences([['ProjectInstance.count', 1],['Installation.count', 1]]) do
       post :create, project_instance: { branch: @new_project_instance.branch,
-        description: @new_project_instance.description, 
+        description: @new_project_instance.description,
         project_id: @new_project_instance.project_id, name: nil,
         backup_information: @new_project_instance.backup_information,
         stage: @new_project_instance.stage, url: @new_project_instance.url,
@@ -74,8 +74,8 @@ class ProjectInstancesControllerTest < ActionController::TestCase
   test "should update project_instance" do
     installation = @project_instance_with_installations.installations.first
     patch :update, id: @project_instance_with_installations, project_instance:
-      { 
-        branch: @new_project_instance.branch, description: @new_project_instance.description, 
+      {
+        branch: @new_project_instance.branch, description: @new_project_instance.description,
         project_id: @new_project_instance.project_id, name: @new_project_instance.name,
         backup_information: @new_project_instance.backup_information,
         stage: @new_project_instance.stage, url: @new_project_instance.url,
@@ -104,51 +104,56 @@ class ProjectInstancesControllerTest < ActionController::TestCase
   end
 
   test "should cascade closing flag to installations" do
-    patch :update, id: @project_instance_with_installations, project_instance:
-      { 
-        branch: @new_project_instance.branch, description: @new_project_instance.description, 
-        project_id: @new_project_instance.project_id, name: @new_project_instance.name,
-        backup_information: @new_project_instance.backup_information,
-        stage: @new_project_instance.stage, url: @new_project_instance.url,
-        closing: true
-      }
+    stub_slack_comment do
+      patch :update, id: @project_instance_with_installations, project_instance:
+        {
+          branch: @new_project_instance.branch, description: @new_project_instance.description,
+          project_id: @new_project_instance.project_id, name: @new_project_instance.name,
+          backup_information: @new_project_instance.backup_information,
+          stage: @new_project_instance.stage, url: @new_project_instance.url,
+          closing: true
+        }
 
-    @project_instance_with_installations.installations.each do |installation|
-      assert_equal true, installation.closing
+      @project_instance_with_installations.installations.each do |installation|
+        assert_equal true, installation.closing
+      end
     end
   end
 
   test "should soft-delete project_instance and associated installations" do
-    assert_differences([['ProjectInstance.count', -1],['Installation.count', -3]]) do
-      patch :soft_delete, id: @project_instance_with_installations, comment:
-      {
-        content: "Shut down message",
-        user_id: @user.id
-      }
-    end
+    stub_slack_comment do
+      assert_differences([['ProjectInstance.count', -1],['Installation.count', -3]]) do
+        patch :soft_delete, id: @project_instance_with_installations, comment:
+        {
+          content: "Shut down message",
+          user_id: @user.id
+        }
+      end
 
-    assert_equal 2, ProjectInstance.only_deleted.count
-    assert_equal 5, Installation.only_deleted.count
+      assert_equal 2, ProjectInstance.only_deleted.count
+      assert_equal 5, Installation.only_deleted.count
 
-    assert_equal 1, @project_instance_with_installations.comments.count
+      assert_equal 1, @project_instance_with_installations.comments.count
 
-    @project_instance_with_installations.installations.each do |installation|
-      assert_equal 1, installation.comments.count
+      @project_instance_with_installations.installations.each do |installation|
+        assert_equal 1, installation.comments.count
+      end
     end
   end
 
   test "should restore soft-deleted project_instance and associated installations" do
+    stub_slack_comment do
+      assert_differences([['ProjectInstance.count', 1],['Installation.count', 2]]) do
+        patch :soft_delete, id: @soft_deleted_project_instance_with_installations, comment:
+        {
+          content: "Restore message",
+          user_id: @user.id
+        }
+      end
 
-    assert_differences([['ProjectInstance.count', 1],['Installation.count', 2]]) do
-      patch :soft_delete, id: @soft_deleted_project_instance_with_installations, comment:
-      {
-        content: "Restore message",
-        user_id: @user.id
-      }
+      assert_equal 0, ProjectInstance.only_deleted.count
+      assert_equal 0, Installation.only_deleted.count
     end
-
-    assert_equal 0, ProjectInstance.only_deleted.count
-    assert_equal 0, Installation.only_deleted.count
   end
 
   test "should get nagios list" do

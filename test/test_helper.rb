@@ -52,6 +52,12 @@ class ActiveSupport::TestCase
       assert_equal(before[i] + difference, eval(e, b), error)
     end
   end
+
+  def stub_slack_comment
+    SlackChannel.stub(:post, {:status => 200, :body => "", :headers => {}}) do
+      yield
+    end
+  end
 end
 
 OmniAuth.config.test_mode = true
