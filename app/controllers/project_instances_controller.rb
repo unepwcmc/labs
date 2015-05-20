@@ -43,7 +43,7 @@ class ProjectInstancesController < ApplicationController
         @installations.each do |installation|
           installation.update_attributes(closing: project_instance_params[:closing])
         end
-        status = @project_instance.closing ? "scheduled for close down" : "reopened"
+        status = @project_instance.closing ? "scheduled for close down" : "unscheduled for close down"
         SlackChannel.post("#labs", "\"#{@project_instance.name}\" project instance and its installations have been #{status}")
       end
       flash[:notice] = "Instance was successfully updated."
@@ -83,7 +83,7 @@ class ProjectInstancesController < ApplicationController
     @project_instance = ProjectInstance.with_deleted.find(params[:id])
 
     if @project_instance.deleted?
-      params[:comment][:content][/\A/] = '<i style="color: green;"> REACTIVATED </i><br>'
+      params[:comment][:content][/\A/] = '<i style="color: green;"> RESTARTED </i><br>'
       @project_instance.restore(recursive: true)
     else
       params[:comment][:content][/\A/] = '<i style="color: red;"> SHUT DOWN </i><br>'
