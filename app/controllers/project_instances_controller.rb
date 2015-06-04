@@ -45,7 +45,7 @@ class ProjectInstancesController < ApplicationController
         end
         status = @project_instance.closing ? "scheduled for close down" : "unscheduled for close down"
         message = "*#{@project_instance.name}* project instance and its installations have been #{status}"
-        SlackChannel.post("#labs", "New comments in Labs", message, ":envelope:")
+        SlackChannel.post("#labs", "Labs detective", message, ":squirrel:")
       end
       flash[:notice] = "Instance was successfully updated."
     end

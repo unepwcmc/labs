@@ -52,7 +52,7 @@ class InstallationsController < ApplicationController
       if old_closing != @installation.closing
         status = @installation.closing ? "scheduled for close down" : "unscheduled for close down"
         message = "*#{@installation.name}* installation has been #{status}"
-        SlackChannel.post("#labs", "New comments in Labs", message, ":envelope:")
+        SlackChannel.post("#labs", "Labs detective", message, ":squirrel:")
       end
       flash[:notice] = 'Installation was successfully updated'
     end
