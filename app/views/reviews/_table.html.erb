@@ -1,0 +1,28 @@
+<table class="display table" id="reviews_table">
+  <thead>
+    <tr>
+      <th>Project</th>
+      <th>Date</th>
+      <th>Reviewer</th>
+      <th>Outcome</th>
+      <th class="no-sort"></th>
+      <th class="no-sort"></th>
+      <th class="no-sort"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reviews.each do |review| %>
+      <tr>
+        <td><%= link_to review.project.title, project_path(review.project) %></td>
+        <td><%= review.updated_at %></td>
+        <td><%= review.reviewer.name %></td>
+        <td><%= review.result_formatted %></td>
+        <td><%= link_to(review) { fa_icon "eye" } %></td>
+        <td><%= link_to(edit_review_path(review)) { fa_icon "pencil" } %></td>
+        <td><%= link_to(review, method: :delete, data: { confirm: "Are you sure?" }){ fa_icon "trash" } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>

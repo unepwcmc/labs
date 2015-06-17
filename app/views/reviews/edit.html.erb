@@ -1,0 +1,29 @@
+<div class="page-header">
+  <h1><%= @review.project.title %> Review</h1>
+</div>
+
+<div class="btn-group">
+  <%= button_to 'Show', @review, method: :get, class: "btn btn-primary" %>
+  <%= button_to 'Back', reviews_path, method: :get, class: "btn btn-primary" %>
+</div>
+
+<%= render 'form' %>
+
+<div class="page-header">
+</div>
+
+<div class="row">
+  <% @sections.each do |section| %>
+    <h2 class="col-sm-12"><%= section.title %></h2>
+    <% section.questions.each do |question| %>
+      <h4 class="col-sm-8"><%= question.title %></h4>
+
+      <div class="col-sm-2">
+        <%= review_input_group(question) %>
+      </div>
+      <%= feedback(question) %>
+      <p class="help-block col-sm-12"><%= question.description %></p>
+
+    <% end %>
+  <% end %>
+</div>

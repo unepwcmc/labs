@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150303130415) do
+ActiveRecord::Schema.define(version: 20150616083356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_trgm"
   enable_extension "fuzzystrmatch"
+  enable_extension "pg_trgm"
 
   create_table "comments", force: true do |t|
     t.text     "content",          null: false
@@ -109,6 +109,43 @@ ActiveRecord::Schema.define(version: 20150303130415) do
     t.text     "cron_jobs"
   end
 
+  create_table "review_answers", force: true do |t|
+    t.integer  "review_id",                          null: false
+    t.integer  "review_question_id",                 null: false
+    t.boolean  "selected_option",    default: false, null: false
+    t.boolean  "skipped",            default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "review_questions", force: true do |t|
+    t.integer  "review_section_id",                 null: false
+    t.text     "code",                              null: false
+    t.text     "title",                             null: false
+    t.text     "description"
+    t.integer  "sort_order",        default: 0,     null: false
+    t.boolean  "skippable",         default: false
+    t.text     "auto_check"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "review_sections", force: true do |t|
+    t.text     "code",                   null: false
+    t.text     "title",                  null: false
+    t.integer  "sort_order", default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "reviews", force: true do |t|
+    t.integer  "project_id",  null: false
+    t.integer  "reviewer_id", null: false
+    t.decimal  "result",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "servers", force: true do |t|
     t.string   "name",         null: false
     t.string   "domain",       null: false
@@ -119,6 +156,13 @@ ActiveRecord::Schema.define(version: 20150303130415) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "ssh_key_name"
+  end
+
+  create_table "tests", force: true do |t|
+    t.integer "a"
+    t.integer "b"
+    t.integer "c"
+    t.text    "d"
   end
 
   create_table "users", force: true do |t|
@@ -152,5 +196,13 @@ ActiveRecord::Schema.define(version: 20150303130415) do
   add_foreign_key "dependencies", "projects", name: "dependencies_sub_project_id_fk", column: "sub_project_id"
 
   add_foreign_key "installations", "servers", name: "installations_server_id_fk", dependent: :delete
+
+  add_foreign_key "review_answers", "review_questions", name: "review_answers_review_question_id_fk", dependent: :delete
+  add_foreign_key "review_answers", "reviews", name: "review_answers_review_id_fk", dependent: :delete
+
+  add_foreign_key "review_questions", "review_sections", name: "review_questions_review_section_id_fk", dependent: :delete
+
+  add_foreign_key "reviews", "projects", name: "reviews_project_id_fk", dependent: :delete
+  add_foreign_key "reviews", "users", name: "reviews_reviewer_id_fk", column: "reviewer_id", dependent: :nullify
 
 end

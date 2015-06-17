@@ -14,6 +14,12 @@ Labs::Application.routes.draw do
   get '/projects/sync', to: 'github_sync#index', as: 'sync_projects'
   post '/projects/sync', to: 'github_sync#sync'
 
+  resources :reviews do
+    resources :comments
+    resources :review_answers, only: [:show]
+    post '/answers', to: 'review_answers#create_or_update'
+  end
+
   resources :projects do
     resources :comments
     collection do

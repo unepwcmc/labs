@@ -1,0 +1,9 @@
+<div class="page-header">
+  <h1>Listing Project Reviews</h1>
+</div>
+
+<div class="btn-group">
+  <%= button_to 'New Review', new_review_path, method: :get, class: "btn btn-primary" %>
+</div>
+
+<%= render 'table' %>
