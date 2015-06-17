@@ -1,5 +1,9 @@
 namespace :review do
   task :load => :environment do
+    section_ids = ReviewSection.pluck(:id)
+    new_section_ids = []
+    question_ids = ReviewQuestion.pluck(:id)
+    new_question_ids = []
     review_template_file = Rails.root.join('db/review_template.json')
     review_template = JSON.parse(File.read(review_template_file))
     review_template['sections'].each_with_index do |s, i|
@@ -12,6 +16,7 @@ namespace :review do
       section.title = s['title']
       section.sort_order = i
       section.save!
+      new_section_ids << section.id
       s['questions'].each_with_index do |q, j|
         q_code = q['code']
         puts q['title']
@@ -26,7 +31,11 @@ namespace :review do
         question.auto_check = q['auto_check']
         question.sort_order = j
         question.save!
+        new_question_ids << question.id
       end
     end
+    ReviewSection.where(id: (section_ids - new_section_ids)).each(&:destroy)
+    new_question_ids = ReviewQuestion.pluck(:id)
+    ReviewQuestion.where(id: (question_ids - new_question_ids)).each(&:destroy)
   end
 end
