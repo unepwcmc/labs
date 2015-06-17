@@ -19,4 +19,25 @@ module ProjectsHelper
     content_tag(:p, content_tag(:strong, (display || field.to_s.titleize)+":")) +
       content_tag(:div, simple_format(h project.send(field)), class: "block-of-text")
   end
+
+  def review_score(review)
+    return '' unless review
+    link_to review_path(review) do
+      if review.result == 1.0
+        content_tag(:div, class: 'review-success') do
+          content_tag(:span, review.result_formatted,
+            {class: 'glyphicon glyphicon-ok-sign', 'aria-hidden' => true}
+          ) +
+          content_tag(:span, 'success', class: 'sr-only')
+        end
+      else
+        content_tag(:div, class: 'review-error') do
+          content_tag(:span, review.result_formatted,
+            {class: 'glyphicon glyphicon-exclamation-sign', 'aria-hidden' => true}
+          ) +
+          content_tag(:span, 'error', class: 'sr-only')
+        end
+      end
+    end
+  end
 end

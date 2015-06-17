@@ -101,6 +101,10 @@ class Project < ActiveRecord::Base
   	end
   end
 
+  def last_review
+    reviews.last
+  end
+
   def team_members?
     !(developers.empty? || current_lead.blank? || project_leads.empty?)
   end

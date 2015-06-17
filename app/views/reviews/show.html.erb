@@ -1,5 +1,5 @@
 <div class="page-header project-header">
-  <h1><%= @review.project.title %> Review</h1>
+  <h1><%= link_to @review.project.title, project_path(@review.project) %> Review</h1>
   <div class="btn-group">
     <%= button_to 'Back', reviews_path, method: :get, :class => 'btn' %>
     <%= button_to 'Edit', edit_review_path(@review), method: :get, :class => 'btn btn-primary' %>
