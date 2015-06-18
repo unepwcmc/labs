@@ -10,6 +10,11 @@
                "auto_check": "github_identifier?"
             },
             {
+               "title":"Team members documented in Labs",
+               "code":"gh_contributors",
+               "auto_check": "team_members?"
+            },
+            {
                "title":"Description in GH present & meaningful",
                "code": "gh_description"
             },
@@ -21,11 +26,6 @@
                "title":"No sensitive information exposed in the repository",
                "code": "gh_sensitive_data",
                "description":"For example: secret token, mailer details, CartoDB access, Amazon keys, user data"
-            },
-            {
-               "title":"Team members documented in Labs",
-               "code":"gh_contributors",
-               "auto_check": "team_members?"
             },
             {
                "title":"Standard config store or description of a non-standard config in the README",
@@ -147,27 +147,46 @@
                "skippable":true
             },
             {
-               "title": "Background jobs documented in Labs",
+               "title": "Background jobs configured",
                "code":"background",
-               "description": "For example: redis connection string if sidekiq / redis workers are used on shared hosts",
+               "description": "For example: redis installed, redis db assigned",
                "skippable":true
+            },
+            {
+               "title": "Background jobs documented in Labs",
+               "code":"background_doc",
+               "description": "For example: redis connection string if sidekiq / redis workers are used on shared hosts",
+               "auto_check": "background_jobs?",
+               "skippable":true
+            },
+            {
+               "title":"Cron jobs configured",
+               "code":"cron",
+               "description": "For Rails applications as part of deploy script, e.g. via whenever gem",
+               "skippable":true
+            },
+            {
+               "title":"Cron jobs documented in Labs",
+               "code":"cron_doc",
+               "auto_check": "cron_jobs?",
+               "skippable":true
+            },
+            {
+               "title":"Backups configured",
+               "code": "backups",
+               "description":"Both database & file system (where applicable)"
+            },
+            {
+               "title":"Backups documented in Labs",
+               "code": "backups_doc",
+               "description":"Backup locations",
+               "auto_check":"backups?"
             },
             {
                "title":"Email service configured",
                "code":"email",
                "description":"Make sure site actually sends out emails (if applicable)",
                "skippable":true
-            },
-            {
-               "title":"Cron jobs configured",
-               "code":"cron",
-               "description": "For Rails applications as part of deploy script, e.g. via whenever gem"
-            },
-            {
-               "title":"Backups configured & documented in Labs",
-               "code": "backups",
-               "description":"Both database & file system (where applicable)",
-               "auto_check":"backups?"
             },
             {
                "title":"Availability monitoring configured for all subsystems",
@@ -204,6 +223,16 @@
             {
                "title":"Title & meta tags set properly",
                "code":"meta"
+            },
+            {
+               "title":"Commented out code & obsolete documentation removed",
+               "code":"obsolete",
+               "description":"Especially outdated setup instructions"
+            },
+            {
+               "title":"Temporary installations & zombie sites cleaned up",
+               "code":"zombie",
+               "description":"Also temporary databases, especially if they contain user data"
             },
             {
                "title":"robots.txt in place",

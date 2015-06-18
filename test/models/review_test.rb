@@ -2,16 +2,6 @@ require 'test_helper'
 
 class ReviewTest < ActiveSupport::TestCase
 
-  # def test_auto_anwer_questions
-  #   @question = FactoryGirl.create(:review_question)
-  #   @auto_question = FactoryGirl.create(:review_question, skippable: false, auto_check: 'title?')
-  #   @project = FactoryGirl.create(:project, title: 'AAA')
-  #   @review = FactoryGirl.create(:review, project: @project)
-  #   @review.auto_answer_questions
-  #   assert_nil @review.answer(@question)
-  #   assert_not_nil @review.answer(@auto_question)
-  # end
-
   def test_result_formatted
     @question = FactoryGirl.create(:review_question)
     @project = FactoryGirl.create(:project, title: 'AAA')
@@ -32,7 +22,7 @@ class ReviewTest < ActiveSupport::TestCase
 
   def test_reviews_refreshed_after_instance_update
     @question = FactoryGirl.create(:review_question)
-    @auto_question = FactoryGirl.create(:review_question, auto_check: 'production_backups?')
+    @auto_question = FactoryGirl.create(:review_question, skippable: false, auto_check: 'production_backups?')
     @project = FactoryGirl.create(:project)
     @instance = FactoryGirl.create(:project_instance, project: @project, stage: 'Production', backup_information: nil)
     FactoryGirl.create(:installation, project_instance: @instance)
