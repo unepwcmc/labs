@@ -19,7 +19,7 @@
 /public/system/*
 /public/downloads/*.csv
 /config/initializers/rails_admin.rb
-
+/coverage/*
 # VIM
 *.swp
 /*.swo
