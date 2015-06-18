@@ -59,8 +59,26 @@
                "auto_check":"rails_version?"
             },
             {
+               "title":"Gemfile.lock with versions locked for futureproofing",
+               "code":"gemfile_lock",
+               "description":"For example:gems that depend on system or external APIs",
+               "skippable":true
+            },
+            {
+               "title":"Gemfile cleaned from unused gems & upgraded to reasonable versions",
+               "code":"gems",
+               "description":"For example: no gems with security flaws, no serious issues reported by Gemnasium",
+               "skippable":true
+            },
+            {
                "title":"Automated test suite passes",
                "code": "test_suite",
+               "skippable":true
+            },
+            {
+               "title":"Test coverage > 80%",
+               "code": "test_coverage",
+               "description":"For example: simplecov, CodeClimate",
                "skippable":true
             },
             {
@@ -72,12 +90,6 @@
                "title":"Exception notification configured",
                "description": "email / slack notifications configured or tracking service in place",
                "code": "exception_notifier",
-               "skippable":true
-            },
-            {
-               "title":"Bundled gems up to date",
-               "code":"gems",
-               "description":"For example: unsupported gems, gems with security flaws, issues reported by Gemnasium",
                "skippable":true
             },
             {
@@ -167,11 +179,6 @@
                "code":"performance",
                "description": "For example: New Relic set up",
                "skippable":true
-            },
-            {
-               "title":"Load tests passed",
-               "code":"load",
-               "description": "For example: stress testing with siege"
             }
          ]
       },
@@ -202,6 +209,11 @@
                "title":"robots.txt in place",
                "code":"robots",
                "description":"Admin paths mustn't be exposed"
+            },
+            {
+               "title":"Load tests passed",
+               "code":"load",
+               "description": "For example: stress testing with siege"
             }
          ]
       }
