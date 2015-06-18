@@ -13,10 +13,16 @@ class ProjectInstancesControllerTest < ActionController::TestCase
     sign_in @user
   end
 
-  test "should get index" do
-    get :index
+  test "should get index in html" do
+    get :index, format: :html
     assert_response :success
     assert_not_nil assigns(:projects_instances)
+  end
+
+  test "sould get index in csv" do
+    get :index, format: :csv
+    assert_response :success
+    assert_equal "text/csv", response.content_type
   end
 
   test "should get new" do

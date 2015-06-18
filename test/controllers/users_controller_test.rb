@@ -3,8 +3,11 @@ require 'test_helper'
 class UsersControllerTest < ActionController::TestCase
   include Devise::TestHelpers
 
-  test "logged in user should get index" do
+  def setup
     @user = FactoryGirl.create(:user)
+  end
+
+  test "logged in user should get index" do
     sign_in @user
     get :index
     assert_response :success
@@ -14,5 +17,13 @@ class UsersControllerTest < ActionController::TestCase
   test "public user should be redirected" do
     get :index
     assert_response :redirect
+  end
+
+  test "user should be suspended when suspend action is called" do
+    sign_in @user
+    another_user = FactoryGirl.create(:user)
+    patch :suspend, id: another_user
+    assert_equal true, another_user.reload.suspended
+    assert_redirected_to root_path
   end
 end

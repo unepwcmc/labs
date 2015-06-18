@@ -24,10 +24,14 @@
 #
 
 FactoryGirl.define do
+  sequence :email do |n|
+    "email#{n}@factory.com"
+  end
+
   factory :user do
     provider :github
     uid "7136714"
-    email Faker::Internet.email
+    email
     github  Faker::Internet.user_name
     password Faker::Internet.password(10, 20)
     token Faker::Code.ean

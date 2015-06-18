@@ -61,7 +61,7 @@ class Project < ActiveRecord::Base
   scope :published, -> { where(published: true) }
 
   # multisearchable against: [:title, :description, :github_identifier, :state, :internal_clients,
-  #           :current_lead, :external_clients, :project_leads, :developers, 
+  #           :current_lead, :external_clients, :project_leads, :developers,
   #           :dependencies, :hacks, :pdrive_folders, :dropbox_folders, :published]
 
   # Validations

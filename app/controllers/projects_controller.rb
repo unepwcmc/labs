@@ -132,9 +132,9 @@ class ProjectsController < ApplicationController
   def project_params
     params.require(:project).permit(:developers_array, :title,
       :description, :url, :github_id, :pivotal_tracker_id,
-      :toggl_id, :deadline, :screenshot, :state, 
+      :toggl_id, :deadline, :screenshot, :state,
       :github_identifier, :dependencies, :internal_clients_array, :current_lead,
-      :hacks, :external_clients_array, :project_leads_array, :pdrive_folders_array, 
+      :hacks, :external_clients_array, :project_leads_array, :pdrive_folders_array,
       :dropbox_folders_array, :pivotal_tracker_ids_array, :trello_ids_array, :expected_release_date,
       :rails_version, :ruby_version, :postgresql_version, :other_technologies_array, :published,
       :internal_description, :background_jobs, :cron_jobs,

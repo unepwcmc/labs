@@ -59,6 +59,15 @@ class InstallationsControllerTest < ActionController::TestCase
     assert_redirected_to installation_path(assigns(:installation))
   end
 
+  test "should send a notification when closing installation" do
+    message = "*#{@installation.name}* installation has been scheduled for close down"
+    SlackChannel.expects(:post).with("#labs", "Labs detective", message, ":squirrel:")
+    patch :update, id: @installation, installation: {
+      closing: true
+    }
+    assert_redirected_to installation_path(assigns(:installation))
+  end
+
   test "should destroy installation" do
     assert_difference('Installation.count', -1) do
       delete :destroy, id: @installation
