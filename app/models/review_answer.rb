@@ -1,5 +1,5 @@
 class ReviewAnswer < ActiveRecord::Base
-  belongs_to :review, touch: true
+  belongs_to :review
   belongs_to :question, class_name: ReviewQuestion, foreign_key: :review_question_id
   validates :review, presence: true
   validates :question, presence: true
@@ -11,25 +11,19 @@ class ReviewAnswer < ActiveRecord::Base
     true
   end
 
+  after_save { review.respond_to_answer_update }
+
   def auto_answer(project, auto_check_method)
     project.try(auto_check_method)
   end
 
   def is_acceptable?(question = nil)
     question ||= self.question
-    selected_option || skipped && question.skippable
+    done? || skipped? && question.skippable
   end
 
-  def is_yes?
+  def done?
     selected_option == true
-  end
-
-  def is_no?
-    selected_option == false
-  end
-
-  def is_skipped?
-    skipped
   end
 
   def as_json(options = { })

@@ -4,7 +4,8 @@ class ReviewsControllerTest < ActionController::TestCase
   include Devise::TestHelpers
 
   setup do
-    @review = FactoryGirl.create(:review)
+    @project = FactoryGirl.create(:project)
+    @review = FactoryGirl.create(:review, project: @project)
     @user = FactoryGirl.create(:user)
     sign_in @user
   end
@@ -27,6 +28,13 @@ class ReviewsControllerTest < ActionController::TestCase
     assert_redirected_to edit_review_path(assigns(:review))
   end
 
+  test "should not create review" do
+    assert_no_difference('Review.count') do
+      post :create, review: { reviewer_id: @user.id, project_id: nil }
+    end
+    assert_response :success
+  end
+
   test "should show review" do
     get :show, id: @review
     assert_response :success
@@ -40,6 +48,12 @@ class ReviewsControllerTest < ActionController::TestCase
   test "should update review" do
     put :update, id: @review.id, review: { reviewer_id: @user.id, project_id: FactoryGirl.create(:project).id }
     assert_redirected_to review_path(assigns(:review))
+  end
+
+  test "should not update review" do
+    put :update, id: @review.id, review: { reviewer_id: @user.id, project_id: nil }
+    assert @review.project_id == @project.id
+    assert_response :success
   end
 
   test "should destroy review" do

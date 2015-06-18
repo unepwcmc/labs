@@ -9,9 +9,6 @@ class Review < ActiveRecord::Base
   before_save do |review|
     review.result = review.recalculate_result
   end
-  after_touch do |review|
-    update_column(:result, review.recalculate_result)
-  end
   after_create do |review|
     auto_answer_questions
   end
@@ -26,6 +23,17 @@ class Review < ActiveRecord::Base
     "#{(result * 100).round}%"
   end
 
+  def respond_to_answer_update
+    update_column(:result, recalculate_result)
+  end
+
+  def respond_to_project_update
+    auto_answer_questions
+    respond_to_answer_update
+  end
+
+  protected
+
   def auto_answer_questions
     ReviewSection.all.each do |section|
       section.questions.where('auto_check IS NOT NULL').each do |question|
@@ -36,8 +44,6 @@ class Review < ActiveRecord::Base
       end
     end
   end
-
-  protected
 
   def recalculate_result
     fetched_answers = answers.preload(:question).all # force fetch

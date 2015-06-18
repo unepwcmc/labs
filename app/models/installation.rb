@@ -25,15 +25,8 @@ class Installation < ActiveRecord::Base
   delegate :stage, to: :project_instance
   delegate :project, to: :project_instance
 
-  after_create do |installation|
-    installation.project_instance.try(:instance).try(:project).
-      try(:refresh_reviews)
-  end
-
-  after_destroy do |installation|
-    installation.project_instance.try(:instance).try(:project).
-      try(:refresh_reviews)
-  end
+  after_create { project.refresh_reviews }
+  after_destroy { project.refresh_reviews }
 
   def name
     "#{self.project.title} - #{role} (#{stage})"

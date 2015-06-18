@@ -42,13 +42,13 @@ module ReviewsHelper
     disabled = question.auto_check.present?
     if question.skippable?
       capture do
-        concat review_radio_button(question, 'yes', answer.try(:is_yes?), disabled)
+        concat review_radio_button(question, 'yes', answer.try(:done?), disabled)
         if question.skippable
-          concat review_radio_button(question, 'skip', answer.try(:is_skipped?), disabled)
+          concat review_radio_button(question, 'skip', answer.try(:skipped?), disabled)
         end
       end
     else
-      review_checkbox(question, 'yes', answer.try(:is_yes?), disabled)
+      review_checkbox(question, 'yes', answer.try(:done?), disabled)
     end
   end
 

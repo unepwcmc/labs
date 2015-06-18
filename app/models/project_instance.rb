@@ -30,13 +30,7 @@ class ProjectInstance < ActiveRecord::Base
 
   after_initialize :init_default_values
 
-  after_save do |instance|
-    instance.project.try(:refresh_reviews)
-  end
-
-  after_destroy do |instance|
-    instance.project.try(:refresh_reviews)
-  end
+  after_update { project.refresh_reviews }
 
   def init_default_values
     return unless new_record?

@@ -85,6 +85,10 @@ class Project < ActiveRecord::Base
     project.refresh_reviews
   end
 
+  after_touch do |project|
+    project.refresh_reviews
+  end
+
   # Mount uploader for carrierwave
   mount_uploader :screenshot, ScreenshotUploader
 
@@ -110,7 +114,7 @@ class Project < ActiveRecord::Base
   end
 
   def instances_with_installations
-    project_instances.includes(:installations).references(:installations).
+    project_instances(true).includes(:installations).references(:installations).
       where('installations.id IS NOT NULL')
   end
 
@@ -128,7 +132,7 @@ class Project < ActiveRecord::Base
   end
 
   def refresh_reviews
-    reviews.each{ |r| r.auto_answer_questions }
+    reviews.each{ |r| r.respond_to_project_update }
   end
 
   private
