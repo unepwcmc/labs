@@ -3,14 +3,14 @@ $(document).ready(function(){
     var el = $(this);
     var reviewId = el.data('review-id');
     var questionId = el.data('question-id');
-    var selectedOption = el.val();
+    var done = el.val();
     $.ajax({
       type: 'POST',
       url: '/reviews/' + reviewId + '/answers',
       data: {
         answer: {
           review_question_id: questionId,
-          selected_option: selectedOption
+          done: done
         }
       },
       dataType: 'JSON',

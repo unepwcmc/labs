@@ -22,6 +22,6 @@ FactoryGirl.define do
   factory :review_answer do
     question
     review
-    selected_option { [true, false].sample }
+    done { [true, false].sample }
   end
 end

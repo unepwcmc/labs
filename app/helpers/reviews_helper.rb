@@ -2,7 +2,7 @@ module ReviewsHelper
   def answer_for_display(question)
     answer = @review.try(:answer, question)
     answer_text = if answer
-      answer.selected_option ? 'yes' : 'no'
+      answer.done ? 'yes' : 'no'
     else
       '(empty)'
     end
@@ -12,7 +12,7 @@ module ReviewsHelper
   def review_radio_button(question, value, is_checked, is_disabled)
     content_tag(:label, class: 'radio-inline') do
       radio_properties = {
-        type: 'radio', value: value, name: "answer[#{question.id}][selected_option]",
+        type: 'radio', value: value, name: "answer[#{question.id}][done]",
         class: 'review-answer',
         'data-question-id' => question.id,
         'data-review-id' => @review.id
@@ -26,7 +26,7 @@ module ReviewsHelper
   def review_checkbox(question, value, is_checked, is_disabled)
     content_tag(:label, class: 'checkbox-inline') do
       checkbox_properties = {
-        type: 'checkbox', value: value, name: "answer[#{question.id}][selected_option]",
+        type: 'checkbox', value: value, name: "answer[#{question.id}][done]",
         class: 'review-answer',
         'data-question-id' => question.id,
         'data-review-id' => @review.id

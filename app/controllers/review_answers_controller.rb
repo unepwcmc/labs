@@ -21,13 +21,13 @@ class ReviewAnswersController < ApplicationController
   private
 
   def answer_params
-    params.require(:answer).permit(:selected_option, :review_question_id).tap do |p|
-      case p[:selected_option]
+    params.require(:answer).permit(:done, :review_question_id).tap do |p|
+      case p[:done]
       when 'yes'
-        p[:selected_option] = true
+        p[:done] = true
         p[:skipped] = false
       else
-        p[:selected_option] = false
+        p[:done] = false
         p[:skipped] = true
       end
     end

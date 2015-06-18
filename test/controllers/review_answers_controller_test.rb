@@ -15,7 +15,7 @@ class ReviewAnswersControllerTest < ActionController::TestCase
     @another_question = FactoryGirl.create(:review_question)
     assert_difference('ReviewAnswer.count') do
       post :create_or_update, review_id: @review.id, answer: {
-        review_question_id: @another_question.id, selected_option: 'yes'
+        review_question_id: @another_question.id, done: 'yes'
       }, format: :json
     end
     assert_response :success
@@ -24,7 +24,7 @@ class ReviewAnswersControllerTest < ActionController::TestCase
   test "should update answer" do
     assert_no_difference('ReviewAnswer.count') do
       post :create_or_update, review_id: @review.id, answer: {
-        review_question_id: @question.id, selected_option: 'no'
+        review_question_id: @question.id, done: 'no'
       }, format: :json
     end
     assert_response :success

@@ -6,7 +6,7 @@ class ReviewAnswer < ActiveRecord::Base
 
   before_save do |answer|
     if question.auto_check.present?
-      answer.selected_option = answer.auto_answer(review.project, question.auto_check.to_sym)
+      answer.done = answer.auto_answer(review.project, question.auto_check.to_sym)
     end
     true
   end
@@ -14,16 +14,12 @@ class ReviewAnswer < ActiveRecord::Base
   after_save { review.respond_to_answer_update }
 
   def auto_answer(project, auto_check_method)
-    project.try(auto_check_method)
+    project.try(auto_check_method) || false
   end
 
   def is_acceptable?(question = nil)
     question ||= self.question
     done? || skipped? && question.skippable
-  end
-
-  def done?
-    selected_option == true
   end
 
   def as_json(options = { })

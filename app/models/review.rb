@@ -39,7 +39,7 @@ class Review < ActiveRecord::Base
       section.questions.where('auto_check IS NOT NULL').each do |question|
         answer = self.answers.where(review_question_id: question.id).first
         answer ||= self.answers.build(review_question_id: question.id)
-        answer.selected_option = answer.auto_answer(project, question.auto_check.to_sym)
+        answer.done = answer.auto_answer(project, question.auto_check.to_sym)
         answer.save!
       end
     end
