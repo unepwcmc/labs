@@ -33,14 +33,14 @@
                "description":"For example: database.yml & secrets.yml is standard for Rails 4"
             },
             {
-               "title":"No hardcoded urls, emails or other pieces of configuration in code",
-               "code": "hardcoded_constants",
-               "description":"For example: third-party API urls, notification emails"
-            },
-            {
                "title":"Relevant passwords shared through the Admin Password DB",
                "code": "shared_passwords",
                "description":"For example: access details to any third party APIs"
+            },
+            {
+               "title":"No hardcoded urls, emails or other pieces of configuration in code",
+               "code": "hardcoded_constants",
+               "description":"For example: third-party API urls, notification emails"
             }
          ]
       },
@@ -76,14 +76,14 @@
                "skippable":true
             },
             {
-               "title":"Test coverage > 80%",
-               "code": "test_coverage",
-               "description":"For example: simplecov, CodeClimate",
+               "title":"CI build configured",
+               "code":"ci",
                "skippable":true
             },
             {
-               "title":"CI build configured",
-               "code":"ci",
+               "title":"Test coverage > 80%",
+               "code": "test_coverage",
+               "description":"For example: simplecov, CodeClimate",
                "skippable":true
             },
             {
@@ -180,7 +180,7 @@
                "title":"Backups documented in Labs",
                "code": "backups_doc",
                "description":"Backup locations",
-               "auto_check":"backups?"
+               "auto_check":"production_backups?"
             },
             {
                "title":"Email service configured",
