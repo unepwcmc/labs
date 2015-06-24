@@ -41,12 +41,7 @@ module ReviewsHelper
     answer = @review.try(:answer, question)
     disabled = question.auto_check.present?
     if question.skippable?
-      capture do
-        concat review_radio_button(question, 'yes', answer.try(:done?), disabled)
-        if question.skippable
-          concat review_radio_button(question, 'skip', answer.try(:skipped?), disabled)
-        end
-      end
+      review_radio_group(question, answer, disabled)
     else
       review_checkbox(question, 'yes', answer.try(:done?), disabled)
     end
@@ -55,27 +50,46 @@ module ReviewsHelper
   def feedback(question)
     answer = @review.try(:answer, question)
     feedback = answer && answer.is_acceptable?(question) ? 'success' : 'error'
-    content_tag(:div, class: "col-sm-1 feedback #{feedback}") do
-      content_tag(:div, class: 'error-feedback') do
-        content_tag(:span, nil,
-          {class: 'fa fa-thumbs-down', 'aria-hidden' => true}
-        ) +
-        content_tag(:span, 'error', class: 'sr-only')
-      end +
-      content_tag(:div, class: 'success-feedback') do
-        content_tag(:span, nil,
-          {class: 'fa fa-thumbs-up', 'aria-hidden' => true}
-        ) +
-        content_tag(:span, 'success', class: 'sr-only')
+    feedback_icon(feedback) +
+    fixme_button(feedback, question.auto_check?)
+  end
+
+  private
+
+  def review_radio_group(question, answer, disabled)
+    capture do
+      concat review_radio_button(question, 'yes', answer.try(:done?), disabled)
+      if question.skippable
+        concat review_radio_button(question, 'skip', answer.try(:skipped?), disabled)
       end
-    end +
+    end
+  end
+
+  # feedback_type is either 'success' or 'error'
+  def feedback_icon(feedback_type)
+    content_tag(:div, class: "col-sm-1 feedback #{feedback_type}") do
+      generic_feedback_icon('error', 'thumbs-down') +
+      generic_feedback_icon('success', 'thumbs-up')
+    end
+  end
+
+  def generic_feedback_icon(feedback_type, icon_name)
+    content_tag(:div, class: "#{feedback_type}-feedback") do
+      content_tag(:span, nil,
+        {class: "fa fa-#{icon_name}", 'aria-hidden' => true}
+      ) +
+      content_tag(:span, feedback_type, class: 'sr-only')
+    end
+  end
+
+  # feedback_type is either 'success' or 'error'
+  def fixme_button(feedback_type, auto_check)
     content_tag(:div, class: "col-sm-1") do
-      if feedback=='error' && question.auto_check?
+      if feedback_type == 'error' && auto_check
         link_to edit_project_path(@review.project) do
           content_tag(:button, 'FIXME', type: "button", class: "btn btn-warning btn-xs")
         end
       end
     end
   end
-
 end
