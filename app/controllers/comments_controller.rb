@@ -6,10 +6,10 @@ class CommentsController < ApplicationController
     @comment = @commentable.comments.new(comment_params)
     @comment.user_id = current_user.id
 
-    SlackChannel.post("#labs", "New comments in Labs", @comment.content, ":envelope:")
 
     respond_to do |format|
       if @comment.save
+        SlackChannel.post("#labs", "New comments in Labs", @comment.content, ":envelope:")
         format.json { render :json => {content: format(@comment.content), comment_id: @comment.id, created_at: @comment.created_at.to_s(:db),
           gravatar_id: Digest::MD5.hexdigest(current_user.email.downcase), github: current_user.github}, :status => :created}
       else

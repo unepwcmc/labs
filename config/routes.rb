@@ -7,7 +7,7 @@ Labs::Application.routes.draw do
 
   resources :users, :only => [:index] do
     member do
-      post :suspend
+      patch :suspend
     end
   end
 

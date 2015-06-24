@@ -2,7 +2,7 @@ class ServersController < ApplicationController
   before_action :authenticate_user!
 
   respond_to :html, :json
-  
+
   def index
     @servers = Server.all
   end
@@ -45,9 +45,6 @@ class ServersController < ApplicationController
   end
 
   private
-    def set_server
-      @server = Server.find(params[:id])
-    end
 
     def server_params
       params.require(:server).permit(:name, :domain, :username, :admin_url, :os, :description, :ssh_key_name)

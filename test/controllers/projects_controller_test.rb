@@ -20,11 +20,18 @@ class ProjectsControllerTest < ActionController::TestCase
       :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby', :content_type => "application/json"})
   end
 
-  test "should get lists" do
+  test "should get lists in html" do
     sign_in @user
-    get :list
+    get :list, format: :html
     assert_response :success
     assert_equal assigns(:projects), Project.all
+  end
+
+  test "should get lists in csv" do
+    sign_in @user
+    get :list, format: :csv
+    assert_response :success
+    assert_equal "text/csv", response.content_type
   end
 
 
@@ -100,6 +107,12 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_redirected_to project_path(assigns(:project))
   end
 
+  test "should render new page when failing to create project" do
+    sign_in @user
+    post :create, project: { url: @project.url }
+    assert_template :new
+  end
+
   test "should show project" do
     sign_in @user
     get :show, id: @saved_project
@@ -116,6 +129,12 @@ class ProjectsControllerTest < ActionController::TestCase
     sign_in @user
     patch :update, id: @saved_project, project: { title: "New Title" }
     assert_redirected_to project_path(assigns(:project))
+  end
+
+  test "should render edit page when failing to update project" do
+    sign_in @user
+    patch :update, id: @saved_project, project: { title: "" }
+    assert_template :edit
   end
 
   test "should destroy project" do
