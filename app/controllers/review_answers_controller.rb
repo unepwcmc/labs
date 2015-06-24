@@ -22,8 +22,7 @@ class ReviewAnswersController < ApplicationController
 
   def answer_params
     params.require(:answer).permit(:done, :review_question_id).tap do |p|
-      case p[:done]
-      when 'yes'
+      if p[:done] == 'yes'
         p[:done] = true
         p[:skipped] = false
       else
