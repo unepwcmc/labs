@@ -47,7 +47,6 @@ gem 'whenever'
 gem 'exception_notification', :git => 'https://github.com/smartinez87/exception_notification.git'
 gem 'slack-notifier'
 gem "font-awesome-rails"
-gem 'font_assets'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
