@@ -20,10 +20,12 @@ module ProjectsHelper
       content_tag(:div, simple_format(h project.send(field)), class: "block-of-text")
   end
 
+  PASS_THRESHOLD = 1.0
+
   def review_score(review)
     return '' unless review
     link_to review_path(review) do
-      if review.result == 1.0
+      if review.result >= PASS_THRESHOLD
         content_tag(:div, class: 'review-success') do
           content_tag(:span, review.result_formatted,
             {class: 'fa fa-thumbs-up', 'aria-hidden' => true}
