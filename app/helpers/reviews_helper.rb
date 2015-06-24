@@ -55,7 +55,7 @@ module ReviewsHelper
   def feedback(question)
     answer = @review.try(:answer, question)
     feedback = answer && answer.is_acceptable?(question) ? 'success' : 'error'
-    content_tag(:div, class: "col-sm-2 feedback #{feedback}") do
+    content_tag(:div, class: "col-sm-1 feedback #{feedback}") do
       content_tag(:div, class: 'error-feedback') do
         content_tag(:span, nil,
           {class: 'fa fa-thumbs-down', 'aria-hidden' => true}
@@ -67,6 +67,13 @@ module ReviewsHelper
           {class: 'fa fa-thumbs-up', 'aria-hidden' => true}
         ) +
         content_tag(:span, 'success', class: 'sr-only')
+      end
+    end +
+    content_tag(:div, class: "col-sm-1") do
+      if feedback=='error' && question.auto_check?
+        link_to edit_project_path(@review.project) do
+          content_tag(:button, 'FIXME', type: "button", class: "btn btn-warning btn-xs")
+        end
       end
     end
   end

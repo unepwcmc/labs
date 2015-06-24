@@ -16,9 +16,8 @@
   <% @sections.each do |section| %>
     <h2 class="col-sm-12"><%= section.title %></h2>
     <% section.questions.each do |question| %>
-      <div class="<%= 'auto-check' if question.auto_check.present? %>" >
+      <div class="<%= 'auto-check' if question.auto_check? %>" >
         <h4 class="col-sm-8"><%= question.title %></h4>
-
         <div class="col-sm-2">
           <%= review_input_group(question) %>
         </div>
