@@ -7,10 +7,10 @@ class ReviewAnswersController < ApplicationController
     @review = Review.find(params[:review_id])
     p = answer_params
     @answer = @review.answers.where(review_question_id: p[:review_question_id]).first
-    unless @answer
-      @answer = @review.answers.create(p)
-    else
+    if @answer
       @answer.update_attributes(p)
+    else
+      @answer = @review.answers.create(p)
     end
     respond_with(@review, @answer)
   end
