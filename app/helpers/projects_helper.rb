@@ -26,14 +26,14 @@ module ProjectsHelper
       if review.result == 1.0
         content_tag(:div, class: 'review-success') do
           content_tag(:span, review.result_formatted,
-            {class: 'glyphicon glyphicon-ok-sign', 'aria-hidden' => true}
+            {class: 'fa fa-thumbs-up', 'aria-hidden' => true}
           ) +
           content_tag(:span, 'success', class: 'sr-only')
         end
       else
         content_tag(:div, class: 'review-error') do
           content_tag(:span, review.result_formatted,
-            {class: 'glyphicon glyphicon-exclamation-sign', 'aria-hidden' => true}
+            {class: 'fa fa-thumbs-down', 'aria-hidden' => true}
           ) +
           content_tag(:span, 'error', class: 'sr-only')
         end
