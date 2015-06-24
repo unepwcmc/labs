@@ -16,14 +16,15 @@
   <% @sections.each do |section| %>
     <h2 class="col-sm-12"><%= section.title %></h2>
     <% section.questions.each do |question| %>
-      <h4 class="col-sm-8"><%= question.title %></h4>
+      <div class="<%= 'auto-check' if question.auto_check.present? %>" >
+        <h4 class="col-sm-8"><%= question.title %></h4>
 
-      <div class="col-sm-2">
-        <%= review_input_group(question) %>
+        <div class="col-sm-2">
+          <%= review_input_group(question) %>
+        </div>
+        <%= feedback(question) %>
+        <p class="help-block col-sm-12"><%= question.description %></p>
       </div>
-      <%= feedback(question) %>
-      <p class="help-block col-sm-12"><%= question.description %></p>
-
     <% end %>
   <% end %>
 </div>
