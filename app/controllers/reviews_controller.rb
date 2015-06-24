@@ -73,7 +73,7 @@ class ReviewsController < ApplicationController
       @sections.includes(:questions => :answers)
     end
     @sections = @sections.references(:questions).
-    order('review_sections.sort_order, review_questions.sort_order')
+      order('review_sections.sort_order, review_questions.sort_order')
   end
 
   def review_params
