@@ -3,7 +3,13 @@ $(document).ready(function(){
     var el = $(this);
     var reviewId = el.data('review-id');
     var questionId = el.data('question-id');
-    var done = el.val();
+    var done;
+    if (el.prop('checked')){
+      done = el.val();
+    } else {
+      done = 'no';
+    }
+
     $.ajax({
       type: 'POST',
       url: '/reviews/' + reviewId + '/answers',
