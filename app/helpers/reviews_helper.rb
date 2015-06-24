@@ -58,13 +58,13 @@ module ReviewsHelper
     content_tag(:div, class: "col-sm-2 feedback #{feedback}") do
       content_tag(:div, class: 'error-feedback') do
         content_tag(:span, nil,
-          {class: 'glyphicon glyphicon-exclamation-sign', 'aria-hidden' => true}
+          {class: 'fa fa-thumbs-down', 'aria-hidden' => true}
         ) +
         content_tag(:span, 'error', class: 'sr-only')
       end +
       content_tag(:div, class: 'success-feedback') do
         content_tag(:span, nil,
-          {class: 'glyphicon glyphicon-ok-sign', 'aria-hidden' => true}
+          {class: 'fa fa-thumbs-up', 'aria-hidden' => true}
         ) +
         content_tag(:span, 'success', class: 'sr-only')
       end
