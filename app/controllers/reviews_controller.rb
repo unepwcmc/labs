@@ -12,7 +12,7 @@ class ReviewsController < ApplicationController
   end
 
   def new
-    @review = Review.new(reviewer_id: current_user.id)
+    @review = Review.new(reviewer_id: current_user.id, project_id: params[:project_id])
   end
 
   def create

@@ -41,4 +41,20 @@ module ProjectsHelper
       end
     end
   end
+
+  def review_jumbotron
+    if @project.reviews.empty?
+      content_tag(:div, class: 'jumbotron') do
+        content_tag(:h2, 'This project has not been reviewed!') +
+        content_tag(:p) do
+          start_review_button(@project)
+        end
+      end
+    end
+  end
+
+  def start_review_button(project)
+    link_to('Start review', new_review_path(project_id: project.id), class: 'btn btn-primary btn-sm', role: 'button')
+  end
+
 end
