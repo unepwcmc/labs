@@ -46,6 +46,11 @@
                "code":"gh_contributors",
                "auto_check": "team_members?",
                "description": "Current lead and developers required"
+            },
+            {
+               "title":"Obsolete documentation removed",
+               "code":"obsolete",
+               "description":"Especially outdated setup instructions"
             }
          ]
       },
@@ -172,6 +177,11 @@
                "title":"Logs are written to & rotated",
                "code":"logs",
                "description": "For example: standard rails logs, sidekiq log, cron output log"
+            },
+            {
+               "title":"Temporary installations & zombie sites cleaned up",
+               "code":"zombie",
+               "description":"Also temporary databases, especially if they contain user data"
             }
          ]
       },
@@ -241,16 +251,6 @@
             {
                "title":"Title & meta tags set properly",
                "code":"meta"
-            },
-            {
-               "title":"Commented out code & obsolete documentation removed",
-               "code":"obsolete",
-               "description":"Especially outdated setup instructions"
-            },
-            {
-               "title":"Temporary installations & zombie sites cleaned up",
-               "code":"zombie",
-               "description":"Also temporary databases, especially if they contain user data"
             }
          ]
       }
