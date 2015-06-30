@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class ReviewsHelperTest < ActionView::TestCase
+  include ApplicationHelper
   def setup
     @review = FactoryGirl.create(:review)
     @question1 = FactoryGirl.create(:question, skippable: false)
