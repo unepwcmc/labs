@@ -164,11 +164,6 @@
                "skippable":true
             },
             {
-               "title":"Load tests passed",
-               "code":"load",
-               "description": "For example: stress testing with siege"
-            },
-            {
                "title":"Assets load correctly",
                "code":"assets",
                "description":"For example: font awesome, sprites included by js libraries"
@@ -210,13 +205,13 @@
                "description": "Only skippable for legacy applications"
             },
             {
-               "title":"Application code security audited",
+               "title":"Application code security audit passed",
                "code":"security",
                "description": "For example: http://brakemanscanner.org/, security report in CodeClimate or review by human",
                "skippable": true
             },
             {
-               "title":"Application code style audited",
+               "title":"Application code style review passed",
                "code":"best_practices",
                "description": "For example: https://github.com/railsbp/rails_best_practices, https://github.com/bbatsov/rubocop or review by human",
                "skippable":true
