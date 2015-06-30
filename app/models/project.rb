@@ -110,7 +110,7 @@ class Project < ActiveRecord::Base
   end
 
   def team_members?
-    !(developers.empty? || current_lead.blank? || project_leads.empty?)
+    !(developers.empty? || current_lead.blank?)
   end
 
   def instances_with_installations
