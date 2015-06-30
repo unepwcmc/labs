@@ -1,0 +1,57 @@
+<div class="page-header project-header">
+  <h1><%= link_to @review.project.title, project_path(@review.project) %> Review</h1>
+  <div class="btn-group">
+    <%= button_to 'Back', reviews_path, method: :get, :class => 'btn' %>
+    <%= button_to 'Edit', edit_review_path(@review), method: :get, :class => 'btn btn-primary' %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <p>
+      <strong>Project:</strong>
+      <%= link_to @review.project.title, project_path(@review.project) %>
+    </p>
+
+    <p>
+      <strong>Reviewer:</strong>
+      <%= @review.reviewer.name %>
+    </p>
+
+    <p>
+      <strong>Reviewed at:</strong>
+      <%= @review.updated_at %>
+    </p>
+
+    <p>
+      <strong>Result:</strong>
+      <%= @review.result_formatted %>
+    </p>
+  </div>
+</div>
+
+<div class="page-header">
+</div>
+
+<div class="row">
+  <% @sections.each do |section| %>
+    <h2 class="col-sm-12"><%= section.title %></h2>
+    <% section.questions.each do |question| %>
+      <div>
+        <h4 class="col-sm-8"><%= question.title %></h4>
+        <div class="col-sm-2">
+          <%= answer_for_display(question) %>
+        </div>
+         <%= feedback(question) %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="page-header">
+    <h2>Comments<h2>
+  </div>
+  <%= render "comments/comments" %>
+  <%= render "comments/form", commentable: @review %>
+</div>

@@ -61,4 +61,41 @@ class ProjectTest < ActiveSupport::TestCase
     end
     should validate_presence_of(:url)
   end
+
+  def test_team_members_auto_check
+    @project1 = FactoryGirl.create(:project, current_lead: 'Dev 1')
+    @project2 = FactoryGirl.create(:project, current_lead: nil)
+    assert @project1.team_members?
+    assert !@project2.team_members?
+  end
+
+  def test_production_instance_auto_check
+    @project1 = FactoryGirl.create(:project)
+    @instance1 = FactoryGirl.create(:project_instance, project: @project1, stage: 'Production')
+    FactoryGirl.create(:installation, project_instance: @instance1)
+    @project2 = FactoryGirl.create(:project)
+    assert @project1.production_instance?
+    assert !@project2.production_instance?
+  end
+
+  def test_staging_instance_auto_check
+    @project1 = FactoryGirl.create(:project)
+    @instance1 = FactoryGirl.create(:project_instance, project: @project1, stage: 'Staging')
+    FactoryGirl.create(:installation, project_instance: @instance1)
+    @project2 = FactoryGirl.create(:project)
+    assert @project1.staging_instance?
+    assert !@project2.staging_instance?
+  end
+
+  def test_production_backups_auto_check
+    @project1 = FactoryGirl.create(:project)
+    @instance1 = FactoryGirl.create(:project_instance,
+      project: @project1, stage: 'Production', backup_information: 'loads of backup'
+    )
+    FactoryGirl.create(:installation, project_instance: @instance1)
+    @project2 = FactoryGirl.create(:project)
+    assert @project1.production_backups?
+    assert !@project2.production_backups?
+  end
+
 end

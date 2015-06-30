@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
     :recoverable, :rememberable, :trackable, :validatable
 
   has_many :comments
+  has_many :reviews, foreign_key: :reviewed_by_id, dependent: :nullify
 
   #include PgSearch
   #multisearchable against: :github

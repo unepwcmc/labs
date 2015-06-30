@@ -25,7 +25,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       format.html {
-        @projects = Project.includes(:project_instances)
+        @projects = Project.includes(:project_instances, :reviews).order(:title, 'reviews.updated_at')
         gon.push({
           :states => Project.pluck_field(:state),
           :rails_versions => Project.pluck_field(:rails_version),

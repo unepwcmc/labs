@@ -8,10 +8,14 @@
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
     <tr>
       <th>Title</th>
       <th>State</th>
+      <th>Review</th>
       <th>Instances</th>
       <th>Rails</th>
       <th>Ruby</th>
@@ -34,6 +38,7 @@
             alt: "No Code Climate")), "https://codeclimate.com/github/#{project.github_identifier}", class: "badge_link"%>
         </td>
         <td><%= project.state %></td>
+        <td><%= project.last_review ? review_score(project.last_review) : start_review_button(project) %></td>
         <td><%= project.project_instances.size %></td>
         <td><%= project.rails_version %></td>
         <td><%= project.ruby_version %></td>

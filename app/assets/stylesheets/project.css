@@ -35,3 +35,7 @@ div.block-of-text {
   padding-left: 5px;
   margin-bottom: 10px;
 }
+
+.review-success { color: green; }
+.review-warning { color: orange; }
+.review-error { color: red; }

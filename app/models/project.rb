@@ -49,6 +49,7 @@ class Project < ActiveRecord::Base
   has_many :sub_projects, :through => :sub_master_relationship
 
   has_many :project_instances
+  has_many :reviews, dependent: :destroy
 
   # Custom search scope for publically viewable projects
   pg_search_scope :search, :using => { :tsearch => {:prefix => true} },
@@ -70,7 +71,7 @@ class Project < ActiveRecord::Base
 
   validates :url, format: { with: URI.regexp(%w(http https)) },
     if: Proc.new { |a| a.url.present? }
-  validates :github_identifier, format: { with: /\Aunepwcmc\/[-a-zA-Z0-9_.]+\z/i },
+  validates :github_identifier, format: { with: /\A[-a-zA-Z0-9_.]+\/[-a-zA-Z0-9_.]+\z/i },
     if: Proc.new { |a| a.github_identifier.present? }
   validate :validate_trello_ids
   validate :validate_pivotal_tracker_ids
@@ -79,6 +80,14 @@ class Project < ActiveRecord::Base
 
   accepts_nested_attributes_for :master_sub_relationship, allow_destroy: true
   accepts_nested_attributes_for :sub_master_relationship, allow_destroy: true
+
+  after_update do |project|
+    project.refresh_reviews
+  end
+
+  after_touch do |project|
+    project.refresh_reviews
+  end
 
   # Mount uploader for carrierwave
   mount_uploader :screenshot, ScreenshotUploader
@@ -94,6 +103,36 @@ class Project < ActiveRecord::Base
       self.send("#{attribute}=", params.split(','))
       self.send(:save)
   	end
+  end
+
+  def last_review
+    reviews.last
+  end
+
+  def team_members?
+    !(developers.empty? || current_lead.blank?)
+  end
+
+  def instances_with_installations
+    project_instances(true).includes(:installations).references(:installations).
+      where('installations.id IS NOT NULL')
+  end
+
+  def production_instance?
+    !instances_with_installations.where(stage: 'Production').empty?
+  end
+
+  def staging_instance?
+    !instances_with_installations.where(stage: 'Staging').empty?
+  end
+
+  def production_backups?
+    !instances_with_installations.where(stage: 'Production').
+      where("backup_information IS NOT NULL AND backup_information != '' ").empty?
+  end
+
+  def refresh_reviews
+    reviews.each{ |r| r.respond_to_project_update }
   end
 
   private

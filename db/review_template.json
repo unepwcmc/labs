@@ -1,0 +1,258 @@
+{
+   "sections":[
+      {
+         "title":"Configuration & Documentation",
+         "code": "documentation",
+         "questions":[
+            {
+               "title":"GH repository documented in Labs",
+               "code": "gh_repository",
+               "auto_check": "github_identifier?",
+               "description": "Use N/A when GH repository not required"
+            },
+            {
+               "title":"Description in GH present & meaningful",
+               "code": "gh_description",
+               "skippable": true,
+               "description": "Skip only when GH repository not required"
+            },
+            {
+               "title":"Setup instructions in the README",
+               "code": "gh_setup_instructions",
+               "description": "Both development setup and deployment considerations"
+            },
+            {
+               "title":"Standard config store or description of a non-standard config in the README",
+               "code": "standard_config",
+               "description":"For example: database.yml & secrets.yml is standard for Rails 4"
+            },
+            {
+               "title":"No sensitive information exposed in the repository",
+               "code": "gh_sensitive_data",
+               "description":"For example: secret token, mailer details, CartoDB access, Amazon keys, user data"
+            },
+            {
+               "title":"No hardcoded urls, emails or other pieces of configuration in code",
+               "code": "hardcoded_constants",
+               "description":"For example: third-party API urls, notification emails"
+            },
+            {
+               "title":"Relevant passwords shared through the Admin Password DB",
+               "code": "shared_passwords",
+               "description":"For example: access details to any third party APIs"
+            },
+            {
+               "title":"Team members documented in Labs",
+               "code":"gh_contributors",
+               "auto_check": "team_members?",
+               "description": "Current lead and developers required"
+            },
+            {
+               "title":"Obsolete documentation removed",
+               "code":"obsolete",
+               "description":"Especially outdated setup instructions"
+            }
+         ]
+      },
+      {
+         "title":"Project dependencies",
+         "code":"dependencies",
+         "questions":[
+            {
+               "title":"Ruby version documented in Labs",
+               "code":"ruby_version",
+               "auto_check":"ruby_version?",
+               "description":"Use N/A when Ruby not relevant"
+            },
+            {
+               "title":"Rails version documented in Labs",
+               "code": "rails_version",
+               "auto_check":"rails_version?",
+               "description":"Use N/A when Rails not relevant"
+            },
+            {
+               "title":"Gemfile.lock with versions locked for futureproofing",
+               "code":"gemfile_lock",
+               "description":"For example: gems that depend on system or external APIs",
+               "skippable":true
+            },
+            {
+               "title":"Gemfile cleaned from unused gems & upgraded to reasonable versions",
+               "code":"gems",
+               "description":"For example: no gems with security flaws, no serious issues reported by Gemnasium",
+               "skippable":true
+            },
+            {
+               "title":"System dependencies documented in Labs",
+               "code":"system_dependencies",
+               "auto_check":"dependencies?",
+               "skippable":true,
+               "description": "For example: redis, MaxMind, LaTeX"
+            },
+            {
+               "title": "Background jobs configured",
+               "code":"background",
+               "description": "For example: redis installed, redis db assigned",
+               "skippable":true
+            },
+            {
+               "title": "Background jobs documented in Labs",
+               "code":"background_doc",
+               "description": "For example: redis connection string if sidekiq / redis workers are used on shared hosts",
+               "auto_check": "background_jobs?",
+               "skippable":true
+            },
+            {
+               "title":"Cron jobs configured",
+               "code":"cron",
+               "description": "For Rails applications as part of deploy script, e.g. via whenever gem",
+               "skippable":true
+            },
+            {
+               "title":"Cron jobs documented in Labs",
+               "code":"cron_doc",
+               "auto_check": "cron_jobs?",
+               "description": "For example: scheduled runs of aggregation scripts, geo location batch processing",
+               "skippable":true
+            },
+            {
+               "title":"Email service configured",
+               "code":"email",
+               "description":"Make sure site actually sends out emails (if applicable), a test end-point is useful",
+               "skippable":true
+            }
+         ]
+      },
+      {
+         "title":"Deployment",
+         "code":"deployment",
+         "questions":[
+            {
+               "title":"Automated multi-stage deployment scripts",
+               "code": "deployment_script",
+               "description":"For example: Capistrano for Rails applications",
+               "skippable":true
+            },
+            {
+               "title":"Production instance documented in Labs",
+               "code": "production_instance",
+               "description":"Any temporary or experimental instances should be documented as well, no zombie sites",
+               "auto_check":"production_instance?"
+            },
+            {
+               "title":"Staging instance documented in Labs",
+               "code": "staging_instance",
+               "description":"Any temporary or experimental instances should be documented as well, no zombie sites",
+               "auto_check":"staging_instance?",
+               "skippable":true
+            },
+            {
+               "title":"Backups configured",
+               "code": "backups",
+               "description":"Both database & file system (where applicable)"
+            },
+            {
+               "title":"Backups documented in Labs",
+               "code": "backups_doc",
+               "description":"Backup locations",
+               "auto_check":"production_backups?"
+            },
+            {
+               "title":"Availability monitoring configured for all subsystems",
+               "code":"availability",
+               "description":"For example: nagios checks for web application & sidekiq workers"
+            },
+            {
+               "title":"Performance monitoring configured",
+               "code":"performance",
+               "description": "For example: New Relic, munin",
+               "skippable":true
+            },
+            {
+               "title":"Assets load correctly",
+               "code":"assets",
+               "description":"For example: font awesome, sprites included by js libraries"
+            },
+            {
+               "title":"Logs are written to & rotated",
+               "code":"logs",
+               "description": "For example: standard rails logs, sidekiq log, cron output log"
+            },
+            {
+               "title":"Temporary installations & zombie sites cleaned up",
+               "code":"zombie",
+               "description":"Also temporary databases, especially if they contain user data"
+            }
+         ]
+      },
+      {
+         "title":"Code quality",
+         "code": "code",
+         "questions":[
+            {
+               "title":"Automated test suite passes",
+               "code": "test_suite",
+               "skippable":true,
+               "description": "Only skippable for legacy applications"
+            },
+            {
+               "title":"CI build configured",
+               "code":"ci",
+               "skippable":true,
+               "description": "Only skippable for legacy applications"
+            },
+            {
+               "title":"Test coverage > 80%",
+               "code": "test_coverage",
+               "description":"For example: simplecov, CodeClimate",
+               "skippable":true
+            },
+            {
+               "title":"Exception notification configured",
+               "description": "email / slack notifications configured or other error tracking service in place",
+               "code": "exception_notifier",
+               "skippable":true,
+               "description": "Only skippable for legacy applications"
+            },
+            {
+               "title":"Application code security audit passed",
+               "code":"security",
+               "description": "For example: http://brakemanscanner.org/, security report in CodeClimate or review by human",
+               "skippable": true
+            },
+            {
+               "title":"Application code style review passed",
+               "code":"best_practices",
+               "description": "For example: https://github.com/railsbp/rails_best_practices, https://github.com/bbatsov/rubocop or review by human",
+               "skippable":true
+            }
+         ]
+      },
+      {
+         "title":"Pre-launch checks",
+         "code":"pre-launch",
+         "questions":[
+            {
+               "title":"Site renders properly in IE",
+               "code": "ie",
+               "description":"Most of the time versions 9+ need to be considered",
+               "skippable":true
+            },
+            {
+               "title":"Site renders properly on mobile devices",
+               "code": "mobile",
+               "skippable":true,
+               "description": "For example: the Google Page Speed Insights check"
+            },
+            {
+               "title":"Google Analytics configured",
+               "code": "ga"
+            },
+            {
+               "title":"Title & meta tags set properly",
+               "code":"meta"
+            }
+         ]
+      }
+   ]
+}

@@ -24,7 +24,7 @@ class ProjectsControllerTest < ActionController::TestCase
     sign_in @user
     get :list, format: :html
     assert_response :success
-    assert_equal assigns(:projects), Project.all
+    assert_equal assigns(:projects), Project.includes(:project_instances, :reviews).order(:title, 'reviews.updated_at')
   end
 
   test "should get lists in csv" do

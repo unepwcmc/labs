@@ -1,0 +1,17 @@
+.error-feedback, .success-feedback { display: none }
+.error {
+  .error-feedback {
+    display: inline-block;
+    color: red;
+  }
+}
+.success {
+  .success-feedback {
+    display: inline-block;
+    color: green;
+  }
+}
+
+.auto-check {
+  font-style: italic;
+}

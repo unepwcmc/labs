@@ -1,0 +1,46 @@
+<div class="page-header">
+  <h1>Editing Review</h1>
+</div>
+
+<div class="btn-group">
+  <%= button_to 'Show', @review, method: :get, class: "btn btn-primary" %>
+  <%= button_to 'Back', reviews_path, method: :get, class: "btn btn-primary" %>
+</div>
+
+<%= render 'form' %>
+
+<div class="page-header">
+</div>
+
+<div aria-multiselectable="true" role="tablist" class="panel-group">
+  <% @sections.each_with_index do |section, idx| %>
+    <div class="panel panel-default">
+      <div id="heading<%= section.id %>" role="tab" class="panel-heading">
+        <h4 class="panel-title">
+          <a aria-controls="collapse<%= section.id %>" aria-expanded="false"
+            href="#collapse<%= section.id %>" data-toggle="collapse" role="button"
+            class="<%= 'collapsed' unless idx == 0 %>"
+          >
+            <%= section.title %>
+          </a>
+        </h4>
+      </div>
+      <div aria-labelledby="heading<%= section.id %>" role="tabpanel"
+        class="panel-collapse collapse <%= 'in' if idx == 0%>" id="collapse<%= section.id %>"
+      >
+        <div class="panel-body">
+          <% section.questions.each do |question| %>
+            <div class="<%= 'auto-check' if question.auto_check? %>" >
+              <h4 class="col-sm-8"><%= question.title %></h4>
+              <div class="col-sm-2">
+                <%= review_input_group(question) %>
+              </div>
+              <%= feedback(question) %>
+              <p class="help-block col-sm-12"><%= question.description %></p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
