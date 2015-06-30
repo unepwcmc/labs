@@ -51,7 +51,7 @@ module ReviewsHelper
     answer = @review.try(:answer, question)
     feedback = answer && answer.is_acceptable?(question) ? 'success' : 'error'
     feedback_icon(feedback) +
-    fixme_button(feedback, question.auto_check?)
+    fixme_button(answer.try(:done?), question.auto_check?)
   end
 
   private
@@ -82,10 +82,10 @@ module ReviewsHelper
     end
   end
 
-  # feedback_type is either 'success' or 'error'
-  def fixme_button(feedback_type, auto_check)
+  # done is a boolean value
+  def fixme_button(done, auto_check)
     content_tag(:div, class: "col-sm-1") do
-      if feedback_type == 'error' && auto_check
+      if !done && auto_check
         link_to edit_project_path(@review.project) do
           content_tag(:button, 'FIXME', type: "button", class: "btn btn-warning btn-xs")
         end
