@@ -21,23 +21,22 @@ module ProjectsHelper
   end
 
   PASS_THRESHOLD = 1.0
+  SATISFACTORY_THRESHOLD = 0.8
 
   def review_score(review)
     return '' unless review
     link_to review_path(review) do
       if review.result >= PASS_THRESHOLD
         content_tag(:div, class: 'review-success') do
-          content_tag(:span, review.result_formatted,
-            {class: 'fa fa-thumbs-up', 'aria-hidden' => true}
-          ) +
-          content_tag(:span, 'success', class: 'sr-only')
+          fa_icon_in_span('check-circle', 'success', review.result_formatted)
+        end
+      elsif review.result >= SATISFACTORY_THRESHOLD
+        content_tag(:div, class: 'review-warning') do
+          fa_icon_in_span('exclamation-circle', 'warning', review.result_formatted)
         end
       else
         content_tag(:div, class: 'review-error') do
-          content_tag(:span, review.result_formatted,
-            {class: 'fa fa-thumbs-down', 'aria-hidden' => true}
-          ) +
-          content_tag(:span, 'error', class: 'sr-only')
+          fa_icon_in_span('minus-circle', 'error', review.result_formatted)
         end
       end
     end

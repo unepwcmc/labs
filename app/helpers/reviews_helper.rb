@@ -75,10 +75,7 @@ module ReviewsHelper
 
   def generic_feedback_icon(feedback_type, icon_name)
     content_tag(:div, class: "#{feedback_type}-feedback") do
-      content_tag(:span, nil,
-        {class: "fa fa-#{icon_name}", 'aria-hidden' => true}
-      ) +
-      content_tag(:span, feedback_type, class: 'sr-only')
+      fa_icon_in_span(icon_name, feedback_type)
     end
   end
 

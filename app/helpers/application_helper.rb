@@ -17,4 +17,11 @@ module ApplicationHelper
     end
     nil
   end
+
+  def fa_icon_in_span(icon_name, sr_msg, msg=nil)
+    content_tag(:span, " #{msg} ",
+      {class: "fa fa-#{icon_name}", 'aria-hidden' => true}
+    ) +
+    content_tag(:span, sr_msg, class: 'sr-only')
+  end
 end
