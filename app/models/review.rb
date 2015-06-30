@@ -40,7 +40,7 @@ class Review < ActiveRecord::Base
         answer = self.answers.where(review_question_id: question.id).first
         answer ||= self.answers.build(review_question_id: question.id)
         answer.done = answer.auto_answer(project, question.auto_check.to_sym)
-        answer.skipped = true if question.skippable && !answer.done
+        answer.skipped = (question.skippable && !answer.done)
         answer.save!
       end
     end
