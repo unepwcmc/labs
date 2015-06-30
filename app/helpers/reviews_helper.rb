@@ -10,31 +10,11 @@ module ReviewsHelper
   end
 
   def review_radio_button(question, value, is_checked, is_disabled)
-    content_tag(:label, class: 'radio-inline') do
-      radio_properties = {
-        type: 'radio', value: value, name: "answer[#{question.id}][done]",
-        class: 'review-answer',
-        'data-question-id' => question.id,
-        'data-review-id' => @review.id
-      }
-      radio_properties['checked'] = 'checked' if is_checked
-      radio_properties['disabled'] = 'disabled' if is_disabled
-      content_tag(:input, value, radio_properties)
-    end
+    review_input('radio', question, value, is_checked, is_disabled)
   end
 
   def review_checkbox(question, value, is_checked, is_disabled)
-    content_tag(:label, class: 'checkbox-inline') do
-      checkbox_properties = {
-        type: 'checkbox', value: value, name: "answer[#{question.id}][done]",
-        class: 'review-answer',
-        'data-question-id' => question.id,
-        'data-review-id' => @review.id
-      }
-      checkbox_properties['checked'] = 'checked' if is_checked
-      checkbox_properties['disabled'] = 'disabled' if is_disabled
-      content_tag(:input, value, checkbox_properties)
-    end
+    review_input('checkbox', question, value, is_checked, is_disabled)
   end
 
   def review_input_group(question)
@@ -87,6 +67,21 @@ module ReviewsHelper
           content_tag(:button, 'FIXME', type: "button", class: "btn btn-warning btn-xs")
         end
       end
+    end
+  end
+
+  # input_type is checkbox or radio
+  def review_input(input_type, question, value, is_checked, is_disabled)
+    content_tag(:label, class: "#{input_type}-inline") do
+      properties = {
+        type: input_type, value: value, name: "answer[#{question.id}][done]",
+        class: 'review-answer',
+        'data-question-id' => question.id,
+        'data-review-id' => @review.id
+      }
+      properties['checked'] = 'checked' if is_checked
+      properties['disabled'] = 'disabled' if is_disabled
+      content_tag(:input, value, properties)
     end
   end
 end
