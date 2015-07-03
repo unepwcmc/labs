@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: review_answers
+#
+#  id                 :integer          not null, primary key
+#  review_id          :integer          not null
+#  review_question_id :integer          not null
+#  done               :boolean          default(FALSE), not null
+#  skipped            :boolean          default(FALSE), not null
+#  created_at         :datetime
+#  updated_at         :datetime
+#
+
 class ReviewAnswer < ActiveRecord::Base
   belongs_to :review
   belongs_to :question, class_name: ReviewQuestion, foreign_key: :review_question_id

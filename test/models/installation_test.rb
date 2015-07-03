@@ -9,6 +9,8 @@
 #  created_at          :datetime
 #  updated_at          :datetime
 #  project_instance_id :integer          not null
+#  deleted_at          :datetime
+#  closing             :boolean          default(FALSE)
 #
 
 require 'test_helper'

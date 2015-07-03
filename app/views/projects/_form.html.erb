@@ -134,9 +134,10 @@
       </div>
 
       <div class="form-group">
-        <%= f.label :hacks, class: "col-sm-2 control-label" %>
+        <%= f.label :user_access, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-          <%= f.text_area :hacks, class: "form-control" %>
+          <%= f.text_field :user_access, class: "form-control" %>
+          <p class="help-block">E.g.: public, public + admin accounts, third party auth, WCMC domain auth</p>
         </div>
       </div>
 
@@ -159,6 +160,13 @@
         <%= f.label :cron_jobs, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
           <%= f.text_area :cron_jobs, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :hacks, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :hacks, class: "form-control" %>
         </div>
       </div>
 

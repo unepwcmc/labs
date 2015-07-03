@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150618110613) do
+ActiveRecord::Schema.define(version: 20150703124853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(version: 20150618110613) do
     t.text     "internal_description"
     t.text     "background_jobs"
     t.text     "cron_jobs"
+    t.text     "user_access"
   end
 
   create_table "review_answers", force: true do |t|
@@ -156,13 +157,6 @@ ActiveRecord::Schema.define(version: 20150618110613) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "ssh_key_name"
-  end
-
-  create_table "tests", force: true do |t|
-    t.integer "a"
-    t.integer "b"
-    t.integer "c"
-    t.text    "d"
   end
 
   create_table "users", force: true do |t|

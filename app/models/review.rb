@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: reviews
+#
+#  id          :integer          not null, primary key
+#  project_id  :integer          not null
+#  reviewer_id :integer          not null
+#  result      :decimal(, )      not null
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
 class Review < ActiveRecord::Base
   belongs_to :project
   belongs_to :reviewer, class_name: User, foreign_key: :reviewer_id

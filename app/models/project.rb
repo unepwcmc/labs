@@ -31,6 +31,7 @@
 #  internal_description  :text
 #  background_jobs       :text
 #  cron_jobs             :text
+#  user_access           :text
 #
 
 class Project < ActiveRecord::Base

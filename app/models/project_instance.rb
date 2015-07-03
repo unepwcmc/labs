@@ -7,11 +7,13 @@
 #  name               :string(255)      not null
 #  url                :string(255)      not null
 #  backup_information :text
-#  stage              :string(255)      not null
+#  stage              :string(255)      default("Production"), not null
 #  branch             :string(255)
 #  description        :text
 #  created_at         :datetime
 #  updated_at         :datetime
+#  deleted_at         :datetime
+#  closing            :boolean          default(FALSE)
 #
 
 class ProjectInstance < ActiveRecord::Base
