@@ -149,7 +149,10 @@
       <%= @project.state %>
     </p>
 
-    <%= display_text @project, :hacks %>
+    <p>
+      <strong>User access:</strong>
+      <%= @project.user_access %>
+    </p>
 
     <p>
       <strong>Repository URL:</strong>
@@ -162,6 +165,13 @@
       <strong>Background Jobs:</strong>
       <%= @project.background_jobs %>
     </p>
+
+    <p>
+      <strong>Cron Jobs:</strong>
+      <%= @project.cron_jobs %>
+    </p>
+
+    <%= display_text @project, :hacks %>
   </div>
 
   <div class="col-lg-6">
@@ -192,11 +202,6 @@
       <% else %>
         This project has no other technologies
       <% end %>
-    </p>
-
-    <p>
-      <strong>Cron Jobs:</strong>
-      <%= @project.cron_jobs %>
     </p>
   </div>
 </div>
