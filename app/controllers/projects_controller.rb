@@ -22,24 +22,9 @@ class ProjectsController < ApplicationController
   end
 
   def list
-
     respond_to do |format|
-      format.html {
-        @projects = Project.includes(:project_instances, :reviews).order(:title, 'reviews.updated_at')
-        gon.push({
-          :states => Project.pluck_field(:state),
-          :rails_versions => Project.pluck_field(:rails_version),
-          :ruby_versions => Project.pluck_field(:ruby_version),
-          :postgresql_versions => Project.pluck_field(:postgresql_version)
-        })
-      }
-      format.csv {
-        if params[:scope] == 'species'
-          send_file(Pathname.new(SpeciesProjectsExport.new.export).realpath, type: 'text/csv')
-        else
-          send_file(Pathname.new(ProjectsExport.new.export).realpath, type: 'text/csv')
-        end
-      }
+      format.html { html_list }
+      format.csv { csv_list }
     end
   end
 
@@ -150,4 +135,24 @@ class ProjectsController < ApplicationController
   def rescue_has_instances_exception(exception)
     redirect_to :back, alert: "This project has project instances. Delete its project instances first"
   end
+
+  def html_list
+    @projects = Project.includes(:project_instances, :reviews).order(:title, 'reviews.updated_at')
+    gon.push({
+      :states => Project.pluck_field(:state),
+      :rails_versions => Project.pluck_field(:rails_version),
+      :ruby_versions => Project.pluck_field(:ruby_version),
+      :postgresql_versions => Project.pluck_field(:postgresql_version)
+    })
+  end
+
+  def csv_list
+    project_export = if params[:scope] == 'species'
+      SpeciesProjectsExport.new
+    else
+      ProjectsExport.new
+    end
+    send_file(project_export.export, type: 'text/csv')
+  end
+
 end

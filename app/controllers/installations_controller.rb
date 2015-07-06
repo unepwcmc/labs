@@ -15,7 +15,7 @@ class InstallationsController < ApplicationController
         render 'index'
       }
       format.csv {
-        send_file(Pathname.new(InstallationsExport.new.export).realpath, type: 'text/csv')
+        send_file(InstallationsExport.new.export, type: 'text/csv')
       }
     end
   end

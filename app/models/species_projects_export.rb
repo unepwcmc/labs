@@ -32,7 +32,8 @@ class SpeciesProjectsExport
       'Projects this p. depends on',
       'Projects that depend on this p.'
     ]
-    @file_name = "#{Rails.root}/public/downloads/species_projects_#{Date.today}.csv"
   end
+
+  def collection_name; 'species_projects'; end
 
 end

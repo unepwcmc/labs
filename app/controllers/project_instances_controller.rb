@@ -13,7 +13,7 @@ class ProjectInstancesController < ApplicationController
         render 'index'
       }
       format.csv {
-        send_file(Pathname.new(ProjectInstancesExport.new.export).realpath, type: 'text/csv')
+        send_file(ProjectInstancesExport.new.export, type: 'text/csv')
       }
     end
   end

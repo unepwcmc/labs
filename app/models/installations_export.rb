@@ -22,7 +22,8 @@ class InstallationsExport
       'Description',
       'Created at', 'Updated at'
     ]
-    @file_name = "#{Rails.root}/public/downloads/installations_#{Date.today}.csv"
   end
+
+  def collection_name; 'installations'; end
 
 end
