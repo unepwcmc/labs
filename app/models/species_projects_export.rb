@@ -9,6 +9,7 @@ class SpeciesProjectsExport
       'External clients',
       'Instance URL',
       'Instance Stage',
+      'Instance notes',
       'Instance closing',
       'Web Server',
       'Web Server notes',
