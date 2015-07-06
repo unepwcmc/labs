@@ -1,26 +1,26 @@
-class ProjectsExport
+class SpeciesProjectsExport
   def initialize
-    @projects = Project.from('projects_export AS projects').
-    order('projects.title')
+    @projects = Project.from('species_projects_export AS projects')
 
     @columns = [
-      'ID',
       'Name',
-      'URL',
-      'Description',
-      'Internal description',
       'External clients',
-      'Internal clients',
+      'Instance URL',
+      'Instance Stage',
+      'Instance closing',
+      'Web Server',
+      'Web Server notes',
+      'Web closing',
+      'DB Server',
+      'DB Server notes',
+      'DB closing',
       'Project leads',
       'Current lead',
-      'Developers',
-      'Expected release date',
       'State',
       'User access',
-      '# of instances',
       'Github ID',
-      'Rails version',
       'Ruby version',
+      'Rails version',
       'PostgreSQL version',
       'Other technologies',
       'System dependencies',
@@ -28,11 +28,9 @@ class ProjectsExport
       'Cron jobs',
       'Hacks',
       'Projects this p. depends on',
-      'Projects that depend on this p.',
-      'Created at',
-      'Updated at'
+      'Projects that depend on this p.'
     ]
-    @file_name = "#{Rails.root}/public/downloads/projects_#{Date.today}.csv"
+    @file_name = "#{Rails.root}/public/downloads/species_projects_#{Date.today}.csv"
   end
 
   def export

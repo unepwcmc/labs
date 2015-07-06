@@ -34,7 +34,11 @@ class ProjectsController < ApplicationController
         })
       }
       format.csv {
-        send_file(Pathname.new(ProjectsExport.new.export).realpath, type: 'text/csv')
+        if params[:scope] == 'species'
+          send_file(Pathname.new(SpeciesProjectsExport.new.export).realpath, type: 'text/csv')
+        else
+          send_file(Pathname.new(ProjectsExport.new.export).realpath, type: 'text/csv')
+        end
       }
     end
   end
