@@ -1,6 +1,8 @@
 class SpeciesProjectsExport
+  include CsvExportable
+
   def initialize
-    @projects = Project.from('species_projects_export AS projects')
+    @relation = Project.from('species_projects_export AS projects')
 
     @columns = [
       'Name',
@@ -19,8 +21,8 @@ class SpeciesProjectsExport
       'State',
       'User access',
       'Github ID',
-      'Ruby version',
       'Rails version',
+      'Ruby version',
       'PostgreSQL version',
       'Other technologies',
       'System dependencies',
@@ -33,15 +35,4 @@ class SpeciesProjectsExport
     @file_name = "#{Rails.root}/public/downloads/species_projects_#{Date.today}.csv"
   end
 
-  def export
-    File.open(@file_name, 'w') do |f|
-      f.write PgCsv.new(
-        sql: @projects.to_sql,
-        columns: @columns,
-        encoding: 'UTF8',
-        type: :plain
-      ).export
-    end
-    @file_name
-  end
 end
