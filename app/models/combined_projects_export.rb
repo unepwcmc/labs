@@ -1,8 +1,8 @@
-class SpeciesProjectsExport
+class CombinedProjectsExport
   include CsvExportable
 
   def initialize
-    @relation = Project.from('species_projects_export AS projects')
+    @relation = Project.from('combined_projects_export AS projects')
 
     @columns = [
       'Name',
@@ -35,6 +35,6 @@ class SpeciesProjectsExport
     ]
   end
 
-  def collection_name; 'species_projects'; end
+  def collection_name; 'combined_projects'; end
 
 end

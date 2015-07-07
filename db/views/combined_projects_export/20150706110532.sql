@@ -32,7 +32,6 @@ LEFT JOIN installations web ON web.project_instance_id = project_instances.id AN
 LEFT JOIN servers web_servers ON web.server_id = web_servers.id
 LEFT JOIN installations db ON db.project_instance_id = project_instances.id AND db.role ~* 'database'
 LEFT JOIN servers db_servers ON db.server_id = db_servers.id
-WHERE internal_clients ~* 'species'
 AND project_instances.deleted_at IS NULL
 AND web.deleted_at IS NULL
 AND db.deleted_at IS NULL

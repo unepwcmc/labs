@@ -147,8 +147,8 @@ class ProjectsController < ApplicationController
   end
 
   def csv_list
-    project_export = if params[:scope] == 'species'
-      SpeciesProjectsExport.new
+    project_export = if params[:scope] == 'combined'
+      CombinedProjectsExport.new
     else
       ProjectsExport.new
     end
