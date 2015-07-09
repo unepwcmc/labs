@@ -20,7 +20,8 @@ class InstallationsControllerTest < ActionController::TestCase
   test "should get index in csv" do
     get :index, format: :csv
     assert_response :success
-    assert_equal "text/csv", response.headers['Content-Type']
+    assert_equal "text/csv", response.content_type
+    assert_match /attachment; filename=\"installations.+\.csv\"/, response.headers["Content-Disposition"]
   end
 
   test "should get new" do
@@ -111,10 +112,4 @@ class InstallationsControllerTest < ActionController::TestCase
     end
   end
 
-  test "returns installations download file" do
-    sign_in @user
-    get :index, format: :csv
-    assert_equal "text/csv", response.content_type
-    assert_match /attachment; filename=\"installations.+\.csv\"/, response.headers["Content-Disposition"]
-  end
 end
