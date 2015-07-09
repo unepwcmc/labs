@@ -216,4 +216,11 @@ class ProjectInstancesControllerTest < ActionController::TestCase
     assert_equal 2, @project_instance_with_installations.installations.count
   end
 
+  test "returns project instances download file" do
+    sign_in @user
+    get :index, format: :csv
+    assert_equal "text/csv", response.content_type
+    assert_match /attachment; filename=\"project_instances.+\.csv\"/, response.headers["Content-Disposition"]
+  end
+
 end

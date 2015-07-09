@@ -110,4 +110,11 @@ class InstallationsControllerTest < ActionController::TestCase
       assert_equal 0, Installation.only_deleted.count
     end
   end
+
+  test "returns installations download file" do
+    sign_in @user
+    get :index, format: :csv
+    assert_equal "text/csv", response.content_type
+    assert_match /attachment; filename=\"installations.+\.csv\"/, response.headers["Content-Disposition"]
+  end
 end
