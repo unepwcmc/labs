@@ -1,25 +1,26 @@
-class ProjectsExport
+class CombinedProjectsExport
   include CsvExportable
 
   def initialize
-    @relation = Project.from('projects_export AS projects').
-    order('projects.title')
+    @relation = Project.from('combined_projects_export AS projects')
 
     @columns = [
-      'ID',
       'Name',
-      'URL',
-      'Description',
-      'Internal description',
       'External clients',
-      'Internal clients',
+      'Instance URL',
+      'Instance Stage',
+      'Instance notes',
+      'Instance closing',
+      'Web Server',
+      'Web Server notes',
+      'Web closing',
+      'DB Server',
+      'DB Server notes',
+      'DB closing',
       'Project leads',
       'Current lead',
-      'Developers',
-      'Expected release date',
       'State',
       'User access',
-      '# of instances',
       'Github ID',
       'Rails version',
       'Ruby version',
@@ -30,12 +31,10 @@ class ProjectsExport
       'Cron jobs',
       'Hacks',
       'Projects this p. depends on',
-      'Projects that depend on this p.',
-      'Created at',
-      'Updated at'
+      'Projects that depend on this p.'
     ]
   end
 
-  def collection_name; 'projects'; end
+  def collection_name; 'combined_projects'; end
 
 end

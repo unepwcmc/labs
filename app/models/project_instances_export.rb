@@ -1,6 +1,8 @@
 class ProjectInstancesExport
+  include CsvExportable
+
   def initialize
-    @project_instances = ProjectInstance.
+    @relation = ProjectInstance.
       select([
         'id',
         'name', 'url',
@@ -24,18 +26,8 @@ class ProjectInstancesExport
       '# of installations',
       'Created at', 'Updated at'
     ]
-    @file_name = "#{Rails.root}/public/downloads/project_instances_#{Date.today}.csv"
   end
 
-  def export
-    File.open(@file_name, 'w') do |f|
-      f.write PgCsv.new(
-        sql: @project_instances.to_sql,
-        columns: @columns,
-        encoding: 'UTF8',
-        type: :plain
-      ).export
-    end
-    @file_name
-  end
+  def collection_name; 'project_instances'; end
+
 end

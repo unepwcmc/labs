@@ -19,10 +19,11 @@ class ProjectInstancesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:projects_instances)
   end
 
-  test "sould get index in csv" do
+  test "should get index in csv" do
     get :index, format: :csv
     assert_response :success
     assert_equal "text/csv", response.content_type
+    assert_match /attachment; filename=\"project_instances.+\.csv\"/, response.headers["Content-Disposition"]
   end
 
   test "should get new" do

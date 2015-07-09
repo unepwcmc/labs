@@ -32,8 +32,16 @@ class ProjectsControllerTest < ActionController::TestCase
     get :list, format: :csv
     assert_response :success
     assert_equal "text/csv", response.content_type
+    assert_match /attachment; filename=\"projects.+\.csv\"/, response.headers["Content-Disposition"]
   end
 
+  test "should get combined list in csv" do
+    sign_in @user
+    get :list, scope: 'combined', format: :csv
+    assert_response :success
+    assert_equal "text/csv", response.content_type
+    assert_match /attachment; filename=\"combined_projects.+\.csv\"/, response.headers["Content-Disposition"]
+  end
 
   test "should return matching public projects on public search" do
     get :index, search: "cod"
@@ -191,4 +199,5 @@ class ProjectsControllerTest < ActionController::TestCase
     end
     assert_equal 0, @project_with_dependencies.master_projects.count
   end
+
 end

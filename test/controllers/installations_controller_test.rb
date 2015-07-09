@@ -20,7 +20,8 @@ class InstallationsControllerTest < ActionController::TestCase
   test "should get index in csv" do
     get :index, format: :csv
     assert_response :success
-    assert_equal "text/csv", response.headers['Content-Type']
+    assert_equal "text/csv", response.content_type
+    assert_match /attachment; filename=\"installations.+\.csv\"/, response.headers["Content-Disposition"]
   end
 
   test "should get new" do
@@ -110,4 +111,5 @@ class InstallationsControllerTest < ActionController::TestCase
       assert_equal 0, Installation.only_deleted.count
     end
   end
+
 end
