@@ -13,6 +13,10 @@ Labs::Application.routes.draw do
     end
   end
 
+  namespace :api do
+    post '/projects_domains/upload_model', to: 'projects_domains#upload_model', as: 'upload_model'
+  end
+
   get '/projects/sync', to: 'github_sync#index', as: 'sync_projects'
   post '/projects/sync', to: 'github_sync#sync'
 
