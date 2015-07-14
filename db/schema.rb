@@ -17,6 +17,17 @@ ActiveRecord::Schema.define(version: 20151127155114) do
   enable_extension "plpgsql"
   enable_extension "pg_trgm"
   enable_extension "fuzzystrmatch"
+  enable_extension "hstore"
+
+  create_table "columns", force: true do |t|
+    t.integer  "model_id"
+    t.string   "name",       null: false
+    t.string   "col_type",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "columns", ["model_id"], name: "index_columns_on_model_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.text     "content",          null: false
@@ -38,7 +49,13 @@ ActiveRecord::Schema.define(version: 20151127155114) do
     t.datetime "updated_at"
   end
 
-  create_table "installations", force: :cascade do |t|
+  create_table "domains", force: true do |t|
+    t.integer  "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "installations", force: true do |t|
     t.integer  "server_id",                           null: false
     t.string   "role",                                null: false
     t.text     "description"
@@ -53,7 +70,16 @@ ActiveRecord::Schema.define(version: 20151127155114) do
   add_index "installations", ["project_instance_id"], name: "index_installations_on_project_instance_id", using: :btree
   add_index "installations", ["server_id"], name: "index_installations_on_server_id", using: :btree
 
-  create_table "pg_search_documents", force: :cascade do |t|
+  create_table "models", force: true do |t|
+    t.integer  "domain_id"
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "models", ["domain_id"], name: "index_models_on_domain_id", using: :btree
+
+  create_table "pg_search_documents", force: true do |t|
     t.text     "content"
     t.integer  "searchable_id"
     t.string   "searchable_type"
@@ -110,7 +136,16 @@ ActiveRecord::Schema.define(version: 20151127155114) do
     t.text     "user_access"
   end
 
-  create_table "review_answers", force: :cascade do |t|
+  create_table "relationships", force: true do |t|
+    t.integer  "left_model_id",  null: false
+    t.integer  "right_model_id", null: false
+    t.string   "rel_type",       null: false
+    t.hstore   "options"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "review_answers", force: true do |t|
     t.integer  "review_id",                          null: false
     t.integer  "review_question_id",                 null: false
     t.boolean  "done",               default: false, null: false
@@ -186,13 +221,26 @@ ActiveRecord::Schema.define(version: 20151127155114) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  add_foreign_key "comments", "users"
-  add_foreign_key "dependencies", "projects", column: "master_project_id"
-  add_foreign_key "dependencies", "projects", column: "sub_project_id"
-  add_foreign_key "installations", "servers"
-  add_foreign_key "review_answers", "review_questions"
-  add_foreign_key "review_answers", "reviews"
-  add_foreign_key "review_questions", "review_sections"
-  add_foreign_key "reviews", "projects"
-  add_foreign_key "reviews", "users", column: "reviewer_id"
+  Foreigner.load
+  add_foreign_key "columns", "models", name: "columns_model_id_fk"
+
+  add_foreign_key "comments", "users", name: "comments_user_id_fk"
+
+  add_foreign_key "dependencies", "projects", name: "dependencies_master_project_id_fk", column: "master_project_id"
+  add_foreign_key "dependencies", "projects", name: "dependencies_sub_project_id_fk", column: "sub_project_id"
+
+  add_foreign_key "installations", "servers", name: "installations_server_id_fk", dependent: :delete
+
+  add_foreign_key "models", "domains", name: "models_domain_id_fk"
+
+  add_foreign_key "relationships", "models", name: "relationships_left_model_id_fk", column: "left_model_id"
+  add_foreign_key "relationships", "models", name: "relationships_right_model_id_fk", column: "right_model_id"
+
+  add_foreign_key "review_answers", "review_questions", name: "review_answers_review_question_id_fk", dependent: :delete
+  add_foreign_key "review_answers", "reviews", name: "review_answers_review_id_fk", dependent: :delete
+
+  add_foreign_key "review_questions", "review_sections", name: "review_questions_review_section_id_fk", dependent: :delete
+
+  add_foreign_key "reviews", "projects", name: "reviews_project_id_fk", dependent: :delete
+  add_foreign_key "reviews", "users", name: "reviews_reviewer_id_fk", column: "reviewer_id", dependent: :nullify
 end
