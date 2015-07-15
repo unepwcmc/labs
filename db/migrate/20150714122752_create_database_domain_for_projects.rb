@@ -23,6 +23,7 @@ class CreateDatabaseDomainForProjects < ActiveRecord::Migration
       t.integer :left_model_id, null: false
       t.integer :right_model_id, null: false
       t.string :rel_type, null: false
+      t.string :name, null: false
       t.hstore :options
       t.timestamps null: false
     end
