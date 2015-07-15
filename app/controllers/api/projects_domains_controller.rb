@@ -1,5 +1,9 @@
 class Api::ProjectsDomainsController < ApplicationController
   def upload_model
-    render json: JSON.parse(request.body.read)
+    json = JSON.parse(request.body.read)
+
+    Domain.add_domain(json)
+
+    render json: json
   end
 end
