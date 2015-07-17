@@ -1,0 +1,18 @@
+<table class="display table" id="relationships_table">
+  <thead>
+    <th>Model</th>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Options</th>
+  </thead>
+  <tbody>
+    <% @model.left_relationships.each do |relationship| %>
+      <tr>
+        <td><%= relationship.right_model.name %></td>
+        <td><%= relationship.name %></td>
+        <td><%= relationship.rel_type %></td>
+        <td><%= relationship.options %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

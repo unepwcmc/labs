@@ -7,7 +7,7 @@ class Domain < ActiveRecord::Base
     domain = Domain.create({project_id: project.id})
 
     add_models(domain_hash['models'], domain)
-    add_relationships(domain_hash['relationships'])
+    add_relationships(domain_hash['relationships'], domain)
   end
 
   private
@@ -24,11 +24,11 @@ class Domain < ActiveRecord::Base
     end
   end
 
-  def self.add_relationships relationships
+  def self.add_relationships relationships, domain
     relationships.each do |relationship|
       relationship["left_model"] = Model.find_by_name(relationship["left_model"]).id
       relationship["left_model_id"] = relationship.delete "left_model"
-      relationship["right_model"] = Model.find_by_name(relationship["right_model"]).id
+      relationship["right_model"] = Model.find_or_create_by({name: relationship["right_model"], domain_id: domain.id}).id
       relationship["right_model_id"] = relationship.delete "right_model"
 
       Relationship.create(relationship)

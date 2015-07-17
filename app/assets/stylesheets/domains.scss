@@ -1,0 +1,50 @@
+.models-sidebar{
+  display: inline-block;
+  position: relative;
+  float: left;
+  width: 230px;
+  h2 {
+    text-align: center;
+  }
+  .models-list {
+    height: 600px;
+    overflow-y: auto;
+    padding: 0;
+    list-style: none;
+    position: relative;
+    li {
+      border: solid 1px black;
+      margin-bottom: 5px;
+      text-align: center;
+    }
+    li:hover {
+      background-color: rgba(50,50,50,0.2);
+    }
+  }
+}
+
+.data-container {
+  display: inline-block;
+  margin: 0 0 0 50px;
+}
+
+#columns_table, #relationships_table {
+  margin: 50px auto;
+  position: relative;
+}
+
+.columns-row, .relationships-row {
+  height: 285px;
+  width: 850px;
+  overflow: auto;
+  margin: 15px 0 0 0;
+  position: relative;
+}
+
+.relationships-row {
+  margin-top: 20px;
+}
+
+.domain-container {
+  height: 800px;
+}

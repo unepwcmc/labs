@@ -1,0 +1,34 @@
+<div class="page-header">
+  <h1>Listing Domains</h1>
+</div>
+
+<div class="btn-group">
+  <!-- <%= button_to 'New Server', new_server_path, method: :get, class: "btn btn-primary" %> -->
+  Import Domain
+</div>
+
+<table class="display table" id="domains_table">
+  <thead>
+    <tr>
+      <th>Project</th>
+      <th>Created at</th>
+      <th>Updated at</th>
+      <th class="no-sort"></th>
+      <th class="no-sort"></th>
+      <th class="no-sort"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @domains.each do |domain| %>
+      <tr>
+        <td><%= link_to(domain.project.title, domain.project) %></td>
+        <td><%= domain.created_at %></td>
+        <td><%= domain.updated_at %></td>
+        <td><%= link_to(domain) { fa_icon "eye" } %></td>
+        <td><%= link_to(edit_domain_path(domain)) { fa_icon "pencil" } %></td>
+        <td><%= link_to(domain, method: :delete, data: { confirm: "Are you sure?" }){ fa_icon "trash" } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

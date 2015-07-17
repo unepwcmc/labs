@@ -18,7 +18,6 @@ class Server < ActiveRecord::Base
   acts_as_paranoid
 
   has_many :installations, dependent: :destroy
-  has_many :projects, through: :installations
   has_many :comments, as: :commentable
 
   #Validations
