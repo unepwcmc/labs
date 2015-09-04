@@ -112,7 +112,7 @@ class ProjectsController < ApplicationController
   end
 
   def available_employees
-    @employees = HTTParty.get('http://unep-wcmc.org/api/employees.json')
+    @employees = HTTParty.get('http://www.unep-wcmc.org/api/employees.json')
     if @employees.code != 200
       @employees = []
     end
