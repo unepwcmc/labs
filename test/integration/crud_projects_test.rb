@@ -6,7 +6,7 @@ class CrudProjectsTest < ActionDispatch::IntegrationTest
     @project = FactoryGirl.create(:project)
     @draft_project = FactoryGirl.create(:draft_project)
 
-    stub_request(:get, "http://unep-wcmc.org/api/employees.json").
+    stub_request(:get, ProjectsController::EMPLOYEES_END_POINT).
     to_return(:status => 200, :body => {"employees" => ['Test','Test']}.to_json,
       :headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby', :content_type => "application/json"})
   end
