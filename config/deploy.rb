@@ -2,7 +2,7 @@ set :default_stage, 'staging'
 require 'capistrano/ext/multistage'
 
 require 'rvm/capistrano'
-set :rvm_ruby_string, '2.0.0'
+set :rvm_ruby_string, '2.2.0'
 
 set :whenever_command, "bundle exec whenever"
 #require "whenever/capistrano"
@@ -85,13 +85,15 @@ server {
   add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
   add_header 'Access-Control-Allow-Headers' "X-Requested-With, X-Prototype-Version";
   add_header 'Access-Control-Max-Age' 1728000;
-  
+
+  passenger_ruby /home/rails/.rvm/gems/ruby-#{rvm_ruby_string}/wrappers/ruby;
+
   gzip on;
   location ^~ /assets/ {
     expires max;
     add_header Cache-Control public;
   }
-  
+
   if (-f $document_root/system/maintenance.html) {
     return 503;
   }
