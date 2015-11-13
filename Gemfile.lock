@@ -195,7 +195,7 @@ GEM
     pg_array_parser (0.0.9)
     pg_csv (0.2)
       pg (~> 0.17)
-    pg_search (0.7.9)
+    pg_search (1.0.5)
       activerecord (>= 3.1)
       activesupport (>= 3.1)
       arel
@@ -314,7 +314,7 @@ DEPENDENCIES
   pg (~> 0.18.3)
   pg_array_parser
   pg_csv (~> 0.2)
-  pg_search (~> 0.7.8)
+  pg_search (~> 1.0.5)
   rails (~> 4.1.9)
   rvm-capistrano
   sanitize
