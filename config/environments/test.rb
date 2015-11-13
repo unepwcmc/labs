@@ -8,7 +8,7 @@ Labs::Application.configure do
   config.cache_classes = true
 
   # Configure static asset server for tests with Cache-Control for performance
-  config.serve_static_assets = true
+  config.serve_static_files = true
   config.static_cache_control = "public, max-age=3600"
 
   config.eager_load = false
@@ -35,4 +35,12 @@ Labs::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  # Suppress warnings about default behaviour that is going to happen
+  # with Rails 5, which will set test_order to :random
+  Rails.application.configure do
+    config.active_support.test_order = :sorted
+  end
+
+  config.active_record.raise_in_transactional_callbacks = true
 end
