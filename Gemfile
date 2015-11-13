@@ -23,11 +23,11 @@ gem 'foreigner'
 gem "paranoia", "~> 2.0"
 gem 'gon'
 gem 'nested_form'
-gem 'bootstrap-sass', '~> 3.3.3'
+gem 'bootstrap-sass', '~> 3.3.5.1'
 gem 'sass-rails', '>= 3.2'
 # https://github.com/rweng/jquery-datatables-rails/issues/153
 gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
-gem 'bootstrap-datepicker-rails'
+gem 'bootstrap-datepicker-rails', '~> 1.5.0'
 gem 'pg_csv'
 gem 'kramdown'
 gem 'sanitize'
