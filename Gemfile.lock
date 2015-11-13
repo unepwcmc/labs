@@ -146,7 +146,7 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.3)
     jwt (1.2.1)
-    kramdown (1.2.0)
+    kramdown (1.9.0)
     launchy (2.4.3)
       addressable (~> 2.3)
     mail (2.6.3)
@@ -305,7 +305,7 @@ DEPENDENCIES
   httparty (~> 0.13.7)
   jquery-datatables-rails!
   jquery-rails
-  kramdown
+  kramdown (~> 1.9.0)
   launchy
   mini_magick
   mocha

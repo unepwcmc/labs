@@ -29,7 +29,7 @@ gem 'sass-rails', '>= 3.2'
 gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 gem 'bootstrap-datepicker-rails', '~> 1.5.0'
 gem 'pg_csv'
-gem 'kramdown'
+gem 'kramdown', '~> 1.9.0'
 gem 'sanitize'
 
 # To use ActiveModel has_secure_password
