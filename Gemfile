@@ -20,7 +20,7 @@ gem 'pg_array_parser'
 gem 'pg_search', '~> 0.7.8'
 gem 'select2-rails'
 gem 'foreigner'
-gem "paranoia", "~> 2.0"
+gem "paranoia", '~> 2.1.4'
 gem 'gon', '~> 6.0.1'
 gem 'nested_form'
 gem 'bootstrap-sass', '~> 3.3.5.1'
