@@ -193,8 +193,7 @@ GEM
       activerecord (~> 4.0)
     pg (0.18.3)
     pg_array_parser (0.0.9)
-    pg_csv (0.1.8)
-      activerecord
+    pg_csv (0.2)
       pg (~> 0.17)
     pg_search (0.7.9)
       activerecord (>= 3.1)
@@ -314,7 +313,7 @@ DEPENDENCIES
   paranoia (~> 2.1.4)
   pg (~> 0.18.3)
   pg_array_parser
-  pg_csv
+  pg_csv (~> 0.2)
   pg_search (~> 0.7.8)
   rails (~> 4.1.9)
   rvm-capistrano

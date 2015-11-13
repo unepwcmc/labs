@@ -28,7 +28,7 @@ gem 'sass-rails', '>= 3.2'
 # https://github.com/rweng/jquery-datatables-rails/issues/153
 gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 gem 'bootstrap-datepicker-rails', '~> 1.5.0'
-gem 'pg_csv'
+gem 'pg_csv', '~> 0.2'
 gem 'kramdown', '~> 1.9.0'
 gem 'sanitize'
 
