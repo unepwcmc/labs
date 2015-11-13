@@ -8,7 +8,7 @@ gem 'rvm-capistrano'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-gem 'pg'
+gem 'pg', '~> 0.18.3'
 gem 'httparty'
 gem 'devise'
 gem 'uglifier', '>= 1.0.3'

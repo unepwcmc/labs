@@ -191,7 +191,7 @@ GEM
     orm_adapter (0.5.0)
     paranoia (2.1.0)
       activerecord (~> 4.0)
-    pg (0.18.1)
+    pg (0.18.3)
     pg_array_parser (0.0.9)
     pg_csv (0.1.8)
       activerecord
@@ -312,7 +312,7 @@ DEPENDENCIES
   nested_form
   omniauth-github
   paranoia (~> 2.0)
-  pg
+  pg (~> 0.18.3)
   pg_array_parser
   pg_csv
   pg_search (~> 0.7.8)
@@ -329,3 +329,6 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
   webmock (~> 1.18.0)
   whenever
+
+BUNDLED WITH
+   1.10.6
