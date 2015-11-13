@@ -137,7 +137,7 @@ GEM
     hashie (3.4.0)
     highline (1.6.21)
     hike (1.2.3)
-    httparty (0.13.3)
+    httparty (0.13.7)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
@@ -302,7 +302,7 @@ DEPENDENCIES
   font-awesome-rails (~> 4.4.0.0)
   foreigner
   gon (~> 6.0.1)
-  httparty
+  httparty (~> 0.13.7)
   jquery-datatables-rails!
   jquery-rails
   kramdown
