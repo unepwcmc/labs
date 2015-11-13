@@ -133,8 +133,6 @@ GEM
       multipart-post (>= 1.2, < 3)
     font-awesome-rails (4.4.0.0)
       railties (>= 3.2, < 5.0)
-    foreigner (1.7.4)
-      activerecord (>= 3.0.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     gon (6.0.1)
@@ -316,7 +314,6 @@ DEPENDENCIES
   factory_girl_rails
   faker
   font-awesome-rails (~> 4.4.0.0)
-  foreigner
   gon (~> 6.0.1)
   httparty (~> 0.13.7)
   jquery-datatables-rails!
