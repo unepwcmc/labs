@@ -90,9 +90,9 @@ GEM
       capistrano (>= 1.0.0)
     capistrano-log_with_awesome (0.0.2)
       capistrano (>= 2.5.14)
-    capistrano-slack (1.3.1)
+    capistrano-slack (1.3.2)
       activesupport (>= 3)
-      capistrano (~> 2.15.5)
+      capistrano
       capistrano-log_with_awesome (~> 0.0.2)
     capybara (2.5.0)
       mime-types (>= 1.16)
@@ -306,7 +306,7 @@ DEPENDENCIES
   byebug
   capistrano
   capistrano-ext
-  capistrano-slack (= 1.3.1)
+  capistrano-slack (~> 1.3.2)
   capybara
   carrierwave
   codeclimate-test-reporter
@@ -324,7 +324,7 @@ DEPENDENCIES
   kramdown (~> 1.9.0)
   launchy
   mini_magick (~> 4.3.6)
-  mocha
+  mocha (~> 1.1.0)
   nested_form
   omniauth-github
   paranoia (~> 2.1.4)
