@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 ruby '2.2.3'
-gem 'rails', '~> 4.1.9'
+gem 'rails', '~> 4.2.4'
 #gem 'rake', '0.8.7'
 
 gem 'rvm-capistrano'
