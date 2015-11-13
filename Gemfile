@@ -10,7 +10,7 @@ gem 'rvm-capistrano'
 
 gem 'pg', '~> 0.18.3'
 gem 'httparty'
-gem 'devise'
+gem 'devise', '~> 3.5.2'
 gem 'uglifier', '~> 2.7.2'
 gem 'jquery-rails'
 gem 'carrierwave'
