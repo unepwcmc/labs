@@ -3,8 +3,6 @@ ruby '2.2.3'
 gem 'rails', '~> 4.2.4'
 #gem 'rake', '0.8.7'
 
-gem 'rvm-capistrano'
-
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
@@ -38,14 +36,18 @@ gem 'sanitize'
 # gem 'unicorn'
 
 # Deploy with Capistrano
-gem 'capistrano'
-gem 'brightbox'
-gem 'capistrano-ext'
-gem 'capistrano-slack', '~> 1.3.2'
-gem 'whenever'
-gem 'exception_notification', :git => 'https://github.com/smartinez87/exception_notification.git'
-gem 'slack-notifier'
-gem "font-awesome-rails", '~> 4.4.0.0'
+  gem 'capistrano', '~> 3.4', require: false
+  gem 'capistrano-rails',   '~> 1.1', require: false
+  gem 'capistrano-bundler', '~> 1.1', require: false
+  gem 'capistrano-rvm',   '~> 0.1', require: false
+  gem 'capistrano-sidekiq'
+  gem 'capistrano-maintenance', '~> 1.0', require: false
+  gem 'capistrano-passenger', '~> 0.1.1', require: false
+  gem 'capistrano-slack', '~> 1.3.2'
+  gem 'whenever'
+  gem 'exception_notification', :git => 'https://github.com/smartinez87/exception_notification.git'
+  gem 'slack-notifier'
+  gem "font-awesome-rails", '~> 4.4.0.0'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
