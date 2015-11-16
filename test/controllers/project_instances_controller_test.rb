@@ -164,7 +164,7 @@ class ProjectInstancesControllerTest < ActionController::TestCase
   end
 
   test "should get nagios list" do
-    stub_request(:get, "https://raw.githubusercontent.com/strtwtsn/strtwtsn.github.io/master/data.tsv").
+    stub_request(:get, Rails.application.secrets.nagios_list_url).
       to_return(:status => 200, :body => "name\tvalue\napi.speciesplus.net\t100.000\nbern-ors.unep-wcmc.org\t100.000", :headers => {})
     get :nagios_list
     assert_not_nil assigns(:sites)

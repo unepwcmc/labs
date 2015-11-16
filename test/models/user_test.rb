@@ -30,7 +30,7 @@ class UserTest < ActiveSupport::TestCase
   test "is_dev_team? method" do
     WebMock.disable_net_connect!(allow_localhost: true)
     @user = FactoryGirl.build(:user)
-    stub_request(:get, "https://api.github.com/teams/98845/memberships/#{@user.github}?access_token=#{@user.token}").
+    stub_request(:get, "#{Rails.application.secrets.github_api_base_url}teams/98845/memberships/#{@user.github}?access_token=#{@user.token}").
       with(:headers => {'User-Agent'=>'Labs'}).
       to_return(:status => 200, :body => {:state => 'active'}.to_json, :headers => {})
     assert_equal(true, @user.is_dev_team?)

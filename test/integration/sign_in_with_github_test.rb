@@ -17,7 +17,7 @@ class SignInWithGithubTest < ActionDispatch::IntegrationTest
 
   test "does not log in suspended user" do
     @user = FactoryGirl.create(:suspended_user)
-    stub_request(:get, "https://api.github.com/users/#{@user.github}?access_token=#{@user.token}").
+    stub_request(:get, "#{Rails.application.secrets.github_api_base_url}users/#{@user.github}?access_token=#{@user.token}").
       to_return(:status => 200, :body => {"test" => 'Test'}.to_json, :headers => {'Accept'=>'*/*', 'User-Agent'=>'Labs',
         :content_type => "application/json"})
 
