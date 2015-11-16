@@ -85,13 +85,13 @@ server {
   add_header 'Access-Control-Allow-Methods' "GET, POST, PUT, DELETE, OPTIONS";
   add_header 'Access-Control-Allow-Headers' "X-Requested-With, X-Prototype-Version";
   add_header 'Access-Control-Max-Age' 1728000;
-  
+
   gzip on;
   location ^~ /assets/ {
     expires max;
     add_header Cache-Control public;
   }
-  
+
   if (-f $document_root/system/maintenance.html) {
     return 503;
   }
@@ -111,7 +111,7 @@ put vhost_config, "/tmp/vhost_config"
 sudo "mv /tmp/vhost_config /etc/nginx/sites-available/#{application}"
 sudo "ln -s /etc/nginx/sites-available/#{application} /etc/nginx/sites-enabled/#{application}"
 end
- 
+
 after "deploy:setup", :config_vhost
 
 task :setup_production_database_configuration do
@@ -131,15 +131,6 @@ task :setup_production_database_configuration do
     put(spec.to_yaml, "#{shared_path}/config/database.yml")
 end
 after "deploy:setup", :setup_production_database_configuration
-
-desc 'Generate rails_admin.rb initializer file'
-task :generate_rails_admin do
-  secret_password = Capistrano::CLI.ui.ask("Enter your secret access password (Rails Admin initializer):")
-  template = File.read("config/deploy/rails_admin.rb.erb")
-  buffer = ERB.new(template).result(binding)
-  put buffer, "#{shared_path}/config/initializers/rails_admin.rb"
-end
-after "deploy:setup", :generate_rails_admin
 
 desc 'Generate config file'
 task :generate_config_file do
