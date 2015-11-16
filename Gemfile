@@ -43,7 +43,7 @@ gem 'sanitize'
   gem 'capistrano-sidekiq'
   gem 'capistrano-maintenance', '~> 1.0', require: false
   gem 'capistrano-passenger', '~> 0.1.1', require: false
-  gem 'capistrano-slack', '~> 1.3.2'
+  gem 'slackistrano', '~> 1.0.0', require: false
   gem 'whenever'
   gem 'exception_notification', :git => 'https://github.com/smartinez87/exception_notification.git'
   gem 'slack-notifier'
