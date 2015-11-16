@@ -4,8 +4,6 @@ Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
-  config.mailer_sender = "please-change-me-at-config-initializers-devise@example.com"
-  config.secret_key = '9ac37bfd0698b8646fb5d21f240b16c2e45b120b1922f733f13e6ec3a3d49eb390974788f33d174f0c0ebfc6140092bb0acdf1b348934e67e133f1d8aa906564'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
@@ -126,7 +124,7 @@ Devise.setup do |config|
   # The time you want to timeout the user session without activity. After this
   # time the user will be asked for credentials again. Default is 30 minutes.
   # config.timeout_in = 30.minutes
-  
+
   # If true, expires auth token on session timeout.
   # config.expire_auth_token_on_timeout = false
 
@@ -208,7 +206,7 @@ Devise.setup do |config|
   # up on your models and hooks.
   require 'yaml'
   secrets = YAML.load(File.open('config/secrets.yml'))[Rails.env]
-  
+
   config.omniauth :github, secrets["github_key"], secrets["github_secret"], :scope => 'user:email,repo,read:org'
 
   # ==> Warden configuration
