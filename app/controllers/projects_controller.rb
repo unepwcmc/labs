@@ -103,7 +103,6 @@ class ProjectsController < ApplicationController
     respond_with(@project)
   end
 
-  EMPLOYEES_END_POINT = 'http://www.unep-wcmc.org/api/employees.json'
   private
 
   def available_developers
@@ -113,7 +112,7 @@ class ProjectsController < ApplicationController
   end
 
   def available_employees
-    @employees = HTTParty.get(EMPLOYEES_END_POINT)
+    @employees = HTTParty.get(Rails.application.secrets.employees_endpoint_url)
     if @employees.code != 200
       @employees = []
     end
