@@ -21,7 +21,7 @@ set :ssh_options, {
   forward_agent: true,
 }
 
-set :linked_files, %w{config/database.yml .env config/config.yml config/secrets.yml}
+set :linked_files, %w{config/database.yml config/config.yml config/secrets.yml}
 
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
 
