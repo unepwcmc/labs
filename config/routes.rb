@@ -5,6 +5,8 @@ Labs::Application.routes.draw do
     delete '/users/sign_out', to: 'devise/sessions#destroy', as: 'destroy_user_session'
   end
 
+  get 'test_exception_notifier', controller: :application, action: :test_exception_notifier
+
   resources :users, :only => [:index] do
     member do
       patch :suspend
