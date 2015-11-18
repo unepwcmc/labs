@@ -34,11 +34,9 @@ ExceptionNotification.configure do |config|
   #   :room_name => 'my_room'
   # }
 
-    secrets = YAML.load(File.open('config/secrets.yml'))
-
     config.add_notifier :slack, {
-     :team => "wcmc",
-     :token => secrets["slack_exception_notification_token"],
-     :channel => "#labs"
+      webhook_url: Rails.application.secrets.slack_notification_webhook_url,
+      channel: "#labs",
+      username: "TheEvilSpiritOfLabs-#{Rails.env}"
    }
 end
