@@ -38,7 +38,7 @@ class ServersController < ApplicationController
 
   def destroy
     @server = Server.with_deleted.find(params[:id])
-    @server.destroy
+    @server.really_destroy!
     flash[:notice] = 'Server was successfully deleted'
 
     respond_with(@server)
