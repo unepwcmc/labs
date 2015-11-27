@@ -40,6 +40,11 @@ Labs::Application.routes.draw do
 
   resources :servers do
     resources :comments
+    collection do
+      put :soft_delete
+      get :deleted_list
+      put :restore
+    end
   end
 
   resources :comments do

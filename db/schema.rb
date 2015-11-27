@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150706110532) do
+ActiveRecord::Schema.define(version: 20151126160540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "fuzzystrmatch"
   enable_extension "pg_trgm"
+  enable_extension "fuzzystrmatch"
 
-  create_table "comments", force: true do |t|
+  create_table "comments", force: :cascade do |t|
     t.text     "content",          null: false
     t.integer  "commentable_id",   null: false
     t.string   "commentable_type", null: false
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20150706110532) do
   add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
-  create_table "dependencies", force: true do |t|
+  create_table "dependencies", force: :cascade do |t|
     t.integer  "master_project_id", null: false
     t.integer  "sub_project_id",    null: false
     t.text     "description"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20150706110532) do
     t.datetime "updated_at"
   end
 
-  create_table "installations", force: true do |t|
+  create_table "installations", force: :cascade do |t|
     t.integer  "server_id",                           null: false
     t.string   "role",                                null: false
     t.text     "description"
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 20150706110532) do
   add_index "installations", ["project_instance_id"], name: "index_installations_on_project_instance_id", using: :btree
   add_index "installations", ["server_id"], name: "index_installations_on_server_id", using: :btree
 
-  create_table "pg_search_documents", force: true do |t|
+  create_table "pg_search_documents", force: :cascade do |t|
     t.text     "content"
     t.integer  "searchable_id"
     t.string   "searchable_type"
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 20150706110532) do
     t.datetime "updated_at"
   end
 
-  create_table "project_instances", force: true do |t|
+  create_table "project_instances", force: :cascade do |t|
     t.integer  "project_id",                                null: false
     t.string   "name",                                      null: false
     t.string   "url",                                       null: false
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 20150706110532) do
   add_index "project_instances", ["deleted_at"], name: "index_project_instances_on_deleted_at", using: :btree
   add_index "project_instances", ["project_id"], name: "index_project_instances_on_project_id", using: :btree
 
-  create_table "projects", force: true do |t|
+  create_table "projects", force: :cascade do |t|
     t.string   "title",                                 null: false
     t.text     "description",                           null: false
     t.string   "url"
@@ -110,7 +110,7 @@ ActiveRecord::Schema.define(version: 20150706110532) do
     t.text     "user_access"
   end
 
-  create_table "review_answers", force: true do |t|
+  create_table "review_answers", force: :cascade do |t|
     t.integer  "review_id",                          null: false
     t.integer  "review_question_id",                 null: false
     t.boolean  "done",               default: false, null: false
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(version: 20150706110532) do
     t.datetime "updated_at"
   end
 
-  create_table "review_questions", force: true do |t|
+  create_table "review_questions", force: :cascade do |t|
     t.integer  "review_section_id",                 null: false
     t.text     "code",                              null: false
     t.text     "title",                             null: false
@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(version: 20150706110532) do
     t.datetime "updated_at"
   end
 
-  create_table "review_sections", force: true do |t|
+  create_table "review_sections", force: :cascade do |t|
     t.text     "code",                   null: false
     t.text     "title",                  null: false
     t.integer  "sort_order", default: 0, null: false
@@ -139,7 +139,7 @@ ActiveRecord::Schema.define(version: 20150706110532) do
     t.datetime "updated_at"
   end
 
-  create_table "reviews", force: true do |t|
+  create_table "reviews", force: :cascade do |t|
     t.integer  "project_id",  null: false
     t.integer  "reviewer_id", null: false
     t.decimal  "result",      null: false
@@ -147,7 +147,7 @@ ActiveRecord::Schema.define(version: 20150706110532) do
     t.datetime "updated_at"
   end
 
-  create_table "servers", force: true do |t|
+  create_table "servers", force: :cascade do |t|
     t.string   "name",         null: false
     t.string   "domain",       null: false
     t.string   "username"
@@ -157,9 +157,12 @@ ActiveRecord::Schema.define(version: 20150706110532) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "ssh_key_name"
+    t.datetime "deleted_at"
   end
 
-  create_table "users", force: true do |t|
+  add_index "servers", ["deleted_at"], name: "index_servers_on_deleted_at", using: :btree
+
+  create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
@@ -183,20 +186,13 @@ ActiveRecord::Schema.define(version: 20150706110532) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  Foreigner.load
-  add_foreign_key "comments", "users", name: "comments_user_id_fk"
-
-  add_foreign_key "dependencies", "projects", name: "dependencies_master_project_id_fk", column: "master_project_id"
-  add_foreign_key "dependencies", "projects", name: "dependencies_sub_project_id_fk", column: "sub_project_id"
-
-  add_foreign_key "installations", "servers", name: "installations_server_id_fk", dependent: :delete
-
-  add_foreign_key "review_answers", "review_questions", name: "review_answers_review_question_id_fk", dependent: :delete
-  add_foreign_key "review_answers", "reviews", name: "review_answers_review_id_fk", dependent: :delete
-
-  add_foreign_key "review_questions", "review_sections", name: "review_questions_review_section_id_fk", dependent: :delete
-
-  add_foreign_key "reviews", "projects", name: "reviews_project_id_fk", dependent: :delete
-  add_foreign_key "reviews", "users", name: "reviews_reviewer_id_fk", column: "reviewer_id", dependent: :nullify
-
+  add_foreign_key "comments", "users"
+  add_foreign_key "dependencies", "projects", column: "master_project_id"
+  add_foreign_key "dependencies", "projects", column: "sub_project_id"
+  add_foreign_key "installations", "servers"
+  add_foreign_key "review_answers", "review_questions"
+  add_foreign_key "review_answers", "reviews"
+  add_foreign_key "review_questions", "review_sections"
+  add_foreign_key "reviews", "projects"
+  add_foreign_key "reviews", "users", column: "reviewer_id"
 end

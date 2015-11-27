@@ -38,4 +38,8 @@ class Installation < ActiveRecord::Base
     ProjectInstance.unscoped { super }
   end
 
+  def server
+    Server.unscoped { super }
+  end
+
 end

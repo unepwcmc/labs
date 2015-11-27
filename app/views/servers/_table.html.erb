@@ -1,0 +1,25 @@
+<table class="display table" id="servers_table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Domain</th>
+      <th>OS</th>
+      <th class="no-sort"></th>
+      <th class="no-sort"></th>
+      <th class="no-sort"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @servers.each do |server| %>
+      <tr>
+        <td><%= server.name %></td>
+        <td><%= server.domain %></td>
+        <td><%= server.os %></td>
+        <td><%= link_to(server) { fa_icon "eye" } %></td>
+        <td><%= link_to(edit_server_path(server)) { fa_icon "pencil" } %></td>
+        <td><%= link_to(server, method: :delete, data: { confirm: "Are you sure?" }){ fa_icon "trash" } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
