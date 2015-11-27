@@ -23,5 +23,38 @@ FactoryGirl.define do
     os { ['Windows', 'Linux'].sample }
     description Faker::Lorem.paragraph
     ssh_key_name Faker::Lorem.paragraph
+
+    factory :server_with_installations do
+
+      transient do
+        installations_count 3
+      end
+
+      after(:create) do |server, evaluator|
+        create_list(
+          :installation, evaluator.installations_count,
+          server: server
+        )
+      end
+    end
+
+    factory :soft_deleted_server_with_installations do
+      deleted_at Date.today
+
+      transient do
+        installations_count 2
+      end
+
+      after(:create) do |server, evaluator|
+        create_list(
+          :soft_deleted_installation, evaluator.installations_count,
+          server: server
+        )
+      end
+    end
+  end
+
+  factory :soft_deleted_server do
+    deleted_at Date.today
   end
 end
