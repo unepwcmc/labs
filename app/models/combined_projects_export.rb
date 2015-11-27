@@ -6,6 +6,7 @@ class CombinedProjectsExport
 
     @columns = [
       'Name',
+      'Internal clients',
       'External clients',
       'Instance URL',
       'Instance Stage',
