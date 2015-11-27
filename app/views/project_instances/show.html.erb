@@ -54,10 +54,10 @@
     </div>
     <p>
       <% if !@project_instance.installations.with_deleted.empty? %>
-        <%= render :partial => 'installations', locals: {installations: @project_instance.installations,
+        <%= render :partial => 'shared/installations', locals: {installations: @project_instance.installations,
           deleted: false} %>
         <% unless @project_instance.installations.only_deleted.empty? %>
-          <%= render :partial => 'installations', locals: {installations: @project_instance.installations.only_deleted,
+          <%= render :partial => 'shared/installations', locals: {installations: @project_instance.installations.only_deleted,
             deleted: true} %>
         <% end %>
       <% else %>

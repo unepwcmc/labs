@@ -47,9 +47,18 @@
     <div class="page-header">
       <h2>Installations on this Server</h2>
     </div>
-    <% @installations.each do |installation| %>
-      <%= link_to installation.role, installation_path(installation) %> (<%= installation.stage %>) for <%= link_to installation.project.title, project_path(installation.project) %><br>
-    <% end %>
+    <p>
+      <% unless @server.installations.with_deleted.empty? %>
+        <%= render :partial => 'shared/installations', locals: {installations: @server.installations,
+          deleted: false} %>
+        <% unless @server.installations.only_deleted.empty? %>
+          <%= render :partial => 'shared/installations', locals: {installations: @server.installations.only_deleted,
+            deleted: true} %>
+        <% end %>
+      <% else %>
+        This project's instance has no installations
+      <% end %>
+    </p>
   </div>
 </div>
 
