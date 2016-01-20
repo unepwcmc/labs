@@ -8,6 +8,7 @@ class Domain < ActiveRecord::Base
 
     add_models(domain_hash['models'], domain)
     add_relationships(domain_hash['relationships'], domain)
+    save_diagrams(project.title, domain_hash['graph'])
   end
 
   private
@@ -32,6 +33,20 @@ class Domain < ActiveRecord::Base
       relationship["right_model_id"] = relationship.delete "right_model"
 
       Relationship.create(relationship)
+    end
+  end
+
+  def self.save_diagrams project, graph
+    graph.each do |model|
+      model.each do |key, value|
+        domain = key.downcase
+        dir = "#{Rails.root}/public/domains/#{project}"
+        filename = "#{dir}/#{domain}"
+        FileUtils.mkdir_p(dir) unless File.directory?(dir)
+        File.open("#{filename}.dot", 'w') { |f| f.puts value }
+        system "dot -Tpng #{filename}.dot > #{filename}.png"
+        File.delete("#{filename}.dot")
+      end
     end
   end
 end
