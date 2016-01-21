@@ -12,19 +12,11 @@ class DomainsController < ApplicationController
     respond_with(@domain)
   end
 
-  def edit
-  end
-
-  def new
-  end
-
-  def update
-  end
-
-  def create
-  end
-
   def destroy
+    @domain = Domain.find(params[:id])
+    FileUtils.remove_dir("#{Rails.root}/public/domains/#{@domain.project.title}", true)
+    @domain.destroy
+    respond_with(@domain)
   end
 
   def select_model
