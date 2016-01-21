@@ -7,21 +7,6 @@ $(document).ready(function(){
     loadImageInfo(project, model);
   });
 
-  function loadTextInfo() {
-    var domain_id = $('.domain-container').data('domain-id');
-    var model_id = $(this).data('model-id');
-
-    $.ajax({
-      url: domain_id+"/select_model?model_id="+model_id,
-      error: function(jqXHR, textStatus, errorThrown) {
-        console.log("AJAX Error:" + textStatus);
-      },
-      success: function(data, textStatus, jqXHR) {
-        $('.data-container').html(data);
-      }
-    });
-  }
-
   function loadImageInfo(project, model) {
     data = "<img src='/domains/"+project+"/"+model+".png'></img>"
     $('.data-container').html(data)

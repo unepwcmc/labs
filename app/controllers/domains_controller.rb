@@ -19,10 +19,4 @@ class DomainsController < ApplicationController
     respond_with(@domain)
   end
 
-  def select_model
-    @model = Model.find(params[:model_id])
-
-    render "domains/_data_container", layout: false
-  end
-
 end
