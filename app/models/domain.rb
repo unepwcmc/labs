@@ -4,35 +4,19 @@ class Domain < ActiveRecord::Base
 
   def self.add_domain domain_hash
     project = Project.find_by(title: domain_hash['project_name'])
+    old_domain = Domain.find_by(project_id: project.id)
     domain = Domain.create({project_id: project.id})
 
-    add_models(domain_hash['models'], domain)
-    add_relationships(domain_hash['relationships'], domain)
+    add_models_from_array(domain_hash['models'], domain)
     save_diagrams(project.title, domain_hash['graph'])
+    old_domain.destroy if old_domain.present?
   end
 
   private
 
-  def self.add_models models, domain
-    models.each do |model_name, attributes|
-      columns = attributes["columns"]
-      relationships = attributes["relationships"]
-
-      model = Model.create({domain_id: domain.id, name: model_name})
-      columns.each do |name, type|
-        Column.create({model_id: model.id, name: name, col_type: type})
-      end
-    end
-  end
-
-  def self.add_relationships relationships, domain
-    relationships.each do |relationship|
-      relationship["left_model"] = Model.find_by_name(relationship["left_model"]).id
-      relationship["left_model_id"] = relationship.delete "left_model"
-      relationship["right_model"] = Model.find_or_create_by({name: relationship["right_model"], domain_id: domain.id}).id
-      relationship["right_model_id"] = relationship.delete "right_model"
-
-      Relationship.create(relationship)
+  def self.add_models_from_array models, domain
+    models.each do |model|
+      Model.create({domain_id: domain.id, name: model})
     end
   end
 

@@ -1,4 +1,4 @@
-<div class="page-header project-header">
+<div class="page-header project-header" data-project-title=<%= @domain.project.title %>>
   <h1><%= @domain.project.title %> Domain</h1>
   <div class="btn-group">
     <%= button_to 'Back', domains_path, method: :get, :class => 'btn' %>
@@ -18,6 +18,6 @@
   </aside>
 
   <div class='data-container'>
-    <%= render "data_container" %>
+    <%#= render "data_container" %>
   </div>
 </div>

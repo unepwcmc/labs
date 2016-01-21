@@ -28,7 +28,7 @@ gem 'bootstrap-datepicker-rails', '~> 1.5.0'
 gem 'pg_csv', '~> 0.2'
 gem 'kramdown', '~> 1.9.0'
 gem 'sanitize'
-
+gem 'domain_uploader', github: 'unepwcmc/domain_uploader'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
