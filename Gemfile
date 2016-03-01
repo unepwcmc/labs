@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 ruby '2.2.3'
-gem 'rails', '~> 4.2.4'
+gem 'rails', '~> 4.2.5.2'
 #gem 'rake', '0.8.7'
 
 # Bundle edge Rails instead:
@@ -8,7 +8,7 @@ gem 'rails', '~> 4.2.4'
 
 gem 'pg', '~> 0.18.3'
 gem 'httparty', '~> 0.13.7'
-gem 'devise', '~> 3.5.2'
+gem 'devise', '~> 3.5.6'
 gem 'uglifier', '~> 2.7.2'
 gem 'jquery-rails'
 gem 'carrierwave'
