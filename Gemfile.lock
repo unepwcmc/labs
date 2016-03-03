@@ -18,7 +18,7 @@ GIT
 
 GIT
   remote: git://github.com/unepwcmc/domain_uploader.git
-  revision: 7703f2ce5a5789dc850df1aefc954e3afd1ae7ed
+  revision: 91661ad74dd9f03aa5b0c3c8e5e24549df0da82d
   specs:
     domain_uploader (0.0.1)
       httparty (~> 0.13)
@@ -241,7 +241,7 @@ GEM
       activesupport (>= 4.2.0.beta, < 5.0)
       nokogiri (~> 1.6.0)
       rails-deprecated_sanitizer (>= 1.0.1)
-    rails-erd (1.4.5)
+    rails-erd (1.4.6)
       activerecord (>= 3.2)
       activesupport (>= 3.2)
       choice (~> 0.2.0)
