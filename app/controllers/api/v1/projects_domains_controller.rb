@@ -1,4 +1,4 @@
-class Api::ProjectsDomainsController < ApplicationController
+class Api::V1::ProjectsDomainsController < ApplicationController
   before_action :authenticate
 
   def upload_model
@@ -13,7 +13,7 @@ class Api::ProjectsDomainsController < ApplicationController
 
   def authenticate
     token = request.headers['X-Authentication-Token']
-    unless token == ENV['API_TOKEN']
+    unless token == Rails.application.secrets.api_token
       head status: :unauthorized
       return false
     end
