@@ -34,4 +34,5 @@
 .idea/
 config/secrets.yml
 /public/uploads
+/public/domains
 /public/assets
