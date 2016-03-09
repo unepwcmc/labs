@@ -1,0 +1,23 @@
+<div class="page-header project-header" data-project-title=<%= @domain.project.title %>>
+  <h1><%= @domain.project.title %> Domain</h1>
+  <div class="btn-group">
+    <%= button_to 'Back', domains_path, method: :get, :class => 'btn' %>
+    <%= button_to 'Edit', edit_domain_path(@domain), method: :get, :class => 'btn btn-primary' %>
+  </div>
+</div>
+
+<div class="domain-container" data-domain-id=<%= @domain.id %>>
+
+  <aside class="models-sidebar">
+    <h2>Models</h2>
+    <ul class="models-list">
+      <% @domain.models.sort_by{|model| model.name}.each do |model| %>
+        <%= link_to "<li data-model-id=#{model.id}>#{model.name}</li>".html_safe, '#' %>
+      <% end %>
+    </ul>
+  </aside>
+
+  <div class='data-container'>
+    <%#= render "data_container" %>
+  </div>
+</div>

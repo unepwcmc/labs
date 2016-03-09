@@ -1,0 +1,20 @@
+<table class="display table" id="columns_table">
+  <thead>
+    <tr>
+      <th><div>Name</div></th>
+      <th><div>Type</div></th>
+      <th><div>Created at</div></th>
+      <th><div>Updated at</div></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @model.columns.each do |column| %>
+      <tr>
+        <td><%= column.name %></td>
+        <td><%= column.col_type %></td>
+        <td><%= column.created_at %></td>
+        <td><%= column.updated_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

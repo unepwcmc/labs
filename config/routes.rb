@@ -13,6 +13,12 @@ Labs::Application.routes.draw do
     end
   end
 
+  namespace :api do
+    namespace :v1 do
+      post '/projects_domains/upload_model', to: 'projects_domains#upload_model', as: 'upload_model'
+    end
+  end
+
   get '/projects/sync', to: 'github_sync#index', as: 'sync_projects'
   post '/projects/sync', to: 'github_sync#sync'
 
@@ -63,6 +69,10 @@ Labs::Application.routes.draw do
       get :deleted_list
       put :restore
     end
+  end
+
+  resources :domains do
+    get '/select_model', to: 'domains#select_model', as: 'select_model'
   end
 
   get '/contact', :to => 'home#contact'
