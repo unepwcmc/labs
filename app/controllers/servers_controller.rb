@@ -78,7 +78,7 @@ class ServersController < ApplicationController
   private
 
     def server_params
-      params.require(:server).permit(:name, :domain, :username, :admin_url, :os, :description, :ssh_key_name, :open_ports_array)
+      params.require(:server).permit(:name, :domain, :username, :admin_url, :os, :description, :ssh_key_name, :open_ports_array, :closing)
     end
 
     def comment_params
