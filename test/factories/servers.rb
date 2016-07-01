@@ -23,6 +23,7 @@ FactoryGirl.define do
     os { ['Windows', 'Linux'].sample }
     description Faker::Lorem.paragraph
     ssh_key_name Faker::Lorem.paragraph
+    open_ports [ Faker::Number.number(8), Faker::Number.number(8), Faker::Number.number(8)]
 
     factory :server_with_installations do
 
