@@ -35,17 +35,10 @@ class ProjectInstancesController < ApplicationController
   def update
     @project_instance = ProjectInstance.with_deleted.find(params[:id])
     @installations = @project_instance.installations
-    closing_flag = @project_instance.closing
 
-    if @project_instance.update_attributes(project_instance_params)
-
-      if @project_instance.closing != closing_flag
-        @installations.each do |installation|
-          installation.update_attributes(closing: project_instance_params[:closing])
-        end
-        status = @project_instance.closing ? "scheduled for close down" : "unscheduled for close down"
-        message = "*#{@project_instance.name}* project instance and its installations have been #{status}"
-        SlackChannel.post("#labs", "Labs detective", message, ":squirrel:")
+    SlackChannel.closing_notification(@project_instance, project_instance_params) do
+      @installations.each do |installation|
+        installation.update_attributes(closing: project_instance_params[:closing])
       end
       flash[:notice] = "Instance was successfully updated."
     end
