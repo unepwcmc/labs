@@ -31,7 +31,8 @@ class ServersControllerTest < ActionController::TestCase
                               name: @new_server.name,
                               os: @new_server.os,
                               username: @new_server.username,
-                              ssh_key_name: @new_server.ssh_key_name
+                              ssh_key_name: @new_server.ssh_key_name,
+                              open_ports: @new_server.open_ports
                             }
     end
     assert_redirected_to server_path(assigns(:server))
