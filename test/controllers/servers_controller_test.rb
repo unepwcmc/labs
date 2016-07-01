@@ -103,4 +103,23 @@ class ServersControllerTest < ActionController::TestCase
     end
   end
 
+  test "should send a notification when closing server" do
+    message = "*#{@server.name}* server has been scheduled for close down"
+    SlackChannel.expects(:post).with("#labs", "Labs detective (test)", message, ":squirrel:")
+    patch :update, id: @server, server: {
+      closing: true
+    }
+    assert_redirected_to server_path(assigns(:server))
+  end
+
+  test "should send a notification when re-opening server" do
+    server = FactoryGirl.create(:server, {closing: true})
+    message = "*#{server.name}* server has been unscheduled for close down"
+    SlackChannel.expects(:post).with("#labs", "Labs detective (test)", message, ":squirrel:")
+    patch :update, id: server, server: {
+      closing: false
+    }
+    assert_redirected_to server_path(assigns(:server))
+  end
+
 end

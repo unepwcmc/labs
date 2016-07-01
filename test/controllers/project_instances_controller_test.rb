@@ -110,6 +110,25 @@ class ProjectInstancesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:projects_instances)
   end
 
+  test "should send a notification when closing project_instance" do
+    message = "*#{@project_instance.name}* projectinstance has been scheduled for close down"
+    SlackChannel.expects(:post).with("#labs", "Labs detective (test)", message, ":squirrel:")
+    patch :update, id: @project_instance, project_instance: {
+      closing: true
+    }
+    assert_redirected_to project_instance_path(assigns(:project_instance))
+  end
+
+  test "should send a notification when re-opening project_instance" do
+    project_instance = FactoryGirl.create(:project_instance, {closing: true})
+    message = "*#{project_instance.name}* projectinstance has been unscheduled for close down"
+    SlackChannel.expects(:post).with("#labs", "Labs detective (test)", message, ":squirrel:")
+    patch :update, id: project_instance, project_instance: {
+      closing: false
+    }
+    assert_redirected_to project_instance_path(assigns(:project_instance))
+  end
+
   test "should cascade closing flag to installations" do
     stub_slack_comment do
       patch :update, id: @project_instance_with_installations, project_instance:
