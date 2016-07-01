@@ -12,6 +12,7 @@
 #  created_at   :datetime
 #  updated_at   :datetime
 #  ssh_key_name :text
+#  open_ports   :text             default([]), is an Array
 #
 
 class Server < ActiveRecord::Base
@@ -25,4 +26,13 @@ class Server < ActiveRecord::Base
 
   validates :os, inclusion: { in: ['Windows', 'Linux'] }
   validates :name, uniqueness: true
+
+  def open_ports_array
+    open_ports.join(',')
+  end
+
+  def open_ports_array=(value)
+    self.open_ports = value.split(',')
+    save
+  end
 end
