@@ -32,7 +32,10 @@ class ServersController < ApplicationController
   def update
     @server = Server.with_deleted.find(params[:id])
 
-    flash[:notice] = 'Server was successfully updated.' if @server.update_attributes(server_params)
+    SlackChannel.closing_notification(@server, server_params) do
+      flash[:notice] = 'Server was successfully updated.'
+    end
+
     respond_with(@server)
   end
 
@@ -78,7 +81,7 @@ class ServersController < ApplicationController
   private
 
     def server_params
-      params.require(:server).permit(:name, :domain, :username, :admin_url, :os, :description, :ssh_key_name, :open_ports_array)
+      params.require(:server).permit(:name, :domain, :username, :admin_url, :os, :description, :ssh_key_name, :open_ports_array, :closing)
     end
 
     def comment_params

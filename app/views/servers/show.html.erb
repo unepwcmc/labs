@@ -46,6 +46,13 @@
       <strong>Open ports:</strong>
       <%= @server.open_ports_array %>
     </p>
+
+    <% if !@server.deleted? %>
+      <p>
+        <strong>Scheduled for close down:</strong>
+        <span class='closing'><%= @server.closing %></span>
+      </p>
+    <% end %>
   </div>
 
   <div class="col-lg-6">

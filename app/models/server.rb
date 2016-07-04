@@ -13,6 +13,7 @@
 #  updated_at   :datetime
 #  ssh_key_name :text
 #  open_ports   :text             default([]), is an Array
+#  closing      :boolean          default(FALSE)
 #
 
 class Server < ActiveRecord::Base

@@ -62,9 +62,19 @@ class InstallationsControllerTest < ActionController::TestCase
 
   test "should send a notification when closing installation" do
     message = "*#{@installation.name}* installation has been scheduled for close down"
-    SlackChannel.expects(:post).with("#labs", "Labs detective", message, ":squirrel:")
+    SlackChannel.expects(:post).with("#labs", "Labs detective (test)", message, ":squirrel:")
     patch :update, id: @installation, installation: {
       closing: true
+    }
+    assert_redirected_to installation_path(assigns(:installation))
+  end
+
+  test "should send a notification when re-opening installation" do
+    installation = FactoryGirl.create(:installation, {closing: true})
+    message = "*#{installation.name}* installation has been unscheduled for close down"
+    SlackChannel.expects(:post).with("#labs", "Labs detective (test)", message, ":squirrel:")
+    patch :update, id: installation, installation: {
+      closing: false
     }
     assert_redirected_to installation_path(assigns(:installation))
   end
