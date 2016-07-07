@@ -61,6 +61,36 @@ class GithubSyncControllerTest < ActionController::TestCase
       }
     )
 
+    stub_request(:get, "#{Rails.application.secrets.github_api_base_url}repos/unepwcmc/first_repo/contents/Gemfile?client_id=&client_secret=").
+    with(:headers => {'User-Agent'=>'Labs'}).
+    to_return(
+      :status => 200,
+      :body => {"name" => 'derp', "full_name" => "unepwcmc/herp", "description" => 'derp', "content" => "encoded content"}.to_json,
+      :headers => {
+        'link' =>
+        """
+          <#{Rails.application.secrets.github_api_base_url}organizations/513080/repos?
+          client_id=&client_secret=&page=2>; rel='next',
+          <#{Rails.application.secrets.github_api_base_url}organizations/513080/repos?client_id=&client_secret=&page=3>; rel='last'
+        """
+      }
+    )
+
+    stub_request(:get, "#{Rails.application.secrets.github_api_base_url}repos/unepwcmc/first_repo/contents/.ruby-version?client_id=&client_secret=").
+    with(:headers => {'User-Agent'=>'Labs'}).
+    to_return(
+      :status => 200,
+      :body => {"name" => 'derp', "full_name" => "unepwcmc/herp", "description" => 'derp', "content" => "encoded content"}.to_json,
+      :headers => {
+        'link' =>
+        """
+          <#{Rails.application.secrets.github_api_base_url}organizations/513080/repos?
+          client_id=&client_secret=&page=2>; rel='next',
+          <#{Rails.application.secrets.github_api_base_url}organizations/513080/repos?client_id=&client_secret=&page=3>; rel='last'
+        """
+      }
+    )
+
     assert_difference 'Project.count' do
       post :sync, repos: ["first_repo"]
     end
