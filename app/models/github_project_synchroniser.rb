@@ -16,6 +16,8 @@ class GithubProjectSynchroniser
         r.state = "Under Development"
         r.github_identifier = repo.full_name
         r.description = repo.description
+        r.rails_version = github.get_rails_version(name) || ''
+        r.ruby_version = github.get_ruby_version(name)
       end
     }.compact
   end
