@@ -27,7 +27,7 @@ class Github
     response = HTTParty.get(url, headers: {"User-Agent" => "Labs"})
     return '' if response.body.match(/Not\sFound/)
     content = Base64.decode64(JSON.parse(response.body)["content"])
-    content.match(/gem 'rails',\s'(~>\s)?(\d\.[\d+|\.]*)'/).try(:captures).try(:last)
+    content.match(/gem 'rails',\s'(~>\s)?(\d\.[\d+|\.]*)'/).try(:captures).try(:last) || ''
   end
 
   def get_ruby_version repo
