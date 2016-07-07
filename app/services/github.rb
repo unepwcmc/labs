@@ -22,6 +22,21 @@ class Github
     OpenStruct.new(JSON.parse(response.body))
   end
 
+  def get_rails_version repo
+    url = "#{Rails.application.secrets.github_api_base_url}repos/unepwcmc/#{repo}/contents/Gemfile?#{CLIENT_CREDENTIALS}"
+    response = HTTParty.get(url, headers: {"User-Agent" => "Labs"})
+    return '' if response.body.match(/Not\sFound/)
+    content = Base64.decode64(JSON.parse(response.body)["content"])
+    content.match(/gem 'rails',\s'(~>\s)?(\d\.[\d+|\.]*)'/).try(:captures).try(:last)
+  end
+
+  def get_ruby_version repo
+    url = "#{Rails.application.secrets.github_api_base_url}repos/unepwcmc/#{repo}/contents/.ruby-version?#{CLIENT_CREDENTIALS}"
+    response = HTTParty.get(url, headers: {"User-Agent" => "Labs"})
+    return '' if response.body.match(/Not\sFound/)
+    Base64.decode64(JSON.parse(response.body)["content"]).delete!("\n")
+  end
+
   private
     # Parses github link header string into a sensible hash format
     def parse_link_headers headers
