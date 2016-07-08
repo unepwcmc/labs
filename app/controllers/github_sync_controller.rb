@@ -5,9 +5,10 @@ class GithubSyncController < ApplicationController
     repos = github.get_all_repos(@page)
 
     existing_repo_names = Project.pluck(:github_identifier)
-    
+
     @link_headers = repos.shift
     @repos = repos.reject{ |repo| existing_repo_names.include?(repo.full_name) }
+      .sort_by { |repo| repo.full_name.downcase }
   end
 
   def sync
