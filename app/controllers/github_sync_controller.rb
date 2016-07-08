@@ -29,8 +29,28 @@ class GithubSyncController < ApplicationController
     end
   end
 
+  def webhook
+    if verify_signature(request.body.read)
+      github_identifier = params[:repository][:full_name]
+      project = Project.find_by_github_identifier(github_identifier)
+      project.sync_with_github if project.present?
+
+      Rails.logger.info "#{project.title} updated!"
+      head :ok
+    else
+      Rails.logger.warn "Signature didn't match!"
+      head :bad_request
+    end
+  end
+
   private
     def contains_invalid_repository? repos
       repos.find { |r| !r.valid? }
+    end
+
+    def verify_signature(payload_body)
+      secret = Rails.application.secrets.github_webhook_secret
+      signature = 'sha1=' + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), secret, payload_body)
+      return Rack::Utils.secure_compare(signature, request.env['HTTP_X_HUB_SIGNATURE'])
     end
 end

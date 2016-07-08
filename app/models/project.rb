@@ -136,6 +136,17 @@ class Project < ActiveRecord::Base
     reviews.each{ |r| r.respond_to_project_update }
   end
 
+  def sync_with_github
+    github = Github.new
+    repo = self.github_identifier.split('/').last
+    project_params = {
+      rails_version: github.get_rails_version(repo),
+      ruby_version: github.get_ruby_version(repo)
+    }
+    self.update_attributes(project_params)
+  end
+
+
   private
 
   def validate_trello_ids

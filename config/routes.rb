@@ -21,6 +21,7 @@ Labs::Application.routes.draw do
 
   get '/projects/sync', to: 'github_sync#index', as: 'sync_projects'
   post '/projects/sync', to: 'github_sync#sync'
+  post '/projects/webhook', to: 'github_sync#webhook', as: 'webhook_projects'
 
   resources :reviews do
     resources :comments
