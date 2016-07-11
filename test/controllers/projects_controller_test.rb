@@ -6,11 +6,11 @@ class ProjectsControllerTest < ActionController::TestCase
   def setup
     @project = FactoryGirl.build(:project)
     @saved_project = FactoryGirl.create(:project)
-    @user = FactoryGirl.create(:user)
+    @user = FactoryGirl.create(:user, name: 'Frodo')
 
-    @project_a = FactoryGirl.create(:project, title: "Abacus", description: "cod", published: false)
-    @project_b = FactoryGirl.create(:project, title: "Beef", description: "cod")
-    @project_c = FactoryGirl.create(:project, title: "Car", description: "haddock")
+    @project_a = FactoryGirl.create(:project, title: "Abacus", description: "cod", published: false, developers: ['Gandalf', @user.name])
+    @project_b = FactoryGirl.create(:project, title: "Beef", description: "cod", developers: ['Aragorn', 'Elbereth'])
+    @project_c = FactoryGirl.create(:project, title: "Car", description: "haddock", developers: [@user.name, 'Aragorn'])
 
     @project_with_instances = FactoryGirl.create(:project_with_instances)
     @project_with_dependencies = FactoryGirl.create(:project_with_dependencies)
@@ -61,6 +61,13 @@ class ProjectsControllerTest < ActionController::TestCase
     sign_in @user
     get :index, search: ""
     assert_equal assigns(:projects), Project.order('created_at DESC')
+  end
+
+  test "should return user's project when in my_projects dashboard" do
+    sign_in @user
+    get :index, {user: @user}
+
+    assert_equal 2, assigns(:projects).count
   end
 
   test "should return all public projects on public search with no term" do
