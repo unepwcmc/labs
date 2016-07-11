@@ -29,17 +29,22 @@ class GithubSyncController < ApplicationController
     end
   end
 
-  def webhook
-    if verify_signature(request.body.read)
-      github_identifier = params[:repository][:full_name]
-      project = Project.find_by_github_identifier(github_identifier)
-      project.sync_with_github if project.present?
+  def push_event_webhook
+    branch = params[:ref].split('/').last
+    if branch == "master"
+      if verify_signature(request.body.read)
+        github_identifier = params[:repository][:full_name]
+        project = Project.find_by_github_identifier(github_identifier)
+        project.sync_with_github if project.present?
 
-      Rails.logger.info "#{project.title} updated!"
-      head :ok
+        Rails.logger.info "#{project.title} updated!"
+        head :ok
+      else
+        Rails.logger.warn "Signature didn't match!"
+        head :bad_request
+      end
     else
-      Rails.logger.warn "Signature didn't match!"
-      head :bad_request
+      head :ok
     end
   end
 
