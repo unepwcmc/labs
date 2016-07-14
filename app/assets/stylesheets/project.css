@@ -39,3 +39,8 @@ div.block-of-text {
 .review-success { color: green; }
 .review-warning { color: orange; }
 .review-error { color: red; }
+
+.projects-list-header {
+  text-align: center;
+  font-size: 28px;
+}

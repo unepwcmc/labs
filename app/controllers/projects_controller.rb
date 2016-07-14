@@ -11,12 +11,16 @@ class ProjectsController < ApplicationController
   respond_to :html, :json
 
   def index
+    if user_signed_in? && params[:user]
+      username = User.find(params[:user]).name
+      @projects = Project.where("developers @> '{#{username}}'::text[] OR current_lead = '#{username}'")
+    else
+      @projects = params[:search].present? ?
+          Project.search(params[:search]).order("created_at DESC") :
+          Project.order("created_at DESC")
 
-    @projects = params[:search].present? ?
-        Project.search(params[:search]).order("created_at DESC") :
-        Project.order("created_at DESC")
-
-    @projects = @projects.published unless user_signed_in?
+      @projects = @projects.published unless user_signed_in?
+    end
 
     respond_with(@projects)
   end
