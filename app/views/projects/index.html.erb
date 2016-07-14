@@ -8,15 +8,32 @@
 	</h4>
 </div>
 
+
+<% if user_signed_in? %>
+  <h2 class="projects-list-header">
+    <% if params[:user] %>
+      My projects
+    <% else %>
+      All projects
+    <% end %>
+  </h2>
+<% end %>
+
 <div class="row">
-  <div class="col-lg-6 col-lg-6">
+  <div class="col-lg-6">
+
     <% if user_signed_in? %>
       <%= button_to "Add a new Project", new_project_path, method: :get, class: 'btn btn-primary' %>
+      <% if params[:user] %>
+        <%= button_to "All projects", projects_path, method: :get, class: 'btn btn-info' %>
+      <% else %>
+        <%= button_to "My projects", projects_path, params: {user: current_user }, method: :get, class: 'btn btn-info' %>
+      <% end %>
     <% end %>
     &nbsp;
   </div>
 
-  <div id="search-box" class="col-lg-6 col-lg-6">
+  <div id="search-box" class="col-lg-6">
     <div class="form-group">
       <%= form_tag projects_path, :method => "get", class: 'form-search form-inline' do %>
         <%= text_field_tag "search", params[:search], placeholder: "Search projects...", class: "form-control" %>
