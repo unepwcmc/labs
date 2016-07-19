@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 ruby '2.2.3'
-gem 'rails', '~> 4.2.5.2'
+gem 'rails', '~> 5.0.0'
 #gem 'rake', '0.8.7'
 
 # Bundle edge Rails instead:
@@ -41,7 +41,6 @@ gem 'domain_uploader', github: 'unepwcmc/domain_uploader'
   gem 'capistrano-rails',   '~> 1.1', require: false
   gem 'capistrano-bundler', '~> 1.1', require: false
   gem 'capistrano-rvm',   '~> 0.1', require: false
-  gem 'capistrano-sidekiq'
   gem 'capistrano-maintenance', '~> 1.0', require: false
   gem 'capistrano-passenger', '~> 0.1.1', require: false
   gem 'slackistrano', '~> 1.0.0', require: false
