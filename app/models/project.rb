@@ -115,7 +115,7 @@ class Project < ActiveRecord::Base
   end
 
   def instances_with_installations
-    project_instances(true).includes(:installations).references(:installations).
+    project_instances.reload.includes(:installations).references(:installations).
       where('installations.id IS NOT NULL')
   end
 
