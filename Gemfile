@@ -8,7 +8,7 @@ gem 'rails', '~> 4.2.5.2'
 
 gem 'pg', '~> 0.18.3'
 gem 'httparty', '~> 0.13.7'
-gem 'devise', '~> 3.5.6'
+gem 'devise', '~> 4.0.0'
 gem 'uglifier', '~> 2.7.2'
 gem 'jquery-rails'
 gem 'carrierwave'
@@ -17,11 +17,12 @@ gem 'omniauth-github'
 gem 'pg_array_parser'
 gem 'pg_search', '~> 1.0.5'
 gem 'select2-rails', '3.5.9.3'
-gem "paranoia", '~> 2.1.4'
+#gem "paranoia", '~> 2.1.4'
+gem "paranoia", github: "rubysherpas/paranoia", branch: "rails5"
 gem 'gon', '~> 6.0.1'
 gem 'nested_form'
 gem 'bootstrap-sass', '~> 3.3.5.1'
-gem 'sass-rails', '>= 3.2'
+gem 'sass-rails', github: 'rails/sass-rails', branch: 'master'
 # https://github.com/rweng/jquery-datatables-rails/issues/153
 gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 gem 'bootstrap-datepicker-rails', '~> 1.5.0'
@@ -45,9 +46,9 @@ gem 'domain_uploader', github: 'unepwcmc/domain_uploader'
   gem 'capistrano-passenger', '~> 0.1.1', require: false
   gem 'slackistrano', '~> 1.0.0', require: false
   gem 'whenever'
-  gem 'exception_notification', :git => 'https://github.com/smartinez87/exception_notification.git'
+  #gem 'exception_notification', :git => 'https://github.com/smartinez87/exception_notification.git'
   gem 'slack-notifier'
-  gem "font-awesome-rails", '~> 4.4.0.0'
+  gem "font-awesome-rails", '~> 4.6.0.0'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
