@@ -46,7 +46,7 @@ gem 'domain_uploader', github: 'unepwcmc/domain_uploader'
   gem 'capistrano-passenger', '~> 0.1.1', require: false
   gem 'slackistrano', '~> 1.0.0', require: false
   gem 'whenever'
-  #gem 'exception_notification', :git => 'https://github.com/smartinez87/exception_notification.git'
+  gem 'exception_notification', github: 'smartinez87/exception_notification', branch: 'master'
   gem 'slack-notifier'
   gem "font-awesome-rails", '~> 4.6.0.0'
 
