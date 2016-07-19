@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   include Formatter
-  before_filter :load_commentable
+  before_action :load_commentable
 
   def create
     @comment = @commentable.comments.new(comment_params)
