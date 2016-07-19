@@ -23,42 +23,64 @@ class ReviewsControllerTest < ActionController::TestCase
 
   test "should create review" do
     assert_difference('Review.count') do
-      post :create, review: { reviewer_id: @user.id, project_id: FactoryGirl.create(:project).id }
+      post :create, params: {
+        review: {
+          reviewer_id: @user.id,
+          project_id: FactoryGirl.create(:project).id
+        }
+      }
     end
     assert_redirected_to edit_review_path(assigns(:review))
   end
 
   test "should not create review" do
     assert_no_difference('Review.count') do
-      post :create, review: { reviewer_id: @user.id, project_id: nil }
+      post :create, params: {
+        review: {
+          reviewer_id: @user.id,
+          project_id: nil
+        }
+      }
     end
     assert_response :success
   end
 
   test "should show review" do
-    get :show, id: @review
+    get :show, params: { id: @review }
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @review
+    get :edit, params: { id: @review }
     assert_response :success
   end
 
   test "should update review" do
-    put :update, id: @review.id, review: { reviewer_id: @user.id, project_id: FactoryGirl.create(:project).id }
+    put :update, params: {
+      id: @review.id,
+      review: {
+        reviewer_id: @user.id,
+        project_id: FactoryGirl.create(:project).id
+      }
+    }
     assert_redirected_to review_path(assigns(:review))
   end
 
   test "should not update review" do
-    put :update, id: @review.id, review: { reviewer_id: @user.id, project_id: nil }
+    put :update, params: {
+      id: @review.id,
+      review: {
+        reviewer_id: @user.id,
+        project_id: nil
+      }
+    }
     assert @review.project_id == @project.id
     assert_response :success
   end
 
   test "should destroy review" do
     assert_difference('Review.count', -1) do
-      delete :destroy, id: @review
+      delete :destroy, params: { id: @review }
     end
 
     assert_redirected_to reviews_path

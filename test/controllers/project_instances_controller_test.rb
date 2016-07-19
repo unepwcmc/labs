@@ -14,13 +14,13 @@ class ProjectInstancesControllerTest < ActionController::TestCase
   end
 
   test "should get index in html" do
-    get :index, format: :html
+    get :index, params: { format: :html }
     assert_response :success
     assert_not_nil assigns(:projects_instances)
   end
 
   test "should get index in csv" do
-    get :index, format: :csv
+    get :index, params: { format: :csv }
     assert_response :success
     assert_equal "text/csv", response.content_type
     assert_match /attachment; filename=\"project_instances.+\.csv\"/, response.headers["Content-Disposition"]
@@ -33,16 +33,17 @@ class ProjectInstancesControllerTest < ActionController::TestCase
 
   test "should create project_instance" do
     assert_differences([['ProjectInstance.count', 1],['Installation.count', 1]]) do
-      post :create, project_instance: { branch: @new_project_instance.branch,
-        description: @new_project_instance.description,
-        project_id: @new_project_instance.project_id, name: @new_project_instance.name,
-        backup_information: @new_project_instance.backup_information,
-        stage: @new_project_instance.stage, url: @new_project_instance.url,
-        installations_attributes: [{
-          server_id: @installation.server_id,
-          role: @installation.role,
-          description: @installation.description
-        }]
+      post :create, params: { project_instance: { branch: @new_project_instance.branch,
+          description: @new_project_instance.description,
+          project_id: @new_project_instance.project_id, name: @new_project_instance.name,
+          backup_information: @new_project_instance.backup_information,
+          stage: @new_project_instance.stage, url: @new_project_instance.url,
+          installations_attributes: [{
+            server_id: @installation.server_id,
+            role: @installation.role,
+            description: @installation.description
+          }]
+        }
       }
     end
 
@@ -51,16 +52,17 @@ class ProjectInstancesControllerTest < ActionController::TestCase
 
   test "should generate name for project_instance if not provided" do
     assert_differences([['ProjectInstance.count', 1],['Installation.count', 1]]) do
-      post :create, project_instance: { branch: @new_project_instance.branch,
-        description: @new_project_instance.description,
-        project_id: @new_project_instance.project_id, name: nil,
-        backup_information: @new_project_instance.backup_information,
-        stage: @new_project_instance.stage, url: @new_project_instance.url,
-        installations_attributes: [{
-          server_id: @installation.server_id,
-          role: @installation.role,
-          description: @installation.description
-        }]
+      post :create, params: { project_instance: { branch: @new_project_instance.branch,
+          description: @new_project_instance.description,
+          project_id: @new_project_instance.project_id, name: nil,
+          backup_information: @new_project_instance.backup_information,
+          stage: @new_project_instance.stage, url: @new_project_instance.url,
+          installations_attributes: [{
+            server_id: @installation.server_id,
+            role: @installation.role,
+            description: @installation.description
+          }]
+        }
       }
     end
 
@@ -69,18 +71,18 @@ class ProjectInstancesControllerTest < ActionController::TestCase
   end
 
   test "should show project_instance" do
-    get :show, id: @project_instance
+    get :show, params: { id: @project_instance }
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @project_instance
+    get :edit, params: { id: @project_instance }
     assert_response :success
   end
 
   test "should update project_instance" do
     installation = @project_instance_with_installations.installations.first
-    patch :update, id: @project_instance_with_installations, project_instance:
+    patch :update, params: { id: @project_instance_with_installations, project_instance:
       {
         branch: @new_project_instance.branch, description: @new_project_instance.description,
         project_id: @new_project_instance.project_id, name: @new_project_instance.name,
@@ -93,12 +95,13 @@ class ProjectInstancesControllerTest < ActionController::TestCase
           description: @installation.description
         }]
       }
+    }
     assert_redirected_to project_instance_path(assigns(:project_instance))
   end
 
   test "should destroy project_instance" do
     assert_difference('ProjectInstance.count', -1) do
-      delete :destroy, id: @project_instance
+      delete :destroy, params: { id: @project_instance }
     end
 
     assert_redirected_to project_instances_path
@@ -113,8 +116,9 @@ class ProjectInstancesControllerTest < ActionController::TestCase
   test "should send a notification when closing project_instance" do
     message = "*#{@project_instance.name}* projectinstance has been scheduled for close down"
     SlackChannel.expects(:post).with("#labs", "Labs detective (test)", message, ":squirrel:")
-    patch :update, id: @project_instance, project_instance: {
-      closing: true
+    patch :update, params: { id: @project_instance, project_instance: {
+        closing: true
+      }
     }
     assert_redirected_to project_instance_path(assigns(:project_instance))
   end
@@ -123,15 +127,16 @@ class ProjectInstancesControllerTest < ActionController::TestCase
     project_instance = FactoryGirl.create(:project_instance, {closing: true})
     message = "*#{project_instance.name}* projectinstance has been unscheduled for close down"
     SlackChannel.expects(:post).with("#labs", "Labs detective (test)", message, ":squirrel:")
-    patch :update, id: project_instance, project_instance: {
-      closing: false
+    patch :update, params: { id: project_instance, project_instance: {
+        closing: false
+      }
     }
     assert_redirected_to project_instance_path(assigns(:project_instance))
   end
 
   test "should cascade closing flag to installations" do
     stub_slack_comment do
-      patch :update, id: @project_instance_with_installations, project_instance:
+      patch :update, params: { id: @project_instance_with_installations, project_instance:
         {
           branch: @new_project_instance.branch, description: @new_project_instance.description,
           project_id: @new_project_instance.project_id, name: @new_project_instance.name,
@@ -139,6 +144,7 @@ class ProjectInstancesControllerTest < ActionController::TestCase
           stage: @new_project_instance.stage, url: @new_project_instance.url,
           closing: true
         }
+      }
 
       @project_instance_with_installations.installations.each do |installation|
         assert_equal true, installation.closing
@@ -149,10 +155,11 @@ class ProjectInstancesControllerTest < ActionController::TestCase
   test "should soft-delete project_instance and associated installations" do
     stub_slack_comment do
       assert_differences([['ProjectInstance.count', -1],['Installation.count', -3]]) do
-        patch :soft_delete, id: @project_instance_with_installations, comment:
-        {
-          content: "Shut down message",
-          user_id: @user.id
+        patch :soft_delete, params: { id: @project_instance_with_installations, comment:
+          {
+            content: "Shut down message",
+            user_id: @user.id
+          }
         }
       end
 
@@ -170,10 +177,11 @@ class ProjectInstancesControllerTest < ActionController::TestCase
   test "should restore soft-deleted project_instance and associated installations" do
     stub_slack_comment do
       assert_differences([['ProjectInstance.count', 1],['Installation.count', 2]]) do
-        patch :soft_delete, id: @soft_deleted_project_instance_with_installations, comment:
-        {
-          content: "Restore message",
-          user_id: @user.id
+        patch :soft_delete, params: { id: @soft_deleted_project_instance_with_installations, comment:
+          {
+            content: "Restore message",
+            user_id: @user.id
+          }
         }
       end
 
@@ -193,7 +201,7 @@ class ProjectInstancesControllerTest < ActionController::TestCase
   test "should populate new project_instance" do
     url = "http://www.google.com"
     FactoryGirl.create(:project, url: url)
-    get :new, nagios_url: url
+    get :new, params: { nagios_url: url }
     assert_equal Project.last.id, assigns(:project_instance).project_id
     assert_equal url, assigns(:project_instance).url
   end
@@ -201,7 +209,7 @@ class ProjectInstancesControllerTest < ActionController::TestCase
   test "should add installations" do
     another_installation = FactoryGirl.build(:installation)
     assert_difference("Installation.count", 2) do
-      patch :update, id: @project_instance, project_instance:
+      patch :update, params: { id: @project_instance, project_instance:
         {
           installations_attributes: [
             {
@@ -216,6 +224,7 @@ class ProjectInstancesControllerTest < ActionController::TestCase
             }
           ]
         }
+      }
     end
     assert_equal 2, @project_instance.installations.count
   end
@@ -223,7 +232,7 @@ class ProjectInstancesControllerTest < ActionController::TestCase
   test "should remove installations" do
     installation = @project_instance_with_installations.installations.first
     assert_differences([["Installation.count", -1],["Installation.only_deleted.count", 1]]) do
-      patch :update, id: @project_instance_with_installations, project_instance:
+      patch :update, params: { id: @project_instance_with_installations, project_instance:
         {
           installations_attributes: [
             {
@@ -232,6 +241,7 @@ class ProjectInstancesControllerTest < ActionController::TestCase
             }
           ]
         }
+      }
     end
     assert_equal 2, @project_instance_with_installations.installations.count
   end
