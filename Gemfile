@@ -64,6 +64,7 @@ group :test do
   gem 'webmock', '~> 1.18.0', require: false
   gem "codeclimate-test-reporter", require: nil
   gem 'simplecov', '>=0.9', :require => false
+  gem 'rails-controller-testing'
 end
 
 group :development do
