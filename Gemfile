@@ -19,7 +19,7 @@ gem 'pg_search', '~> 1.0.5'
 gem 'select2-rails', '3.5.9.3'
 #gem "paranoia", '~> 2.1.4'
 gem "paranoia", github: "rubysherpas/paranoia", branch: "rails5"
-gem 'gon', '~> 6.0.1'
+gem 'gon', '~> 6.1.0'
 gem 'nested_form'
 gem 'bootstrap-sass', '~> 3.3.5.1'
 gem 'sass-rails', github: 'rails/sass-rails', branch: 'master'
