@@ -1,4 +1,6 @@
 module ProjectsHelper
+  delegate :url_helpers, to: 'Rails.application.routes'
+
   def project_preview project
     source = project.screenshot.thumb.url.blank? ? "http://placehold.it/320x200" : project.screenshot.thumb.url
     image_tag(source)
@@ -54,7 +56,7 @@ module ProjectsHelper
   end
 
   def start_review_button(project)
-    link_to('Start review', new_review_path(project_id: project.id), class: 'btn btn-primary btn-sm', role: 'button')
+    link_to('Start review', url_helpers.new_review_path(project_id: project.id), class: 'btn btn-primary btn-sm', role: 'button')
   end
 
 end

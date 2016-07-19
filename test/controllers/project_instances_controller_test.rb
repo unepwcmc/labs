@@ -191,8 +191,8 @@ class ProjectInstancesControllerTest < ActionController::TestCase
   end
 
   test "should populate new project_instance" do
-    FactoryGirl.create(:project, url: "http://www.google.com")
-    url = "google.com"
+    url = "http://www.google.com"
+    FactoryGirl.create(:project, url: url)
     get :new, nagios_url: url
     assert_equal Project.last.id, assigns(:project_instance).project_id
     assert_equal url, assigns(:project_instance).url

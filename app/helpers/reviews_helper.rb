@@ -1,4 +1,6 @@
 module ReviewsHelper
+  delegate :url_helpers, to: 'Rails.application.routes'
+
   def answer_for_display(question)
     answer = @review.try(:answer, question)
     answer_text = if answer
@@ -63,7 +65,7 @@ module ReviewsHelper
   def fixme_button(done, auto_check)
     content_tag(:div, class: "col-sm-1") do
       if !done && auto_check
-        link_to edit_project_path(@review.project) do
+        link_to url_helpers.edit_project_path(@review.project) do
           content_tag(:button, 'FIXME', type: "button", class: "btn btn-warning btn-xs")
         end
       end
