@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ProjectsControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   def setup
     @project = FactoryGirl.build(:project)

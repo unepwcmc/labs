@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ReviewAnswersControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   setup do
     @review = FactoryGirl.create(:review)

@@ -3,7 +3,7 @@ require 'minitest/mock'
 
 class CommentsControllerTest < ActionController::TestCase
 
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   def setup
     @user = FactoryGirl.create(:user)

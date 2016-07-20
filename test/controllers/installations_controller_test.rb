@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class InstallationsControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   setup do
     @installation = FactoryGirl.create(:installation)
