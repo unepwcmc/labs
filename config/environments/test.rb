@@ -46,5 +46,6 @@ Labs::Application.configure do
     config.active_support.test_order = :sorted
   end
 
-  config.active_record.raise_in_transactional_callbacks = true
+  #deprecated
+  #config.active_record.raise_in_transactional_callbacks = true
 end
