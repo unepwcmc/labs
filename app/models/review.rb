@@ -10,7 +10,7 @@
 #  updated_at  :datetime
 #
 
-class Review < ActiveRecord::Base
+class Review < ApplicationRecord
   belongs_to :project
   belongs_to :reviewer, class_name: User, foreign_key: :reviewer_id
   has_many :answers, class_name: ReviewAnswer, foreign_key: :review_id, dependent: :destroy

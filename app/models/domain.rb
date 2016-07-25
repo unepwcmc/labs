@@ -1,4 +1,4 @@
-class Domain < ActiveRecord::Base
+class Domain < ApplicationRecord
   belongs_to :project
   has_many :models, dependent: :destroy
 

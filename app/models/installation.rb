@@ -13,7 +13,7 @@
 #  closing             :boolean          default(FALSE)
 #
 
-class Installation < ActiveRecord::Base
+class Installation <  ApplicationRecord
   acts_as_paranoid
 
   belongs_to :server

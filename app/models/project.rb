@@ -34,7 +34,7 @@
 #  user_access           :text
 #
 
-class Project < ActiveRecord::Base
+class Project <  ApplicationRecord
   # Add pg_search
   include PgSearch
 

@@ -10,7 +10,7 @@
 #  updated_at        :datetime
 #
 
-class Dependency < ActiveRecord::Base
+class Dependency < ApplicationRecord
   belongs_to :master_project, :class_name => "Project"
   belongs_to :sub_project, :class_name => "Project"
 
