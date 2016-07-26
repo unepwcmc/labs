@@ -11,7 +11,7 @@
 #  updated_at         :datetime
 #
 
-class ReviewAnswer < ActiveRecord::Base
+class ReviewAnswer < ApplicationRecord
   belongs_to :review
   belongs_to :question, class_name: ReviewQuestion, foreign_key: :review_question_id
   validates :review, presence: true

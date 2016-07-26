@@ -16,7 +16,7 @@
 #  closing            :boolean          default(FALSE)
 #
 
-class ProjectInstance < ActiveRecord::Base
+class ProjectInstance < ApplicationRecord
   acts_as_paranoid
 
   belongs_to :project

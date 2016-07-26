@@ -1,3 +1,3 @@
-class Model < ActiveRecord::Base
+class Model < ApplicationRecord
   belongs_to :domain
 end

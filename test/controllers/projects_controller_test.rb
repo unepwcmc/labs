@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ProjectsControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   def setup
     @project = FactoryGirl.build(:project)
@@ -22,14 +22,14 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test "should get lists in html" do
     sign_in @user
-    get :list, format: :html
+    get :list, params: { format: :html }
     assert_response :success
     assert_equal assigns(:projects), Project.includes(:project_instances, :reviews).order(:title, 'reviews.updated_at')
   end
 
   test "should get lists in csv" do
     sign_in @user
-    get :list, format: :csv
+    get :list, params: { format: :csv }
     assert_response :success
     assert_equal "text/csv", response.content_type
     assert_match /attachment; filename=\"projects.+\.csv\"/, response.headers["Content-Disposition"]
@@ -37,21 +37,21 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test "should get combined list in csv" do
     sign_in @user
-    get :list, scope: 'combined', format: :csv
+    get :list, params: { scope: 'combined', format: :csv }
     assert_response :success
     assert_equal "text/csv", response.content_type
     assert_match /attachment; filename=\"combined_projects.+\.csv\"/, response.headers["Content-Disposition"]
   end
 
   test "should return matching public projects on public search" do
-    get :index, search: "cod"
+    get :index, params: { search: "cod" }
     assert_includes assigns(:projects), @project_b
     assert_not_includes assigns(:projects), @project_a
   end
 
   test "should return all matching projects on logged in search" do
     sign_in @user
-    get :index, search: "cod"
+    get :index, params: { search: "cod" }
     assert_includes assigns(:projects), @project_a
     assert_includes assigns(:projects), @project_b
     assert_not_includes assigns(:projects), @project_c
@@ -59,19 +59,19 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test "should return all projects on logged in search with no term" do
     sign_in @user
-    get :index, search: ""
+    get :index, params: { search: "" }
     assert_equal assigns(:projects), Project.order('created_at DESC')
   end
 
   test "should return user's project when in my_projects dashboard" do
     sign_in @user
-    get :index, {user: @user}
+    get :index, params: {user: @user}
 
     assert_equal 2, assigns(:projects).count
   end
 
   test "should return all public projects on public search with no term" do
-    get :index, search: ""
+    get :index, params: { search: "" }
     assert_equal assigns(:projects), Project.where(published: true).order('created_at DESC')
     assert_not_includes assigns(:projects), @project_a
   end
@@ -91,7 +91,7 @@ class ProjectsControllerTest < ActionController::TestCase
   test "should create project" do
     sign_in @user
     assert_difference('Project.count') do
-    post :create, project: {  title: @project.title,
+    post :create, params: { project: {  title: @project.title,
                               url: @project.url,
                               description: @project.description,
                               github_identifier: @project.github_identifier,
@@ -118,51 +118,54 @@ class ProjectsControllerTest < ActionController::TestCase
                                 sub_project_id: @saved_project.id
                               }]
                             }
+                  }
     end
     assert_redirected_to project_path(assigns(:project))
   end
 
   test "should render new page when failing to create project" do
     sign_in @user
-    post :create, project: { url: @project.url }
+    post :create, params: { project: { url: @project.url } }
     assert_template :new
   end
 
   test "should show project" do
     sign_in @user
-    get :show, id: @saved_project
+    get :show, params: { id: @saved_project }
     assert_response :success
   end
 
   test "should get edit" do
     sign_in @user
-    get :edit, id: @saved_project
+    get :edit, params: { id: @saved_project }
     assert_response :success
   end
 
   test "should update project" do
     sign_in @user
-    patch :update, id: @saved_project, project: { title: "New Title" }
+    patch :update, params: { id: @saved_project, project: { title: "New Title" } }
     assert_redirected_to project_path(assigns(:project))
   end
 
   test "should render edit page when failing to update project" do
     sign_in @user
-    patch :update, id: @saved_project, project: { title: "" }
+    patch :update, params: { id: @saved_project, project: { title: "" } }
     assert_template :edit
   end
 
   test "should destroy project" do
     sign_in @user
     assert_difference('Project.count', -1) do
-      delete :destroy, id: @saved_project
+      delete :destroy, params: { id: @saved_project }
     end
     assert_redirected_to projects_path
   end
 
   test "should raise exception if deleting project with project instances" do
     sign_in @user
-    assert_raises(ActionController::RedirectBackError) { delete :destroy, id: @project_with_instances.id }
+    delete :destroy, params: { id: @project_with_instances.id }
+
+    assert_redirected_to projects_path
     assert_equal "This project has project instances. Delete its project instances first", flash[:alert]
   end
 
@@ -171,7 +174,7 @@ class ProjectsControllerTest < ActionController::TestCase
     master_project = FactoryGirl.create(:project)
     sub_project = FactoryGirl.create(:project)
     assert_difference("Dependency.count", 2) do
-      patch :update, id: @saved_project, project:
+      patch :update, params: { id: @saved_project, project:
         {
           master_sub_relationship_attributes: [
             {
@@ -184,6 +187,7 @@ class ProjectsControllerTest < ActionController::TestCase
             }
           ]
         }
+      }
     end
 
     assert_equal 1, assigns(:project).master_projects.count
@@ -194,7 +198,7 @@ class ProjectsControllerTest < ActionController::TestCase
     sign_in @user
     dependency = Dependency.where(sub_project_id: @project_with_dependencies.id).first
     assert_difference("Dependency.count", -1) do
-      patch :update, id: @project_with_dependencies, project:
+      patch :update, params: { id: @project_with_dependencies, project:
         {
           master_sub_relationship_attributes: [
             {
@@ -203,6 +207,7 @@ class ProjectsControllerTest < ActionController::TestCase
             }
           ]
         }
+      }
     end
     assert_equal 0, @project_with_dependencies.master_projects.count
   end

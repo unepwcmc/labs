@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class GithubSyncControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   def setup
     @user = FactoryGirl.create(:user)
@@ -92,7 +92,7 @@ class GithubSyncControllerTest < ActionController::TestCase
     )
 
     assert_difference 'Project.count' do
-      post :sync, repos: ["first_repo"]
+      post :sync, params: { repos: ["first_repo"] }
     end
   end
 
@@ -110,7 +110,7 @@ class GithubSyncControllerTest < ActionController::TestCase
     end
 
     should "update project when pushing to master" do
-      post :push_event_webhook, {ref: 'head/master', repository: {full_name: 'unepwcmc/repo' } }
+      post :push_event_webhook, params: {ref: 'head/master', repository: {full_name: 'unepwcmc/repo' } }
 
       @project.reload
       assert_equal '4.2', @project.rails_version
@@ -118,7 +118,7 @@ class GithubSyncControllerTest < ActionController::TestCase
     end
 
     should "not update project when pushing to branch different from master" do
-      post :push_event_webhook, {ref: 'head/branch', repository: {full_name: 'unepwcmc/repo'} }
+      post :push_event_webhook, params: {ref: 'head/branch', repository: {full_name: 'unepwcmc/repo'} }
 
       @project.reload
       assert_equal '3.0', @project.rails_version

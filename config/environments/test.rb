@@ -8,8 +8,12 @@ Labs::Application.configure do
   config.cache_classes = true
 
   # Configure static asset server for tests with Cache-Control for performance
-  config.serve_static_files = true
-  config.static_cache_control = "public, max-age=3600"
+  # deprecated in Rails 5.1
+  # config.serve_static_files = true
+  config.public_file_server.enabled = true
+  # depracated in Rails 5.1
+  #config.static_cache_control = "public, max-age=3600"
+  config.public_file_server.headers = { 'Cache-Control' => 'public, max-age=3600' }
 
   config.eager_load = false
 
@@ -42,5 +46,6 @@ Labs::Application.configure do
     config.active_support.test_order = :sorted
   end
 
-  config.active_record.raise_in_transactional_callbacks = true
+  #deprecated
+  #config.active_record.raise_in_transactional_callbacks = true
 end

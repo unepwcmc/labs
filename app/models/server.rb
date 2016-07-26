@@ -16,7 +16,7 @@
 #  closing      :boolean          default(FALSE)
 #
 
-class Server < ActiveRecord::Base
+class Server <  ApplicationRecord
   acts_as_paranoid
 
   has_many :installations, dependent: :destroy

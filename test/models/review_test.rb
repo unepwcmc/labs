@@ -39,7 +39,7 @@ class ReviewTest < ActiveSupport::TestCase
     @instance = FactoryGirl.create(:project_instance, project: @project, stage: 'Production', backup_information: nil)
     FactoryGirl.create(:installation, project_instance: @instance)
     @review = FactoryGirl.create(:review, project: @project)
-    @project.reviews(true)
+    @project.reviews.reload
     assert @review.reload.result == 0.0
     old_result = @review.result
     @instance.update_attributes(backup_information: 'loads of backup')

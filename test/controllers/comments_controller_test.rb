@@ -3,7 +3,7 @@ require 'minitest/mock'
 
 class CommentsControllerTest < ActionController::TestCase
 
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   def setup
     @user = FactoryGirl.create(:user)
@@ -26,7 +26,14 @@ class CommentsControllerTest < ActionController::TestCase
   test "should create project_comment" do
     stub_slack_comment do
       assert_difference("Comment.count") do
-        post :create, comment: {content: @project_comment.content}, user_id: @user, project_id: @project_comment.commentable_id, format: :json
+        post :create, params: {
+                        comment: {
+                          content: @project_comment.content
+                        },
+                        user_id: @user,
+                        project_id: @project_comment.commentable_id,
+                        format: :json
+                      }
       end
       assert_formatting @project_comment
     end
@@ -35,7 +42,14 @@ class CommentsControllerTest < ActionController::TestCase
   test "should create installation_comment" do
     stub_slack_comment do
       assert_difference("Comment.count") do
-        post :create, comment: {content: @installation_comment.content}, user_id: @user, installation_id: @installation_comment.commentable_id, format: :json
+        post :create,  params: {
+                         comment: {
+                           content: @installation_comment.content
+                         },
+                         user_id: @user,
+                         installation_id: @installation_comment.commentable_id,
+                         format: :json
+                       }
       end
       assert_formatting @installation_comment
     end
@@ -44,14 +58,28 @@ class CommentsControllerTest < ActionController::TestCase
   test "should create server_comment" do
     stub_slack_comment do
       assert_difference("Comment.count") do
-        post :create, comment: {content: @server_comment.content}, user_id: @user, server_id: @server_comment.commentable_id, format: :json
+        post :create, params: {
+                        comment: {
+                          content: @server_comment.content
+                        },
+                        user_id: @user,
+                        server_id: @server_comment.commentable_id,
+                        format: :json
+                      }
       end
       assert_formatting @server_comment
     end
   end
 
   test "should return error for invalid comment" do
-      post :create, comment: {content: ''}, user_id: @user, project_id: @project_comment.commentable_id, format: :json
+      post :create, params: {
+                      comment: {
+                        content: ''
+                      },
+                      user_id: @user,
+                      project_id: @project_comment.commentable_id,
+                      format: :json
+                    }
       assert_response :unprocessable_entity
   end
 
@@ -60,7 +88,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     stub_slack_comment do
       assert_difference("Comment.count", -1) do
-        delete :destroy, id: comment
+        delete :destroy, params: { id: comment }
       end
       assert_redirected_to projects_url
     end
