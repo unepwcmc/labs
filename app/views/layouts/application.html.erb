@@ -32,7 +32,9 @@
 <body>
   <div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container-fluid">
-        <%= link_to image_tag('unep_wcmc_logo.png', height: 60, class: 'navbar-brand'), root_path %>
+        <div class="navbar-brand">
+          <a href="http://unep-wcmc.org" target="_blank" class="header__logo"></a>
+        </div>
         <ul class="nav navbar-nav">
           <% if user_signed_in? %>
             <li class="dropdown">

@@ -1,4 +1,4 @@
-#search-box { text-align: right; }  
+#search-box { text-align: right; }
 
 footer {
   margin-top: 20px;
@@ -53,4 +53,17 @@ footer {
 
 #commentModal .modal-backdrop {
   z-index: 0;
+}
+
+.header__logo {
+  display: block;
+  text-indent: -9999px;
+  width: 115px;
+  height: 38px;
+  background: url(https://s3.amazonaws.com/wcmc.logo/UN-Environment-WCMC+logo+2017+white.svg);
+  background-size: 115px 38px;
+}
+
+.navbar-brand {
+  padding: 10px 15px !important;
 }
