@@ -24,6 +24,7 @@ class Domain < ApplicationRecord
     graph.each do |model|
       model.each do |key, value|
         domain = key.downcase
+        project.gsub!(' ', '')
         dir = "#{Rails.root}/public/domains/#{project}"
         filename = "#{dir}/#{domain}"
         FileUtils.mkdir_p(dir) unless File.directory?(dir)
