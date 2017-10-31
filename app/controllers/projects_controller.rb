@@ -130,7 +130,7 @@ class ProjectsController < ApplicationController
       :hacks, :external_clients_array, :project_leads_array, :pdrive_folders_array,
       :dropbox_folders_array, :pivotal_tracker_ids_array, :trello_ids_array, :expected_release_date,
       :rails_version, :ruby_version, :postgresql_version, :other_technologies_array, :published,
-      :internal_description, :background_jobs, :cron_jobs, :user_access,
+      :internal_description, :project_code, :background_jobs, :cron_jobs, :user_access,
       master_sub_relationship_attributes: [:id, :master_project_id, :_destroy],
       sub_master_relationship_attributes: [:id, :sub_project_id, :_destroy]
     )

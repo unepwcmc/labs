@@ -25,6 +25,11 @@
     <%= display_text @project, :internal_description %>
 
     <p>
+      <strong>Project Code:</strong>
+      <%= @project.project_code %>
+    </p>
+
+    <p>
       <strong>External Clients:</strong>
 
       <% if !@project.external_clients.blank? %>
