@@ -26,4 +26,13 @@ Labs::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # Open emails in the browser
+  config.action_mailer.delivery_method = :letter_opener
+
+  # Mailer config
+  secrets = Rails.application.secrets.mailer
+  config.action_mailer.asset_host = secrets["host"]
+  config.action_mailer.default_url_options = { host: secrets["host"]}
+
 end
