@@ -71,6 +71,10 @@ group :development do
   gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
   gem 'spring'
   gem 'rubocop', require: false
+
+  # Emails
+  gem 'letter_opener'
+
 end
 
 group :test, :development do

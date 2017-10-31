@@ -191,6 +191,8 @@ GEM
     kramdown (1.9.0)
     launchy (2.4.3)
       addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -382,6 +384,7 @@ DEPENDENCIES
   jquery-rails
   kramdown (~> 1.9.0)
   launchy
+  letter_opener
   mini_magick (~> 4.3.6)
   mocha (~> 1.1.0)
   nested_form
@@ -407,5 +410,8 @@ DEPENDENCIES
   webmock (~> 1.18.0)
   whenever
 
+RUBY VERSION
+   ruby 2.2.3p173
+
 BUNDLED WITH
-   1.10.6
+   1.15.4
