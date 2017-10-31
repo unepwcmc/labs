@@ -38,6 +38,7 @@ FactoryGirl.define do
   factory :project do
     title Faker::Company.name
     description Faker::Lorem.paragraph
+    project_code Faker::Lorem.characters(10)
     url Faker::Internet.url
     github_identifier "unepwcmc/#{Faker::Lorem.word}"
     state { ['Under Development', 'Delivered', 'Project Development'].sample }
