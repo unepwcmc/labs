@@ -117,6 +117,8 @@ GEM
     capistrano-bundler (1.1.4)
       capistrano (~> 3.1)
       sshkit (~> 1.2)
+    capistrano-dotenv-tasks (0.1.4)
+      capistrano (~> 3.0)
     capistrano-harrow (0.5.2)
     capistrano-maintenance (1.0.0)
       capistrano (>= 3.0)
@@ -368,6 +370,7 @@ DEPENDENCIES
   byebug
   capistrano (~> 3.4)
   capistrano-bundler (~> 1.1)
+  capistrano-dotenv-tasks
   capistrano-maintenance (~> 1.0)
   capistrano-passenger (~> 0.1.1)
   capistrano-rails (~> 1.1)
@@ -419,4 +422,4 @@ RUBY VERSION
    ruby 2.2.3p173
 
 BUNDLED WITH
-   1.15.4
+   1.16.0
