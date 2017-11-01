@@ -82,9 +82,13 @@ class ProjectsController < ApplicationController
   # PUT /projects/1.json
   def update
     @project = Project.find(params[:id])
+    existing_project_code = @project.project_code
 
     respond_with(@project) do |format|
       if @project.update_attributes(project_params)
+        if @project.project_code != existing_project_code
+          NotificationMailer::notify_team_of_project_code_alteration(@project).deliver_now
+        end
         format.html { redirect_to @project, :notice => 'Project was successfully updated.' }
       else
         format.html {
