@@ -31,7 +31,7 @@ Labs::Application.configure do
   config.action_mailer.smtp_settings = {
     :enable_starttls_auto => true,
     :address => secrets['address'],
-    :port => secrets['port'],
+    :port => 587,
     :domain => secrets['domain'],
     :authentication => :login,
     :user_name => secrets['username'],
