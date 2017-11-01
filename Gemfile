@@ -31,6 +31,7 @@ gem 'kramdown', '~> 1.9.0'
 gem 'sanitize'
 gem 'domain_uploader', github: 'unepwcmc/domain_uploader'
 gem 'dotenv-rails', '~> 2.2', '>= 2.2.1'
+gem 'capistrano-dotenv-tasks', require: false
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -38,7 +39,7 @@ gem 'dotenv-rails', '~> 2.2', '>= 2.2.1'
 # gem 'unicorn'
 
 # Deploy with Capistrano
-  gem 'capistrano', '~> 3.4', require: false
+  gem 'capistrano', '3.4', require: false
   gem 'capistrano-rails',   '~> 1.1', require: false
   gem 'capistrano-bundler', '~> 1.1', require: false
   gem 'capistrano-rvm',   '~> 0.1', require: false
