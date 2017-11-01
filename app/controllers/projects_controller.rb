@@ -87,7 +87,7 @@ class ProjectsController < ApplicationController
     respond_with(@project) do |format|
       if @project.update_attributes(project_params)
         if @project.project_code != existing_project_code
-          NotificationMailer::notify_team_of_project_code_alteration(@project).deliver_now
+          NotificationMailer.notify_team_of_new_project_code(@project, existing_project_code, current_user).deliver_now
         end
         format.html { redirect_to @project, :notice => 'Project was successfully updated.' }
       else
