@@ -37,13 +37,13 @@ gem 'domain_uploader', github: 'unepwcmc/domain_uploader'
 # gem 'unicorn'
 
 # Deploy with Capistrano
-  gem 'capistrano', '~> 3.4', require: false
+  gem 'capistrano', '~> 3.8.2', require: false
   gem 'capistrano-rails',   '~> 1.1', require: false
   gem 'capistrano-bundler', '~> 1.1', require: false
   gem 'capistrano-rvm',   '~> 0.1', require: false
   gem 'capistrano-maintenance', '~> 1.0', require: false
   gem 'capistrano-passenger', '~> 0.1.1', require: false
-  gem 'slackistrano', '~> 1.0.0', require: false
+  gem 'slackistrano'
   gem 'whenever'
   gem 'exception_notification', github: 'smartinez87/exception_notification', branch: 'master'
   gem 'slack-notifier'

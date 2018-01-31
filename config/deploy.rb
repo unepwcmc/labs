@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.4.0'
+lock '3.8.2'
 
 set :application, 'labs'
 set :repo_url, 'git@github.com:unepwcmc/labs.git'
@@ -21,7 +21,7 @@ set :ssh_options, {
   forward_agent: true,
 }
 
-set :linked_files, %w{config/database.yml config/config.yml config/secrets.yml}
+set :linked_files, %w{config/database.yml config/config.yml config/secrets.yml .env}
 
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
 
@@ -30,15 +30,10 @@ set :keep_releases, 5
 set :passenger_restart_with_touch, false
 
 
-require 'yaml'
-require 'json'
-secrets =  YAML.load(File.open('config/secrets.yml'))
 
-set :slack_token, secrets["slack_token"] # comes from inbound webhook integration
-set :slack_room, "#labs"
-set :slack_subdomain, "wcmc" # if your subdomain is kohactive.slack.com
-set :slack_application, "Labs"
-set :slack_username, "Capistrano"
-set :slack_emoji, ":thumbsup:"
-
+# notify to slack
+set :slackistrano, {
+  channel: '#labs',
+  webhook: ENV.fetch('DEPLOY_SLACK_WEBHOOK_URL')
+}
 
