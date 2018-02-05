@@ -34,6 +34,6 @@ set :passenger_restart_with_touch, false
 # notify to slack
 set :slackistrano, {
   channel: '#labs',
-  webhook: ENV.fetch('DEPLOY_SLACK_WEBHOOK_URL')
+  webhook: ENV.fetch('SLACK_WEBHOOK_URL')
 }
 

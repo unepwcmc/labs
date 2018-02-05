@@ -48,6 +48,7 @@ gem 'domain_uploader', github: 'unepwcmc/domain_uploader'
   gem 'exception_notification', github: 'smartinez87/exception_notification', branch: 'master'
   gem 'slack-notifier'
   gem "font-awesome-rails", '~> 4.6.0.0'
+  gem 'capistrano-env-config'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'

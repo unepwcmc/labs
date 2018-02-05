@@ -24,7 +24,7 @@ require 'capistrano/rails/migrations'
 require 'capistrano/passenger'
 require 'whenever/capistrano'
 require 'slackistrano/capistrano'
-
+require 'capistrano/env-config'
 
 
 
