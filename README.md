@@ -11,6 +11,13 @@ The homepage for the WCMC Informatics team. A basic rails app for showing off th
 * Staging: `cap staging deploy`
 * Production: `cap production deploy`
 
+In order to get slack notifications working you need to create a local .env file in the root of the application directory.  See the .env.example.
+
+You'll need to use the relevant values from Slack.
+
+.env is in the .gitignore file so will not be committed.
+
+
 ## Sign In
 
 Sign in uses Omniauth with Github, a method is then ran to query the Github API to see if the user is a member of the wcmc-core-dev team. If they are, login succeeds. If not, the login is rejected and they are directed to the root of the application.
