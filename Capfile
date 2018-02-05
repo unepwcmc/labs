@@ -4,6 +4,11 @@ require 'capistrano/setup'
 # Include default deployment tasks
 require 'capistrano/deploy'
 
+require "capistrano/scm/git"
+install_plugin Capistrano::SCM::Git
+
+
+
 # Include tasks from other gems included in your Gemfile
 #
 # For documentation on these, see for example:
@@ -25,7 +30,7 @@ require 'capistrano/passenger'
 require 'whenever/capistrano'
 require 'slackistrano/capistrano'
 require 'capistrano/env-config'
-
+require_relative 'lib/custom_messaging'
 
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
