@@ -32,11 +32,6 @@ set :keep_releases, 5
 set :passenger_restart_with_touch, false
 
 
-require 'yaml'
-require 'json'
-secrets =  YAML.load(File.open('config/secrets.yml'))
-
-
 set :slackistrano, {
    channel: ENV.fetch('SLACK_CHANNEL'),
    klass: Slackistrano::CustomMessaging,
