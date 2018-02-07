@@ -17,7 +17,7 @@ script:
   bundle exec rake
 notifications:
   slack: wcmc:lKFUwvPWA1ATAwSQWPm1Y3C5
+
 env:
   global:
-  secure: T4KD+ggvUmCI/1in6gS0kaAePIguX8x1vgOS+IluOhI1DcLdadNcecK5VzdHQiztl1p/QIV5+8c9suiITejpd/U+aFVQSGlA5C3CVYmNa3IfWCPCqF9rLOKCZtcQQlWpp3RGzQY6JkpujN2QQSAs9bYDIjnu/mKDF32UWnJgdb0=
-
+    secure: T4KD+ggvUmCI/1in6gS0kaAePIguX8x1vgOS+IluOhI1DcLdadNcecK5VzdHQiztl1p/QIV5+8c9suiITejpd/U+aFVQSGlA5C3CVYmNa3IfWCPCqF9rLOKCZtcQQlWpp3RGzQY6JkpujN2QQSAs9bYDIjnu/mKDF32UWnJgdb0=
