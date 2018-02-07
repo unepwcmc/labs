@@ -1,12 +1,12 @@
 sudo: false
 language: ruby
-bundler_args: "--without development production staging"
+bundler_args: --without development production staging
 rvm:
 - 2.2.3
 addons:
   postgresql: 9.3
   code_climate:
-    repo_token: 21524b0b86a59b7e03bf276b2bea678c477f5639fd1263d772e7c5bac8b19d2a
+    repo_token: 21524b0b86a59b7e03bf276b2bea678c477f5639fd1263d772e7c5bac8b19d2a bundle exec rake
 before_script:
 - psql -c 'create database travis_ci_test' -U postgres
 - cp config/database.yml.travis config/database.yml
