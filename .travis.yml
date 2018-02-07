@@ -24,7 +24,5 @@ env:
   - secure: L2d1T9VN4AtY/QMpiZ/Si3OZRyRRLYJxk0tH/SdJ212A6NNg5UtXheqhm3w65QIkT5DacY749zawS8dJ8m09uwppH72j/NGeXWexSvr4NC+pVzoy9HC08Ol87ykA5wNKlx2hFi+BR/0qeiRxNE35SKz6iAc49pOX1+sDsKeXemM=
 after_success:
 - openssl aes-256-cbc -k $DEPLOY_KEY -in config/travis_deploy_id_rsa_enc_travis -d -a -out config/travis_deploy_id_rsa
-- eval "$(ssh-agent -s)"
 - chmod 600 config/travis_deploy_id_rsa
-- ssh-add config/travis_deploy_id_rsa
 - bundle exec cap staging deploy
