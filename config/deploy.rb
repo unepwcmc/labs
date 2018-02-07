@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.4.0'
+lock '3.8.2'
 
 set :application, 'labs'
 set :repo_url, 'git@github.com:unepwcmc/labs.git'
@@ -32,15 +32,8 @@ set :keep_releases, 5
 set :passenger_restart_with_touch, false
 
 
-require 'yaml'
-require 'json'
-secrets =  YAML.load(File.open('config/secrets.yml'))
-
-set :slack_token, secrets["slack_token"] # comes from inbound webhook integration
-set :slack_room, "#labs"
-set :slack_subdomain, "wcmc" # if your subdomain is kohactive.slack.com
-set :slack_application, "Labs"
-set :slack_username, "Capistrano"
-set :slack_emoji, ":thumbsup:"
-
-
+set :slackistrano, {
+   channel: ENV.fetch('SLACK_CHANNEL'),
+   klass: Slackistrano::CustomMessaging,
+   webhook: ENV.fetch('SLACK_WEBHOOK_URL')
+}
