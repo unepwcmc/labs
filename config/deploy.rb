@@ -4,7 +4,7 @@ lock '3.8.2'
 set :application, 'labs'
 set :repo_url, 'git@github.com:unepwcmc/labs.git'
 
-set :ssh_options, keys: ["config/travis_deploy_id_rsa"] if File.exist?("config/travis_deploy_id_rsa")
+set :ssh_options, keys: ["config/id_rsa"] if File.exist?("config/id_rsa")
 
 set :branch, 'master'
 

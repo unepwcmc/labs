@@ -21,8 +21,10 @@ env:
   global:
   - secure: OOwUUEhKfjVkF1c+rNjPgw6OewdZ1wugAXx7V+hA5Qoi4yE0upCl/36gJuVLAW/JaeLhY3moS4u5K0BPSBhLtUwwxOWc6JI1ETi6dmul757PiA/Y81g+j5FJcztC3DwP+PgZ9OqIBzFT7rWaVG5b6VkZTpG5GOsXJXkBOZ+vgSs=
   - secure: GP6ZDdscpkepWAGpk0sInmzswXIegz5FIjdvmU8SMLwhZaJm8SByapHIm6Q8ri9S3zG1N5XS0SmRIeFxFzPdgaACFzGoC0EH/AZ2srypbYdSatgDkiIlyBpvmMZPjDJunBA0OnUaizz91wdoeLRQWntna7n0SawzMfOl4/9uCi8=
-  - secure: L2d1T9VN4AtY/QMpiZ/Si3OZRyRRLYJxk0tH/SdJ212A6NNg5UtXheqhm3w65QIkT5DacY749zawS8dJ8m09uwppH72j/NGeXWexSvr4NC+pVzoy9HC08Ol87ykA5wNKlx2hFi+BR/0qeiRxNE35SKz6iAc49pOX1+sDsKeXemM=
+  - secure: DNM07aHMeERmBt96aPGwsPZfQoEHr4gmB3t2OOs2tCSjwZQjN5jgEv/KAEKJOyhl5nMJNn8cVawgENuZj+jdjPZ4bf0ysD1GskNx2/aL0RNw2e0U2n6c0fDWuNWdVoAqTiVgHcHXOa3FxR6ruITlMVFHYfcv3i4Z5R2PDGlZCrk=
 after_success:
-- openssl aes-256-cbc -k $DEPLOY_KEY -in config/travis_deploy_id_rsa_enc_travis -d -a -out config/travis_deploy_id_rsa
-- chmod 600 config/travis_deploy_id_rsa
+- "openssl aes-256-cbc -k $DEPLOY_KEY -in config/id_rsa_enc_travis -d -a -out config/id_rsa"
+- eval "$(ssh-agent -s)" 
+- chmod 600 config/id_rsa
+- ssh-add config/id_rsa
 - bundle exec cap staging deploy
