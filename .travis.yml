@@ -17,9 +17,9 @@ script:
   bundle exec rake
 notifications:
   slack: wcmc:lKFUwvPWA1ATAwSQWPm1Y3C5
-#env:
-#  global:
-#    secure: T4KD+ggvUmCI/1in6gS0kaAePIguX8x1vgOS+IluOhI1DcLdadNcecK5VzdHQiztl1p/QIV5+8c9suiITejpd/U+aFVQSGlA5C3CVYmNa3IfWCPCqF9rLOKCZtcQQlWpp3RGzQY6JkpujN2QQSAs9bYDIjnu/mKDF32UWnJgdb0=
-#after_success:
-#  - "openssl aes-256-cbc -k $DEPLOY_KEY -in config/deploy_id_rsa_enc_travis -d -a -out config/deploy_id_rsa"
-#  - [[ $TRAVIS_BRANCH = 'slack_notifications' ]] && cap staging deploy
+env:
+  global:
+  secure: T4KD+ggvUmCI/1in6gS0kaAePIguX8x1vgOS+IluOhI1DcLdadNcecK5VzdHQiztl1p/QIV5+8c9suiITejpd/U+aFVQSGlA5C3CVYmNa3IfWCPCqF9rLOKCZtcQQlWpp3RGzQY6JkpujN2QQSAs9bYDIjnu/mKDF32UWnJgdb0=
+after_success:
+  - "openssl aes-256-cbc -k $DEPLOY_KEY -in config/deploy_id_rsa_enc_travis -d -a -out config/deploy_id_rsa"
+  - "bundle exec cap staging deploy"
