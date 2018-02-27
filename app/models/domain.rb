@@ -30,7 +30,7 @@ class Domain < ApplicationRecord
         FileUtils.mkdir_p(dir) unless File.directory?(dir)
         File.open("#{filename}.dot", 'w') { |f| f.puts value }
         system "dot -Tpng #{filename}.dot > #{filename}.png"
-        File.delete("#{filename}.dot")
+        #File.delete("#{filename}.dot")
       end
     end
   end
