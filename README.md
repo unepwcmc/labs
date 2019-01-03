@@ -6,6 +6,13 @@
 
 The homepage for the WCMC Informatics team. A basic rails app for showing off the Informatics team's projects, storing Servers, and information about the installations of projects across servers.
 
+## Setup
+
+- Clone repo
+- Run `bundle install`
+- Run `rake db:create`, `rake db:migrate`
+- Run `rails secret` and populate `config/secrets.yml`
+
 ## Deployment
 
 * Staging: `cap staging deploy`
