@@ -44,3 +44,11 @@ div.block-of-text {
   text-align: center;
   font-size: 28px;
 }
+
+.project {
+  &:hover {
+    .heading--project {
+      text-decoration: underline;
+    }
+  }
+}
