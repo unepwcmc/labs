@@ -77,7 +77,7 @@ class Project <  ApplicationRecord
   validate :validate_trello_ids
   validate :validate_pivotal_tracker_ids
 
-  validates :state, inclusion: { in: ['Under Development', 'Delivered', 'Project Development', 'Discontinued', 'Not Started', 'In Progress', 'Paused', 'Completed', 'Launched (No Maintenance)', 'Launched (Support & Maintenance)', 'Orphaned', 'Offline', 'Abandoned'] }
+  validates :state, inclusion: { in: ['Unknown', 'Not Started', 'In Progress', 'Paused', 'Completed', 'Launched (No Maintenance)', 'Launched (Support & Maintenance)', 'Orphaned', 'Offline', 'Abandoned'] }
 
 
   accepts_nested_attributes_for :master_sub_relationship, allow_destroy: true

@@ -163,10 +163,7 @@ class ProjectsController < ApplicationController
 
   def project_status_options
     [
-      ['Under Development', 'Under Development'],
-      ['Delivered', 'Delivered'],
-      ['Project Development', 'Project Development'],
-      ['Discontinued', 'Discontinued'],
+      ['Unknown', 'Unknown'],
       ['Not Started', 'Not Started'],
       ['In Progress', 'In Progress'],
       ['Paused', 'Paused'],

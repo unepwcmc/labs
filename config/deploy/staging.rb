@@ -1,4 +1,5 @@
 set :stage, :staging
+set :branch, "develop"
 
 server "web-staging.linode.unep-wcmc.org", user: 'wcmc', roles: %w{app web db}
 
