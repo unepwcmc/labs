@@ -135,8 +135,7 @@
       <div class="form-group">
         <%= f.label :state, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-          <%= f.select :state, [["Under Development", "Under Development"],["Delivered", "Delivered"],
-          ["Project Development", "Project Development"],["Discontinued", "Discontinued"]], {}, class: "form-control" %>
+          <%= f.select :state, @project_status_options, {}, class: "form-control" %>
         </div>
       </div>
 

@@ -51,6 +51,7 @@ class ProjectsController < ApplicationController
   # GET /projects/new.json
   def new
     @project = Project.new
+    @project_status_options = project_status_options
 
     respond_with(@project)
   end
@@ -58,6 +59,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1/edit
   def edit
     @project = Project.find(params[:id])
+    @project_status_options = project_status_options
   end
 
   # POST /projects
@@ -157,6 +159,24 @@ class ProjectsController < ApplicationController
       ProjectsExport.new
     end
     send_file(project_export.export, type: 'text/csv')
+  end
+
+  def project_status_options
+    [
+      ['Under Development', 'Under Development'],
+      ['Delivered', 'Delivered'],
+      ['Project Development', 'Project Development'],
+      ['Discontinued', 'Discontinued'],
+      ['Not Started', 'Not Started'],
+      ['In Progress', 'In Progress'],
+      ['Paused', 'Paused'],
+      ['Completed', 'Completed'],
+      ['Launched (No Maintenance)', 'Launched (No Maintenance)'],
+      ['Launched (Support & Maintenance)', 'Launched (Support & Maintenance)'],
+      ['Orphaned', 'Orphaned'],
+      ['Offline', 'Offline'],
+      ['Abandoned', 'Abandoned'],
+    ]
   end
 
 end
