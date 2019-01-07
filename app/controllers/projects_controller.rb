@@ -126,7 +126,7 @@ class ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).permit(:developers_array, :title,
-      :description, :url, :github_id, :pivotal_tracker_id,
+      :description, :url, :url_staging, :github_id, :pivotal_tracker_id,
       :toggl_id, :deadline, :screenshot, :state,
       :github_identifier, :dependencies, :internal_clients_array, :current_lead,
       :hacks, :external_clients_array, :project_leads_array, :pdrive_folders_array,
