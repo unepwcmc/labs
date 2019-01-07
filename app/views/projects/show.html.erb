@@ -14,20 +14,32 @@
     <div class="page-header">
       <h2>About the Project</h2>
     </div>
+    
+    <p>
+      <strong>Project Code:</strong>
+      <%= @project.project_code %>
+    </p>
 
     <p>
-      <strong>URL:</strong>
+      <strong>Production:</strong>
       <%= link_to @project.url, @project.url, target: '_blank' %>
+    </p>
+
+    <p>
+      <strong>Staging:</strong>
+      <% if @project.url_staging %>
+        <%= link_to @project.url_staging, @project.url_staging, target: '_blank' %>
+      <% end %>
+    </p>
+
+    <p>
+      <strong>State:</strong>
+      <%= @project.state %>
     </p>
 
     <%= display_text @project, :description %>
 
     <%= display_text @project, :internal_description %>
-
-    <p>
-      <strong>Project Code:</strong>
-      <%= @project.project_code %>
-    </p>
 
     <p>
       <strong>External Clients:</strong>
@@ -149,11 +161,6 @@
   </div>
 
   <div class="col-lg-6">
-    <p>
-      <strong>State:</strong>
-      <%= @project.state %>
-    </p>
-
     <p>
       <strong>User access:</strong>
       <%= @project.user_access %>
