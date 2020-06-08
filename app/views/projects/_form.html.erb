@@ -27,21 +27,21 @@
       <div class="form-group">
         <%= f.label :title, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-          <%= f.text_field :title, class: "form-control" %>
+          <%= f.text_field :title, class: "form-control", required: true %>
         </div>
       </div>
 
       <div class="form-group">
         <%= f.label :url, 'Production URL', class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-          <%= f.text_field :url, class: "form-control" %>
+          <%= f.url_field :url, class: "form-control" %>
         </div>
       </div>
 
       <div class="form-group">
         <%= f.label :url_staging, 'Staging URL', class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-          <%= f.text_field :url_staging, class: "form-control" %>
+          <%= f.url_field :url_staging, class: "form-control" %>
         </div>
       </div>
 
@@ -55,7 +55,7 @@
       <div class="form-group">
         <%= f.label :description, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-          <%= f.text_area :description, class: "form-control" %>
+          <%= f.text_area :description, class: "form-control", required: true %>
         </div>
       </div>
 

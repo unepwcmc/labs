@@ -72,10 +72,10 @@ class Project <  ApplicationRecord
 
   validates :url, format: { with: URI.regexp(%w(http https)) },
     if: Proc.new { |a| a.url.present? }
-  validates :github_identifier, format: { with: /\A[-a-zA-Z0-9_.]+\/[-a-zA-Z0-9_.]+\z/i },
-    if: Proc.new { |a| a.github_identifier.present? }
-  validate :validate_trello_ids
-  validate :validate_pivotal_tracker_ids
+  # FIXME: Doesn't seem to work
+  # validates :github_identifier, format: { with: /\A[-a-zA-Z0-9_.]+\/[-a-zA-Z0-9_.]+\z/i },
+  #   if: Proc.new { |a| a.github_identifier.present? }
+
 
   validates :state, inclusion: { in: ['Unknown', 'Not Started', 'In Progress', 'Paused', 'Completed', 'Launched (No Maintenance)', 'Launched (Support & Maintenance)', 'Orphaned', 'Offline', 'Abandoned'] }
 
@@ -149,18 +149,6 @@ class Project <  ApplicationRecord
 
 
   private
-
-  def validate_trello_ids
-    if self.trello_ids.detect{ |trello_id| !(/\A([a-z0-9]+\/[-a-z0-9_]+)\z/i.match(trello_id)) }
-      errors.add(:trello_ids, :invalid)
-    end
-  end
-
-  def validate_pivotal_tracker_ids
-    if self.pivotal_tracker_ids.detect{ |pt_id| !(/\A\d+(,\d+)*\z/i.match(pt_id)) }
-      errors.add(:pivotal_tracker_ids, :invalid)
-    end
-  end
 
   def self.pluck_field symbol
     pluck(symbol).compact.uniq.reject(&:empty?).sort
