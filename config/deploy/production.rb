@@ -1,12 +1,13 @@
 set :stage, :production
+set :branch, "supported-production"
 
-server "web-production.linode.unep-wcmc.org", user: 'wcmc', roles: %w{app web db}
-server "db-production.linode.unep-wcmc.org", user: 'wcmc', roles: %w{bkp}, no_release: true
+server "web-supported-production.linode.unep-wcmc.org", user: 'wcmc', roles: %w{app web db}
 
 set :application, "labs"
-set :server_name, "labs.web-production.linode.unep-wcmc.org"
+set :server_name, "labs.web-supported-production.linode.unep-wcmc.org"
 set :sudo_user, "wcmc"
 set :app_port, "80"
+
 
 
 
