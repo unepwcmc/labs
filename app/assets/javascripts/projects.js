@@ -7,6 +7,19 @@ $(document).ready(function(){
     $(this).replaceWith(this.alt);
   }
 
+  function addURLPresenceValidation(){
+    const publishedCheckbox = $("#project_published");
+    const urlInput = $("#project_url")
+
+    urlInput.attr("required", publishedCheckbox.is(":checked"));
+
+    publishedCheckbox.change(function() { 
+      urlInput.attr("required", this.checked);
+    });
+  }
+
+  addURLPresenceValidation();
+
   $(".badge_img").error(showAlt);
 
   $(".tag-field").select2({tags:[]}, {
