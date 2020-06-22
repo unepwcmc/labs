@@ -1,10 +1,10 @@
 # config valid only for current version of Capistrano
-lock '3.4.0'
+lock '3.5.0'
 
 set :application, 'labs'
 set :repo_url, 'git@github.com:unepwcmc/labs.git'
 
-set :branch, 'master'
+#set :branch, 'master'
 
 set :deploy_user, 'wcmc'
 set :deploy_to, "/home/#{fetch(:deploy_user)}/#{fetch(:application)}"

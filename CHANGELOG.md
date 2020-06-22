@@ -7,3 +7,7 @@
 * Adds servers and installations to be associated with projects;
 * Adds github authentication;
 * Adds new attributes to projects
+
+### 1.0.1 (2020-06-22)
+
+* Fix validation on creating new project

@@ -1,10 +1,10 @@
 set :stage, :staging
 set :branch, "develop"
 
-server "web-staging.linode.unep-wcmc.org", user: 'wcmc', roles: %w{app web db}
+server "web-supported-staging.linode.unep-wcmc.org", user: 'wcmc', roles: %w{app web db}
 
 set :application, "labs"
-set :server_name, "labs.web-staging.linode.unep-wcmc.org"
+set :server_name, "labs.web-supported-staging.linode.unep-wcmc.org"
 set :sudo_user, "wcmc"
 set :app_port, "80"
 
