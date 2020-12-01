@@ -416,7 +416,7 @@ DEPENDENCIES
   pg_array_parser
   pg_csv (~> 0.2)
   pg_search (~> 1.0.5)
-  rails (~> 5.0.0)
+  rails (~> 5.0.7.2)
   rails-controller-testing
   rubocop
   sanitize
