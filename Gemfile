@@ -1,12 +1,12 @@
 source 'http://rubygems.org'
-ruby '2.3.7'
+ruby '2.3.8'
 gem 'rails', '~> 5.0.0'
 #gem 'rake', '0.8.7'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-gem 'pg', '~> 0.18.3'
+gem 'pg', '~> 0.19.0'
 gem 'httparty', '~> 0.13.7'
 gem 'devise', '~> 4.2.0'
 gem 'uglifier', '~> 2.7.2'
