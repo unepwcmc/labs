@@ -72,6 +72,7 @@ group :development do
 #  gem 'annotate', :git => 'https://github.com/ctran/annotate_models.git'
   gem 'spring'
   gem 'rubocop', require: false
+  gem 'web-console'
 end
 
 group :test, :development do
