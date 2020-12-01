@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171031114030) do
+ActiveRecord::Schema.define(version: 20190107111102) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "fuzzystrmatch"
   enable_extension "pg_trgm"
+  enable_extension "fuzzystrmatch"
 
   create_table "comments", force: :cascade do |t|
     t.text     "content",          null: false
@@ -119,6 +119,7 @@ ActiveRecord::Schema.define(version: 20171031114030) do
     t.text     "cron_jobs"
     t.text     "user_access"
     t.string   "project_code"
+    t.string   "url_staging"
   end
 
   create_table "review_answers", force: :cascade do |t|
@@ -197,35 +198,14 @@ ActiveRecord::Schema.define(version: 20171031114030) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  create_table "views", force: :cascade do |t|
-    t.string   "name",             null: false
-    t.string   "view_type",        null: false
-    t.string   "column_name",      null: false
-    t.integer  "ordinal_position"
-    t.string   "column_default"
-    t.boolean  "is_nullable",      null: false
-    t.string   "data_type",        null: false
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-  end
-
   add_foreign_key "comments", "users"
-  add_foreign_key "comments", "users", name: "comments_user_id_fk"
   add_foreign_key "dependencies", "projects", column: "master_project_id"
-  add_foreign_key "dependencies", "projects", column: "master_project_id", name: "dependencies_master_project_id_fk"
   add_foreign_key "dependencies", "projects", column: "sub_project_id"
-  add_foreign_key "dependencies", "projects", column: "sub_project_id", name: "dependencies_sub_project_id_fk"
   add_foreign_key "installations", "servers"
-  add_foreign_key "installations", "servers", name: "installations_server_id_fk", on_delete: :cascade
   add_foreign_key "models", "domains"
   add_foreign_key "review_answers", "review_questions"
-  add_foreign_key "review_answers", "review_questions", name: "review_answers_review_question_id_fk", on_delete: :cascade
   add_foreign_key "review_answers", "reviews"
-  add_foreign_key "review_answers", "reviews", name: "review_answers_review_id_fk", on_delete: :cascade
   add_foreign_key "review_questions", "review_sections"
-  add_foreign_key "review_questions", "review_sections", name: "review_questions_review_section_id_fk", on_delete: :cascade
   add_foreign_key "reviews", "projects"
-  add_foreign_key "reviews", "projects", name: "reviews_project_id_fk", on_delete: :cascade
   add_foreign_key "reviews", "users", column: "reviewer_id"
-  add_foreign_key "reviews", "users", column: "reviewer_id", name: "reviews_reviewer_id_fk", on_delete: :nullify
 end

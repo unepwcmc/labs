@@ -1,12 +1,12 @@
 source 'http://rubygems.org'
-ruby '2.2.3'
-gem 'rails', '~> 5.0.0'
+ruby '2.3.8'
+gem 'rails', '~> 5.0.7.2'
 #gem 'rake', '0.8.7'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-gem 'pg', '~> 0.18.3'
+gem 'pg', '~> 0.19.0'
 gem 'httparty', '~> 0.13.7'
 gem 'devise', '~> 4.2.0'
 gem 'uglifier', '~> 2.7.2'
@@ -18,18 +18,18 @@ gem 'pg_array_parser'
 gem 'pg_search', '~> 1.0.5'
 gem 'select2-rails', '3.5.9.3'
 #gem "paranoia", '~> 2.1.4'
-gem "paranoia", github: "rubysherpas/paranoia", branch: "rails5"
+gem "paranoia", git: 'https://github.com/rubysherpas/paranoia', branch: "rails5"
 gem 'gon', '~> 6.1.0'
 gem 'nested_form'
 gem 'bootstrap-sass', '~> 3.3.6'
-gem 'sass-rails', github: 'rails/sass-rails', branch: 'master'
+gem 'sass-rails', git: 'https://github.com/rails/sass-rails', branch: 'master'
 # https://github.com/rweng/jquery-datatables-rails/issues/153
-gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
+gem 'jquery-datatables-rails', git: 'https://github.com/rweng/jquery-datatables-rails'
 gem 'bootstrap-datepicker-rails', '~> 1.5.0'
 gem 'pg_csv', '~> 0.2'
 gem 'kramdown', '~> 1.9.0'
 gem 'sanitize'
-gem 'domain_uploader', github: 'unepwcmc/domain_uploader'
+gem 'domain_uploader', git: 'https://github.com/unepwcmc/domain_uploader'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -45,7 +45,7 @@ gem 'domain_uploader', github: 'unepwcmc/domain_uploader'
   gem 'capistrano-passenger', '~> 0.1.1', require: false
   gem 'slackistrano', '~> 1.0.0', require: false
   gem 'whenever'
-  gem 'exception_notification', github: 'smartinez87/exception_notification', branch: 'master'
+  gem 'exception_notification', git: 'https://github.com/smartinez87/exception_notification', branch: 'master'
   gem 'slack-notifier'
   gem "font-awesome-rails", '~> 4.6.0.0'
 
@@ -69,8 +69,10 @@ end
 
 group :development do
   gem 'annotate'
+#  gem 'annotate', :git => 'https://github.com/ctran/annotate_models.git'
   gem 'spring'
   gem 'rubocop', require: false
+  gem 'web-console'
 end
 
 group :test, :development do
