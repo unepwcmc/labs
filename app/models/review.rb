@@ -12,8 +12,8 @@
 
 class Review < ApplicationRecord
   belongs_to :project
-  belongs_to :reviewer, class_name: User, foreign_key: :reviewer_id
-  has_many :answers, class_name: ReviewAnswer, foreign_key: :review_id, dependent: :destroy
+  belongs_to :reviewer, class_name: 'User', foreign_key: :reviewer_id
+  has_many :answers, class_name: 'ReviewAnswer', foreign_key: :review_id, dependent: :destroy
   has_many :comments, as: :commentable
   validates :project, presence: true
   validates :reviewer, presence: true

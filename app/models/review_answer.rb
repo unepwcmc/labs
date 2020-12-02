@@ -13,7 +13,7 @@
 
 class ReviewAnswer < ApplicationRecord
   belongs_to :review
-  belongs_to :question, class_name: ReviewQuestion, foreign_key: :review_question_id
+  belongs_to :question, class_name: 'ReviewQuestion', foreign_key: :review_question_id
   validates :review, presence: true
   validates :question, presence: true
 
