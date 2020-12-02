@@ -233,19 +233,19 @@
 
     <div class="col-lg-6">
       <div class="form-group">
-        <%= f.label :pivotal_tracker_ids, class: "col-sm-2 control-label" %>
+        <%= f.label :sharepoint_link, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-          <%= f.text_field :pivotal_tracker_ids_array, class: "form-control tag-field" %>
-          <p class="help-block">Add a tag for each Pivotal Tracker ID (format: number)</p>
+          <%= f.text_field :sharepoint_link, class: "form-control" %>
+          <p class="help-block">Enter the Sharepoint link here</p>
         </div>
       </div>
 
       <div class="form-group">
-        <%= f.label :trello_ids, class: "col-sm-2 control-label" %>
+        <%= f.label :codebase_url, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-          <%= f.text_field :trello_ids_array, class: "form-control tag-field" %>
+          <%= f.text_field :codebase_url, class: "form-control" %>
           <p class="help-block">
-            Add a tag for each Trello ID (format: k19vkqb3/ors-new-hope)
+            Enter the Codebase URL here
           </p>
         </div>
       </div>
@@ -253,18 +253,18 @@
 
     <div class="col-lg-6">
       <div class="form-group">
-        <%= f.label :pdrive_folders, class: "col-sm-2 control-label" %>
+        <%= f.label :design_link, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-          <%= f.text_area :pdrive_folders_array, class: "form-control tag-field" %>
-          <p class="help-block">Add a tag for each folder</p>
+          <%= f.text_area :design_link, class: "form-control" %>
+          <p class="help-block">Add the Adobe XD design link here</p>
         </div>
       </div>
 
       <div class="form-group">
-        <%= f.label :dropbox_folders, class: "col-sm-2 control-label" %>
+        <%= f.label 'GA tracking code', class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-          <%= f.text_area :dropbox_folders_array, class: "form-control tag-field" %>
-          <p class="help-block">Add a tag for each folder</p>
+          <%= f.text_area :ga_tracking_code, class: "form-control" %>
+          <p class="help-block">Add the GA tracking code for this site</p>
         </div>
       </div>
     </div>

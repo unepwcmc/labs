@@ -37,6 +37,9 @@
 class Project <  ApplicationRecord
   # Add pg_search
   include PgSearch
+  include ActiveModel::Dirty
+
+  before_update :add_protocol
 
   # Relationships
   has_many :comments, as: :commentable
@@ -56,9 +59,8 @@ class Project <  ApplicationRecord
   pg_search_scope :search, :using => { :tsearch => {:prefix => true} },
     :against => [:title, :description, :github_identifier, :state, :internal_clients,
             :current_lead, :external_clients, :project_leads, :developers,
-            :dependencies, :hacks, :pdrive_folders, :dropbox_folders,
-            :pivotal_tracker_ids, :trello_ids, :expected_release_date,
-            :rails_version, :ruby_version, :postgresql_version, :other_technologies]
+            :dependencies, :hacks, :codebase_url, :design_link, :sharepoint_link, :ga_tracking_code, 
+            :expected_release_date, :rails_version, :ruby_version, :postgresql_version, :other_technologies]
 
   scope :published, -> { where(published: true) }
 
@@ -72,6 +74,8 @@ class Project <  ApplicationRecord
 
   validates :url, format: { with: URI.regexp(%w(http https)) },
     if: Proc.new { |a| a.url.present? }
+
+  
   # FIXME: Doesn't seem to work
   # validates :github_identifier, format: { with: /\A[-a-zA-Z0-9_.]+\/[-a-zA-Z0-9_.]+\z/i },
   #   if: Proc.new { |a| a.github_identifier.present? }
@@ -95,8 +99,7 @@ class Project <  ApplicationRecord
   mount_uploader :screenshot, ScreenshotUploader
 
   # Create array getter and setter methods for postgres
-  ["developers","internal_clients","external_clients","project_leads","pdrive_folders","dropbox_folders",
-    "pivotal_tracker_ids","trello_ids","other_technologies"].each do |attribute|
+  ["developers","internal_clients","external_clients","project_leads","other_technologies"].each do |attribute|
   	define_method("#{attribute}_array") do
   		self.send(attribute).join(',')
   	end
@@ -146,7 +149,22 @@ class Project <  ApplicationRecord
     }
     self.update_attributes(project_params)
   end
+  
+  NEW_RESOURCE_ATTRS = %w(codebase_url design_link sharepoint_link ga_tracking_code)
 
+  def add_protocol
+    return if (NEW_RESOURCE_ATTRS - self.changed).length == NEW_RESOURCE_ATTRS.length
+
+    regex = URI.regexp(%w(http https))
+
+    self.changed.each do |attr|
+      if NEW_RESOURCE_ATTRS.include?(attr) && self.changes[attr][1].present?
+        unless self.changes[attr][1] =~ /#{regex}/
+          self.send(attr + '=', "https://".concat(self.changes[attr][1]))
+        end
+      end
+    end
+  end
 
   private
 
