@@ -3,6 +3,7 @@ class ProjectsController < ApplicationController
   before_action :authenticate_user!, :except => [:index]
   before_action :available_developers, :only => [:new, :edit]
   before_action :available_employees, :only => [:new, :edit]
+  before_action :find_project, only: [:show, :edit, :update, :destroy]
   # GET /projects
   # GET /projects.json
 
@@ -35,7 +36,6 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @project = Project.find(params[:id])
     @instances = @project.project_instances
 
     @comments = @project.comments.order(:created_at)
@@ -58,7 +58,6 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
-    @project = Project.find(params[:id])
     @project_status_options = project_status_options
   end
 
@@ -83,7 +82,7 @@ class ProjectsController < ApplicationController
   # PUT /projects/1
   # PUT /projects/1.json
   def update
-    @project = Project.find(params[:id])
+    @project_status_options = project_status_options
 
     respond_with(@project) do |format|
       if @project.update_attributes(project_params)
@@ -101,7 +100,6 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
-    @project = Project.find(params[:id])
     raise HasInstances unless @project.project_instances.empty?
     @project.destroy
     flash[:notice] = 'Project was successfully deleted.'
@@ -110,6 +108,10 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def find_project
+    @project = Project.find(params[:id])
+  end
 
   def available_developers
     devs = Project.pluck(:developers).flatten
@@ -129,8 +131,8 @@ class ProjectsController < ApplicationController
       :description, :url, :url_staging, :github_id, :pivotal_tracker_id,
       :toggl_id, :deadline, :screenshot, :state,
       :github_identifier, :dependencies, :internal_clients_array, :current_lead,
-      :hacks, :external_clients_array, :project_leads_array, :pdrive_folders_array,
-      :dropbox_folders_array, :pivotal_tracker_ids_array, :trello_ids_array, :expected_release_date,
+      :hacks, :external_clients_array, :project_leads_array, :expected_release_date,
+      :codebase_url, :sharepoint_link, :design_link, :ga_tracking_code,
       :rails_version, :ruby_version, :postgresql_version, :other_technologies_array, :published,
       :internal_description, :project_code, :background_jobs, :cron_jobs, :user_access,
       master_sub_relationship_attributes: [:id, :master_project_id, :_destroy],
@@ -162,18 +164,8 @@ class ProjectsController < ApplicationController
   end
 
   def project_status_options
-    [
-      ['Unknown', 'Unknown'],
-      ['Not Started', 'Not Started'],
-      ['In Progress', 'In Progress'],
-      ['Paused', 'Paused'],
-      ['Completed', 'Completed'],
-      ['Launched (No Maintenance)', 'Launched (No Maintenance)'],
-      ['Launched (Support & Maintenance)', 'Launched (Support & Maintenance)'],
-      ['Orphaned', 'Orphaned'],
-      ['Offline', 'Offline'],
-      ['Abandoned', 'Abandoned'],
-    ]
+    # Populates the state dropdown in the form
+    Project::STATES.map { |state| [state, state] }
   end
 
 end

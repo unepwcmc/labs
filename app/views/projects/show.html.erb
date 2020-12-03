@@ -224,62 +224,41 @@
   </div>
 
   <div class="col-lg-6">
+    <p><strong>Sharepoint Link</strong></p>
     <p>
-      <strong>Pivotal Tracker IDs:</strong>
-      <% if !@project.pivotal_tracker_ids.blank? %>
-        <ul>
-          <% @project.pivotal_tracker_ids.each do |pivotal_tracker_id| %>
-            <li>
-              <%= link_to pivotal_tracker_id,
-              "https://www.pivotaltracker.com/projects/#{pivotal_tracker_id}" %>
-            </li>
-          <% end %>
-        </ul>
+     <% if !@project.sharepoint_link.blank? %>
+       <%= link_to @project.sharepoint_link, @project.sharepoint_link, target: '_blank' %>
       <% else %>
-        This project has no Pivotal Tracker IDs
+        This project has no Sharepoint link
       <% end %>
     </p>
 
+    <p><strong>Codebase Link</strong></p>
     <p>
-      <strong>Trello IDs:</strong>
-      <% if !@project.trello_ids.blank? %>
-        <ul>
-          <% @project.trello_ids.each do |trello_id| %>
-            <li>
-              <%= link_to trello_id, "https://trello.com/b/#{trello_id}" %>
-            </li>
-          <% end %>
-        </ul>
+      <% if !@project.codebase_url.blank? %>
+       <%= link_to @project.codebase_url, @project.codebase_url, target: '_blank' %>
       <% else %>
-        This project has no Trello IDs
+        This project has no Codebase link
       <% end %>
     </p>
   </div>
 
   <div class="col-lg-6">
+    <p><strong>Adobe XD design Link</strong></p>
     <p>
-      <strong>P Drive Folders:</strong>
-      <% if !@project.pdrive_folders.blank? %>
-        <ul>
-          <% @project.pdrive_folders.each do |folder| %>
-            <li><%= folder %></li>
-          <% end %>
-        </ul>
+      <% if !@project.design_link.blank? %>
+       <%= link_to @project.design_link, @project.design_link, target: '_blank' %>
       <% else %>
-        This project has no P Drive folders
+        This project has no design link
       <% end %>
     </p>
 
+    <p><strong>GA tracking code</strong></p>
     <p>
-      <strong>Dropbox Folders:</strong>
-      <% if !@project.dropbox_folders.blank? %>
-        <ul>
-          <% @project.dropbox_folders.each do |folder| %>
-            <li><%= folder %></li>
-          <% end %>
-        </ul>
+      <% if !@project.ga_tracking_code.blank? %>
+        <%= link_to @project.ga_tracking_code, @project.ga_tracking_code, target: '_blank' %>
       <% else %>
-        This project has no Dropbox folders
+        This project has no GA tracking code
       <% end %>
     </p>
   </div>
