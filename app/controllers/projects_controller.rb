@@ -3,6 +3,7 @@ class ProjectsController < ApplicationController
   before_action :authenticate_user!, :except => [:index]
   before_action :available_developers, :only => [:new, :edit]
   before_action :available_employees, :only => [:new, :edit]
+  before_action :find_project, only: [:show, :edit, :update, :destroy]
   # GET /projects
   # GET /projects.json
 
@@ -35,7 +36,6 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @project = Project.find(params[:id])
     @instances = @project.project_instances
 
     @comments = @project.comments.order(:created_at)
@@ -58,7 +58,6 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
-    @project = Project.find(params[:id])
     @project_status_options = project_status_options
   end
 
@@ -83,7 +82,7 @@ class ProjectsController < ApplicationController
   # PUT /projects/1
   # PUT /projects/1.json
   def update
-    @project = Project.find(params[:id])
+    @project_status_options = project_status_options
 
     respond_with(@project) do |format|
       if @project.update_attributes(project_params)
@@ -101,7 +100,6 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
-    @project = Project.find(params[:id])
     raise HasInstances unless @project.project_instances.empty?
     @project.destroy
     flash[:notice] = 'Project was successfully deleted.'
@@ -110,6 +108,10 @@ class ProjectsController < ApplicationController
   end
 
   private
+
+  def find_project
+    @project = Project.find(params[:id])
+  end
 
   def available_developers
     devs = Project.pluck(:developers).flatten
@@ -162,18 +164,8 @@ class ProjectsController < ApplicationController
   end
 
   def project_status_options
-    [
-      ['Unknown', 'Unknown'],
-      ['Not Started', 'Not Started'],
-      ['In Progress', 'In Progress'],
-      ['Paused', 'Paused'],
-      ['Completed', 'Completed'],
-      ['Launched (No Maintenance)', 'Launched (No Maintenance)'],
-      ['Launched (Support & Maintenance)', 'Launched (Support & Maintenance)'],
-      ['Orphaned', 'Orphaned'],
-      ['Offline', 'Offline'],
-      ['Abandoned', 'Abandoned'],
-    ]
+    # Populates the state dropdown in the form
+    Project::STATES.map { |state| [state, state] }
   end
 
 end

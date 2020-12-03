@@ -39,7 +39,7 @@ class Project <  ApplicationRecord
   include PgSearch
   include ActiveModel::Dirty
 
-  before_update :add_protocol
+  # before_update :add_protocol
 
   # Relationships
   has_many :comments, as: :commentable
@@ -69,19 +69,23 @@ class Project <  ApplicationRecord
   #           :dependencies, :hacks, :pdrive_folders, :dropbox_folders, :published]
 
   # Validations
+
   validates :title, :description, :state, presence: true
   validates :url, if: :published, presence: true
+  validates :url, format: { with: URI.regexp(%w(http https)) }
 
-  validates :url, format: { with: URI.regexp(%w(http https)) },
-    if: Proc.new { |a| a.url.present? }
-
-  
   # FIXME: Doesn't seem to work
   # validates :github_identifier, format: { with: /\A[-a-zA-Z0-9_.]+\/[-a-zA-Z0-9_.]+\z/i },
   #   if: Proc.new { |a| a.github_identifier.present? }
+  STATES = ['Unknown', 'Not Started', 'In Progress', 'Paused', 'Completed', 
+    'Launched (No Maintenance)', 'Launched (Support & Maintenance)', 'Orphaned', 
+    'Offline', 'Abandoned'].freeze
 
-
-  validates :state, inclusion: { in: ['Unknown', 'Not Started', 'In Progress', 'Paused', 'Completed', 'Launched (No Maintenance)', 'Launched (Support & Maintenance)', 'Orphaned', 'Offline', 'Abandoned'] }
+  validates :state, inclusion: { in: STATES, message: 'has to be a valid state' }
+  
+  validates :sharepoint_link, :codebase_url, :design_link, 
+  format: { with: URI.regexp(%w(http https)), message: 'needs to be a valid URL (add a http:// or https://)' }, allow_blank: true
+  validates :ga_tracking_code, format: { with: /\AUA-\d+-\d{1}\z/, message: 'has to be a valid code' }, allow_blank: true
 
 
   accepts_nested_attributes_for :master_sub_relationship, allow_destroy: true
@@ -158,9 +162,10 @@ class Project <  ApplicationRecord
     regex = URI.regexp(%w(http https))
 
     self.changed.each do |attr|
-      if NEW_RESOURCE_ATTRS.include?(attr) && self.changes[attr][1].present?
-        unless self.changes[attr][1] =~ /#{regex}/
-          self.send(attr + '=', "https://".concat(self.changes[attr][1]))
+      new_val = self.changes[attr][1]
+      if NEW_RESOURCE_ATTRS.include?(attr) && new_val.present?
+        unless new_val =~ /#{regex}/
+          self.send(attr + '=', "https://".concat(new_val))
         end
       end
     end
