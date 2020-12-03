@@ -39,8 +39,6 @@ class Project <  ApplicationRecord
   include PgSearch
   include ActiveModel::Dirty
 
-  # before_update :add_protocol
-
   # Relationships
   has_many :comments, as: :commentable
 
@@ -152,23 +150,6 @@ class Project <  ApplicationRecord
       ruby_version: github.get_ruby_version(repo)
     }
     self.update_attributes(project_params)
-  end
-  
-  NEW_RESOURCE_ATTRS = %w(codebase_url design_link sharepoint_link ga_tracking_code)
-
-  def add_protocol
-    return if (NEW_RESOURCE_ATTRS - self.changed).length == NEW_RESOURCE_ATTRS.length
-
-    regex = URI.regexp(%w(http https))
-
-    self.changed.each do |attr|
-      new_val = self.changes[attr][1]
-      if NEW_RESOURCE_ATTRS.include?(attr) && new_val.present?
-        unless new_val =~ /#{regex}/
-          self.send(attr + '=', "https://".concat(new_val))
-        end
-      end
-    end
   end
 
   private
