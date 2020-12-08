@@ -129,13 +129,16 @@ class ProjectsController < ApplicationController
   def project_params
     arrays = %i(developers internal_clients external_clients project_leads other_technologies)
     project_column_names = Project.column_names.map(&:to_sym) - [:id]
+
     modified_names = project_column_names.map do |name|
                       arrays.include?(name) ? name.to_s.concat('_array').to_sym : name
                     end
+
     modified_names.push(
       master_sub_relationship_attributes: [:id, :master_project_id, :_destroy],
       sub_master_relationship_attributes: [:id, :sub_project_id, :_destroy]
     )
+    
     params.require(:project).permit(modified_names)
   end
 
