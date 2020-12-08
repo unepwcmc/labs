@@ -127,17 +127,16 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    params.require(:project).permit(:developers_array, :title,
-      :description, :url, :url_staging, :github_id, :pivotal_tracker_id,
-      :toggl_id, :deadline, :screenshot, :state,
-      :github_identifier, :dependencies, :internal_clients_array, :current_lead,
-      :hacks, :external_clients_array, :project_leads_array, :expected_release_date,
-      :codebase_url, :sharepoint_link, :design_link, :ga_tracking_code,
-      :rails_version, :ruby_version, :postgresql_version, :other_technologies_array, :published,
-      :internal_description, :project_code, :background_jobs, :cron_jobs, :user_access,
+    arrays = %i(developers internal_clients external_clients project_leads other_technologies)
+    project_column_names = Project.column_names.map(&:to_sym) - [:id]
+    modified_names = project_column_names.map do |name|
+                      arrays.include?(name) ? name.to_s.concat('_array').to_sym : name
+                    end
+    modified_names.push(
       master_sub_relationship_attributes: [:id, :master_project_id, :_destroy],
       sub_master_relationship_attributes: [:id, :sub_project_id, :_destroy]
     )
+    params.require(:project).permit(modified_names)
   end
 
   def rescue_has_instances_exception(exception)
