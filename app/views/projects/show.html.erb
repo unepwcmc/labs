@@ -99,6 +99,19 @@
       <% end %>
     </p>
 
+      <p>
+      <strong>Designers:</strong>
+      <% if !@project.designers.blank? %>
+        <ul>
+          <% @project.designers.each do |designer| %>
+            <li><%= designer %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no designers
+      <% end %>
+    </p>
+
     <%= display_text @project, :dependencies %>
 
     <p>

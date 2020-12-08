@@ -56,7 +56,7 @@ class Project <  ApplicationRecord
   # Custom search scope for publically viewable projects
   pg_search_scope :search, :using => { :tsearch => {:prefix => true} },
     :against => [:title, :description, :github_identifier, :state, :internal_clients,
-            :current_lead, :external_clients, :project_leads, :developers,
+            :current_lead, :external_clients, :project_leads, :developers, :designers,
             :dependencies, :hacks, :codebase_url, :design_link, :sharepoint_link, :ga_tracking_code, 
             :expected_release_date, :rails_version, :ruby_version, :postgresql_version, :other_technologies]
 
@@ -101,7 +101,7 @@ class Project <  ApplicationRecord
   mount_uploader :screenshot, ScreenshotUploader
 
   # Create array getter and setter methods for postgres
-  ["developers","internal_clients","external_clients","project_leads","other_technologies"].each do |attribute|
+  ["developers","designers","internal_clients","external_clients","project_leads","other_technologies"].each do |attribute|
   	define_method("#{attribute}_array") do
   		self.send(attribute).join(',')
   	end
@@ -117,7 +117,7 @@ class Project <  ApplicationRecord
   end
 
   def team_members?
-    !(developers.empty? || current_lead.blank?)
+    !(developers.empty? || designers.empty? || current_lead.blank?)
   end
 
   def instances_with_installations

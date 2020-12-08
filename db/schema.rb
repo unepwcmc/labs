@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201202164006) do
+ActiveRecord::Schema.define(version: 20201208095251) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(version: 20201202164006) do
     t.text     "design_link"
     t.text     "sharepoint_link"
     t.text     "ga_tracking_code"
+    t.string   "designers",                         default: [],                 array: true
   end
 
   create_table "review_answers", force: :cascade do |t|
