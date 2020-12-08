@@ -265,6 +265,68 @@
 </div>
 
 <div class="row">
+  <div class="page-header">
+    <h2>Deprecated Resources</h2>
+  </div>
+  <!-- :pdrive_folders, :dropbox_folders, :pivotal_tracker_ids, :trello_ids -->
+  <div class="col-lg-6">
+    <p><strong>P Drive Folders</strong></p>
+    <p>
+     <% if !@project.pdrive_folders.blank? %>
+        <ul>
+          <% @project.pdrive_folders.each do |folder| %>
+            <li><%= folder %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no P Drive Folders
+      <% end %>
+    </p>
+
+    <p><strong>Dropbox Folders</strong></p>
+    <p>
+      <% if !@project.dropbox_folders.blank? %>
+        <ul>
+          <% @project.dropbox_folders.each do |folder| %>
+            <li><%= folder %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no Dropbox Folders
+      <% end %>
+    </p>
+  </div>
+
+  <div class="col-lg-6">
+    <p><strong>Pivotal tracker IDs</strong></p>
+    <p>
+      <% if !@project.pivotal_tracker_ids.blank? %>
+        <ul>
+          <% @project.pivotal_tracker_ids.each do |id| %>
+            <li><%= id %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has Pivotal tracker IDs
+      <% end %>
+    </p>
+
+    <p><strong>Trello IDs</strong></p>
+    <p>
+      <% if !@project.trello_ids.blank? %>
+        <ul>
+          <% @project.trello_ids.each do |id| %>
+            <li><%= id %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no Trello IDs
+      <% end %>
+    </p>
+  </div>
+</div>
+
+<div class="row">
 	<div class="page-header">
 		<h2>Comments<h2>
 	</div>
