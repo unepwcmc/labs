@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class ProjectsController < ApplicationController
   include Errors
-  before_action :authenticate_user!, :except => [:index]
-  before_action :available_developers, :only => [:new, :edit]
-  before_action :available_employees, :only => [:new, :edit]
-  before_action :find_project, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index]
+  before_action :available_developers, only: %i[new edit]
+  before_action :available_employees, only: %i[new edit]
+  before_action :find_project, only: %i[show edit update destroy]
   # GET /projects
   # GET /projects.json
 
@@ -17,8 +19,8 @@ class ProjectsController < ApplicationController
       @projects = Project.where("developers @> '{#{username}}'::text[] OR current_lead = '#{username}'")
     else
       @projects = params[:search].present? ?
-          Project.search(params[:search]).order("created_at DESC") :
-          Project.order("created_at DESC")
+          Project.search(params[:search]).order('created_at DESC') :
+          Project.order('created_at DESC')
 
       @projects = @projects.published unless user_signed_in?
     end
@@ -41,8 +43,8 @@ class ProjectsController < ApplicationController
     @comments = @project.comments.order(:created_at)
     @comment = Comment.new
 
-    @master_projects = @project.master_projects.select("title, projects.id")
-    @sub_projects = @project.sub_projects.select("title, projects.id")
+    @master_projects = @project.master_projects.select('title, projects.id')
+    @sub_projects = @project.sub_projects.select('title, projects.id')
 
     respond_with(@project)
   end
@@ -68,13 +70,13 @@ class ProjectsController < ApplicationController
 
     respond_with(@project) do |format|
       if @project.save
-        format.html { redirect_to @project, :notice => 'Project was successfully created.' }
+        format.html { redirect_to @project, notice: 'Project was successfully created.' }
       else
-        format.html {
+        format.html do
           available_developers
           available_employees
-          render :action => "new"
-        }
+          render action: 'new'
+        end
       end
     end
   end
@@ -86,13 +88,13 @@ class ProjectsController < ApplicationController
 
     respond_with(@project) do |format|
       if @project.update_attributes(project_params)
-        format.html { redirect_to @project, :notice => 'Project was successfully updated.' }
+        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
       else
-        format.html {
+        format.html do
           available_developers
           available_employees
-          render :action => "edit"
-        }
+          render action: 'edit'
+        end
       end
     end
   end
@@ -101,6 +103,7 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1.json
   def destroy
     raise HasInstances unless @project.project_instances.empty?
+
     @project.destroy
     flash[:notice] = 'Project was successfully deleted.'
 
@@ -121,47 +124,45 @@ class ProjectsController < ApplicationController
 
   def available_employees
     @employees = HTTParty.get(Rails.application.secrets.employees_endpoint_url)
-    if @employees.code != 200
-      @employees = []
-    end
+    @employees = [] if @employees.code != 200
   end
 
   def project_params
-    arrays = %i(developers internal_clients external_clients project_leads other_technologies)
+    arrays = %i[developers internal_clients external_clients project_leads other_technologies]
     project_column_names = Project.column_names.map(&:to_sym) - [:id]
 
     modified_names = project_column_names.map do |name|
-                      arrays.include?(name) ? name.to_s.concat('_array').to_sym : name
-                    end
+      arrays.include?(name) ? name.to_s.concat('_array').to_sym : name
+    end
 
     modified_names.push(
-      master_sub_relationship_attributes: [:id, :master_project_id, :_destroy],
-      sub_master_relationship_attributes: [:id, :sub_project_id, :_destroy]
+      master_sub_relationship_attributes: %i[id master_project_id _destroy],
+      sub_master_relationship_attributes: %i[id sub_project_id _destroy]
     )
-    
+
     params.require(:project).permit(modified_names)
   end
 
-  def rescue_has_instances_exception(exception)
-    redirect_back fallback_location: projects_url, alert: "This project has project instances. Delete its project instances first"
+  def rescue_has_instances_exception(_exception)
+    redirect_back fallback_location: projects_url, alert: 'This project has project instances. Delete its project instances first'
   end
 
   def html_list
     @projects = Project.includes(:project_instances, :reviews).order(:title, 'reviews.updated_at')
     gon.push({
-      :states => Project.pluck_field(:state),
-      :rails_versions => Project.pluck_field(:rails_version),
-      :ruby_versions => Project.pluck_field(:ruby_version),
-      :postgresql_versions => Project.pluck_field(:postgresql_version)
-    })
+               states: Project.pluck_field(:state),
+               rails_versions: Project.pluck_field(:rails_version),
+               ruby_versions: Project.pluck_field(:ruby_version),
+               postgresql_versions: Project.pluck_field(:postgresql_version)
+             })
   end
 
   def csv_list
     project_export = if params[:scope] == 'combined'
-      CombinedProjectsExport.new
-    else
-      ProjectsExport.new
-    end
+                       CombinedProjectsExport.new
+                     else
+                       ProjectsExport.new
+                     end
     send_file(project_export.export, type: 'text/csv')
   end
 
@@ -169,5 +170,4 @@ class ProjectsController < ApplicationController
     # Populates the state dropdown in the form
     Project::STATES.map { |state| [state, state] }
   end
-
 end

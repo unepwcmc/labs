@@ -40,6 +40,7 @@ class Github
     Base64.decode64(JSON.parse(response.body)['content']).delete!("\n")
   end
 
+  # Only looks at commits from master branch
   def self.import_commit_dates
     Project.find_each do |project|
       url = "#{Rails.application.secrets.github_api_base_url}repos/#{project.github_identifier}/commits"
