@@ -18,7 +18,9 @@ module Kpi::CodebaseImporter
       page += 1
       tickets = Hash.from_xml(response.body)['tickets']
       ticket_count += tickets.select do |ticket| 
-        ticket['priority']['name'] == ('High' || 'Critical') && ticket['status']['name'] != 'Completed'
+        ( ticket['priority']['name'] == 'High' || 
+          ticket['priority']['name'] == 'Critical') && 
+        ticket['status']['name'] != 'Completed'
       end.count
     end
 
