@@ -3,6 +3,8 @@
 class Kpi < ApplicationRecord
   validates_inclusion_of :singleton_guard, in: [0]
 
+  serialize :bugs_severity
+
   ACTIVE_STATUSES = [
     'Launched (No Maintenance)',
     'Launched (Support & Maintenance)',
@@ -28,7 +30,8 @@ class Kpi < ApplicationRecord
     # Snyk importer
     # Travis importer
     {
-      bugs_backlog_size: Kpi::CodebaseImporter.bugs_backlog_size 
+      bugs_backlog_size: Kpi::CodebaseImporter.bugs_backlog_size[:ticket_count],
+      bugs_severity: Kpi::CodebaseImporter.bugs_backlog_size[:severity]
     }
   end
 
