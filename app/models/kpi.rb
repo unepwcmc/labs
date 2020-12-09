@@ -27,11 +27,11 @@ class Kpi < ApplicationRecord
 
   def imported_stats
     # Instantiate new instances of the importers
-    # Snyk importer
     # Travis importer
     {
       bugs_backlog_size: Kpi::CodebaseImporter.bugs_backlog_size[:ticket_count],
-      bugs_severity: Kpi::CodebaseImporter.bugs_backlog_size[:severity]
+      bugs_severity: Kpi::CodebaseImporter.bugs_backlog_size[:severity],
+      percentage_secure_projects: Kpi::SnykStatisticsImporter.vulnerabilities_per_project
     }
   end
 

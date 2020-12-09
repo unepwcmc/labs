@@ -41,6 +41,7 @@ class Github
   end
 
   # Only looks at commits from master branch
+  # TODO - Also currently only working for public repos...
   def self.import_commit_dates
     Project.find_each do |project|
       url = "#{Rails.application.secrets.github_api_base_url}repos/#{project.github_identifier}/commits"
@@ -49,7 +50,8 @@ class Github
         basic_auth: CLIENT_CREDENTIALS, 
         query: {
           'accept': 'application/vnd.github.v3+json',
-          'since': "#{1.year.ago.strftime('%FT%TZ')}" 
+          'since': "#{1.year.ago.strftime('%FT%TZ')}",
+          'per_page': '1'
         },
         headers: { 
           'User-Agent': 'Labs',
@@ -59,7 +61,7 @@ class Github
       latest_commit_date = nil
 
       begin
-        commit_hash = JSON.parse(response.body).first
+        commit_hash = JSON.parse(response.body)
         next if commit_hash.nil?
         latest_commit_date = commit_hash.dig('commit', 'author', 'date')
       rescue TypeError
