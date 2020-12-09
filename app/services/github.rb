@@ -48,6 +48,7 @@ class Github
         url, 
         basic_auth: CLIENT_CREDENTIALS, 
         query: {
+          'accept': 'application/vnd.github.v3+json',
           'since': "#{1.year.ago.strftime('%FT%TZ')}" 
         },
         headers: { 

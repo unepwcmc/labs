@@ -20,8 +20,16 @@ class Kpi < ApplicationRecord
       percentage_projects_documented: projects_with_documentation
     }
 
-    # Instantiate new instances of the importers
+    Kpi.create(db_statistics.merge(imported_stats))
+  end
 
+  def imported_stats
+    # Instantiate new instances of the importers
+    # Snyk importer
+    # Travis importer
+    {
+      bugs_backlog_size: Kpi::CodebaseImporter.bugs_backlog_size 
+    }
   end
 
   def currently_active_products
