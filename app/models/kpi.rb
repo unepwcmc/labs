@@ -15,25 +15,42 @@ class Kpi < ApplicationRecord
     first || construct_instance
   end
 
+  def refresh_values
+    obj = first
+    unless obj
+      construct_instance
+      return
+    end
+    obj.update_attributes(instance_hash)
+  end
+
   def self.construct_instance
-    db_statistics = {
+    create(instance_hash)
+  end
+
+  def instance_hash 
+    db_statistics.merge(imported_stats)
+  end
+
+  def db_statistics
+    {
       percentage_currently_active_products: currently_active_products,
       percentage_projects_with_kpis: projects_with_kpis,
       percentage_projects_documented: projects_with_documentation
     }
-
-    Kpi.create(db_statistics.merge(imported_stats))
   end
 
   def imported_stats
     # Instantiate new instances of the importers
-    # Travis importer
     {
       bugs_backlog_size: Kpi::CodebaseImporter.bugs_backlog_size[:ticket_count],
       bugs_severity: Kpi::CodebaseImporter.bugs_backlog_size[:severity],
-      percentage_secure_projects: Kpi::SnykStatisticsImporter.vulnerabilities_per_project
+      percentage_secure_projects: Kpi::SnykStatisticsImporter.vulnerabilities_per_project,
+      percentage_projects_with_ci: Kpi::CiImporter.find_projects_with_ci
     }
   end
+
+  private
 
   def currently_active_products
     active_projects = Project.where(state: ACTIVE_STATUSES).where.not(last_commit_date: nil)
@@ -50,6 +67,6 @@ class Kpi < ApplicationRecord
   end
 
   def convert_to_percentage(count)
-    (count.to_f / Project.count) * 100
+    ((count.to_f / Project.count) * 100).round(2)
   end
 end

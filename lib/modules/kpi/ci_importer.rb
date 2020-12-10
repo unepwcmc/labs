@@ -1,16 +1,26 @@
 # frozen_string_literal: true
 
 module Kpi::CiImporter
-  # TODO - Not sure how to query Travis
-  def self.exchange_token
-    endpoint = 'https://api.travis-ci.org/auth/github'
-    response = HTTParty.post(
-      endpoint,
-      basic_auth: Github::CLIENT_CREDENTIALS,
+  TRAVIS_ENDPOINT = 'https://api.travis-ci.com/repos'.freeze
+  
+  # Note - only finds 'active' projects on Travis
+  def self.find_projects_with_ci
+    response = HTTParty.get(
+      TRAVIS_ENDPOINT,
       query: {
-        'accept': 'application/vnd.travis-ci.2.1+json'
+        'active': 'true'
       },
-      headers: { 'User-Agent': 'Labs' }
+      headers: { 
+        'Accept': 'application/vnd.travis-ci.2.1+json',
+        'User-Agent': 'MyClient/1.0.0',
+        'Authorization': "token #{Rails.application.secrets.travis_token}"
+       }
     )
+    travis_projects = JSON.parse(response.body)['repos'].map { |project| project['slug'] }
+    projects_with_ci = travis_projects.select do |identifier|
+      Project.pluck(:github_identifier).include?(identifier)
+    end.count
+
+    ((projects_with_ci.to_f / Project.count) * 100).round(2)
   end
 end
