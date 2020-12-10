@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201209154442) do
+ActiveRecord::Schema.define(version: 20201210101355) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20201209154442) do
     t.float    "total_income"
     t.integer  "bugs_backlog_size",                    default: 0
     t.float    "percentage_projects_with_kpis"
-    t.float    "percentage_secure_projects"
+    t.text     "project_vulnerability_counts"
     t.float    "percentage_projects_with_ci"
     t.float    "percentage_projects_documented"
     t.datetime "created_at",                                       null: false
