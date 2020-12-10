@@ -140,7 +140,7 @@
 
   <div class="col-lg-6">
     <div class="page-header">
-      <h2>This Projects Instances</h2>
+      <h2>This Project's Instances</h2>
     </div>
     <p>
       <% if !@instances.empty? %>
@@ -152,6 +152,12 @@
         This project has no instances
       <% end %>
     </p>
+
+    <div class="page-header">
+      <h2>This Project's Vulnerabilities</h2>
+    </div>
+      <%= link_to (image_tag("https://snyk.io/test/github/#{@project.github_identifier}/badge.svg", class: "badge_img",
+            alt: "No Vulnerabilities!")), "https://snyk.io/test/github/#{@project.github_identifier}", class: "badge_link"%>
   </div>
 </div>
 
