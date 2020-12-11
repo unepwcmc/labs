@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
   include Errors
   before_action :authenticate_user!, :except => [:index]
   before_action :available_developers, :only => [:new, :edit]
+  before_action :available_designers, :only => [:new, :edit]
   before_action :available_employees, :only => [:new, :edit]
   before_action :find_project, only: [:show, :edit, :update, :destroy]
   # GET /projects
@@ -72,6 +73,7 @@ class ProjectsController < ApplicationController
       else
         format.html {
           available_developers
+          available_designers
           available_employees
           render :action => "new"
         }
@@ -90,6 +92,7 @@ class ProjectsController < ApplicationController
       else
         format.html {
           available_developers
+          available_designers
           available_employees
           render :action => "edit"
         }
@@ -119,6 +122,10 @@ class ProjectsController < ApplicationController
     @developers = (devs + users).compact.uniq.sort || []
   end
 
+  def available_designers
+    @designers = Project.pluck(:designers).flatten.compact || []
+  end
+
   def available_employees
     @employees = HTTParty.get(Rails.application.secrets.employees_endpoint_url)
     if @employees.code != 200
@@ -127,7 +134,7 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    params.require(:project).permit(:developers_array, :title,
+    params.require(:project).permit(:developers_array, :designers_array, :title,
       :description, :url, :url_staging, :github_id, :pivotal_tracker_id,
       :toggl_id, :deadline, :screenshot, :state,
       :github_identifier, :dependencies, :internal_clients_array, :current_lead,
