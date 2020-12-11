@@ -1,6 +1,6 @@
 <template>
   <div class="chart--doughnut">
-    <p>{{ title }}</p>
+    <h5 class="chart--doughnut__title">{{ title }}</h5>
     <canvas class="chart--doughnut__chartarea" :id="chartId"></canvas>
     <p v-if="this.statistics === undefined">No data currently available</p>
   </div>
