@@ -32,8 +32,8 @@
         <td><%= link_to project.title, project.url %><br>
         <%= link_to (image_tag("https://secure.travis-ci.org/#{project.github_identifier}.png", class: "badge_img",
             alt: "No Travis")), "https://travis-ci.org/#{project.github_identifier}", class: "badge_link"%><br>
-        <%= link_to (image_tag("https://gemnasium.com/#{project.github_identifier}.png", class: "badge_img",
-            alt: "No Gemnasium")), "https://gemnasium.com/#{project.github_identifier}", class: "badge_link"%><br>
+        <%= link_to (image_tag("https://snyk.io/test/github/#{project.github_identifier}/badge.svg", class: "badge_img",
+            alt: "No Vulnerabilities!")), "https://snyk.io/test/github/#{project.github_identifier}", class: "badge_link"%><br>
         <%= link_to (image_tag("https://codeclimate.com/github/#{project.github_identifier}.png", class: "badge_img",
             alt: "No Code Climate")), "https://codeclimate.com/github/#{project.github_identifier}", class: "badge_link"%>
         </td>

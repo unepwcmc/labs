@@ -118,6 +118,15 @@
         </div>
       </div>
 
+      <div class="form-group">
+        <%= f.label :designers, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+        <%= f.text_field :designers_array, class: "form-control tag-field",
+      data: {tags: @designers.map{|t| {id: t, text: t}} }  %>
+          <p class="help-block">Add a tag for each designer</p>
+        </div>
+      </div>
+
 
       <div class="form-group">
         <%= f.label :expected_release_date, class: "col-sm-2 control-label" %>

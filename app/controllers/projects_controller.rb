@@ -2,9 +2,10 @@
 
 class ProjectsController < ApplicationController
   include Errors
-  before_action :authenticate_user!, except: [:index]
-  before_action :available_developers, only: %i[new edit]
-  before_action :available_employees, only: %i[new edit]
+  before_action :authenticate_user!, :except => [:index]
+  before_action :available_developers, :only => %i[new edit]
+  before_action :available_designers, :only => %i[new edit]
+  before_action :available_employees, :only => %i[new edit]
   before_action :find_project, only: %i[show edit update destroy]
   # GET /projects
   # GET /projects.json
@@ -38,6 +39,11 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
+    deprecated_resources = %i(pdrive_folders dropbox_folders pivotal_tracker_ids trello_ids)
+    @no_deprecated_resources = deprecated_resources.all? do |res|
+      @project.send(res).blank?
+    end
+
     @instances = @project.project_instances
 
     @comments = @project.comments.order(:created_at)
@@ -74,6 +80,7 @@ class ProjectsController < ApplicationController
       else
         format.html do
           available_developers
+          available_designers
           available_employees
           render action: 'new'
         end
@@ -92,6 +99,7 @@ class ProjectsController < ApplicationController
       else
         format.html do
           available_developers
+          available_designers
           available_employees
           render action: 'edit'
         end
@@ -120,6 +128,10 @@ class ProjectsController < ApplicationController
     devs = Project.pluck(:developers).flatten
     users = User.pluck(:name)
     @developers = (devs + users).compact.uniq.sort || []
+  end
+
+  def available_designers
+    @designers = Project.pluck(:designers).flatten.compact || []
   end
 
   def available_employees

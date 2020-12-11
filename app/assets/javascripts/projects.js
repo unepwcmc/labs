@@ -37,6 +37,14 @@ $(document).ready(function(){
     width: '100%'
   });
 
+  $("#project_designers_array").select2({
+    tags: $("#project_designers_array").data("tags"),
+    placeholder: "Select tag",
+    allowClear: true,
+    minimumInputLength: 1,
+    width: '100%'
+  });
+
   $("#project_internal_clients_array").select2({
     tags: $("#project_internal_clients_array").data("tags"),
     placeholder: "Select tag",
