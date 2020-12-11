@@ -79,7 +79,7 @@
             {
                "title":"Gemfile cleaned from unused gems & upgraded to reasonable versions",
                "code":"gems",
-               "description":"For example: no gems with security flaws, no serious issues reported by Gemnasium",
+               "description":"For example: no gems with security flaws, no serious issues reported by Snyk",
                "skippable":true
             },
             {
