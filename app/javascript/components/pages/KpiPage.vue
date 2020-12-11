@@ -49,6 +49,8 @@
           ></chart-doughnut>
         </div>
       </template>
+      <h2>Total income</h2>
+        <h4 v-if="kpiStats">{{ kpiStats.total_income | convert_to_gbp }}</h4>
     </div>
   </div>
 </template>
@@ -72,6 +74,12 @@ export default {
   data() {
     return {
       kpiStats: undefined
+    }
+  },
+  filters: {
+    convert_to_gbp: function(str) {
+      if (str === null || str === undefined) { return 'Total income is nil' }
+      return "£" + str;
     }
   },
   mounted() {
