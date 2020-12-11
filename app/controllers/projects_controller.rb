@@ -37,6 +37,11 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
+    deprecated_resources = %i(pdrive_folders dropbox_folders pivotal_tracker_ids trello_ids)
+    @no_deprecated_resources = deprecated_resources.all? do |res|
+      @project.send(res).blank?
+    end
+
     @instances = @project.project_instances
 
     @comments = @project.comments.order(:created_at)
