@@ -7,6 +7,12 @@
           <chart-doughnut :statistics="kpiStats.project_vulnerability_counts"></chart-doughnut>
         </template>
       </div>
+      <h2>Active projects</h2>
+      <div class="page--kpi__chart-row">
+        <template v-if="kpiStats">
+          <chart-doughnut :statistics="kpiStats.active_products"></chart-doughnut>
+        </template>
+      </div>
     </div>
   </div>
 </template>

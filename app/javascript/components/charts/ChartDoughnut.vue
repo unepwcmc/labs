@@ -15,7 +15,7 @@
         default: () => ({})
       },
     },
-    beforeMount() {
+    mounted() {
       this.correctDataFormat()
       this.createChart('chart-doughnut')
     },
@@ -35,11 +35,17 @@
         });
       },
       correctDataFormat() {
+        const renamedLabels = Object.keys(this.statistics).map((key)=> {
+          return key.replace(/_/g, ' ').split(' ').map((s) => {
+            return s.charAt(0).toUpperCase() + s.substring(1)
+          }).join(' ')
+        })
+        
         this.formattedStats = {
           datasets: [{
             data: Object.values(this.statistics)
           }],
-          labels: Object.keys(this.statistics)
+          labels: renamedLabels
         }
       }
     },

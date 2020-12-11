@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201210101355) do
+ActiveRecord::Schema.define(version: 20201211100347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,13 +58,13 @@ ActiveRecord::Schema.define(version: 20201210101355) do
 
   create_table "kpis", force: :cascade do |t|
     t.integer  "singleton_guard",                      default: 0, null: false
-    t.float    "percentage_currently_active_products"
+    t.text     "percentage_currently_active_products"
     t.float    "total_income"
     t.integer  "bugs_backlog_size",                    default: 0
-    t.float    "percentage_projects_with_kpis"
+    t.text     "percentage_projects_with_kpis"
     t.text     "project_vulnerability_counts"
-    t.float    "percentage_projects_with_ci"
-    t.float    "percentage_projects_documented"
+    t.text     "percentage_projects_with_ci"
+    t.text     "percentage_projects_documented"
     t.datetime "created_at",                                       null: false
     t.datetime "updated_at",                                       null: false
     t.text     "bugs_severity"
