@@ -45,6 +45,14 @@
       </div>
       <h2>Total income</h2>
       <h4>{{ kpiStats.total_income | convert_to_gbp }}</h4>
+      <h2>Yearly updates</h2>
+      <div class="page--kpi__chart-row">
+        <chart-doughnut
+          :statistics="kpiStats.manual_yearly_updates_overview"
+          :title="'Overview of manual yearly updates for our projects'"
+          :chart-id="'manual-updates'"
+        ></chart-doughnut>
+      </div>
     </template>
 
     <template v-else>

@@ -9,12 +9,19 @@ class Kpi < ApplicationRecord
   serialize :percentage_projects_with_kpis
   serialize :percentage_projects_documented
   serialize :percentage_projects_with_ci
+  serialize :manual_yearly_updates_overview
 
   ACTIVE_STATUSES = [
     'Launched (No Maintenance)',
     'Launched (Support & Maintenance)',
     'Completed'
   ].freeze
+
+  MANUAL_YEARLY_UPDATES_CATEGORIES = {
+    "none": 0,
+    "0 to 10": 0,
+    "More than 10": 0
+  }.freeze
 
   def self.instance
     first || construct_instance
@@ -33,7 +40,7 @@ class Kpi < ApplicationRecord
     create(instance_hash)
   end
 
-  def self.instance_hash 
+  def self.instance_hash
     db_statistics.merge(imported_stats)
   end
 
@@ -95,10 +102,25 @@ class Kpi < ApplicationRecord
     }
   end
 
+  def self.manual_yearly_updates_overview
+    yearly_updates = MANUAL_YEARLY_UPDATES_CATEGORIES.dup
+
+    Project.find_each do |project|
+      yearly_updates['none'] += 1 if project.manual_yearly_updates.zero?
+      if project.manual_yearly_updates.positive? && project.manual_yearly_updates < 10
+        yearly_updates['0 to 10'] += 1
+      else
+        yearly_updates['More than 10'] += 1
+      end
+    end
+
+    yearly_updates
+  end
+
   def self.convert_to_percentage(count)
     ((count.to_f / Project.count) * 100).round(2)
   end
 
   # private_class_method :currently_active_products, :projects_with_kpis, :projects_with_ci,
-  #                      :projects_with_documentation, :convert_to_percentage
+  #                      :projects_with_documentation, :manual_yearly_updates_overview, :convert_to_percentage
 end

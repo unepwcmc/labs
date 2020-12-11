@@ -1,8 +1,15 @@
 <template>
   <div class="chart--doughnut">
     <h5 class="chart--doughnut__title">{{ title }}</h5>
-    <canvas class="chart--doughnut__chartarea" :id="chartId"></canvas>
-    <p v-if="this.statistics === undefined">No data currently available</p>
+    <template v-if="Object.entries(this.statistics).length > 0">
+      <canvas
+      class="chart--doughnut__chartarea"
+      :id="chartId"
+      ></canvas>
+    </template>
+    <template v-else>
+      <p>No data currently available for this property</p>
+    </template>
   </div>
 </template>
 
@@ -34,7 +41,7 @@ export default {
       formattedStats: undefined,
       datasetOptions: {
         backgroundColors: [
-          'rgba(255, 0, 0, 0.5)', 
+          'rgba(255, 0, 0, 0.5)',
           'rgba(0, 255, 0, 0.5)',
           'rgba(0, 0, 255, 0.5)',
           'rgba(255, 255, 0, 0.5)'
