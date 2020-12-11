@@ -1,5 +1,6 @@
 <template>
   <div class="chart--doughnut">
+    <p>{{ title }}</p>
     <canvas :id="chartId"></canvas>
   </div>
 </template>
@@ -17,6 +18,10 @@
       statistics: {
         type: Object,
         default: () => ({})
+      },
+      title: {
+        type: String,
+        default: ''
       }
     },
     mounted() {

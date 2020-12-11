@@ -83,11 +83,13 @@ class Kpi < ApplicationRecord
   end
 
   def self.projects_with_documentation
-    with_documentation = Project.where.not(documentation_link: nil).count
+    adequate_documentation = Project.where.not(is_documentation_adequate: false, documentation_link: nil).count
+    inadequate_documentation = Project.where.not(is_documentation_adequate: true, documentation_link: nil).count
 
     {
-      with_documentation: convert_to_percentage(with_documentation),
-      without_documentation: convert_to_percentage(Project.count - with_documentation)
+      adequate_documentation: convert_to_percentage(adequate_documentation),
+      inadequate_documentation: convert_to_percentage(inadequate_documentation),
+      without_documentation: convert_to_percentage(Project.count - (adequate_documentation + inadequate_documentation))
     }
   end
 
