@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <canvas id="chart-doughnut"></canvas>
+  <div class="chart--doughnut">
+    <canvas :id="chartId"></canvas>
   </div>
 </template>
 
@@ -10,14 +10,18 @@
   export default {
     name: 'ChartDoughnut',
     props: {
+      chartId: {
+        type: String,
+        required: true
+      },
       statistics: {
         type: Object,
         default: () => ({})
-      },
+      }
     },
     mounted() {
       this.correctDataFormat()
-      this.createChart('chart-doughnut')
+      this.createChart(this.chartId)
     },
     data() {
       return {
@@ -40,7 +44,7 @@
             return s.charAt(0).toUpperCase() + s.substring(1)
           }).join(' ')
         })
-        
+
         this.formattedStats = {
           datasets: [{
             data: Object.values(this.statistics)

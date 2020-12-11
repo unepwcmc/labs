@@ -4,13 +4,19 @@
       <h2>Project vulnerabilities</h2>
       <div class="page--kpi__chart-row">
         <template v-if="kpiStats">
-          <chart-doughnut :statistics="kpiStats.project_vulnerability_counts"></chart-doughnut>
+          <chart-doughnut
+            :statistics="kpiStats.project_vulnerability_counts"
+            :chart-id="'vuln-counts'"
+          ></chart-doughnut>
         </template>
       </div>
       <h2>Active projects</h2>
       <div class="page--kpi__chart-row">
         <template v-if="kpiStats">
-          <chart-doughnut :statistics="kpiStats.active_products"></chart-doughnut>
+          <chart-doughnut
+            :statistics="kpiStats.percentage_currently_active_products"
+            :chart-id="'active-products'"
+          ></chart-doughnut>
         </template>
       </div>
     </div>
