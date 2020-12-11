@@ -1,0 +1,7 @@
+.icon {
+  &--loading-spinner {
+    background-image: image_url("icons/loading-spinner.svg");
+    width: 100px; 
+    height: 100px;
+  }
+}
