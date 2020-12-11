@@ -12,19 +12,19 @@
       <h2>Project completeness</h2>
       <div class="page--kpi__chart-row">
         <chart-doughnut
-          :statistics="kpiStats.percentage_currently_active_products"
+          :statistics="kpiStats.active_products"
           :title="'% Currently active products'"
           :chart-id="'active-products'"
         />
         <chart-doughnut
-          :statistics="kpiStats.percentage_projects_with_kpis"
+          :statistics="kpiStats.feasibility"
           :title="'% Projects with KPIs'"
           :chart-id="'kpi-percentages'"
         />
       </div>
       <div class="page--kpi__chart-row">
         <chart-doughnut
-          :statistics="kpiStats.percentage_projects_documented"
+          :statistics="kpiStats.documentation"
           :title="'% Projects with documentation'"
           :chart-id="'documentation-percentages'"
         />
@@ -48,7 +48,7 @@
       <h2>Yearly updates</h2>
       <div class="page--kpi__chart-row">
         <chart-doughnut
-          :statistics="kpiStats.manual_yearly_updates_overview"
+          :statistics="kpiStats.manual_updates"
           :title="'Overview of manual yearly updates for our projects'"
           :chart-id="'manual-updates'"
         />
