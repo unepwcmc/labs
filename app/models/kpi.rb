@@ -17,12 +17,6 @@ class Kpi < ApplicationRecord
     'Completed'
   ].freeze
 
-  MANUAL_YEARLY_UPDATES_CATEGORIES = {
-    "none": 0,
-    "0 to 10": 0,
-    "More than 10": 0
-  }.freeze
-
   def self.instance
     first || construct_instance
   end
@@ -48,7 +42,8 @@ class Kpi < ApplicationRecord
     {
       percentage_currently_active_products: currently_active_products,
       percentage_projects_with_kpis: projects_with_kpis,
-      percentage_projects_documented: projects_with_documentation
+      percentage_projects_documented: projects_with_documentation,
+      manual_yearly_updates_overview: manual_yearly_updates_overview
     }
   end
 
@@ -103,24 +98,31 @@ class Kpi < ApplicationRecord
   end
 
   def self.manual_yearly_updates_overview
-    yearly_updates = MANUAL_YEARLY_UPDATES_CATEGORIES.dup
+    none = 0
+    zero_to_ten = 0
+    more_than_ten = 0
 
     Project.find_each do |project|
-      yearly_updates['none'] += 1 if project.manual_yearly_updates.zero?
-      if project.manual_yearly_updates.positive? && project.manual_yearly_updates < 10
-        yearly_updates['0 to 10'] += 1
+      if project.manual_yearly_updates.zero?
+        none += 1 
+      elsif project.manual_yearly_updates.positive? && project.manual_yearly_updates < 10
+        zero_to_ten += 1
       else
-        yearly_updates['More than 10'] += 1
+        more_than_ten += 1
       end
     end
 
-    yearly_updates
+    {
+      none: none,
+      "0 to 10": zero_to_ten,
+      "10 to 20": more_than_ten
+    }
   end
 
   def self.convert_to_percentage(count)
     ((count.to_f / Project.count) * 100).round(2)
   end
 
-  # private_class_method :currently_active_products, :projects_with_kpis, :projects_with_ci,
-  #                      :projects_with_documentation, :manual_yearly_updates_overview, :convert_to_percentage
+  private_class_method :currently_active_products, :projects_with_kpis, :projects_with_ci,
+                       :projects_with_documentation, :manual_yearly_updates_overview, :convert_to_percentage
 end

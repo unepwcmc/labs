@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20201211122555) do
     t.datetime "created_at",                                       null: false
     t.datetime "updated_at",                                       null: false
     t.text     "bugs_severity"
-    t.text     "manual_year_updates_overview"
+    t.text     "manual_yearly_updates_overview"
     t.index ["singleton_guard"], name: "index_kpis_on_singleton_guard", unique: true, using: :btree
   end
 
