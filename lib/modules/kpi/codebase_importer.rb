@@ -19,7 +19,7 @@ module Kpi::CodebaseImporter
   }.freeze
 
   def self.bugs_backlog_size
-    tickets_hash = DEFAULT_TICKETS_HASH.dup
+    tickets_hash = DEFAULT_TICKETS_HASH.deep_dup
     page = 1
     query = codebase_query(page)
 
