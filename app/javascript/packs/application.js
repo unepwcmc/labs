@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if(document.getElementById('v-app')) {
     Vue.prototype.$eventHub = new Vue()
 
-    const app = new Vue({
+    new Vue({
       el: '#v-app',
       components: {
         ChartDoughnut,

@@ -1,11 +1,13 @@
 <template>
   <div class="chart--doughnut">
-    <h5 class="chart--doughnut__title">{{ title }}</h5>
+    <h5 class="chart--doughnut__title">
+      {{ title }}
+    </h5>
     <template v-if="Object.entries(this.statistics).length > 0">
       <canvas
-      class="chart--doughnut__chartarea"
-      :id="chartId"
-      ></canvas>
+        :id="chartId"
+        class="chart--doughnut__chartarea"
+      />
     </template>
     <template v-else>
       <p>No data currently available for this property</p>
@@ -32,10 +34,6 @@ export default {
       default: ''
     }
   },
-  mounted() {
-    this.customiseDataset()
-    this.createChart(this.chartId)
-  },
   data() {
     return {
       formattedStats: undefined,
@@ -52,10 +50,15 @@ export default {
       }
     }
   },
+  mounted() {
+    this.customiseDataset()
+    this.createChart(this.chartId)
+  },
   methods: {
     createChart(chartId) {
       const chartElem = document.getElementById(chartId)
-      const chart = new Chart(chartElem, {
+      
+      return new Chart(chartElem, {
         type: 'doughnut',
         data: this.formattedStats,
         options: this.generalOptions
