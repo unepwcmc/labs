@@ -92,7 +92,7 @@ class Project < ApplicationRecord
   accepts_nested_attributes_for :sub_master_relationship, allow_destroy: true
 
   after_update :refresh_reviews
-
+  after_update :refresh_kpi_information
   after_touch(&:refresh_reviews)
 
   # Mount uploader for carrierwave
@@ -138,6 +138,10 @@ class Project < ApplicationRecord
 
   def refresh_reviews
     reviews.each(&:respond_to_project_update)
+  end
+
+  def refresh_kpi_information
+    Kpi.refresh_non_api_information
   end
 
   def sync_with_github

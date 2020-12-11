@@ -21,6 +21,10 @@ class Kpi < ApplicationRecord
     first || construct_instance
   end
 
+  def self.refresh_non_api_information
+    first.update_attributes(db_statistics)
+  end
+
   def self.refresh_values
     obj = first
     unless obj
@@ -80,7 +84,7 @@ class Kpi < ApplicationRecord
     unfeasible_kpis = Project.where.not(is_feasible: true, key_performance_indicator: nil).count
 
     {
-      kpis_present: convert_to_percentage(feasible_kpis),
+      feasible_kpis: convert_to_percentage(feasible_kpis),
       unfeasible_kpis: convert_to_percentage(unfeasible_kpis),
       no_kpis_present: convert_to_percentage(Project.count - (feasible_kpis + unfeasible_kpis))
     }
