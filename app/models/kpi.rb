@@ -74,11 +74,13 @@ class Kpi < ApplicationRecord
   end
 
   def self.projects_with_kpis
-    projects_with_kpis = Project.where.not(key_performance_indicator: nil).count
+    feasible_kpis = Project.where.not(is_feasible: false, key_performance_indicator: nil).count
+    unfeasible_kpis = Project.where.not(is_feasible: true, key_performance_indicator: nil).count
 
     {
-      kpis_present: convert_to_percentage(projects_with_kpis),
-      no_kpis_present: convert_to_percentage(Project.count - projects_with_kpis)
+      kpis_present: convert_to_percentage(feasible_kpis),
+      unfeasible_kpis: convert_to_percentage(unfeasible_kpis),
+      no_kpis_present: convert_to_percentage(Project.count - (feasible_kpis + unfeasible_kpis))
     }
   end
 
@@ -97,6 +99,6 @@ class Kpi < ApplicationRecord
     ((count.to_f / Project.count) * 100).round(2)
   end
 
-  private_class_method :currently_active_products, :projects_with_kpis, :projects_with_ci,
-                       :projects_with_documentation, :convert_to_percentage
+  # private_class_method :currently_active_products, :projects_with_kpis, :projects_with_ci,
+  #                      :projects_with_documentation, :convert_to_percentage
 end
