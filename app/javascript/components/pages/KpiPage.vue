@@ -1,18 +1,16 @@
 <template>
   <div class="page--kpi">
     <div class="page--kpi__vulnerabilities">
-      <h2>Project vulnerabilities</h2>
-      <div class="page--kpi__chart-row">
-        <template v-if="kpiStats">
+      <template v-if="kpiStats">
+        <h2>Project vulnerabilities</h2>
+        <div class="page--kpi__chart-row">
           <chart-doughnut
             :statistics="kpiStats.project_vulnerability_counts"
             :title="'Number of public repos sorted by vulnerability count'"
             :chart-id="'vuln-counts'"
           ></chart-doughnut>
-        </template>
-      </div>
-      <h2>Project completeness</h2>
-      <template v-if="kpiStats">
+        </div>
+        <h2>Project completeness</h2>
         <div class="page--kpi__chart-row">
           <chart-doughnut
             :statistics="kpiStats.percentage_currently_active_products"
@@ -37,9 +35,7 @@
             :chart-id="'ci-percentages'"
           ></chart-doughnut>
         </div>
-      </template>
-      <h2>Bits n Bugs backlog</h2>
-      <template v-if="kpiStats">
+        <h2>Bits n Bugs backlog</h2>
         <h4>Backlog size: {{ kpiStats.bugs_backlog_size }}</h4>
         <div class="page--kpi__chart-row">
           <chart-doughnut
@@ -48,9 +44,9 @@
             :chart-id="'bugs-distribution'"
           ></chart-doughnut>
         </div>
+        <h2>Total income</h2>
+        <h4>{{ kpiStats.total_income | convert_to_gbp }}</h4>
       </template>
-      <h2>Total income</h2>
-        <h4 v-if="kpiStats">{{ kpiStats.total_income | convert_to_gbp }}</h4>
     </div>
   </div>
 </template>
@@ -77,9 +73,9 @@ export default {
     }
   },
   filters: {
-    convert_to_gbp: function(str) {
+    convert_to_gbp: function (str) {
       if (str === null || str === undefined) { return 'Total income is nil' }
-      return "£" + str;
+      return "£" + str
     }
   },
   mounted() {
