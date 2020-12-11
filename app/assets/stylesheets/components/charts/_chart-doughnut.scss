@@ -1,4 +1,8 @@
 &--doughnut {
-  display: block;
   text-align: left;
+  display: block;
+
+  &__chartarea {
+    height: 300px;
+  }
 }

@@ -12,8 +12,8 @@
         </template>
       </div>
       <h2>Project completeness</h2>
-      <div class="page--kpi__chart-row">
-        <template v-if="kpiStats">
+      <template v-if="kpiStats">
+        <div class="page--kpi__chart-row">
           <chart-doughnut
             :statistics="kpiStats.percentage_currently_active_products"
             :title="'% Currently active products'"
@@ -24,6 +24,8 @@
             :title="'% Projects with KPIs'"
             :chart-id="'kpi-percentages'"
           ></chart-doughnut>
+        </div>
+        <div class="page--kpi__chart-row">
           <chart-doughnut
             :statistics="kpiStats.percentage_projects_documented"
             :title="'% Projects with documentation'"
@@ -34,8 +36,8 @@
             :title="'% Projects with CI/CD'"
             :chart-id="'ci-percentages'"
           ></chart-doughnut>
-        </template>
-      </div>
+        </div>
+      </template>
       <h2>Bits n Bugs backlog</h2>
       <template v-if="kpiStats">
         <h4>Backlog size: {{ kpiStats.bugs_backlog_size }}</h4>

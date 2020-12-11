@@ -1,8 +1,8 @@
 <template>
   <div class="chart--doughnut">
     <p>{{ title }}</p>
-    <canvas :id="chartId"></canvas>
-    <p v-if="this.statistics === undefined">No data is currently available</p>
+    <canvas class="chart--doughnut__chartarea" :id="chartId"></canvas>
+    <p v-if="this.statistics === undefined">No data currently available</p>
   </div>
 </template>
 
@@ -39,6 +39,9 @@ export default {
           'rgba(0, 0, 255, 0.5)',
           'rgba(255, 255, 0, 0.5)'
         ]
+      },
+      generalOptions: {
+        responsive: false
       }
     }
   },
@@ -47,7 +50,8 @@ export default {
       const chartElem = document.getElementById(chartId)
       const chart = new Chart(chartElem, {
         type: 'doughnut',
-        data: this.formattedStats
+        data: this.formattedStats,
+        options: this.generalOptions
       })
     },
     setStyleOptions() {
