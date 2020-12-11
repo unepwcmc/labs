@@ -14,7 +14,7 @@ The homepage for the WCMC Informatics team. A basic rails app for showing off th
 - Run `rails secret` and populate `config/secrets.yml`
 - Run `yarn install`
 
-## KPI Page
+## KPI Page
 
 The KPI page will be initially blank if you don't have an instance of the KPI model in your database. Run `rake kpi:regenerate` to create a KPI, which should then populate the various charts on the KPI page. The data can be manually updated by running the same command if the latest data is required. 
 
