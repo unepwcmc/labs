@@ -99,6 +99,19 @@
       <% end %>
     </p>
 
+      <p>
+      <strong>Designers:</strong>
+      <% if !@project.designers.blank? %>
+        <ul>
+          <% @project.designers.each do |designer| %>
+            <li><%= designer %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This project has no designers
+      <% end %>
+    </p>
+
     <%= display_text @project, :dependencies %>
 
     <p>
@@ -140,7 +153,7 @@
 
   <div class="col-lg-6">
     <div class="page-header">
-      <h2>This Projects Instances</h2>
+      <h2>This Project's Instances</h2>
     </div>
     <p>
       <% if !@instances.empty? %>
@@ -152,6 +165,12 @@
         This project has no instances
       <% end %>
     </p>
+
+    <div class="page-header">
+      <h2>This Project's Vulnerabilities</h2>
+    </div>
+      <%= link_to (image_tag("https://snyk.io/test/github/#{@project.github_identifier}/badge.svg", class: "badge_img",
+            alt: "No Vulnerabilities!")), "https://snyk.io/test/github/#{@project.github_identifier}", class: "badge_link"%>
   </div>
 </div>
 
@@ -323,6 +342,70 @@
     </p>
   </div>
 </div>
+
+<% unless @no_deprecated_resources %>
+  <div class="row">
+    <div class="page-header">
+      <h2>Deprecated Resources</h2>
+    </div>
+    <!-- :pdrive_folders, :dropbox_folders, :pivotal_tracker_ids, :trello_ids -->
+    <div class="col-lg-6">
+      <p><strong>P Drive Folders</strong></p>
+      <p>
+      <% if !@project.pdrive_folders.blank? %>
+          <ul>
+            <% @project.pdrive_folders.each do |folder| %>
+              <li><%= folder %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          This project has no P Drive Folders
+        <% end %>
+      </p>
+
+      <p><strong>Dropbox Folders</strong></p>
+      <p>
+        <% if !@project.dropbox_folders.blank? %>
+          <ul>
+            <% @project.dropbox_folders.each do |folder| %>
+              <li><%= folder %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          This project has no Dropbox Folders
+        <% end %>
+      </p>
+    </div>
+
+    <div class="col-lg-6">
+      <p><strong>Pivotal tracker IDs</strong></p>
+      <p>
+        <% if !@project.pivotal_tracker_ids.blank? %>
+          <ul>
+            <% @project.pivotal_tracker_ids.each do |id| %>
+              <li><%= id %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          This project has Pivotal tracker IDs
+        <% end %>
+      </p>
+
+      <p><strong>Trello IDs</strong></p>
+      <p>
+        <% if !@project.trello_ids.blank? %>
+          <ul>
+            <% @project.trello_ids.each do |id| %>
+              <li><%= id %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          This project has no Trello IDs
+        <% end %>
+      </p>
+    </div>
+  </div>
+<% end %>
 
 <div class="row">
 	<div class="page-header">
