@@ -5,7 +5,7 @@
       <div class="page--kpi__chart-row">
         <chart-doughnut
           :statistics="kpiStats.project_vulnerability_counts"
-          :title="'Number of public repos sorted by vulnerability count'"
+          :title="'Number of repos sorted by vulnerability count'"
           :chart-id="'vuln-counts'"
         />
       </div>

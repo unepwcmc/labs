@@ -12,7 +12,7 @@ module Kpi::SnykStatisticsImporter
     existing_projects = Kpi.instance.project_breakdown
     svg = fetch_snyk_badge(project)
 
-    handle_404(svg) do
+    if svg.response.code == '404'
       Rails.logger.info("Couldn't obtain SVG for #{project.title}")
       kpi_fields(existing_projects) && return
     end
@@ -42,10 +42,6 @@ module Kpi::SnykStatisticsImporter
     end
   end
 
-  def self.handle_404(svg)
-    yield if svg.response.code == '404'
-  end
-
   def self.vulnerabilities_per_project
     projects = []
     missing_projects = []
@@ -65,8 +61,9 @@ module Kpi::SnykStatisticsImporter
       ## Like with GitHub, only takes into account public repos
       svg = fetch_snyk_badge(project)
 
-      handle_404(svg) do 
+      if svg.response.code == '404'
         missing_projects << project.id
+        projects << { project: project.title, number: 'Unknown' }
         next
       end
 
@@ -92,21 +89,27 @@ module Kpi::SnykStatisticsImporter
     no_vulnerabilities_count = 0
     fairly_secure_count = 0
     insecure_count = 0
+    unknown_count = 0
 
     projects_array.each do |project|
-      if project[:number] == 0
-        no_vulnerabilities_count += 1
-      elsif project[:number].positive? && project[:number] < 10
-        fairly_secure_count += 1
-      elsif project[:number] > 10
-        insecure_count += 1
+      if project[:number].is_a?(Numeric)
+        if project[:number] == 0
+          no_vulnerabilities_count += 1
+        elsif project[:number].positive? && project[:number] < 10
+          fairly_secure_count += 1
+        else
+          insecure_count += 1
+        end
+      else
+        unknown_count += 1
       end
     end
 
     {
       no_vulnerabilities: no_vulnerabilities_count,
       fairly_secure: fairly_secure_count,
-      insecure: insecure_count
+      insecure: insecure_count,
+      unknown: unknown_count
     }
   end
 end
