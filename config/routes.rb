@@ -78,6 +78,7 @@ Labs::Application.routes.draw do
 
   get '/kpis', to: 'kpis#index', as: 'kpi_page'
   get '/kpis/kpi_endpoint', to: 'kpis#kpi_endpoint'
+  get '/kpis/kpi_poll', to: 'kpis#kpi_poll'
 
   get '/contact', :to => 'home#contact'
   # You can have the root of your site routed with "root"

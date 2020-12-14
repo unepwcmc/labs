@@ -87,10 +87,15 @@ export default {
       required: true,
       type: String
     },
+    endpointPoll: {
+      required: true,
+      type: String
+    }
   },
   data() {
     return {
-      kpiStats: undefined
+      kpiStats: undefined,
+      isRegenerating: false
     }
   },
   mounted() {
@@ -100,10 +105,33 @@ export default {
     getKpi() {
       axios.get(this.endpoint).then(response => {
         this.kpiStats = response.data
+        this.updateDate(this.kpiStats.updated_at)
+      }).catch(error => {
+        console.log(error)
+      })
+
+      this.startPolling()
+    },
+    updateDate(date) {
+      this.$store.commit('updateLastUpdated', date)
+    },
+    pollKpi() {
+      axios.get(this.endpointPoll).then(response => {
+        console.log(response.data)
+        const date = response.data.updated_at
+
+        if (date > this.$store.state.lastUpdated) {
+          this.getKpi()
+          this.updateDate(date)
+        }
       }).catch(error => {
         console.log(error)
       })
     },
+    startPolling() {
+      // Refreshes every 5 minutes
+      window.setInterval(this.pollKpi, 300000)
+    }
   }
 }
 </script>

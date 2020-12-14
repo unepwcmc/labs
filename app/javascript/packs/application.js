@@ -2,7 +2,7 @@
 import Vue from 'vue/dist/vue.esm'
 
 // store
-import store from './store/store.js'
+import store from '../store/store.js'
 
 // components
 import ChartDoughnut from '../components/charts/ChartDoughnut.vue'
@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     new Vue({
       el: '#v-app',
+      store,
       components: {
         ChartDoughnut,
         KpiPage
