@@ -43,8 +43,10 @@
           :chart-id="'bugs-distribution'"
         />
       </div>
-      <h2>Total income</h2>
-      <h4>{{ kpiStats.total_income | convert_to_gbp }}</h4>
+      <h2>Finance</h2>
+      <div class="page--kpi__chart-row">
+        <h4>{{ kpiStats.total_income | convert_to_gbp }}</h4>
+      </div>
       <h2>Yearly updates</h2>
       <div class="page--kpi__chart-row">
         <chart-doughnut
