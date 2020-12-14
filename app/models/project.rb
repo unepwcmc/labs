@@ -93,7 +93,7 @@ class Project < ApplicationRecord
 
   after_update :refresh_reviews
   after_update :refresh_kpi_information
-  after_touch(&:refresh_reviews)
+  after_touch :refresh_reviews
 
   # Mount uploader for carrierwave
   mount_uploader :screenshot, ScreenshotUploader
@@ -141,7 +141,10 @@ class Project < ApplicationRecord
   end
 
   def refresh_kpi_information
-    Kpi.refresh_non_api_information
+    return Kpi.instance if Kpi.first.nil?
+
+    # Uses streamlined methods to quickly get new info (mainly to speed up the Snyk importer)
+    Kpi.quick_refresh(self)
   end
 
   def sync_with_github

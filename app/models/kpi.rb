@@ -10,6 +10,7 @@ class Kpi < ApplicationRecord
   serialize :percentage_projects_documented
   serialize :percentage_projects_with_ci
   serialize :manual_yearly_updates_overview
+  serialize :project_breakdown
 
   ACTIVE_STATUSES = [
     'Launched (No Maintenance)',
@@ -21,8 +22,17 @@ class Kpi < ApplicationRecord
     first || construct_instance
   end
 
-  def self.refresh_non_api_information
-    first.update_attributes(db_statistics)
+  def self.quick_refresh(project = nil)
+    first.update_attributes(db_statistics) if project.nil?
+
+    snyk_stats = Kpi::SnykStatisticsImporter.update_single_project(project)
+   
+    first.update_attributes(db_statistics.merge(
+      api_imports.merge(
+        project_vulnerability_counts: snyk_stats[:vulnerability_hash],
+        project_breakdown: snyk_stats[:projects]
+      )
+    ))
   end
 
   def self.refresh_values
@@ -52,12 +62,20 @@ class Kpi < ApplicationRecord
   end
 
   def self.imported_stats
+    snyk_stats = Kpi::SnykStatisticsImporter.vulnerabilities_per_project
+
     # API imports
+    api_imports.merge({
+      project_vulnerability_counts: snyk_stats[:vulnerability_hash],
+      project_breakdown: snyk_stats[:projects]
+    })
+  end
+
+  def self.api_imports 
     {
       bugs_backlog_size: Kpi::CodebaseImporter.bugs_backlog_size[:ticket_count],
       bugs_severity: Kpi::CodebaseImporter.bugs_backlog_size[:severity],
-      percentage_projects_with_ci: projects_with_ci,
-      project_vulnerability_counts: Kpi::SnykStatisticsImporter.vulnerabilities_per_project
+      percentage_projects_with_ci: projects_with_ci
     }
   end
 
