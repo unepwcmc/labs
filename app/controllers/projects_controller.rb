@@ -155,7 +155,7 @@ class ProjectsController < ApplicationController
     params.require(:project).permit(modified_names)
   end
 
-  def rescue_has_instances_exception(_exception)
+  def rescue_has_instances_exception
     redirect_back fallback_location: projects_url, alert: 'This project has project instances. Delete its project instances first'
   end
 
