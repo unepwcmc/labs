@@ -83,30 +83,22 @@ module Kpi::SnykStatisticsImporter
   end
 
   def self.sort_into_hash(projects_array)
-    no_vulnerabilities_count = 0
-    fairly_secure_count = 0
-    insecure_count = 0
-    unknown_count = 0
+    vuln_hash = Hash.new(0)
 
     projects_array.each do |project|
       if project[:number].is_a?(Numeric)
-        if project[:number] == 0
-          no_vulnerabilities_count += 1
+        if project[:number].zero?
+          vuln_hash[:no_vulnerabilities_count] += 1
         elsif project[:number].positive? && project[:number] < 10
-          fairly_secure_count += 1
+          vuln_hash[:fairly_secure_count] += 1
         else
-          insecure_count += 1
+          vuln_hash[:insecure_count] += 1
         end
       else
-        unknown_count += 1
+        vuln_hash[:unknown_count] += 1
       end
     end
 
-    {
-      no_vulnerabilities: no_vulnerabilities_count,
-      fairly_secure: fairly_secure_count,
-      insecure: insecure_count,
-      unknown: unknown_count
-    }
+    vuln_hash
   end
 end
