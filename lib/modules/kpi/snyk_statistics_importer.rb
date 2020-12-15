@@ -14,7 +14,7 @@ module Kpi::SnykStatisticsImporter
 
     if svg.response.code == '404'
       Rails.logger.info("Couldn't obtain SVG for #{project.title}")
-      kpi_fields(existing_projects) && return
+      return kpi_fields(existing_projects)
     end
 
     if svg.response.code == '200'
