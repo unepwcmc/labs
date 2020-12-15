@@ -194,14 +194,14 @@
       </div>
 
       <div class="form-group">
-        <%= f.label :kpi_measurement, class: "col-sm-2 control-label" %>
+        <%= f.label :kpi_measurement, 'KPI measurement', class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
           <%= f.text_field :kpi_measurement, class: "form-control" %>
         </div>
       </div>
        
       <div class="form-group">
-        <%= f.label 'Is the KPI feasible?', class: "col-sm-2 control-label" %>
+        <%= f.label :is_feasible, 'Is the KPI feasible?', class: "col-sm-2 control-label" %>
         <div class="col-sm-offset-2 col-sm-10" style="margin: 10px 0px 0px 0px;">
           <%= f.check_box :is_feasible, class: "inline" %>
         </div>
