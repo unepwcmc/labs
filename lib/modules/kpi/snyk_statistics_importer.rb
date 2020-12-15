@@ -14,10 +14,7 @@ module Kpi::SnykStatisticsImporter
 
     if svg.response.code == '404'
       Rails.logger.info("Couldn't obtain SVG for #{project.title}")
-      return kpi_fields(existing_projects)
-    end
-
-    if svg.response.code == '200'
+    elsif svg.response.code == '200'
       unless existing_projects.find { |p| p[:project] == project.title }
         existing_projects.push(specific_vulnerabilities_per_project(project.title, svg))
       end
