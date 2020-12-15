@@ -16,7 +16,24 @@ module Kpi::CiImporter
         'Authorization': "token #{Rails.application.secrets.travis_token}"
        }
     )
-    travis_projects = JSON.parse(response.body)['repos'].map { |project| project['slug'] }
+
+    travis_projects = nil
+    max_retries = 3
+    times_retried = 0
+
+    begin
+      travis_projects = JSON.parse(response.body)['repos'].map { |project| project['slug'] }
+    rescue JSON::ParserError
+      if times_retried < max_retries
+        times_retried += 1
+        Rails.logger.info("Unexpected error with CI importer encountered. Retrying...")
+        retry
+      else
+        Rails.logger.error("Max retries reached. Aborting...")
+        return
+      end
+    end
+
     projects_with_ci = travis_projects.select do |identifier|
       Project.pluck(:github_identifier).include?(identifier)
     end.count

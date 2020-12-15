@@ -186,18 +186,8 @@
     </p>
 
     <p>
-      <strong>Percentage live time led by Informatics:</strong>
-      <%= @project.percentage_live_time_informatics %>%
-    </p>
-
-    <p>
-      <strong>Percentage live time spent on co-design:</strong>
-      <%= @project.percentage_live_time_codesign %>%
-    </p>
-
-    <p>
-      <strong>Percentage live time used by in-house agency:</strong>
-      <%= @project.percentage_live_time_agency %>%
+      <strong>Who led the project?:</strong>
+      <%= @project.project_leading_style %>
     </p>
 
     <p>
@@ -335,7 +325,7 @@
     <p><strong>GA tracking code</strong></p>
     <p>
       <% if !@project.ga_tracking_code.blank? %>
-        <%= link_to @project.ga_tracking_code, @project.ga_tracking_code, target: '_blank' %>
+        <%= @project.ga_tracking_code %>
       <% else %>
         This project has no GA tracking code
       <% end %>

@@ -94,6 +94,7 @@ class ProjectsController < ApplicationController
   # PUT /projects/1.json
   def update
     @project_status_options = project_status_options
+    @project_leading_style_options = project_leading_style_options
 
     respond_with(@project) do |format|
       if @project.update_attributes(project_params)

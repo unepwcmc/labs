@@ -72,8 +72,7 @@ class Project < ApplicationRecord
   # Validations
 
   validates :title, :description, :state, presence: true
-  validates :url, if: :published, presence: true
-  validates :url, format: { with: URI.regexp(%w[http https]) }
+  validates :url, if: :published, presence: true, format: { with: URI.regexp(%w[http https]) }
 
   # FIXME: Doesn't seem to work
   # validates :github_identifier, format: { with: /\A[-a-zA-Z0-9_.]+\/[-a-zA-Z0-9_.]+\z/i },
@@ -90,13 +89,14 @@ class Project < ApplicationRecord
 
   validates :sharepoint_link, :codebase_url, :design_link,
             format: { with: URI.regexp(%w[http https]), message: 'needs to be a valid URL (add a http:// or https://)' }, allow_blank: true
+  validates :ga_tracking_code, absence: true, unless: :url_present?
   validates :ga_tracking_code, format: { with: /\AUA-\d+-\d{1}\z/, message: 'has to be a valid code' }, allow_blank: true
 
   accepts_nested_attributes_for :master_sub_relationship, allow_destroy: true
   accepts_nested_attributes_for :sub_master_relationship, allow_destroy: true
 
   after_update :refresh_reviews
-  after_update :refresh_kpi_information
+  # after_update :refresh_kpi_information
   after_touch :refresh_reviews
 
   # Mount uploader for carrierwave
@@ -112,6 +112,10 @@ class Project < ApplicationRecord
       self.send("#{attribute}=", params.split(','))
       self.send(:save)
   	end
+  end
+
+  def url_present?
+    !url.blank?
   end
 
   def last_review
