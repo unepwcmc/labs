@@ -163,38 +163,21 @@
       </div>
 
       <div class="form-group">
-        <%= f.label :percentage_live_time_informatics, class: "col-sm-2 control-label" %>
+        <%= f.label :project_leading_style, 'How was the project led?', class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-          <%= f.number_field :percentage_live_time_informatics, class: "form-control" %>
-          <p class="help-block">% of live time led and developed by Informatics</p>
+          <%= f.select :project_leading_style, @project_leading_style_options, {}, class: "form-control" %>
         </div>
       </div>
 
       <div class="form-group">
-        <%= f.label :percentage_live_time_codesign, class: "col-sm-2 control-label" %>
-        <div class="input col-sm-10">
-          <%= f.number_field :percentage_live_time_codesign, class: "form-control" %>
-          <p class="help-block">% of live time led and developed spent co-designing with other agencies/organisations</p>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :percentage_live_time_agency, class: "col-sm-2 control-label" %>
-        <div class="input col-sm-10">
-          <%= f.number_field :percentage_live_time_agency, class: "form-control" %>
-          <p class="help-block">% of live time led and developed by in-house agencies</p>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :key_performance_indicator, class: "col-sm-2 control-label" %>
+        <%= f.label :key_performance_indicator, 'Key Performance Indicators (KPIs)', class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
           <%= f.text_field :key_performance_indicator, class: "form-control" %>
         </div>
       </div>
 
       <div class="form-group">
-        <%= f.label :kpi_measurement, 'KPI measurement', class: "col-sm-2 control-label" %>
+        <%= f.label :kpi_measurement, 'KPIs measurement (how and where)', class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
           <%= f.text_field :kpi_measurement, class: "form-control" %>
         </div>

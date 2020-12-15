@@ -60,6 +60,7 @@ class ProjectsController < ApplicationController
   def new
     @project = Project.new
     @project_status_options = project_status_options
+    @project_leading_style_options = project_leading_style_options
 
     respond_with(@project)
   end
@@ -67,6 +68,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1/edit
   def edit
     @project_status_options = project_status_options
+    @project_leading_style_options = project_leading_style_options
   end
 
   # POST /projects
@@ -181,5 +183,9 @@ class ProjectsController < ApplicationController
   def project_status_options
     # Populates the state dropdown in the form
     Project::STATES.map { |state| [state, state] }
+  end
+
+  def project_leading_style_options
+    Project::LEADS.map { |lead| [lead, lead] }
   end
 end

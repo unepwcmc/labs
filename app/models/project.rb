@@ -84,6 +84,10 @@ class Project < ApplicationRecord
 
   validates :state, inclusion: { in: STATES, message: 'has to be a valid state' }
 
+  LEADS = ['Informatics', 'Co-design', 'In-house agency'].freeze
+
+  validates :project_leading_style, inclusion: { in: LEADS, message: 'has to be a valid option' }
+
   validates :sharepoint_link, :codebase_url, :design_link,
             format: { with: URI.regexp(%w[http https]), message: 'needs to be a valid URL (add a http:// or https://)' }, allow_blank: true
   validates :ga_tracking_code, format: { with: /\AUA-\d+-\d{1}\z/, message: 'has to be a valid code' }, allow_blank: true
