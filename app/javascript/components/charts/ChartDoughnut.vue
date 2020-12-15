@@ -57,7 +57,7 @@ export default {
   methods: {
     createChart(chartId) {
       const chartElem = document.getElementById(chartId)
-      
+
       return new Chart(chartElem, {
         type: 'doughnut',
         data: this.formattedStats,
@@ -71,10 +71,16 @@ export default {
         borderWidth: '1'
       }
     },
+    capitaliseString(str) {
+      return str.charAt(0).toUpperCase() + str.substring(1)
+    },
+    replaceUnderscores(str) {
+      return str.replace(/_/g, ' ').split(' ')
+    },
     customiseDataset() {
       const correctedLabels = Object.keys(this.statistics).map((key) => {
-        return key.replace(/_/g, ' ').split(' ').map((s) => {
-          return s.charAt(0).toUpperCase() + s.substring(1)
+        return this.replaceUnderscores(key).map((str) => {
+          return this.capitaliseString(str)
         }).join(' ')
       })
 
