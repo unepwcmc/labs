@@ -41,13 +41,13 @@ class Github
   end
 
   # Only looks at commits from master branch
-  # TODO - Also currently only working for public repos...
   def self.import_commit_dates
     Project.find_each do |project|
+      next if project.github_identifier.blank?
+
       url = "#{Rails.application.secrets.github_api_base_url}repos/#{project.github_identifier}/commits"
       response = HTTParty.get(
         url, 
-        basic_auth: CLIENT_CREDENTIALS, 
         query: {
           'accept': 'application/vnd.github.v3+json',
           'since': "#{1.year.ago.strftime('%FT%TZ')}",
@@ -55,21 +55,22 @@ class Github
         },
         headers: { 
           'User-Agent': 'Labs',
+          'Authorization': "token #{Rails.application.secrets.github_personal_access_token}"
         }
       )
 
       latest_commit_date = nil
 
       begin
-        commit_hash = JSON.parse(response.body)
+        commit_hash = JSON.parse(response.body).first
         next if commit_hash.nil?
         latest_commit_date = commit_hash.dig('commit', 'author', 'date')
       rescue TypeError
-        Rails.logger.info "#{project.title} has not been worked on in the past year or is not publicly available"
+        Rails.logger.info "#{project.title} has not been worked on in the past year or is not available"
         next
       end
 
-      project.update(last_commit_date: latest_commit_date.to_date)
+      project.update_attribute(:last_commit_date, latest_commit_date.to_date)
       Rails.logger.info "#{project.title} has been successfully updated"
     end
   end
