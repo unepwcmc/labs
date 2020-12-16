@@ -106,6 +106,9 @@ export default {
   mounted() {
     this.getKpi()
   },
+  beforeDestroy() {
+    window.clearInterval(this.pollKpi)
+  },
   methods: {
     getKpi() {
       axios.get(this.endpoint).then(response => {
