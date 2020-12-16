@@ -43,9 +43,14 @@
           :chart-id="'bugs-distribution'"
         />
       </div>
-      <h2>Finance</h2>
+      <h2>Admin and Finance</h2>
       <div class="page--kpi__chart-row">
         <h4>{{ kpiStats.total_income | convert_to_gbp }}</h4>
+        <chart-doughnut
+          :statistics="kpiStats.level_of_involvement"
+          :title="'Level of involvement of Informatics'"
+          :chart-id="'level-of-involvement'"
+        />
       </div>
       <h2>Yearly updates</h2>
       <div class="page--kpi__chart-row">
@@ -79,7 +84,7 @@ export default {
     convert_to_gbp: function (str) {
       if (str === null || str === undefined) { return 'Total income is nil' }
 
-      return '£' + str
+      return 'Total income is: £' + str
     }
   },
   props: {

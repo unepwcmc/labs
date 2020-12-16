@@ -20,7 +20,9 @@ class KpiSerializer
       percentage_currently_active_products: currently_active_products,
       percentage_projects_with_kpis: projects_with_kpis,
       percentage_projects_documented: projects_with_documentation,
-      manual_yearly_updates_overview: manual_yearly_updates_overview
+      manual_yearly_updates_overview: manual_yearly_updates_overview,
+      total_income: project_income_sum,
+      level_of_involvement: projects_led
     }
   end
 
@@ -42,6 +44,20 @@ class KpiSerializer
                         project_vulnerability_counts: snyk_stats[:vulnerability_hash],
                         project_breakdown: snyk_stats[:projects]
                       })
+  end
+
+  def project_income_sum
+    Project.pluck(:income_earned).compact.inject(&:x)
+  end
+
+  def projects_led
+    hash = Hash.new(0)
+
+    Project.pluck(:project_leading_style).each do |style|
+      style.nil? ? hash['Unknown'] += 1 : hash[style] += 1
+    end
+
+    hash
   end
 
   def projects_with_ci

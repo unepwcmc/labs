@@ -11,6 +11,7 @@ class Kpi < ApplicationRecord
   serialize :percentage_projects_with_ci
   serialize :manual_yearly_updates_overview
   serialize :project_breakdown
+  serialize :level_of_involvement
 
   def self.instance
     first || construct_instance
