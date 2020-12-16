@@ -122,7 +122,6 @@ export default {
     },
     pollKpi() {
       axios.get(this.endpointPoll).then(response => {
-        console.log(response.data)
         const date = response.data.updated_at
 
         if (date > this.$store.state.lastUpdated) {

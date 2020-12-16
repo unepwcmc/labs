@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 module Kpi::SnykStatisticsImporter
-  SNYK_CREDENTIALS = {
-    'Authorization': "token #{Rails.application.secrets.snyk_token}"
-  }.freeze
+  # TODO: - Snyk API access requires plan upgrade
+  # SNYK_CREDENTIALS = {
+  #   'Authorization': "token #{Rails.application.secrets.snyk_token}"
+  # }.freeze
 
-  SNYK_ENDPOINT = "https://snyk.io/api/v1/org/#{Rails.application.secrets.snyk_org_id}"
+  # SNYK_ENDPOINT = "https://snyk.io/api/v1/org/#{Rails.application.secrets.snyk_org_id}"
 
   def self.update_single_project(project)
     # Relies on existing vulnerabilities_per_project data being present
@@ -23,20 +24,6 @@ module Kpi::SnykStatisticsImporter
     end
     
     kpi_fields(existing_projects)
-  end
-
-  def self.specific_vulnerabilities_per_project(title, svg)
-    { project: title, number: sanitise_text(Nokogiri::HTML(svg).text) }
-  end
-
-  def self.fetch_snyk_badge(project)
-    snyk_badge_url = "https://snyk.io/test/github/#{project.github_identifier}/badge.svg"
-
-    begin
-      HTTParty.get(snyk_badge_url)
-    rescue Net::ReadTimeout
-      Rails.logger.info("Request for #{project.title} timed out")
-    end
   end
 
   def self.vulnerabilities_per_project
@@ -73,15 +60,6 @@ module Kpi::SnykStatisticsImporter
     kpi_fields(projects)
   end
 
-  def self.sanitise_text(text)
-    text.squish.gsub("\n", '').gsub("vulnerabilities", '').chars
-        .each_slice(text.length / 2).map(&:join).first.to_i
-  end
-
-  def self.kpi_fields(projects)
-    { projects: projects, vulnerability_hash: sort_into_hash(projects) }
-  end
-
   def self.sort_into_hash(projects_array)
     vuln_hash = Hash.new(0)
 
@@ -100,5 +78,28 @@ module Kpi::SnykStatisticsImporter
     end
 
     vuln_hash
+  end
+
+  def self.fetch_snyk_badge(project)
+    snyk_badge_url = "https://snyk.io/test/github/#{project.github_identifier}/badge.svg"
+
+    begin
+      HTTParty.get(snyk_badge_url)
+    rescue Net::ReadTimeout
+      Rails.logger.info("Request for #{project.title} timed out")
+    end
+  end
+
+  def self.sanitise_text(text)
+    text.squish.gsub("\n", '').gsub("vulnerabilities", '').chars
+        .each_slice(text.length / 2).map(&:join).first.to_i
+  end
+
+  def self.kpi_fields(projects)
+    { projects: projects, vulnerability_hash: sort_into_hash(projects) }
+  end
+
+  def self.specific_vulnerabilities_per_project(title, svg)
+    { project: title, number: sanitise_text(Nokogiri::HTML(svg).text) }
   end
 end

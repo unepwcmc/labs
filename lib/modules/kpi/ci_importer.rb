@@ -21,6 +21,7 @@ module Kpi::CiImporter
     max_retries = 3
     times_retried = 0
 
+    # Sometimes the importer doesn't manage to reach the API properly
     begin
       travis_projects = JSON.parse(response.body)['repos'].map { |project| project['slug'] }
     rescue JSON::ParserError
