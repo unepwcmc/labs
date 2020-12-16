@@ -65,7 +65,7 @@ export default {
         options: this.generalOptions
       })
     },
-    setStyleOptions() {
+    getStyleOptions() {
       return {
         backgroundColor: this.datasetOptions.backgroundColors,
         borderAlign: 'left',
@@ -84,7 +84,7 @@ export default {
         datasets: [
           {
             data: Object.values(this.statistics),
-            ...this.setStyleOptions()
+            ...this.getStyleOptions()
           }
         ],
         labels: correctedLabels
