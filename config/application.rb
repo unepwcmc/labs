@@ -40,7 +40,11 @@ module Labs
     config.assets.version = '1.0'
 
     config.assets.paths << "#{Rails.root}/assets/fonts"
-    config.autoload_paths += %W(#{config.root}/lib #{config.root}/lib/modules)
+    config.autoload_paths += %W(
+      #{config.root}/lib 
+      #{config.root}/lib/modules 
+      #{config.root}/app/serializers
+    )
 
     #deprecated
     #config.active_record.raise_in_transactional_callbacks = true
