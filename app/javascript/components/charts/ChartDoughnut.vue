@@ -17,6 +17,7 @@
 
 <script>
 import Chart from 'chart.js'
+import { capitalize } from 'lodash-es'
 
 export default {
   name: 'ChartDoughnut',
@@ -71,18 +72,13 @@ export default {
         borderWidth: '1'
       }
     },
-    capitaliseString(str) {
-      return str.charAt(0).toUpperCase() + str.substring(1)
-    },
     replaceUnderscores(str) {
       return str.replace(/_/g, ' ').split(' ')
     },
     customiseDataset() {
-      const correctedLabels = Object.keys(this.statistics).map((key) => {
-        return this.replaceUnderscores(key).map((str) => {
-          return this.capitaliseString(str)
-        }).join(' ')
-      })
+      const correctedLabels = Object.keys(this.statistics).map((key) =>
+        this.replaceUnderscores(key).map((str) => capitalize(str)).join(' ')
+      )
 
       this.formattedStats = {
         datasets: [
