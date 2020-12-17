@@ -13,11 +13,13 @@ module Kpi::SnykStatisticsImporter
     existing_projects = Kpi.instance.project_breakdown
     svg = fetch_snyk_badge(project)
 
-    if svg.response.code == '404'
-      Rails.logger.info("Couldn't obtain SVG for #{project.title}")
-    elsif svg.response.code == '200'
-      unless existing_projects.find { |p| p[:project] == project.title }
-        existing_projects.push(specific_vulnerabilities_per_project(project.title, svg))
+    if svg.class == HTTParty::Response
+      if svg.response.code == '404'
+        Rails.logger.info("Couldn't obtain SVG for #{project.title}")
+      elsif svg.response.code == '200'
+        unless existing_projects.find { |p| p[:project] == project.title }
+          existing_projects.push(specific_vulnerabilities_per_project(project.title, svg))
+        end
       end
     else
       Rails.logger.info("Couldn't parse SVG for #{project.title}")
@@ -45,10 +47,12 @@ module Kpi::SnykStatisticsImporter
       ## Only takes into account public repos
       svg = fetch_snyk_badge(project)
 
-      if svg.response.code == '404'
-        missing_projects << project.id
-        projects << { project: project.title, number: 'Unknown' }
-        next
+      if svg.class == HTTParty::Response
+        if svg.response.code == '404'
+          missing_projects << project.id
+          projects << { project: project.title, number: 'Unknown' }
+          next
+        end
       end
 
       Rails.logger.info("Successfully fetched SVG for #{project.title}")
