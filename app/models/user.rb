@@ -52,10 +52,13 @@ class User < ApplicationRecord
     # Checks with github to see if the user is a member of the unepwcmc wcmc-core-devs team. If so, sets is_unep to true
     # so that the API is only hit once on login, else set to false and login denied.
     return true if Rails.env.development?
-    
+
     response = HTTParty.get(
-      "#{Rails.application.secrets.github_api_base_url}teams/98845/memberships/#{self.github}?access_token=#{self.token}",
-      headers: {"User-Agent" => "Labs"}
+      "#{Rails.application.secrets.github_api_base_url}teams/98845/memberships/#{self.github}",
+      headers: {
+        "User-Agent": "Labs", 
+        'Authorization': "token #{self.token}"
+      }
     )
     response_hash = JSON.parse(response.body)
     response_hash.has_key?("state") and response_hash["state"] == "active"
