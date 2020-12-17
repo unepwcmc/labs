@@ -43,7 +43,6 @@ module Labs
     config.autoload_paths += %W(
       #{config.root}/lib 
       #{config.root}/lib/modules 
-      #{config.root}/app/serializers
     )
 
     #deprecated
