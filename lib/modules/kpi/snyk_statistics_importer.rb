@@ -13,13 +13,12 @@ module Kpi::SnykStatisticsImporter
     existing_projects = Kpi.instance.project_breakdown
     svg = fetch_snyk_badge(project)
 
-    if svg.class == HTTParty::Response
-      if svg.response.code == '404'
-        Rails.logger.info("Couldn't obtain SVG for #{project.title}")
-      elsif svg.response.code == '200'
-        unless existing_projects.find { |p| p[:project] == project.title }
-          existing_projects.push(specific_vulnerabilities_per_project(project.title, svg))
-        end
+
+    if svg.response.code == '404' || !svg
+      Rails.logger.info("Couldn't obtain SVG for #{project.title}")
+    elsif svg.response.code == '200'
+      unless existing_projects.find { |p| p[:project] == project.title }
+        existing_projects.push(specific_vulnerabilities_per_project(project.title, svg))
       end
     else
       Rails.logger.info("Couldn't parse SVG for #{project.title}")
@@ -47,12 +46,11 @@ module Kpi::SnykStatisticsImporter
       ## Only takes into account public repos
       svg = fetch_snyk_badge(project)
 
-      if svg.class == HTTParty::Response
-        if svg.response.code == '404'
-          missing_projects << project.id
-          projects << { project: project.title, number: 'Unknown' }
-          next
-        end
+
+      if svg.response.code == '404' || !svg
+        missing_projects << project.id
+        projects << { project: project.title, number: 'Unknown' }
+        next
       end
 
       Rails.logger.info("Successfully fetched SVG for #{project.title}")
@@ -87,10 +85,20 @@ module Kpi::SnykStatisticsImporter
   def self.fetch_snyk_badge(project)
     snyk_badge_url = "https://snyk.io/test/github/#{project.github_identifier}/badge.svg"
 
+    max_retries = 3
+    times_retried = 0
+
     begin
       HTTParty.get(snyk_badge_url)
     rescue Net::ReadTimeout
-      Rails.logger.info("Request for #{project.title} timed out")
+      if times_retried < max_retries
+        times_retried += 1
+        Rails.logger.info("Request for #{project.title} timed out, #{times_retried}/#{max_retries}")
+        retry
+      else
+        Rails.logger.info("Max retries exceeded, aborting")
+        exit(1)
+      end
     end
   end
 
