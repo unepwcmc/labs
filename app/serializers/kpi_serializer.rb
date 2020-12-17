@@ -65,7 +65,7 @@ class KpiSerializer
 
     convert_to_percentage({
                             ci_present: projects_with_ci,
-                            ci_absent: Project.count - (projects_with_ci ? projects_with_ci.count : 0)
+                            ci_absent: Project.count - projects_with_ci
                           })
   end
 
