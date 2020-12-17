@@ -150,6 +150,72 @@
 
   <div class="row">
     <div class="page-header">
+      <h2>KPIs</h2>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <%= f.label :income_earned, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.number_field :income_earned, class: "form-control" %>
+          <p class="help-block">Income earned by tool (not live time) in GBP</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :project_leading_style, 'How was the project led?', class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.select :project_leading_style, @project_leading_style_options, {}, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :key_performance_indicator, 'Key Performance Indicators (KPIs)', class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :key_performance_indicator, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :kpi_measurement, 'KPIs measurement (how and where)', class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :kpi_measurement, class: "form-control" %>
+        </div>
+      </div>
+       
+      <div class="form-group">
+        <%= f.label :is_feasible, 'Is the KPI feasible?', class: "col-sm-2 control-label" %>
+        <div class="col-sm-offset-2 col-sm-10" style="margin: 10px 0px 0px 0px;">
+          <%= f.check_box :is_feasible, class: "inline" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="form-group">
+        <%= f.label :documentation_link, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :documentation_link, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label 'Is the documentation adequate?', class: "col-sm-2 control-label" %>
+        <div class="col-sm-offset-2 col-sm-10" style="margin: 10px 0px 0px 0px;">
+          <%= f.check_box :is_documentation_adequate, class: "inline" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :manual_yearly_updates, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.number_field :manual_yearly_updates, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="page-header">
       <h2>About the Application</h2>
     </div>
 
@@ -273,7 +339,7 @@
         <%= f.label 'GA tracking code', class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
           <%= f.text_area :ga_tracking_code, class: "form-control" %>
-          <p class="help-block">Add the GA tracking code for this site</p>
+          <p class="help-block">Add the GA tracking code for this site (can't be inputted without a production URL)</p>
         </div>
       </div>
     </div>

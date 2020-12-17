@@ -176,6 +176,56 @@
 
 <div class="row">
   <div class="page-header">
+    <h2>About the KPIs</h2>
+  </div>
+
+  <div class="col-lg-6">
+    <p>
+      <strong>Income earned (GBP):</strong>
+      <%= @project.income_earned %>
+    </p>
+
+    <p>
+      <strong>Who led the project?:</strong>
+      <%= @project.project_leading_style %>
+    </p>
+
+    <p>
+      <strong>Key Performance Indicator:</strong>
+      <%= @project.key_performance_indicator %>
+    </p>
+
+    <p>
+      <strong>KPI Measurement:</strong>
+      <%= @project.kpi_measurement %>
+    </p>
+
+    <p>
+      <strong>Is the KPI feasible?:</strong>
+      <%= @project.is_feasible %>
+    </p>
+  </div>
+
+  <div class="col-lg-6">
+    <p>
+      <strong>Documentation link:</strong>
+      <%= link_to @project.documentation_link, @project.documentation_link, target: '_blank' %>
+    </p>
+
+    <p>
+      <strong>Is the documentation adequate?:</strong>
+      <%= @project.is_documentation_adequate %>
+    </p>
+
+    <p>
+      <strong>Number of manual yearly updates:</strong>
+      <%= @project.manual_yearly_updates %>
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="page-header">
     <h2>About the Application</h2>
   </div>
 
@@ -275,7 +325,7 @@
     <p><strong>GA tracking code</strong></p>
     <p>
       <% if !@project.ga_tracking_code.blank? %>
-        <%= link_to @project.ga_tracking_code, @project.ga_tracking_code, target: '_blank' %>
+        <%= @project.ga_tracking_code %>
       <% else %>
         This project has no GA tracking code
       <% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201208095251) do
+ActiveRecord::Schema.define(version: 20201216105821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,24 @@ ActiveRecord::Schema.define(version: 20201208095251) do
     t.index ["server_id"], name: "index_installations_on_server_id", using: :btree
   end
 
+  create_table "kpis", force: :cascade do |t|
+    t.integer  "singleton_guard",                      default: 0, null: false
+    t.text     "percentage_currently_active_products"
+    t.float    "total_income"
+    t.integer  "bugs_backlog_size",                    default: 0
+    t.text     "percentage_projects_with_kpis"
+    t.text     "project_vulnerability_counts"
+    t.text     "percentage_projects_with_ci"
+    t.text     "percentage_projects_documented"
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.text     "bugs_severity"
+    t.text     "manual_yearly_updates_overview"
+    t.text     "project_breakdown"
+    t.text     "level_of_involvement"
+    t.index ["singleton_guard"], name: "index_kpis_on_singleton_guard", unique: true, using: :btree
+  end
+
   create_table "models", force: :cascade do |t|
     t.integer  "domain_id"
     t.string   "name",       null: false
@@ -89,31 +107,31 @@ ActiveRecord::Schema.define(version: 20201208095251) do
   end
 
   create_table "projects", force: :cascade do |t|
-    t.string   "title",                 limit: 255,                 null: false
-    t.text     "description",                                       null: false
-    t.string   "url",                   limit: 255
+    t.string   "title",                     limit: 255,                 null: false
+    t.text     "description",                                           null: false
+    t.string   "url",                       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "published",                         default: false
-    t.string   "screenshot",            limit: 255
-    t.string   "github_identifier",     limit: 255
+    t.boolean  "published",                             default: false
+    t.string   "screenshot",                limit: 255
+    t.string   "github_identifier",         limit: 255
     t.text     "dependencies"
-    t.string   "state",                 limit: 255,                 null: false
-    t.string   "current_lead",          limit: 255
+    t.string   "state",                     limit: 255,                 null: false
+    t.string   "current_lead",              limit: 255
     t.text     "hacks"
-    t.text     "external_clients",                  default: [],                 array: true
-    t.text     "project_leads",                     default: [],                 array: true
-    t.text     "developers",                        default: [],                 array: true
-    t.text     "pdrive_folders",                    default: [],                 array: true
-    t.text     "dropbox_folders",                   default: [],                 array: true
-    t.text     "pivotal_tracker_ids",               default: [],                 array: true
-    t.text     "trello_ids",                        default: [],                 array: true
+    t.text     "external_clients",                      default: [],                 array: true
+    t.text     "project_leads",                         default: [],                 array: true
+    t.text     "developers",                            default: [],                 array: true
+    t.text     "pdrive_folders",                        default: [],                 array: true
+    t.text     "dropbox_folders",                       default: [],                 array: true
+    t.text     "pivotal_tracker_ids",                   default: [],                 array: true
+    t.text     "trello_ids",                            default: [],                 array: true
     t.date     "expected_release_date"
-    t.string   "rails_version",         limit: 255
-    t.string   "ruby_version",          limit: 255
-    t.string   "postgresql_version",    limit: 255
-    t.text     "other_technologies",                default: [],                 array: true
-    t.text     "internal_clients",                  default: [],                 array: true
+    t.string   "rails_version",             limit: 255
+    t.string   "ruby_version",              limit: 255
+    t.string   "postgresql_version",        limit: 255
+    t.text     "other_technologies",                    default: [],                 array: true
+    t.text     "internal_clients",                      default: [],                 array: true
     t.text     "internal_description"
     t.text     "background_jobs"
     t.text     "cron_jobs"
@@ -124,7 +142,16 @@ ActiveRecord::Schema.define(version: 20201208095251) do
     t.text     "design_link"
     t.text     "sharepoint_link"
     t.text     "ga_tracking_code"
-    t.string   "designers",                         default: [],                 array: true
+    t.string   "designers",                             default: [],                 array: true
+    t.float    "income_earned"
+    t.string   "key_performance_indicator"
+    t.string   "kpi_measurement"
+    t.boolean  "is_feasible"
+    t.string   "documentation_link"
+    t.boolean  "is_documentation_adequate"
+    t.integer  "manual_yearly_updates",                 default: 0
+    t.date     "last_commit_date"
+    t.text     "project_leading_style"
   end
 
   create_table "review_answers", force: :cascade do |t|

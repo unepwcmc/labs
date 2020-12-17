@@ -76,6 +76,10 @@ Labs::Application.routes.draw do
     get '/select_model', to: 'domains#select_model', as: 'select_model'
   end
 
+  get '/kpis', to: 'kpis#index', as: 'kpi_page'
+  get '/kpis/kpi_endpoint', to: 'kpis#kpi_endpoint', as: "kpi_endpoint"
+  get '/kpis/kpi_poll', to: 'kpis#kpi_poll', as: "kpi_poll"
+
   get '/contact', :to => 'home#contact'
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.

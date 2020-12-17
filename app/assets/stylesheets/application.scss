@@ -25,3 +25,6 @@
   url(#{$icon-font-path}#{$icon-font-name}.svg##{$icon-font-svg-id})
   format('svg');
 }
+
+@import './components/*';
+@import './base/*';
