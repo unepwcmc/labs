@@ -1,5 +1,6 @@
 <template>
   <div class="page--kpi">
+    <h3>Last regenerated: {{ lastRegeneratedDate }}</h3>
     <template v-if="kpiStats">
       <h2>Project vulnerabilities</h2>
       <div class="page--kpi__chart-row">
@@ -100,7 +101,7 @@ export default {
   data() {
     return {
       kpiStats: undefined,
-      isRegenerating: false
+      lastRegeneratedDate: ''
     }
   },
   mounted() {
@@ -138,6 +139,7 @@ export default {
     startPolling() {
       // Refreshes every 5 minutes
       window.setInterval(this.pollKpi, 300000)
+      this.lastRegeneratedDate = new Date()
     }
   }
 }
