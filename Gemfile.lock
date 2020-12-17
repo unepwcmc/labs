@@ -440,6 +440,7 @@ DEPENDENCIES
   font-awesome-rails (~> 4.6.0.0)
   gon (~> 6.1.0)
   google-api-client (= 0.32.1)
+  googleauth
   httparty (~> 0.13.7)
   jquery-datatables-rails!
   jquery-rails
