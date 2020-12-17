@@ -38,6 +38,8 @@ gem 'domain_uploader', git: 'https://github.com/unepwcmc/domain_uploader'
 
 gem 'webpacker', '~> 4.x'
 
+gem 'google-api-client', '0.32.1'
+
 # Deploy with Capistrano
   gem 'capistrano', '~> 3.4', require: false
   gem 'capistrano-rails',   '~> 1.1', require: false
