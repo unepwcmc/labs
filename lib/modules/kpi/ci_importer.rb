@@ -35,10 +35,8 @@ module Kpi::CiImporter
       end
     end
 
-    projects_with_ci = travis_projects.select do |identifier|
+    travis_projects.select do |identifier|
       Project.pluck(:github_identifier).include?(identifier)
     end.count
-
-    ((projects_with_ci.to_f / Project.count) * 100).round(2)
   end
 end

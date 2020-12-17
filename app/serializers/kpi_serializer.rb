@@ -47,7 +47,7 @@ class KpiSerializer
   end
 
   def project_income_sum
-    Project.pluck(:income_earned).compact.inject(&:x)
+    Project.pluck(:income_earned).compact.inject(:+)
   end
 
   def projects_led
