@@ -70,7 +70,7 @@ class KpiSerializer
   end
 
   def currently_active_products
-    active_projects = Project.where(state: ACTIVE_STATUSES).where.not(last_commit_date: nil).count
+    active_projects = Project.where(state: ACTIVE_STATUSES).or(Project.where.not(last_commit_date: nil)).count
 
     convert_to_percentage({
                             active_products: active_projects,
