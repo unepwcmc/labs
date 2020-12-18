@@ -15,6 +15,17 @@ class KpiSerializer
     db_statistics.merge(imported_stats)
   end
 
+  def quick_refresh(project)
+    snyk_stats = Kpis::SnykStatisticsImporter.update_single_project(project)
+
+    db_statistics.merge(
+      api_imports.merge(
+        project_vulnerability_counts: snyk_stats[:vulnerability_hash],
+        project_breakdown: snyk_stats[:projects]
+      )
+    )
+  end
+
   def db_statistics
     {
       percentage_currently_active_products: currently_active_products,
