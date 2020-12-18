@@ -57,7 +57,7 @@
       <div class="page--kpi__chart-row">
         <chart-doughnut
           :statistics="kpiStats.manual_yearly_updates_overview"
-          :title="'Overview of manual yearly updates for our projects'"
+          :title="'Overview of manual updates for our projects'"
           :chart-id="'manual-updates'"
         />
       </div>

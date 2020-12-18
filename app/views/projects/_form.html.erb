@@ -208,7 +208,8 @@
       <div class="form-group">
         <%= f.label :manual_yearly_updates, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-          <%= f.number_field :manual_yearly_updates, class: "form-control" %>
+          <%= f.number_field :manual_yearly_updates, step: :any, class: "form-control" %>
+          <p class="help-block">Use a decimal if less than yearly, e.g. 0.5 is every 2 years</p>
         </div>
       </div>
     </div>
@@ -310,7 +311,7 @@
       <div class="form-group">
         <%= f.label :sharepoint_link, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-          <%= f.text_field :sharepoint_link, class: "form-control" %>
+          <%= f.url_field :sharepoint_link, class: "form-control" %>
           <p class="help-block">Enter the Sharepoint link here</p>
         </div>
       </div>
@@ -318,7 +319,7 @@
       <div class="form-group">
         <%= f.label :codebase_url, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-          <%= f.text_field :codebase_url, class: "form-control" %>
+          <%= f.url_field :codebase_url, class: "form-control" %>
           <p class="help-block">
             Enter the Codebase URL here
           </p>
@@ -330,7 +331,7 @@
       <div class="form-group">
         <%= f.label :design_link, class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-          <%= f.text_area :design_link, class: "form-control" %>
+          <%= f.url_field :design_link, class: "form-control" %>
           <p class="help-block">Add the Adobe XD design link here</p>
         </div>
       </div>
@@ -338,7 +339,7 @@
       <div class="form-group">
         <%= f.label 'GA tracking code', class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
-          <%= f.text_area :ga_tracking_code, class: "form-control" %>
+          <%= f.text_field :ga_tracking_code, class: "form-control" %>
           <p class="help-block">Add the GA tracking code for this site (can't be inputted without a production URL)</p>
         </div>
       </div>

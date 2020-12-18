@@ -73,10 +73,11 @@ class KpiSerializer
 
   def projects_with_ci
     projects_with_ci = Kpis::CiImporter.find_projects_with_ci
+    projects_with_ci_count = projects_with_ci ? projects_with_ci.count : 0
 
     convert_to_percentage({
-                            ci_present: projects_with_ci,
-                            ci_absent: Project.count - projects_with_ci
+                            ci_present: projects_with_ci_count,
+                            ci_absent: Project.count - projects_with_ci_count
                           })
   end
 
@@ -115,12 +116,14 @@ class KpiSerializer
     hash = Hash.new(0)
 
     Project.find_each do |project|
-      if project.manual_yearly_updates.zero?
+      if project.manual_yearly_updates.zero? || project.manual_yearly_updates.negative? 
         hash[:none] += 1
-      elsif project.manual_yearly_updates.positive? && project.manual_yearly_updates < 10
-        hash['0 to 10'] += 1
+      elsif project.manual_yearly_updates >= 12
+        hash['Monthly or more often'] += 1
+      elsif project.manual_yearly_updates >= 2
+        hash['Every 1 to 6 Months'] += 1
       else
-        hash['10 to 20'] += 1
+        hash['Every 6 months or less'] += 1
       end
     end
 
