@@ -42,10 +42,7 @@ module Labs
     config.assets.paths << "#{Rails.root}/assets/fonts"
 
     config.eager_load_paths << Rails.root.join('lib')
-    # config.autoload_paths += %W(
-    #   #{config.root}/lib 
-    #   #{config.root}/lib/modules 
-    # )
+    config.eager_load_paths << Rails.root.join('lib/modules')
 
     #deprecated
     #config.active_record.raise_in_transactional_callbacks = true
