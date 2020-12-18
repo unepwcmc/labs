@@ -21,7 +21,7 @@ gem 'select2-rails', '3.5.9.3'
 gem "paranoia", git: 'https://github.com/rubysherpas/paranoia', branch: "rails5"
 gem 'gon', '~> 6.1.0'
 gem 'nested_form'
-gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bootstrap-sass', '~> 3.4.1'
 gem 'sass-rails', git: 'https://github.com/rails/sass-rails', branch: 'master'
 # https://github.com/rweng/jquery-datatables-rails/issues/153
 gem 'jquery-datatables-rails', git: 'https://github.com/rweng/jquery-datatables-rails'
