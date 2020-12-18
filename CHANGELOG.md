@@ -11,3 +11,7 @@
 ### 1.0.1 (2020-06-22)
 
 * Fix validation on creating new project
+### 1.1.0 (2020-12-18)
+
+* Add new fields (KPIs, Documentation, Designers) to a project and deprecate old resource fields
+* Add KPI dashboard pulling information from Travis, Snyk, Github and Codebase as well as the projects in the database
