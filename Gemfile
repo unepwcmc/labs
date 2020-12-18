@@ -8,7 +8,7 @@ gem 'rails', '~> 5.0.7.2'
 
 gem 'pg', '~> 0.19.0'
 gem 'httparty', '~> 0.13.7'
-gem 'devise', '~> 4.2.0'
+gem 'devise', '~> 4.7.1'
 gem 'uglifier', '~> 2.7.2'
 gem 'jquery-rails'
 gem 'carrierwave'
