@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(version: 20201217105811) do
     t.date     "last_commit_date"
     t.text     "project_leading_style"
     t.integer  "google_analytics_user_count"
+    t.string   "ga_view_id"
   end
 
   create_table "review_answers", force: :cascade do |t|
