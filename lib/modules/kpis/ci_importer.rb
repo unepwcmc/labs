@@ -31,7 +31,7 @@ module Kpis::CiImporter
         retry
       else
         Rails.logger.error("Max retries reached. Aborting...")
-        return
+        travis_projects = []
       end
     end
 

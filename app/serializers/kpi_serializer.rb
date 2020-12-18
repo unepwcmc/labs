@@ -73,11 +73,10 @@ class KpiSerializer
 
   def projects_with_ci
     projects_with_ci = Kpis::CiImporter.find_projects_with_ci
-    projects_with_ci_count = projects_with_ci ? projects_with_ci.count : 0
 
     convert_to_percentage({
-                            ci_present: projects_with_ci_count,
-                            ci_absent: Project.count - projects_with_ci_count
+                            ci_present: projects_with_ci,
+                            ci_absent: Project.count - projects_with_ci
                           })
   end
 
