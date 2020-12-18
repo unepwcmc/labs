@@ -1,6 +1,6 @@
 [![Code Climate](https://codeclimate.com/github/unepwcmc/labs/badges/gpa.svg)](https://codeclimate.com/github/unepwcmc/labs)
 [![Build Status](https://travis-ci.org/unepwcmc/labs.svg?branch=master)](https://travis-ci.org/unepwcmc/labs)
-[![Dependency Status](https://gemnasium.com/unepwcmc/labs.svg)](https://gemnasium.com/unepwcmc/labs)
+[![Dependency Status](https://snyk.io/test/github/unepwcmc/labs/badge.svg)](https://snyk.io/test/github/unepwcmc/labs/badge.svg)
 
 # WCMC Labs
 
@@ -12,6 +12,11 @@ The homepage for the WCMC Informatics team. A basic rails app for showing off th
 - Run `bundle install`
 - Run `rake db:create`, `rake db:migrate`
 - Run `rails secret` and populate `config/secrets.yml`
+- Run `yarn install`
+
+## KPI Page
+
+The KPI page will be initially blank if you don't have an instance of the KPI model in your database. Run `rake kpi:regenerate` to create a KPI, which should then populate the various charts on the KPI page. The data can be manually updated by running the same command if the latest data is required. 
 
 ## Deployment
 
