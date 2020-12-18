@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Kpi::CodebaseImporter
+module Kpis::CodebaseImporter
   CODEBASE_CREDENTIALS = {
     username: Rails.application.secrets.codebase_api_username,
     password: Rails.application.secrets.codebase_api_key

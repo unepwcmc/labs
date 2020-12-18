@@ -27,7 +27,7 @@ class KpiSerializer
   end
 
   def api_imports
-    bugs_backlog = Kpi::CodebaseImporter.bugs_backlog_size
+    bugs_backlog = Kpis::CodebaseImporter.bugs_backlog_size
 
     {
       bugs_backlog_size: bugs_backlog[:ticket_count],
@@ -37,7 +37,7 @@ class KpiSerializer
   end
 
   def imported_stats
-    snyk_stats = Kpi::SnykStatisticsImporter.vulnerabilities_per_project
+    snyk_stats = Kpis::SnykStatisticsImporter.vulnerabilities_per_project
 
     # API imports
     api_imports.merge({
@@ -61,7 +61,7 @@ class KpiSerializer
   end
 
   def projects_with_ci
-    projects_with_ci = Kpi::CiImporter.find_projects_with_ci
+    projects_with_ci = Kpis::CiImporter.find_projects_with_ci
 
     convert_to_percentage({
                             ci_present: projects_with_ci,

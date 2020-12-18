@@ -1,6 +1,6 @@
 <template>
   <div class="page--kpi">
-    <h3>Last regenerated: {{ lastRegeneratedDate }}</h3>
+    <h3>Last updated: {{ lastRegeneratedDate }}</h3>
     <template v-if="kpiStats">
       <h2>Project vulnerabilities</h2>
       <div class="page--kpi__chart-row">
@@ -115,6 +115,7 @@ export default {
       axios.get(this.endpoint).then(response => {
         this.kpiStats = response.data
         this.updateDate(this.kpiStats.updated_at)
+        this.lastRegeneratedDate = new Date(this.kpiStats.updated_at)
       }).catch(error => {
         console.log(error)
       })
@@ -139,7 +140,6 @@ export default {
     startPolling() {
       // Refreshes every 5 minutes
       window.setInterval(this.pollKpi, 300000)
-      this.lastRegeneratedDate = new Date()
     }
   }
 }

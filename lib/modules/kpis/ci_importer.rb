@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Kpi::CiImporter
+module Kpis::CiImporter
   TRAVIS_ENDPOINT = 'https://api.travis-ci.com/repos'.freeze
   
   # Note - only finds 'active' projects on Travis

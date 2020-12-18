@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Kpi::SnykStatisticsImporter
+module Kpis::SnykStatisticsImporter
   # TODO: - Snyk API access requires plan upgrade
   # SNYK_CREDENTIALS = {
   #   'Authorization': "token #{Rails.application.secrets.snyk_token}"

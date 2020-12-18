@@ -20,7 +20,7 @@ class Kpi < ApplicationRecord
   def self.quick_refresh(project = nil)
     return first.update_attributes(db_statistics) if project.nil?
 
-    snyk_stats = Kpi::SnykStatisticsImporter.update_single_project(project)
+    snyk_stats = Kpis::SnykStatisticsImporter.update_single_project(project)
 
     first.update_attributes(db_statistics.merge(
                               api_imports.merge(
