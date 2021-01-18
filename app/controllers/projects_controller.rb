@@ -143,7 +143,7 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    arrays = %i[developers internal_clients external_clients project_leads other_technologies]
+    arrays = %i[developers designers internal_clients external_clients project_leads other_technologies]
     project_column_names = Project.column_names.map(&:to_sym) - [:id]
 
     modified_names = project_column_names.map do |name|
