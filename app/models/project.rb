@@ -55,13 +55,19 @@ class Project < ApplicationRecord
   has_many :project_instances
   has_many :reviews, dependent: :destroy
 
-  # Custom search scope for publically viewable projects
-  pg_search_scope :search, :using => { :tsearch => {:prefix => true} },
-    :against => %i[:title, :description, :github_identifier, :state, :internal_clients,
-            :current_lead, :external_clients, :project_leads, :developers, :designers,
-            :dependencies, :hacks, :codebase_url, :design_link, :sharepoint_link, :ga_tracking_code, 
-            :expected_release_date, :rails_version, :ruby_version, :postgresql_version, :other_technologies]
+  LEADS = ['Informatics', 'Co-design', 'In-house agency'].freeze
 
+  STATES = ['Unknown', 'Not Started', 'In Progress', 'Paused', 'Completed',
+    'Launched (No Maintenance)', 'Launched (Support & Maintenance)', 'Orphaned',
+    'Offline', 'Abandoned'].freeze
+
+  # Custom search scope for publically viewable projects
+  SEARCH_SCOPE = %i[title description github_identifier state internal_clients
+    current_lead external_clients project_leads developers designers
+    dependencies hacks codebase_url design_link sharepoint_link ga_tracking_code
+    expected_release_date rails_version ruby_version postgresql_version other_technologies].freeze
+
+  pg_search_scope :search, using: { tsearch: { prefix: true } }, against: SEARCH_SCOPE
 
   scope :published, -> { where(published: true) }
 
@@ -77,16 +83,10 @@ class Project < ApplicationRecord
   # FIXME: Doesn't seem to work
   # validates :github_identifier, format: { with: /\A[-a-zA-Z0-9_.]+\/[-a-zA-Z0-9_.]+\z/i },
   #   if: Proc.new { |a| a.github_identifier.present? }
-  STATES = ['Unknown', 'Not Started', 'In Progress', 'Paused', 'Completed',
-            'Launched (No Maintenance)', 'Launched (Support & Maintenance)', 'Orphaned',
-            'Offline', 'Abandoned'].freeze
 
-  validates :state, inclusion: { in: STATES, message: 'has to be a valid state' }
-
-  LEADS = ['Informatics', 'Co-design', 'In-house agency'].freeze
-
+  # No custom message as this breaks tests and didn't seem that informative
+  validates :state, inclusion: { in: STATES }
   validates :project_leading_style, inclusion: { in: LEADS, message: 'has to be a valid option' }
-
   validates :sharepoint_link, :codebase_url, :design_link,
             format: { with: URI.regexp(%w[http https]), message: 'needs to be a valid URL (add a http:// or https://)' }, allow_blank: true
   validates :ga_tracking_code, absence: true, unless: :url_present?

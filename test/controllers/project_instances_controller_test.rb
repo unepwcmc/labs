@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ProjectInstancesControllerTest < ActionController::TestCase
@@ -13,74 +15,70 @@ class ProjectInstancesControllerTest < ActionController::TestCase
     sign_in @user
   end
 
-  test "should get index in html" do
+  test 'should get index in html' do
     get :index, params: { format: :html }
     assert_response :success
     assert_not_nil assigns(:projects_instances)
   end
 
-  test "should get index in csv" do
+  test 'should get index in csv' do
     get :index, params: { format: :csv }
     assert_response :success
-    assert_equal "text/csv", response.content_type
-    assert_match /attachment; filename=\"project_instances.+\.csv\"/, response.headers["Content-Disposition"]
+    assert_equal 'text/csv', response.content_type
+    assert_match /attachment; filename=\"project_instances.+\.csv\"/, response.headers['Content-Disposition']
   end
 
-  test "should get new" do
+  test 'should get new' do
     get :new
     assert_response :success
   end
 
-  test "should create project_instance" do
-    assert_differences([['ProjectInstance.count', 1],['Installation.count', 1]]) do
+  test 'should create project_instance' do
+    assert_differences([['ProjectInstance.count', 1], ['Installation.count', 1]]) do
       post :create, params: { project_instance: { branch: @new_project_instance.branch,
-          description: @new_project_instance.description,
-          project_id: @new_project_instance.project_id, name: @new_project_instance.name,
-          backup_information: @new_project_instance.backup_information,
-          stage: @new_project_instance.stage, url: @new_project_instance.url,
-          installations_attributes: [{
-            server_id: @installation.server_id,
-            role: @installation.role,
-            description: @installation.description
-          }]
-        }
-      }
+                                                  description: @new_project_instance.description,
+                                                  project_id: @new_project_instance.project_id, name: @new_project_instance.name,
+                                                  backup_information: @new_project_instance.backup_information,
+                                                  stage: @new_project_instance.stage, url: @new_project_instance.url,
+                                                  installations_attributes: [{
+                                                    server_id: @installation.server_id,
+                                                    role: @installation.role,
+                                                    description: @installation.description
+                                                  }] } }
     end
 
     assert_redirected_to "/project_instances/#{ProjectInstance.last.id}"
   end
 
-  test "should generate name for project_instance if not provided" do
-    assert_differences([['ProjectInstance.count', 1],['Installation.count', 1]]) do
+  test 'should generate name for project_instance if not provided' do
+    assert_differences([['ProjectInstance.count', 1], ['Installation.count', 1]]) do
       post :create, params: { project_instance: { branch: @new_project_instance.branch,
-          description: @new_project_instance.description,
-          project_id: @new_project_instance.project_id, name: nil,
-          backup_information: @new_project_instance.backup_information,
-          stage: @new_project_instance.stage, url: @new_project_instance.url,
-          installations_attributes: [{
-            server_id: @installation.server_id,
-            role: @installation.role,
-            description: @installation.description
-          }]
-        }
-      }
+                                                  description: @new_project_instance.description,
+                                                  project_id: @new_project_instance.project_id, name: nil,
+                                                  backup_information: @new_project_instance.backup_information,
+                                                  stage: @new_project_instance.stage, url: @new_project_instance.url,
+                                                  installations_attributes: [{
+                                                    server_id: @installation.server_id,
+                                                    role: @installation.role,
+                                                    description: @installation.description
+                                                  }] } }
     end
 
     project = Project.find(@new_project_instance.project_id)
     assert_equal "#{project.title} (#{@new_project_instance.stage})", ProjectInstance.last.name
   end
 
-  test "should show project_instance" do
+  test 'should show project_instance' do
     get :show, params: { id: @project_instance }
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get :edit, params: { id: @project_instance }
     assert_response :success
   end
 
-  test "should update project_instance" do
+  test 'should update project_instance' do
     installation = @project_instance_with_installations.installations.first
     patch :update, params: { id: @project_instance_with_installations, project_instance:
       {
@@ -94,12 +92,11 @@ class ProjectInstancesControllerTest < ActionController::TestCase
           role: @installation.role,
           description: @installation.description
         }]
-      }
-    }
+      } }
     assert_redirected_to project_instance_path(assigns(:project_instance))
   end
 
-  test "should destroy project_instance" do
+  test 'should destroy project_instance' do
     assert_difference('ProjectInstance.count', -1) do
       delete :destroy, params: { id: @project_instance }
     end
@@ -107,34 +104,32 @@ class ProjectInstancesControllerTest < ActionController::TestCase
     assert_redirected_to project_instances_path
   end
 
-  test "should get deleted list" do
+  test 'should get deleted list' do
     get :deleted_list
     assert_response :success
     assert_not_nil assigns(:projects_instances)
   end
 
-  test "should send a notification when closing project_instance" do
+  test 'should send a notification when closing project_instance' do
     message = "*#{@project_instance.name}* projectinstance has been scheduled for close down"
-    SlackChannel.expects(:post).with("#labs", "Labs detective (test)", message, ":squirrel:")
+    SlackChannel.expects(:post).with('#labs', 'Labs detective (test)', message, ':squirrel:')
     patch :update, params: { id: @project_instance, project_instance: {
-        closing: true
-      }
-    }
+      closing: true
+    } }
     assert_redirected_to project_instance_path(assigns(:project_instance))
   end
 
-  test "should send a notification when re-opening project_instance" do
-    project_instance = FactoryGirl.create(:project_instance, {closing: true})
+  test 'should send a notification when re-opening project_instance' do
+    project_instance = FactoryGirl.create(:project_instance, { closing: true })
     message = "*#{project_instance.name}* projectinstance has been unscheduled for close down"
-    SlackChannel.expects(:post).with("#labs", "Labs detective (test)", message, ":squirrel:")
+    SlackChannel.expects(:post).with('#labs', 'Labs detective (test)', message, ':squirrel:')
     patch :update, params: { id: project_instance, project_instance: {
-        closing: false
-      }
-    }
+      closing: false
+    } }
     assert_redirected_to project_instance_path(assigns(:project_instance))
   end
 
-  test "should cascade closing flag to installations" do
+  test 'should cascade closing flag to installations' do
     stub_slack_comment do
       patch :update, params: { id: @project_instance_with_installations, project_instance:
         {
@@ -143,8 +138,7 @@ class ProjectInstancesControllerTest < ActionController::TestCase
           backup_information: @new_project_instance.backup_information,
           stage: @new_project_instance.stage, url: @new_project_instance.url,
           closing: true
-        }
-      }
+        } }
 
       @project_instance_with_installations.installations.each do |installation|
         assert_equal true, installation.closing
@@ -152,15 +146,14 @@ class ProjectInstancesControllerTest < ActionController::TestCase
     end
   end
 
-  test "should soft-delete project_instance and associated installations" do
+  test 'should soft-delete project_instance and associated installations' do
     stub_slack_comment do
-      assert_differences([['ProjectInstance.count', -1],['Installation.count', -3]]) do
+      assert_differences([['ProjectInstance.count', -1], ['Installation.count', -3]]) do
         patch :soft_delete, params: { id: @project_instance_with_installations, comment:
           {
-            content: "Shut down message",
+            content: 'Shut down message',
             user_id: @user.id
-          }
-        }
+          } }
       end
 
       assert_equal 2, ProjectInstance.only_deleted.count
@@ -174,15 +167,14 @@ class ProjectInstancesControllerTest < ActionController::TestCase
     end
   end
 
-  test "should restore soft-deleted project_instance and associated installations" do
+  test 'should restore soft-deleted project_instance and associated installations' do
     stub_slack_comment do
-      assert_differences([['ProjectInstance.count', 1],['Installation.count', 2]]) do
+      assert_differences([['ProjectInstance.count', 1], ['Installation.count', 2]]) do
         patch :soft_delete, params: { id: @soft_deleted_project_instance_with_installations, comment:
           {
-            content: "Restore message",
+            content: 'Restore message',
             user_id: @user.id
-          }
-        }
+          } }
       end
 
       assert_equal 0, ProjectInstance.only_deleted.count
@@ -190,25 +182,25 @@ class ProjectInstancesControllerTest < ActionController::TestCase
     end
   end
 
-  test "should get nagios list" do
-    stub_request(:get, Rails.application.secrets.nagios_list_url).
-      to_return(:status => 200, :body => "name\tvalue\napi.speciesplus.net\t100.000\nbern-ors.unep-wcmc.org\t100.000", :headers => {})
+  test 'should get nagios list' do
+    stub_request(:get, Rails.application.secrets.nagios_list_url)
+      .to_return(status: 200, body: "name\tvalue\napi.speciesplus.net\t100.000\nbern-ors.unep-wcmc.org\t100.000", headers: {})
     get :nagios_list
     assert_not_nil assigns(:sites)
     assert_response :success
   end
 
-  test "should populate new project_instance" do
-    url = "http://www.google.com"
+  test 'should populate new project_instance' do
+    url = 'http://www.google.com'
     FactoryGirl.create(:project, url: url)
     get :new, params: { nagios_url: url }
     assert_equal Project.last.id, assigns(:project_instance).project_id
     assert_equal url, assigns(:project_instance).url
   end
 
-  test "should add installations" do
+  test 'should add installations' do
     another_installation = FactoryGirl.build(:installation)
-    assert_difference("Installation.count", 2) do
+    assert_difference('Installation.count', 2) do
       patch :update, params: { id: @project_instance, project_instance:
         {
           installations_attributes: [
@@ -223,15 +215,14 @@ class ProjectInstancesControllerTest < ActionController::TestCase
               description: another_installation.description
             }
           ]
-        }
-      }
+        } }
     end
     assert_equal 2, @project_instance.installations.count
   end
 
-  test "should remove installations" do
+  test 'should remove installations' do
     installation = @project_instance_with_installations.installations.first
-    assert_differences([["Installation.count", -1],["Installation.only_deleted.count", 1]]) do
+    assert_differences([['Installation.count', -1], ['Installation.only_deleted.count', 1]]) do
       patch :update, params: { id: @project_instance_with_installations, project_instance:
         {
           installations_attributes: [
@@ -240,10 +231,8 @@ class ProjectInstancesControllerTest < ActionController::TestCase
               _destroy: 1
             }
           ]
-        }
-      }
+        } }
     end
     assert_equal 2, @project_instance_with_installations.installations.count
   end
-
 end

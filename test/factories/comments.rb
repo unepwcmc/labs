@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: comments
@@ -12,7 +14,6 @@
 #
 
 FactoryGirl.define do
-
   before(:create) do
   end
 
@@ -21,19 +22,19 @@ FactoryGirl.define do
     user_id { FactoryGirl.create(:user).id }
   end
 
-  factory :project_comment, class: "Comment" do
+  factory :project_comment, class: 'Comment' do
     content Faker::Lorem.name
     user_id { FactoryGirl.create(:user).id }
     association :commentable, factory: :project
   end
 
-  factory :installation_comment, class: "Comment" do
+  factory :installation_comment, class: 'Comment' do
     content Faker::Lorem.name
     user_id { FactoryGirl.create(:user).id }
     association :commentable, factory: :installation
   end
 
-  factory :server_comment, class: "Comment" do
+  factory :server_comment, class: 'Comment' do
     content Faker::Lorem.name
     user_id { FactoryGirl.create(:user).id }
     association :commentable, factory: :server

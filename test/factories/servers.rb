@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: servers
@@ -20,14 +22,17 @@ FactoryGirl.define do
     domain Faker::Internet.url
     username Faker::Internet.user_name
     admin_url Faker::Internet.url
-    os { ['Windows', 'Linux'].sample }
+    os { %w[Windows Linux].sample }
     description Faker::Lorem.paragraph
     ssh_key_name Faker::Lorem.paragraph
-    open_ports [ Faker::Number.number(8), Faker::Number.number(8), Faker::Number.number(8)]
+    open_ports [
+      Faker::Number.number(digits: 8),
+      Faker::Number.number(digits: 8),
+      Faker::Number.number(digits: 8)
+    ]
     closing false
 
     factory :server_with_installations do
-
       transient do
         installations_count 3
       end

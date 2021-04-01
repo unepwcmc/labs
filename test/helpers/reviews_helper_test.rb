@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ReviewsHelperTest < ActionView::TestCase
@@ -32,19 +34,19 @@ class ReviewsHelperTest < ActionView::TestCase
   end
 
   def test_answer_for_display_when_yes
-    assert_match /^<span.*>yes<\/span>$/, answer_for_display(@question1)
+    assert_match %r{^<span.*>yes</span>$}, answer_for_display(@question1)
   end
 
   def test_answer_for_display_when_no
-    assert_match /^<span.*>no<\/span>$/, answer_for_display(@question2)
+    assert_match %r{^<span.*>no</span>$}, answer_for_display(@question2)
   end
 
   def test_answer_for_display_when_skipped
-    assert_match /^<span.*>no<\/span>$/, answer_for_display(@question3)
+    assert_match %r{^<span.*>no</span>$}, answer_for_display(@question3)
   end
 
   def test_answer_for_display_when_empty
-    assert_match /^<span.*>\(empty\)<\/span>$/, answer_for_display(@question4)
+    assert_match %r{^<span.*>\(empty\)</span>$}, answer_for_display(@question4)
   end
 
   def test_review_input_group_when_not_skippable_checked_enabled
@@ -52,7 +54,6 @@ class ReviewsHelperTest < ActionView::TestCase
     assert_match /checked=\"checked\"/, actual
     assert_no_match /disabled=\"disabled\"/, actual
     assert_match /type=\"checkbox\"/, actual
-      
   end
 
   def test_review_input_group_when_not_skippable_not_checked_disabled

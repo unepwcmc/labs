@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: projects
@@ -38,51 +40,58 @@ FactoryGirl.define do
   factory :project do
     title Faker::Company.name
     description Faker::Lorem.paragraph
-    project_code Faker::Lorem.characters(10)
+    project_code Faker::Lorem.characters(number: 10)
     url Faker::Internet.url
     github_identifier "unepwcmc/#{Faker::Lorem.word}"
-    state { ['Under Development', 'Delivered', 'Project Development'].sample }
-    internal_clients {[ Faker::Name.name, Faker::Name.name, Faker::Name.name] }
+    state { Project::STATES.sample }
+    internal_clients { [Faker::Name.name, Faker::Name.name, Faker::Name.name] }
     current_lead Faker::Name.name
-    external_clients {[ Faker::Name.name, Faker::Name.name, Faker::Name.name] }
-    project_leads {[ Faker::Name.name, Faker::Name.name, Faker::Name.name] }
-    developers {[ Faker::Name.name, Faker::Name.name, Faker::Name.name] }
-    pivotal_tracker_ids [ Faker::Number.number(8), Faker::Number.number(8), Faker::Number.number(8)]
-    trello_ids [ "#{Faker::Lorem.characters(10)}/#{Faker::Lorem.characters(10)}",
-        "#{Faker::Lorem.characters(10)}/#{Faker::Lorem.characters(10)}",
-        "#{Faker::Lorem.characters(10)}/#{Faker::Lorem.characters(10)}"
+    external_clients { [Faker::Name.name, Faker::Name.name, Faker::Name.name] }
+    project_leads { [Faker::Name.name, Faker::Name.name, Faker::Name.name] }
+    project_leading_style { Project::LEADS.sample }
+    designers { [Faker::Name.name, Faker::Name.name] }
+    developers { [Faker::Name.name, Faker::Name.name, Faker::Name.name] }
+    pivotal_tracker_ids [
+      Faker::Number.number(digits: 8),
+      Faker::Number.number(digits: 8),
+      Faker::Number.number(digits: 8)
     ]
-    expected_release_date {Date.today + Faker::Number.number(3).to_i.days}
-    rails_version {Faker::Name.name}
-    ruby_version {Faker::Name.name}
-    postgresql_version {Faker::Name.name}
-    other_technologies {[Faker::Name.name, Faker::Name.name, Faker::Name.name]}
+    trello_ids [
+      "#{Faker::Lorem.characters(number: 10)}/#{Faker::Lorem.characters(number: 10)}",
+      "#{Faker::Lorem.characters(number: 10)}/#{Faker::Lorem.characters(number: 10)}",
+      "#{Faker::Lorem.characters(number: 10)}/#{Faker::Lorem.characters(number: 10)}"
+    ]
+    expected_release_date { Date.today + Faker::Number.number(digits: 3).to_i.days }
+    rails_version { Faker::Name.name }
+    ruby_version { Faker::Name.name }
+    postgresql_version { Faker::Name.name }
+    other_technologies { [Faker::Name.name, Faker::Name.name, Faker::Name.name] }
     background_jobs Faker::Lorem.paragraph
     cron_jobs Faker::Lorem.paragraph
     published true
 
     factory :draft_project do
-        published false
+      published false
     end
 
     factory :project_with_dependencies do
-        after(:create) do |project|
-            project.master_projects << FactoryGirl.build(:project)
-            project.sub_projects << FactoryGirl.build(:project)
-        end
+      after(:create) do |project|
+        project.master_projects << FactoryGirl.build(:project)
+        project.sub_projects << FactoryGirl.build(:project)
+      end
     end
 
     factory :project_with_instances do
-        transient do
-          instances_count 2
-        end
+      transient do
+        instances_count 2
+      end
 
-        after(:create) do |project, evaluator|
-          create_list(
-            :project_instance, evaluator.instances_count,
-            project: project
-          )
-        end
+      after(:create) do |project, evaluator|
+        create_list(
+          :project_instance, evaluator.instances_count,
+          project: project
+        )
+      end
     end
   end
 end

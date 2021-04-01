@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ReviewAnswersControllerTest < ActionController::TestCase
@@ -11,7 +13,7 @@ class ReviewAnswersControllerTest < ActionController::TestCase
     sign_in @user
   end
 
-  test "should create answer" do
+  test 'should create answer' do
     @another_question = FactoryGirl.create(:review_question)
     assert_difference('ReviewAnswer.count') do
       post :create_or_update, params: {
@@ -26,7 +28,7 @@ class ReviewAnswersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should update answer" do
+  test 'should update answer' do
     assert_no_difference('ReviewAnswer.count') do
       post :create_or_update, params: {
         review_id: @review.id,
@@ -39,5 +41,4 @@ class ReviewAnswersControllerTest < ActionController::TestCase
     end
     assert_response :success
   end
-
 end

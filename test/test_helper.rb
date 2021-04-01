@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'simplecov'
 formatters = [SimpleCov::Formatter::HTMLFormatter]
 if ENV['CODECLIMATE_REPO_TOKEN']
@@ -8,8 +10,8 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(formatters)
 SimpleCov.start 'rails'
 SimpleCov.command_name 'test'
 
-ENV["RAILS_ENV"] = "test"
-require File.expand_path('../../config/environment', __FILE__)
+ENV['RAILS_ENV'] = 'test'
+require File.expand_path('../config/environment', __dir__)
 require 'rails/test_help'
 require 'capybara/rails'
 require 'mocha/mini_test'
@@ -22,21 +24,21 @@ class ActionDispatch::IntegrationTest
 end
 
 class ActiveSupport::TestCase
-
   DatabaseCleaner.strategy = :truncation
 
-  def sign_in_with_github user, is_dev_team
+  def sign_in_with_github(user, is_dev_team)
     User.any_instance.stubs(:is_dev_team?).returns(is_dev_team)
     OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new({
-      :provider => user.provider,
-      :uid   => user.uid,
-      :info   => {
-        :email    => user.email,
-        :nickname   => user.github},
-      :credentials => {:token => user.token}
+      provider: user.provider,
+      uid: user.uid,
+      info: {
+        email: user.email,
+        nickname: user.github
+      },
+      credentials: { token: user.token }
     })
     visit root_path
-    click_link "Sign in with Github"
+    click_link 'Sign in with Github'
   end
 
   def setup
@@ -62,10 +64,17 @@ class ActiveSupport::TestCase
   end
 
   def stub_slack_comment
-    SlackChannel.stub(:post, {:status => 200, :body => "", :headers => {}}) do
+    SlackChannel.stubs(:post).returns({ status: 200, body: '', headers: {} }) do
       yield
     end
   end
 end
 
 OmniAuth.config.test_mode = true
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :minitest
+    with.library :rails
+  end
+end
