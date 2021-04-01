@@ -64,7 +64,7 @@ class ActiveSupport::TestCase
   end
 
   def stub_slack_comment
-    SlackChannel.stub(:post, { status: 200, body: '', headers: {} }) do
+    SlackChannel.stubs(:post).returns({ status: 200, body: '', headers: {} }) do
       yield
     end
   end

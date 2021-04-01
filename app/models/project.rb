@@ -80,7 +80,8 @@ class Project < ApplicationRecord
             'Launched (No Maintenance)', 'Launched (Support & Maintenance)', 'Orphaned',
             'Offline', 'Abandoned'].freeze
 
-  validates :state, inclusion: { in: STATES, message: 'has to be a valid state' }
+  # No custom message as this breaks tests and didn't seem that informative
+  validates :state, inclusion: { in: STATES }
 
   LEADS = ['Informatics', 'Co-design', 'In-house agency'].freeze
 

@@ -49,6 +49,7 @@ FactoryGirl.define do
     external_clients { [Faker::Name.name, Faker::Name.name, Faker::Name.name] }
     project_leads { [Faker::Name.name, Faker::Name.name, Faker::Name.name] }
     project_leading_style { Project::LEADS.sample }
+    designers { [Faker::Name.name, Faker::Name.name] }
     developers { [Faker::Name.name, Faker::Name.name, Faker::Name.name] }
     pivotal_tracker_ids [
       Faker::Number.number(digits: 8),

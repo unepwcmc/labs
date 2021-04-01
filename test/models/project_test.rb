@@ -42,7 +42,7 @@ class ProjectTest < ActiveSupport::TestCase
   should validate_presence_of :title
   should validate_presence_of :description
   should validate_presence_of :state
-  should validate_inclusion_of(:state).in_array(['Under Development', 'Delivered', 'Project Development'])
+  should validate_inclusion_of(:state).in_array(Project::STATES)
 
   test 'responds to metaprogrammed array methods' do
     @project = FactoryGirl.build(:project)
