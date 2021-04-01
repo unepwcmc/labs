@@ -3,7 +3,7 @@
     <h5 class="chart--doughnut__title">
       {{ title }}
     </h5>
-    <template v-if="Object.entries(this.statistics).length > 0">
+    <template v-if="Object.entries(statistics).length > 0">
       <canvas
         :id="chartId"
         class="chart--doughnut__chartarea"
