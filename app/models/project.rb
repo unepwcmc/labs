@@ -56,12 +56,11 @@ class Project < ApplicationRecord
   has_many :reviews, dependent: :destroy
 
   # Custom search scope for publically viewable projects
-  pg_search_scope :search, :using => { :tsearch => {:prefix => true} },
-    :against => %i[:title, :description, :github_identifier, :state, :internal_clients,
-            :current_lead, :external_clients, :project_leads, :developers, :designers,
-            :dependencies, :hacks, :codebase_url, :design_link, :sharepoint_link, :ga_tracking_code, 
-            :expected_release_date, :rails_version, :ruby_version, :postgresql_version, :other_technologies]
-
+  pg_search_scope :search, using: { tsearch: { prefix: true } },
+    against: %i[title description github_identifier state internal_clients
+              current_lead external_clients project_leads developers
+              dependencies hacks codebase_url design_link sharepoint_link ga_tracking_code
+              expected_release_date rails_version ruby_version postgresql_version other_technologies]
 
   scope :published, -> { where(published: true) }
 
