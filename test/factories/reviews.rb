@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: reviews
@@ -19,13 +21,13 @@ FactoryGirl.define do
 
   factory :review_section, aliases: [:section] do
     sequence(:title) { |n| "Section_#{n}" }
-    code { |o| o.title }
+    code(&:title)
     sequence(:sort_order) { |n| n }
   end
 
   factory :review_question, aliases: [:question] do
     sequence(:title) { |n| "Question_#{n}" }
-    code { |o| o.title }
+    code(&:title)
     sequence(:sort_order) { |n| n }
     section
     skippable { [true, false].sample }

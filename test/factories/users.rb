@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -26,10 +28,10 @@
 FactoryGirl.define do
   factory :user, aliases: [:reviewer] do
     provider :github
-    uid "7136714"
+    uid '7136714'
     sequence(:email) { |n| "#{n}#{Faker::Internet.email}" }
-    github  Faker::Internet.user_name
-    password Faker::Internet.password(10, 20)
+    github Faker::Internet.user_name
+    password Faker::Internet.password(min_length: 10, max_length: 20)
     token Faker::Code.ean
     factory :suspended_user do
       suspended true

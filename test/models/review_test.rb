@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: reviews
@@ -13,7 +15,6 @@
 require 'test_helper'
 
 class ReviewTest < ActiveSupport::TestCase
-
   def test_result_formatted
     @question = FactoryGirl.create(:review_question)
     @project = FactoryGirl.create(:project, title: 'AAA')
@@ -70,5 +71,4 @@ class ReviewTest < ActiveSupport::TestCase
     @instance.destroy
     assert old_result > @review.reload.result
   end
-
 end

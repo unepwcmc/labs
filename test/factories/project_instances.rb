@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: project_instances
@@ -19,15 +21,14 @@
 FactoryGirl.define do
   factory :project_instance do
     project_id { FactoryGirl.create(:project).id }
-    stage { ['Staging', 'Production'].sample }
-    branch { ['develop', 'master'].sample }
+    stage { %w[Staging Production].sample }
+    branch { %w[develop master].sample }
     url Faker::Internet.url
     description Faker::Lorem.paragraph
     name Faker::Company.name
     backup_information Faker::Lorem.paragraph
 
     factory :project_instance_with_installations do
-
       transient do
         installations_count 3
       end
@@ -59,5 +60,4 @@ FactoryGirl.define do
   factory :soft_deleted_project_instance do
     deleted_at Date.today
   end
-
 end

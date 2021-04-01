@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
@@ -7,19 +9,19 @@ class UsersControllerTest < ActionController::TestCase
     @user = FactoryGirl.create(:user)
   end
 
-  test "logged in user should get index" do
+  test 'logged in user should get index' do
     sign_in @user
     get :index
     assert_response :success
     assert_not_nil assigns(:users)
   end
 
-  test "public user should be redirected" do
+  test 'public user should be redirected' do
     get :index
     assert_response :redirect
   end
 
-  test "user should be suspended when suspend action is called" do
+  test 'user should be suspended when suspend action is called' do
     sign_in @user
     another_user = FactoryGirl.create(:user)
     patch :suspend, params: { id: another_user }

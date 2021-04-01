@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ReviewsControllerTest < ActionController::TestCase
@@ -10,18 +12,18 @@ class ReviewsControllerTest < ActionController::TestCase
     sign_in @user
   end
 
-  test "should get index" do
+  test 'should get index' do
     get :index
     assert_response :success
     assert_not_nil assigns(:reviews)
   end
 
-  test "should get new" do
+  test 'should get new' do
     get :new
     assert_response :success
   end
 
-  test "should create review" do
+  test 'should create review' do
     assert_difference('Review.count') do
       post :create, params: {
         review: {
@@ -33,7 +35,7 @@ class ReviewsControllerTest < ActionController::TestCase
     assert_redirected_to edit_review_path(assigns(:review))
   end
 
-  test "should not create review" do
+  test 'should not create review' do
     assert_no_difference('Review.count') do
       post :create, params: {
         review: {
@@ -45,17 +47,17 @@ class ReviewsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should show review" do
+  test 'should show review' do
     get :show, params: { id: @review }
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get :edit, params: { id: @review }
     assert_response :success
   end
 
-  test "should update review" do
+  test 'should update review' do
     put :update, params: {
       id: @review.id,
       review: {
@@ -66,7 +68,7 @@ class ReviewsControllerTest < ActionController::TestCase
     assert_redirected_to review_path(assigns(:review))
   end
 
-  test "should not update review" do
+  test 'should not update review' do
     put :update, params: {
       id: @review.id,
       review: {
@@ -78,7 +80,7 @@ class ReviewsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should destroy review" do
+  test 'should destroy review' do
     assert_difference('Review.count', -1) do
       delete :destroy, params: { id: @review }
     end

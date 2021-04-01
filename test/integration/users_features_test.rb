@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class UsersFeaturesTest < ActionDispatch::IntegrationTest
@@ -6,15 +8,15 @@ class UsersFeaturesTest < ActionDispatch::IntegrationTest
     @seed_user = FactoryGirl.create(:user)
   end
 
-  test "users index page is available to signed in users" do
+  test 'users index page is available to signed in users' do
     sign_in_with_github @user, true
     visit users_path
     page.has_content? @seed_user.email
   end
 
-  test "users index page is not available to public users" do
+  test 'users index page is not available to public users' do
     visit users_path
-    page.has_content? "You need to sign in"
+    page.has_content? 'You need to sign in'
   end
 
   # test "clicking suspend user marks them as suspended in database" do

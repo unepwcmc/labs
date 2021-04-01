@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: projects
@@ -41,8 +43,8 @@ class ProjectTest < ActiveSupport::TestCase
   should validate_presence_of :description
   should validate_presence_of :state
   should validate_inclusion_of(:state).in_array(['Under Development', 'Delivered', 'Project Development'])
- 
-  test "responds to metaprogrammed array methods" do
+
+  test 'responds to metaprogrammed array methods' do
     @project = FactoryGirl.build(:project)
     assert @project.respond_to?(:developers)
     assert @project.respond_to?(:internal_clients)
@@ -51,14 +53,14 @@ class ProjectTest < ActiveSupport::TestCase
     assert @project.respond_to?(:pdrive_folders)
     assert @project.respond_to?(:dropbox_folders)
   end
- 
-  context "Project NOT published" do
+
+  context 'Project NOT published' do
     should_not validate_presence_of :url
   end
- 
-  context "Project published" do
+
+  context 'Project published' do
     subject do
-      Project.new(:title => 'Valid Title', :description => 'Valid Description', :state => 'Delivered', :published => true)
+      Project.new(title: 'Valid Title', description: 'Valid Description', state: 'Delivered', published: true)
     end
     should validate_presence_of(:url)
   end
@@ -91,12 +93,10 @@ class ProjectTest < ActiveSupport::TestCase
   def test_production_backups_auto_check
     @project1 = FactoryGirl.create(:project)
     @instance1 = FactoryGirl.create(:project_instance,
-      project: @project1, stage: 'Production', backup_information: 'loads of backup'
-    )
+      project: @project1, stage: 'Production', backup_information: 'loads of backup')
     FactoryGirl.create(:installation, project_instance: @instance1)
     @project2 = FactoryGirl.create(:project)
     assert @project1.production_backups?
     assert !@project2.production_backups?
   end
-
 end
