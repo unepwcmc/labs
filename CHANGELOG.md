@@ -19,3 +19,6 @@
 ### 1.1.1 (2021-01-18)
 
 * Fixed Designers field in the Edit view of the Project page not saving
+### 1.1.2 (2021-04-07)
+
+* Fix search functionality on projects grid view
