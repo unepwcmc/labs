@@ -21,10 +21,10 @@ FactoryGirl.define do
     user_id { FactoryGirl.create(:user).id }
   end
 
-  factory :project_comment, class: "Comment" do
+  factory :product_comment, class: "Comment" do
     content Faker::Lorem.name
     user_id { FactoryGirl.create(:user).id }
-    association :commentable, factory: :project
+    association :commentable, factory: :product
   end
 
   factory :installation_comment, class: "Comment" do

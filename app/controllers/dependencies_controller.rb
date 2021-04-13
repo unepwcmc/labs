@@ -8,7 +8,7 @@ class DependenciesController < ApplicationController
 
   def show
     @dependency = Dependency.find(params[:id])
-    @projects = [@dependency.master_project, @dependency.sub_project]
+    @products = [@dependency.master_product, @dependency.sub_product]
 
     @comments = @dependency.comments.order(:created_at)
     @comment = Comment.new
@@ -47,6 +47,6 @@ class DependenciesController < ApplicationController
   private
 
   def dependency_params
-    params.require(:dependency).permit(:master_project_id, :sub_project_id)
+    params.require(:dependency).permit(:master_product_id, :sub_product_id)
   end
 end

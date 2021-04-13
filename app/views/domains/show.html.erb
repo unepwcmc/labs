@@ -1,5 +1,5 @@
-<div class="page-header project-header" data-project-title=<%= @domain.project.title.gsub(' ', '') %>>
-  <h1><%= @domain.project.title %> Domain</h1>
+<div class="page-header product-header" data-product-title=<%= @domain.product.title.gsub(' ', '') %>>
+  <h1><%= @domain.product.title %> Domain</h1>
   <div class="btn-group">
     <%= button_to 'Back', domains_path, method: :get, :class => 'btn' %>
     <%= button_to 'Edit', edit_domain_path(@domain), method: :get, :class => 'btn btn-primary' %>

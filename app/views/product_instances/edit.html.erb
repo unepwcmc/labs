@@ -1,0 +1,11 @@
+<div class="page-header">
+  <h1>Editing Product Instance</h1>
+</div>
+
+<div class="btn-group">
+  <%= button_to 'Show', @product_instance, method: :get, class: "btn btn-primary" %>
+  <%= button_to 'Back', product_instances_path, method: :get, class: "btn btn-primary" %>
+</div>
+
+<%= render 'form' %>
+<%= render :partial => 'shared/comment_modal', locals: {id: @product_instance.id} %>

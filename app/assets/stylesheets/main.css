@@ -19,11 +19,11 @@ footer {
   border-radius: 50%;
 }
 
-.unpublished-project h3, .unpublished-project a {
+.unpublished-product h3, .unpublished-product a {
   color: #777;
 }
 
-.unpublished-project a:hover {
+.unpublished-product a:hover {
   color: #fff;
 }
 
@@ -40,7 +40,7 @@ footer {
   color: red;
 }
 
-.projects_filter {
+.products_filter {
   width: auto;
   padding: 0px;
   margin: 0 0 0 -20px;

@@ -6,7 +6,7 @@ namespace :kpi do
     Kpi.refresh_values
     puts 'Regenerated'
     
-    puts 'Importing latest GitHub commit dates for each project...'
+    puts 'Importing latest GitHub commit dates for each product...'
     Github.import_commit_dates
     puts 'Imported'
   end

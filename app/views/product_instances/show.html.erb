@@ -1,0 +1,76 @@
+<div class="page-header product-header">
+  <h1><%= @product_instance.product.title %></h1>
+  <div class="btn-group">
+    <%= button_to 'Back', product_instances_path, method: :get, :class => 'btn' %>
+    <%= button_to 'Edit', edit_product_instance_path(@product_instance), method: :get, :class => 'btn btn-primary' %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-6">
+    <div class="page-header">
+      <h2>About the Instance</h2>
+    </div>
+
+    <p>
+      <strong>Name:</strong>
+      <%= @product_instance.name %>
+    </p>
+
+    <p>
+      <strong>Product:</strong>
+      <%= link_to @product_instance.product.title, product_path(@product_instance.product) %>
+    </p>
+
+    <p>
+      <strong>URL:</strong>
+      <%= link_to @product_instance.url, @product_instance.url, target: '_blank' %>
+    </p>
+
+    <p>
+      <strong>Scheduled for close down:</strong>
+      <span class='closing'><%= @product_instance.closing %></span>
+    </p>
+
+    <p>
+      <strong>Stage:</strong>
+      <%= @product_instance.stage %>
+    </p>
+
+    <p>
+      <strong>Branch:</strong>
+      <%= @product_instance.branch %>
+    </p>
+
+    <%= display_text @product_instance, :description %>
+
+    <%= display_text @product_instance, :backup_information %>
+</div>
+
+<div class="row">
+  <div class="col-lg-6">
+    <div class="page-header">
+      <h2>This Instance Installations</h2>
+    </div>
+    <p>
+      <% if !@product_instance.installations.with_deleted.empty? %>
+        <%= render :partial => 'shared/installations', locals: {installations: @product_instance.installations,
+          deleted: false} %>
+        <% unless @product_instance.installations.only_deleted.empty? %>
+          <%= render :partial => 'shared/installations', locals: {installations: @product_instance.installations.only_deleted,
+            deleted: true} %>
+        <% end %>
+      <% else %>
+        This product's instance has no installations
+      <% end %>
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="page-header">
+    <h2>Comments<h2>
+  </div>
+  <%= render "comments/comments" %>
+  <%= render "comments/form", commentable: @product_instance %>
+</div>

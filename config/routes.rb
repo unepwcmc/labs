@@ -15,13 +15,13 @@ Labs::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      post '/projects_domains/upload_model', to: 'projects_domains#upload_model', as: 'upload_model'
+      post '/products_domains/upload_model', to: 'products_domains#upload_model', as: 'upload_model'
     end
   end
 
-  get '/projects/sync', to: 'github_sync#index', as: 'sync_projects'
-  post '/projects/sync', to: 'github_sync#sync'
-  post '/projects/push_event_webhook', to: 'github_sync#push_event_webhook', as: 'push_event_webhook'
+  get '/products/sync', to: 'github_sync#index', as: 'sync_products'
+  post '/products/sync', to: 'github_sync#sync'
+  post '/products/push_event_webhook', to: 'github_sync#push_event_webhook', as: 'push_event_webhook'
 
   resources :reviews do
     resources :comments
@@ -29,7 +29,7 @@ Labs::Application.routes.draw do
     post '/answers', to: 'review_answers#create_or_update'
   end
 
-  resources :projects do
+  resources :products do
     resources :comments
     collection do
       get :list
@@ -61,9 +61,9 @@ Labs::Application.routes.draw do
     resources :comments
   end
 
-  get '/project_instances/nagios_list', to: 'project_instances#nagios_list', as: 'nagios_list'
+  get '/product_instances/nagios_list', to: 'product_instances#nagios_list', as: 'nagios_list'
 
-  resources :project_instances do
+  resources :product_instances do
     resources :comments
     collection do
       put :soft_delete
@@ -83,7 +83,7 @@ Labs::Application.routes.draw do
   get '/contact', :to => 'home#contact'
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'projects#index'
+  root :to => 'products#index'
 
   # See how all your routes lay out with "rake routes"
 

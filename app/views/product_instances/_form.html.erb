@@ -1,0 +1,105 @@
+<%= nested_form_for(@product_instance, :html => {class: "form-horizontal"}) do |f| %>
+  <% if @product_instance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product_instance.errors.count, "error") %> prohibited this instance from being saved:</h2>
+
+      <ul>
+      <% @product_instance.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :product_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+    <%= f.collection_select :product_id, Product.order(:title),:id,:title, 
+        {prompt: "Select the product this Instance refers to"}, class: "form-control" %>
+      </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :name, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :url, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :url, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :backup_information, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :backup_information, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :stage, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.select :stage, [["Staging", "Staging"],["Production", "Production"]], {}, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :branch, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :branch, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+  </div>
+
+  <% unless @product_instance.new_record? %>
+    <div class="form-group">
+      <div class="col-sm-2 control-label">
+        <%= f.label :closing %>
+      </div>
+      <div class="col-sm-offset-2 col-sm-10" style="margin: 10px 0px 0px 0px;">
+        <%= f.check_box :closing, class: "inline" %>
+        <p class="help-block">Select if retirement scheduled.</p>
+      </div>
+    </div>
+  <% end %>
+
+  <h2> Installations </h2>
+
+  <ol>
+    <%= f.fields_for :installations do |ff| %>
+      <li>
+        <%= render :partial => "shared/installations_form", locals: {f: ff} %>
+     </li>
+     <%= content_tag(:span, ff.link_to_remove('Remove installation'), {style: 'float:right'}) %>
+     <%= content_tag(:br) %>
+    <% end %>
+    <%= f.link_to_add 'Add installation', :installations %>
+  </ol>
+
+  <div class="actions">
+    <%= f.submit class: "btn btn-primary" %>
+    <% unless @product_instance.new_record? %>
+      <% unless @product_instance.deleted? %>
+        <%= link_to "Soft-Delete",
+          {action: "soft_delete", id: @product_instance.id},
+          method: :put, class: "btn btn-primary comment_btn", id: "soft_delete_btn", type: "button"
+        %>
+      <% else %>
+        <%= link_to "Restore",
+          {action: "restore", id: @product_instance.id},
+          method: :put, class: "btn btn-primary comment_btn", id: "restore_btn", type: "button"
+        %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

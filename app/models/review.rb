@@ -3,7 +3,7 @@
 # Table name: reviews
 #
 #  id          :integer          not null, primary key
-#  project_id  :integer          not null
+#  product_id  :integer          not null
 #  reviewer_id :integer          not null
 #  result      :decimal(, )      not null
 #  created_at  :datetime
@@ -11,11 +11,11 @@
 #
 
 class Review < ApplicationRecord
-  belongs_to :project
+  belongs_to :product
   belongs_to :reviewer, class_name: User, foreign_key: :reviewer_id
   has_many :answers, class_name: ReviewAnswer, foreign_key: :review_id, dependent: :destroy
   has_many :comments, as: :commentable
-  validates :project, presence: true
+  validates :product, presence: true
   validates :reviewer, presence: true
 
   before_save do |review|
@@ -39,7 +39,7 @@ class Review < ApplicationRecord
     update_column(:result, recalculate_result)
   end
 
-  def respond_to_project_update
+  def respond_to_product_update
     auto_answer_questions
     respond_to_answer_update
   end
@@ -51,7 +51,7 @@ class Review < ApplicationRecord
       section.questions.where('auto_check IS NOT NULL').each do |question|
         answer = self.answers.where(review_question_id: question.id).first
         answer ||= self.answers.build(review_question_id: question.id)
-        answer.done = answer.auto_answer(project, question.auto_check.to_sym)
+        answer.done = answer.auto_answer(product, question.auto_check.to_sym)
         answer.skipped = (question.skippable && !answer.done)
         answer.save!
       end

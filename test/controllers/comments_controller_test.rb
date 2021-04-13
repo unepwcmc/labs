@@ -7,7 +7,7 @@ class CommentsControllerTest < ActionController::TestCase
 
   def setup
     @user = FactoryGirl.create(:user)
-    @project_comment = FactoryGirl.build(:project_comment, user_id: @user.id)
+    @product_comment = FactoryGirl.build(:product_comment, user_id: @user.id)
     @installation_comment = FactoryGirl.build(:installation_comment, user_id: @user.id)
     @server_comment = FactoryGirl.build(:server_comment, user_id: @user.id)
 
@@ -20,22 +20,22 @@ class CommentsControllerTest < ActionController::TestCase
   end
 
   test "should have content" do
-    assert_not_nil(@project_comment.content, "Content should not be nil")
+    assert_not_nil(@product_comment.content, "Content should not be nil")
   end
 
-  test "should create project_comment" do
+  test "should create product_comment" do
     stub_slack_comment do
       assert_difference("Comment.count") do
         post :create, params: {
                         comment: {
-                          content: @project_comment.content
+                          content: @product_comment.content
                         },
                         user_id: @user,
-                        project_id: @project_comment.commentable_id,
+                        product_id: @product_comment.commentable_id,
                         format: :json
                       }
       end
-      assert_formatting @project_comment
+      assert_formatting @product_comment
     end
   end
 
@@ -77,20 +77,20 @@ class CommentsControllerTest < ActionController::TestCase
                         content: ''
                       },
                       user_id: @user,
-                      project_id: @project_comment.commentable_id,
+                      product_id: @product_comment.commentable_id,
                       format: :json
                     }
       assert_response :unprocessable_entity
   end
 
   test "should destroy comment" do
-    comment = FactoryGirl.create(:project_comment, user_id: @user.id)
+    comment = FactoryGirl.create(:product_comment, user_id: @user.id)
 
     stub_slack_comment do
       assert_difference("Comment.count", -1) do
         delete :destroy, params: { id: comment }
       end
-      assert_redirected_to projects_url
+      assert_redirected_to products_url
     end
   end
 

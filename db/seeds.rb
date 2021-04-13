@@ -6,12 +6,12 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Project.delete_all
+Product.delete_all
 Server.delete_all
 Installation.delete_all
 
 9.times do |n|
-  Project.create!(
+  Product.create!(
     title: ['Protected Planet', 'Ocean Data Viewer', 'Blue Carbon Layer', 
             'Marine Data Validation', 'Apes Dashboard', 'Global Islands Database', 
             'REDD+ Database', 'CITES Checklist', 'Species Database'][n-1],
@@ -22,7 +22,7 @@ Installation.delete_all
     internal_clients: [ Faker::Name.name, Faker::Name.name, Faker::Name.name],
     current_lead: Faker::Name.name,
     external_clients: [ Faker::Name.name, Faker::Name.name, Faker::Name.name],
-    project_leads: [ Faker::Name.name, Faker::Name.name, Faker::Name.name],
+    product_leads: [ Faker::Name.name, Faker::Name.name, Faker::Name.name],
     developers: [ Faker::Name.name, Faker::Name.name, Faker::Name.name],
     published: true
   )
@@ -41,7 +41,7 @@ end
 
 6.times do |n|
     Installation.create!(
-        project_id: Project.order("RANDOM()").first.id,
+        product_id: Product.order("RANDOM()").first.id,
         server_id: Server.order("RANDOM()").first.id,
         role: ['Web', 'Database', 'Web & Database'].sample,
         stage: ['Staging', 'Production'].sample,
@@ -51,4 +51,4 @@ end
     )
 end
 
-puts "Cleared database, added 9 projects, 3 servers and 6 new installations!"
+puts "Cleared database, added 9 products, 3 servers and 6 new installations!"

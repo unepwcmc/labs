@@ -1,6 +1,6 @@
 <% if @errored_repos %>
   <div class="alert alert-danger">
-    <p>Some projects couldn't be created, here's why:<p>
+    <p>Some products couldn't be created, here's why:<p>
     <ul>
       <% @errored_repos.each do |repo| %>
         <% repo.errors.full_messages.each do |msg| %>
