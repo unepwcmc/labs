@@ -28,6 +28,10 @@ gem install bundler -v 1.17.3
 - Run `yarn install`
 - Run `rake db:create`, `rake db:migrate`
 
+## Run
+
+- Open a terminal for both: `rails s` and `./bin/webpack-dev-server`
+
 ## KPI Page
 
 The KPI page will be initially blank if you don't have an instance of the KPI model in your database. Run `rake kpi:regenerate` to create a KPI, which should then populate the various charts on the KPI page. The data can be manually updated by running the same command if the latest data is required. 
