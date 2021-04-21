@@ -16,7 +16,12 @@ rbenv install 2.3.8
 gem install bundler -v 1.17.3
 ```
 
-- RVM: (help wanted)
+- RVM:
+
+```
+rvm install 2.3.8
+gem install bundler -v 1.17.3
+```
 
 ## Setup
 
