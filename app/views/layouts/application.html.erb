@@ -39,15 +39,15 @@
         <ul class="nav navbar-nav">
           <% if user_signed_in? %>
             <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects <span class="caret"></span></a>
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Products <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                <li><%= link_to "Search Projects", root_path %></li>
-                <li><%= link_to "List Projects", list_projects_path %></li>
-                <li><%= link_to "My Projects", root_path(user: current_user) %></li>
-                <li><%= link_to "Add a Project", new_project_path %></li>
-                <li><%= link_to "Sync Projects from Github", sync_projects_path %></li>
+                <li><%= link_to "Search Products", root_path %></li>
+                <li><%= link_to "List Products", list_products_path %></li>
+                <li><%= link_to "My Products", root_path(user: current_user) %></li>
+                <li><%= link_to "Add a Product", new_product_path %></li>
+                <li><%= link_to "Sync Products from Github", sync_products_path %></li>
                 <li><%= link_to "Reviews", reviews_path %></li>
-                <li><%= link_to "Download Combined Projects List", list_projects_path(scope: :combined, format: :csv) %></li>
+                <li><%= link_to "Download Combined Products List", list_products_path(scope: :combined, format: :csv) %></li>
                 <li><%= link_to "ERDs", domains_path %></li>
                 <li><%= link_to "KPIs", kpi_page_path %></li> 
               </ul>
@@ -56,11 +56,11 @@
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">Instances <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                <li><%= link_to "List Instances", project_instances_path %></li>
+                <li><%= link_to "List Instances", product_instances_path %></li>
                 <li>
-                  <%= link_to "List Deleted Instances", deleted_list_project_instances_path %>
+                  <%= link_to "List Deleted Instances", deleted_list_product_instances_path %>
                 </li>
-                <li><%= link_to "Add an Instance", new_project_instance_path %></li>
+                <li><%= link_to "Add an Instance", new_product_instance_path %></li>
                 <li><%= link_to "Sync Nagios Sites", nagios_list_path %></li>
               </ul>
             </li>

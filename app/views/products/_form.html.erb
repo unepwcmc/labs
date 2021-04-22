@@ -1,0 +1,387 @@
+<%= nested_form_for(@product, :html => { class: "form-horizontal" }) do |f| %>
+  <% if @product.errors.any? %>
+    <div class="alert-message block-message error">
+      <p><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</p>
+
+      <ul>
+      <% @product.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="page-header">
+      <h2>About the Product</h2>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <%= f.label :project_code, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :project_code, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :title, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :title, class: "form-control", required: true %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :url, 'Production URL', class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.url_field :url, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :url_staging, 'Staging URL', class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.url_field :url_staging, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :state, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.select :state, @product_status_options, {}, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :description, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :description, class: "form-control", required: true %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :internal_description, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :internal_description, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :screenshot, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.file_field :screenshot %>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-lg-6">
+
+      <div class="form-group">
+        <%= f.label :external_clients, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :external_clients_array, class: "form-control tag-field" %>
+          <p class="help-block">Add a tag for each external client</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :internal_clients, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :internal_clients_array, class: "form-control tag-field",
+            data: {tags: @employees.map{|t| {id: t, text: t}} } %>
+          <p class="help-block">Add a tag for each internal client</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :product_leads, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :product_leads_array, class: "form-control tag-field" %>
+          <p class="help-block">Add a tag for each product lead</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :current_lead, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :current_lead, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :developers, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+        <%= f.text_field :developers_array, class: "form-control tag-field",
+      data: {tags: @developers.map{|t| {id: t, text: t}} }  %>
+          <p class="help-block">Add a tag for each developer</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :designers, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+        <%= f.text_field :designers_array, class: "form-control tag-field",
+      data: {tags: @designers.map{|t| {id: t, text: t}} }  %>
+          <p class="help-block">Add a tag for each designer</p>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <%= f.label :expected_release_date, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :expected_release_date, class: "form-control", data: { provide: 'datepicker'} %>
+          <p class="help-block">Expected release date</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-2 control-label">
+          <%= f.label :published %>
+        </div>
+        <div class="col-sm-offset-2 col-sm-10" style="margin: 10px 0px 0px 0px;">
+          <%= f.check_box :published, class: "inline" %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="page-header">
+      <h2>KPIs</h2>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <%= f.label :income_earned, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.number_field :income_earned, class: "form-control" %>
+          <p class="help-block">Income earned by tool (not live time) in GBP</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :product_leading_style, 'How was the product led?', class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.select :product_leading_style, @product_leading_style_options, {}, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :key_performance_indicator, 'Key Performance Indicators (KPIs)', class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :key_performance_indicator, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :kpi_measurement, 'KPIs measurement (how and where)', class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :kpi_measurement, class: "form-control" %>
+        </div>
+      </div>
+       
+      <div class="form-group">
+        <%= f.label :is_feasible, 'Is the KPI feasible?', class: "col-sm-2 control-label" %>
+        <div class="col-sm-offset-2 col-sm-10" style="margin: 10px 0px 0px 0px;">
+          <%= f.check_box :is_feasible, class: "inline" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="form-group">
+        <%= f.label :documentation_link, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :documentation_link, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label 'Is the documentation adequate?', class: "col-sm-2 control-label" %>
+        <div class="col-sm-offset-2 col-sm-10" style="margin: 10px 0px 0px 0px;">
+          <%= f.check_box :is_documentation_adequate, class: "inline" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :manual_yearly_updates, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.number_field :manual_yearly_updates, step: :any, class: "form-control" %>
+          <p class="help-block">Use a decimal if less than yearly, e.g. 0.5 is every 2 years</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="page-header">
+      <h2>About the Application</h2>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <%= f.label :user_access, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :user_access, class: "form-control" %>
+          <p class="help-block">E.g.: public, public + admin accounts, third party auth, WCMC domain auth</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :github_identifier, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :github_identifier, class: "form-control" %>
+          <p class="help-block">E.g.: unepwcmc/SAPI (make sure to use the exact name of the repo, case sensitive)</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :background_jobs, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :background_jobs, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :cron_jobs, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :cron_jobs, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :hacks, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :hacks, class: "form-control" %>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-lg-6">
+
+      <div class="form-group">
+        <%= f.label :rails_version, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :rails_version, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :ruby_version, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :ruby_version, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :postgresql_version, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :postgresql_version, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :other_technologies, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :other_technologies_array, class: "form-control tag-field" %>
+          <p class="help-block">Add a tag for each technology</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :system_dependencies, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_area :dependencies, class: "form-control" %>
+          <p class="help-block">e.g. LaTeX, redis</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="page-header">
+      <h2>Resources</h2>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <%= f.label :sharepoint_link, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.url_field :sharepoint_link, class: "form-control" %>
+          <p class="help-block">Enter the Sharepoint link here</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :codebase_url, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.url_field :codebase_url, class: "form-control" %>
+          <p class="help-block">
+            Enter the Codebase URL here
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="form-group">
+        <%= f.label :design_link, class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.url_field :design_link, class: "form-control" %>
+          <p class="help-block">Add the Adobe XD design link here</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label 'GA tracking code', class: "col-sm-2 control-label" %>
+        <div class="input col-sm-10">
+          <%= f.text_field :ga_tracking_code, class: "form-control" %>
+          <p class="help-block">Add the GA tracking code for this site (can't be inputted without a production URL)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2> Master products </h2>
+  <ol>
+    <%= f.fields_for :master_sub_relationship do |ff| %>
+      <li>
+        <div class="form-group">
+          <%= ff.label :master_product_id, class: "col-sm-2 control-label" %>
+          <div class="col-sm-10">
+            <%= ff.collection_select :master_product_id, Product.order(:title),:id,:title,
+              {prompt: "Select the master product"}, class: "form-control" %>
+          </div>
+        </div>
+      </li>
+      <%= content_tag(:span, ff.link_to_remove('Remove master product'), {style: 'float:right'}) %>
+      <%= content_tag(:br) %>
+    <% end %>
+    <%= f.link_to_add 'Add master product', :master_sub_relationship %>
+  </ol>
+  <h2> Sub products </h2>
+  <ol>
+    <%= f.fields_for :sub_master_relationship do |ff| %>
+      <li>
+        <div class="form-group">
+          <%= ff.label :sub_product_id, class: "col-sm-2 control-label" %>
+          <div class="col-sm-10">
+            <%= ff.collection_select :sub_product_id, Product.order(:title),:id,:title,
+              {prompt: "Select the sub product"}, class: "form-control" %>
+          </div>
+        </div>
+      </li>
+      <%= content_tag(:span, ff.link_to_remove('Remove sub product'), {style: 'float:right'}) %>
+      <%= content_tag(:br) %>
+    <% end %>
+    <%= f.link_to_add 'Add sub product', :sub_master_relationship %>
+  </ol>
+
+  <div class="actions">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

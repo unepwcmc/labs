@@ -8,7 +8,7 @@
 #  description         :text
 #  created_at          :datetime
 #  updated_at          :datetime
-#  project_instance_id :integer          not null
+#  product_instance_id :integer          not null
 #  deleted_at          :datetime
 #  closing             :boolean          default(FALSE)
 #

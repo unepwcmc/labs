@@ -4,7 +4,7 @@
 $(document).ready(function(){
 
   $(".filters").bind("DOMNodeInserted", function(){
-    $(this).find(".search_init").addClass("projects_filter");
+    $(this).find(".search_init").addClass("products_filter");
   });
 
   $('.comment_btn').on('click', function(e){

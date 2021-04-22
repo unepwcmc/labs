@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
     @comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to projects_url }
+      format.html { redirect_to products_url }
       format.json { head :ok }
     end
   end
@@ -33,7 +33,7 @@ class CommentsController < ApplicationController
   def load_commentable
     resource, id = request.path.split('/')[1, 2]
     klass = resource.singularize.classify.constantize
-    if [Installation, Server, ProjectInstance].include? klass
+    if [Installation, Server, ProductInstance].include? klass
       @commentable = klass.with_deleted.find(id)
     else
       @commentable = klass.find(id)

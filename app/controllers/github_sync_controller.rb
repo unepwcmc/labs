@@ -4,7 +4,7 @@ class GithubSyncController < ApplicationController
     github = Github.new
     repos = github.get_all_repos(@page)
 
-    existing_repo_names = Project.pluck(:github_identifier)
+    existing_repo_names = Product.pluck(:github_identifier)
 
     @link_headers = repos.shift
     @repos = repos.reject{ |repo| existing_repo_names.include?(repo.full_name) }
@@ -25,7 +25,7 @@ class GithubSyncController < ApplicationController
       @errored_repos = repos.select { |r| r.errors }
       render :index
     else
-      redirect_to projects_path, notice: "All projects were created successfully!"
+      redirect_to products_path, notice: "All products were created successfully!"
     end
   end
 
@@ -34,10 +34,10 @@ class GithubSyncController < ApplicationController
     if branch == "master"
       if verify_signature(request.body.read)
         github_identifier = params[:repository][:full_name]
-        project = Project.find_by_github_identifier(github_identifier)
-        project.sync_with_github if project.present?
+        product = Product.find_by_github_identifier(github_identifier)
+        product.sync_with_github if product.present?
 
-        Rails.logger.info "#{project.title} updated!"
+        Rails.logger.info "#{product.title} updated!"
         head :ok
       else
         Rails.logger.warn "Signature didn't match!"

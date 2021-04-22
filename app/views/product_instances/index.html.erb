@@ -1,0 +1,14 @@
+<div class="page-header">
+  <h1>Listing Products Instances</h1>
+</div>
+
+<div class="btn-group">
+  <%= button_to 'New Product Instance', new_product_instance_path, method: :get, class: "btn btn-primary" %>
+  <%= button_to 'Soft-Deleted Product Instances', deleted_list_product_instances_path, method: :get, class: "btn btn-primary", id: "deleted_list" %>
+</div>
+
+<div class="btn-group pull-right">
+  <%= button_to 'Download all', product_instances_path(format: "csv"), method: :get, class: "btn btn-default" %>
+</div>
+
+<%= render 'table' %>

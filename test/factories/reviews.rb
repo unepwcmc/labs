@@ -3,7 +3,7 @@
 # Table name: reviews
 #
 #  id          :integer          not null, primary key
-#  project_id  :integer          not null
+#  product_id  :integer          not null
 #  reviewer_id :integer          not null
 #  result      :decimal(, )      not null
 #  created_at  :datetime
@@ -13,7 +13,7 @@
 FactoryGirl.define do
   factory :review do
     reviewer
-    project
+    product
     result 0
   end
 

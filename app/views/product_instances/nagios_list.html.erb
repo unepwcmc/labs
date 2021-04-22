@@ -1,0 +1,17 @@
+<h1> Sync Nagios Sites </h1>
+
+<table class='table'>
+  <thead>
+    <th> NAME </th>
+    <th> CREATE INSTANCE </th>
+  </thead>
+  <tbody>
+    <% @sites.each do |site| %>
+      <tr>
+        <td> <%= site %> </td>
+        <td> <%= link_to 'New Product Instance', controller: 'product_instances', action: 'new', nagios_url: site %> </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </tbody>
+</table>

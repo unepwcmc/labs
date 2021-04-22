@@ -1,5 +1,5 @@
-<div class="page-header project-header">
-  <h1><%= link_to @review.project.title, project_path(@review.project) %> Review</h1>
+<div class="page-header product-header">
+  <h1><%= link_to @review.product.title, product_path(@review.product) %> Review</h1>
   <div class="btn-group">
     <%= button_to 'Back', reviews_path, method: :get, :class => 'btn' %>
     <%= button_to 'Edit', edit_review_path(@review), method: :get, :class => 'btn btn-primary' %>
@@ -9,8 +9,8 @@
 <div class="row">
   <div class="col-sm-12">
     <p>
-      <strong>Project:</strong>
-      <%= link_to @review.project.title, project_path(@review.project) %>
+      <strong>Product:</strong>
+      <%= link_to @review.product.title, product_path(@review.product) %>
     </p>
 
     <p>
