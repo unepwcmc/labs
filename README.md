@@ -6,13 +6,36 @@
 
 The homepage for the WCMC Informatics team. A basic rails app for showing off the Informatics team's projects, storing Servers, and information about the installations of projects across servers.
 
+## Pre-requisites
+
+Ensure you have Ruby 2.3.8 installed (with bundler version specified in bottom of Gemfile.lock).
+- Rbenv: 
+
+```
+rbenv install 2.3.8
+gem install bundler -v 1.17.3
+```
+
+- RVM:
+
+```
+rvm install 2.3.8
+gem install bundler -v 1.17.3
+```
+
 ## Setup
 
 - Clone repo
 - Run `bundle install`
-- Run `rake db:create`, `rake db:migrate`
-- Run `rails secret` and populate `config/secrets.yml`
+- Run `cp config/secrets.yml.sample config/secrets.yml`
+- *Either* run `rails secret` and update the development secret_key_base in `config/secrets.yml`
+- *Or* run `sed -i -E "s/^  secret_key_base:.*/  secret_key_base: $(rake secret)/" config/secrets.yml` to update all environment entries.
 - Run `yarn install`
+- Run `rails db:drop db:create db:migrate`
+
+## Run
+
+- Open a terminal for both: `rails s` and `./bin/webpack-dev-server`
 
 ## KPI Page
 
