@@ -31,7 +31,7 @@ gem install bundler -v 1.17.3
 - *Either* run `rails secret` and update the development secret_key_base in `config/secrets.yml`
 - *Or* run `sed -i -E "s/^  secret_key_base:.*/  secret_key_base: $(rake secret)/" config/secrets.yml` to update all environment entries.
 - Run `yarn install`
-- Run `rake db:drop db:create db:migrate`
+- Run `rails db:drop db:create db:migrate`
 
 ## Run
 
