@@ -9,7 +9,7 @@
 <table class="display table" id="dependencies_table">
   <thead>
     <tr>
-      <th>Dependant Project</th>
+      <th>Dependant Product</th>
       <th>Depends on</th>
       <th class="no-sort"></th>
       <th class="no-sort"></th>
@@ -21,10 +21,10 @@
     <% @dependencies.each do |dependency| %>
       <tr>
         <td>
-          <%= link_to dependency.sub_project.title, project_path(dependency.sub_project) %>
+          <%= link_to dependency.sub_product.title, product_path(dependency.sub_product) %>
         </td>
         <td>
-          <%= link_to dependency.master_project.title, server_path(dependency.master_project) %>
+          <%= link_to dependency.master_product.title, server_path(dependency.master_product) %>
         </td>
         <td><%= link_to(dependency) { fa_icon "eye" } %></td>
         <td><%= link_to(edit_dependency_path(dependency)) { fa_icon "pencil" } %></td>

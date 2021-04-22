@@ -5,7 +5,7 @@ class InstallationsExport
     @relation = Installation.
       select([
         'installations.id',
-        'project_instances.name', 'projects.title',
+        'product_instances.name', 'products.title',
         'servers.name', 'servers.domain',
         "ARRAY_TO_STRING(servers.open_ports, ', ') AS open_ports",
         'installations.role', 'installations.closing',
@@ -13,11 +13,11 @@ class InstallationsExport
         "to_char(installations.created_at,'YYYY-MM-DD HH:MM')",
         "to_char(installations.updated_at,'YYYY-MM-DD HH:MM')"
       ]).
-      joins(:server, :project_instance => :project).
+      joins(:server, :product_instance => :product).
       order('servers.name, role')
     @columns = [
       'ID',
-      'Instance', 'Project',
+      'Instance', 'Product',
       'Server', 'Domain',
       'Open ports',
       'Role', 'Closing',

@@ -1,14 +1,14 @@
 class Domain < ApplicationRecord
-  belongs_to :project
+  belongs_to :product
   has_many :models, dependent: :destroy
 
   def self.add_domain domain_hash
-    project = Project.find_by(title: domain_hash['project_name'])
-    old_domain = Domain.find_by(project_id: project.id)
-    domain = Domain.create({project_id: project.id})
+    product = Product.find_by(title: domain_hash['product_name'])
+    old_domain = Domain.find_by(product_id: product.id)
+    domain = Domain.create({product_id: product.id})
 
     add_models_from_array(domain_hash['models'], domain)
-    save_diagrams(project.title, domain_hash['graph'])
+    save_diagrams(product.title, domain_hash['graph'])
     old_domain.destroy if old_domain.present?
   end
 
@@ -20,12 +20,12 @@ class Domain < ApplicationRecord
     end
   end
 
-  def self.save_diagrams project, graph
+  def self.save_diagrams product, graph
     graph.each do |model|
       model.each do |key, value|
         domain = key.downcase
-        project.gsub!(' ', '')
-        dir = "#{Rails.root}/public/domains/#{project}"
+        product.gsub!(' ', '')
+        dir = "#{Rails.root}/public/domains/#{product}"
         filename = "#{dir}/#{domain}"
         FileUtils.mkdir_p(dir) unless File.directory?(dir)
         File.open("#{filename}.dot", 'w') { |f| f.puts value }

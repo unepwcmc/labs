@@ -3,22 +3,22 @@
 # Table name: dependencies
 #
 #  id                :integer          not null, primary key
-#  master_project_id :integer          not null
-#  sub_project_id    :integer          not null
+#  master_product_id :integer          not null
+#  sub_product_id    :integer          not null
 #  description       :text
 #  created_at        :datetime
 #  updated_at        :datetime
 #
 
 class Dependency < ApplicationRecord
-  belongs_to :master_project, :class_name => "Project"
-  belongs_to :sub_project, :class_name => "Project"
+  belongs_to :master_product, :class_name => "Product"
+  belongs_to :sub_product, :class_name => "Product"
 
   has_many :comments, as: :commentable
 
-  validates :master_project_id, :sub_project_id, presence: true
+  validates :master_product_id, :sub_product_id, presence: true
 
   def relationship
-    "#{self.sub_project.title} <- #{self.master_project.title}"
+    "#{self.sub_product.title} <- #{self.master_product.title}"
   end
 end

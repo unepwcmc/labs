@@ -1,0 +1,406 @@
+<%= review_jumbotron %>
+
+<div class="page-header product-header">
+	<%= link_to product_preview(@product)%>
+	<h1><%= @product.title %></h1>
+	<div class="btn-group">
+	  <%= button_to 'Back', list_products_path, method: :get, :class => 'btn' %>
+	  <%= button_to 'Edit', edit_product_path(@product), method: :get, :class => 'btn btn-primary' %>
+	</div>
+</div>
+
+<div class="row">
+  <div class="col-lg-6">
+    <div class="page-header">
+      <h2>About the Product</h2>
+    </div>
+    
+    <p>
+      <strong>Product Code:</strong>
+      <%= @product.project_code %>
+    </p>
+
+    <p>
+      <strong>Production:</strong>
+      <%= link_to @product.url, @product.url, target: '_blank' %>
+    </p>
+
+    <p>
+      <strong>Staging:</strong>
+      <% if @product.url_staging %>
+        <%= link_to @product.url_staging, @product.url_staging, target: '_blank' %>
+      <% end %>
+    </p>
+
+    <p>
+      <strong>State:</strong>
+      <%= @product.state %>
+    </p>
+
+    <%= display_text @product, :description %>
+
+    <%= display_text @product, :internal_description %>
+
+    <p>
+      <strong>External Clients:</strong>
+
+      <% if !@product.external_clients.blank? %>
+        <ul>
+          <% @product.external_clients.each do |external_client| %>
+            <li><%= external_client %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This product has no external clients
+      <% end %>
+    </p>
+
+    <p>
+      <strong>Internal Clients:</strong>
+      <% if !@product.internal_clients.blank? %>
+        <ul>
+          <% @product.internal_clients.each do |internal_client| %>
+            <li><%= internal_client %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This product has no internal clients
+      <% end %>
+    </p>
+
+    <p>
+      <strong>Product Leads:</strong>
+      <% if !@product.product_leads.blank? %>
+        <ul>
+          <% @product.product_leads.each do |lead| %>
+            <li><%= lead %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This product has no leads
+      <% end %>
+    </p>
+
+    <p>
+      <strong>Current Lead:</strong>
+      <%= @product.current_lead %>
+    </p>
+
+    <p>
+      <strong>Developers:</strong>
+      <% if !@product.developers.blank? %>
+        <ul>
+          <% @product.developers.each do |developer| %>
+            <li><%= developer %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This product has no developers
+      <% end %>
+    </p>
+
+      <p>
+      <strong>Designers:</strong>
+      <% if !@product.designers.blank? %>
+        <ul>
+          <% @product.designers.each do |designer| %>
+            <li><%= designer %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This product has no designers
+      <% end %>
+    </p>
+
+    <%= display_text @product, :dependencies %>
+
+    <p>
+      <strong>Depends On:</strong>
+      <% if !@master_products.empty? %>
+        <ul>
+          <% @master_products.each do |product| %>
+            <li><%= link_to product.title, product_path(product) %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This product does not depend on other products
+      <% end %>
+    </p>
+
+    <p>
+      <strong>Has Dependents:</strong>
+      <% if !@sub_products.empty? %>
+        <ul>
+          <% @sub_products.each do |product| %>
+            <li><%= link_to product.title, product_path(product) %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This product has no dependants
+      <% end %>
+    </p>
+
+    <p>
+      <strong>Expected Release Date:</strong>
+      <%= @product.expected_release_date %>
+    </p>
+
+    <p>
+      <strong>Published?</strong>
+      <%= @product.published ? "Yes" : "No" %>
+    </p>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="page-header">
+      <h2>This Product's Instances</h2>
+    </div>
+    <p>
+      <% if !@instances.empty? %>
+        <% @instances.each do |instance| %>
+            <%= link_to instance.name, product_instance_path(instance) %>
+            (<%= instance.stage %>)<br>
+        <% end %>
+      <% else %>
+        This product has no instances
+      <% end %>
+    </p>
+
+    <div class="page-header">
+      <h2>This Product's Vulnerabilities</h2>
+    </div>
+      <%= link_to (image_tag("https://snyk.io/test/github/#{@product.github_identifier}/badge.svg", class: "badge_img",
+            alt: "No Vulnerabilities!")), "https://snyk.io/test/github/#{@product.github_identifier}", class: "badge_link"%>
+  </div>
+</div>
+
+<div class="row">
+  <div class="page-header">
+    <h2>About the KPIs</h2>
+  </div>
+
+  <div class="col-lg-6">
+    <p>
+      <strong>Income earned (GBP):</strong>
+      <%= @product.income_earned %>
+    </p>
+
+    <p>
+      <strong>Who led the product?:</strong>
+      <%= @product.product_leading_style %>
+    </p>
+
+    <p>
+      <strong>Key Performance Indicator:</strong>
+      <%= @product.key_performance_indicator %>
+    </p>
+
+    <p>
+      <strong>KPI Measurement:</strong>
+      <%= @product.kpi_measurement %>
+    </p>
+
+    <p>
+      <strong>Is the KPI feasible?:</strong>
+      <%= @product.is_feasible %>
+    </p>
+  </div>
+
+  <div class="col-lg-6">
+    <p>
+      <strong>Documentation link:</strong>
+      <%= link_to @product.documentation_link, @product.documentation_link, target: '_blank' %>
+    </p>
+
+    <p>
+      <strong>Is the documentation adequate?:</strong>
+      <%= @product.is_documentation_adequate %>
+    </p>
+
+    <p>
+      <strong>Number of manual yearly updates:</strong>
+      <%= @product.manual_yearly_updates %>
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="page-header">
+    <h2>About the Application</h2>
+  </div>
+
+  <div class="col-lg-6">
+    <p>
+      <strong>User access:</strong>
+      <%= @product.user_access %>
+    </p>
+
+    <p>
+      <strong>Repository URL:</strong>
+      <%= link_to @product.github_identifier,
+        "https://github.com/#{@product.github_identifier}"
+      %>
+    </p>
+
+    <p>
+      <strong>Background Jobs:</strong>
+      <%= @product.background_jobs %>
+    </p>
+
+    <p>
+      <strong>Cron Jobs:</strong>
+      <%= @product.cron_jobs %>
+    </p>
+
+    <%= display_text @product, :hacks %>
+  </div>
+
+  <div class="col-lg-6">
+
+    <p>
+      <strong>Rails Version:</strong>
+      <%= @product.rails_version %>
+    </p>
+
+    <p>
+      <strong>Ruby Version:</strong>
+      <%= @product.ruby_version %>
+    </p>
+
+    <p>
+      <strong>PostgreSQL Version:</strong>
+      <%= @product.postgresql_version %>
+    </p>
+
+    <p>
+      <strong>Other technologies:</strong>
+      <% if !@product.other_technologies.blank? %>
+        <ul>
+          <% @product.other_technologies.each do |technology| %>
+            <li><%= technology %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        This product has no other technologies
+      <% end %>
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="page-header">
+    <h2>Resources</h2>
+  </div>
+
+  <div class="col-lg-6">
+    <p><strong>Sharepoint Link</strong></p>
+    <p>
+     <% if !@product.sharepoint_link.blank? %>
+       <%= link_to @product.sharepoint_link, @product.sharepoint_link, target: '_blank' %>
+      <% else %>
+        This product has no Sharepoint link
+      <% end %>
+    </p>
+
+    <p><strong>Codebase Link</strong></p>
+    <p>
+      <% if !@product.codebase_url.blank? %>
+       <%= link_to @product.codebase_url, @product.codebase_url, target: '_blank' %>
+      <% else %>
+        This product has no Codebase link
+      <% end %>
+    </p>
+  </div>
+
+  <div class="col-lg-6">
+    <p><strong>Adobe XD design Link</strong></p>
+    <p>
+      <% if !@product.design_link.blank? %>
+       <%= link_to @product.design_link, @product.design_link, target: '_blank' %>
+      <% else %>
+        This product has no design link
+      <% end %>
+    </p>
+
+    <p><strong>GA tracking code</strong></p>
+    <p>
+      <% if !@product.ga_tracking_code.blank? %>
+        <%= @product.ga_tracking_code %>
+      <% else %>
+        This product has no GA tracking code
+      <% end %>
+    </p>
+  </div>
+</div>
+
+<% unless @no_deprecated_resources %>
+  <div class="row">
+    <div class="page-header">
+      <h2>Deprecated Resources</h2>
+    </div>
+    <!-- :pdrive_folders, :dropbox_folders, :pivotal_tracker_ids, :trello_ids -->
+    <div class="col-lg-6">
+      <p><strong>P Drive Folders</strong></p>
+      <p>
+      <% if !@product.pdrive_folders.blank? %>
+          <ul>
+            <% @product.pdrive_folders.each do |folder| %>
+              <li><%= folder %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          This product has no P Drive Folders
+        <% end %>
+      </p>
+
+      <p><strong>Dropbox Folders</strong></p>
+      <p>
+        <% if !@product.dropbox_folders.blank? %>
+          <ul>
+            <% @product.dropbox_folders.each do |folder| %>
+              <li><%= folder %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          This product has no Dropbox Folders
+        <% end %>
+      </p>
+    </div>
+
+    <div class="col-lg-6">
+      <p><strong>Pivotal tracker IDs</strong></p>
+      <p>
+        <% if !@product.pivotal_tracker_ids.blank? %>
+          <ul>
+            <% @product.pivotal_tracker_ids.each do |id| %>
+              <li><%= id %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          This product has Pivotal tracker IDs
+        <% end %>
+      </p>
+
+      <p><strong>Trello IDs</strong></p>
+      <p>
+        <% if !@product.trello_ids.blank? %>
+          <ul>
+            <% @product.trello_ids.each do |id| %>
+              <li><%= id %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          This product has no Trello IDs
+        <% end %>
+      </p>
+    </div>
+  </div>
+<% end %>
+
+<div class="row">
+	<div class="page-header">
+		<h2>Comments<h2>
+	</div>
+	<%= render "comments/comments" %>
+	<%= render "comments/form", commentable: @product %>
+</div>

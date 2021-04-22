@@ -10,7 +10,7 @@
 <table class="display table" id="domains_table">
   <thead>
     <tr>
-      <th>Project</th>
+      <th>Product</th>
       <th>Created at</th>
       <th>Updated at</th>
       <th class="no-sort"></th>
@@ -21,7 +21,7 @@
   <tbody>
     <% @domains.each do |domain| %>
       <tr>
-        <td><%= link_to(domain.project.title, domain.project) %></td>
+        <td><%= link_to(domain.product.title, domain.product) %></td>
         <td><%= domain.created_at %></td>
         <td><%= domain.updated_at %></td>
         <td><%= link_to(domain) { fa_icon "eye" } %></td>

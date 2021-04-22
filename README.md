@@ -4,7 +4,7 @@
 
 # WCMC Labs
 
-The homepage for the WCMC Informatics team. A basic rails app for showing off the Informatics team's projects, storing Servers, and information about the installations of projects across servers.
+The homepage for the WCMC Informatics team. A basic rails app for showing off the Informatics team's products, storing Servers, and information about the installations of products across servers.
 
 ## Pre-requisites
 
@@ -41,6 +41,10 @@ gem install bundler -v 1.17.3
 
 The KPI page will be initially blank if you don't have an instance of the KPI model in your database. Run `rake kpi:regenerate` to create a KPI, which should then populate the various charts on the KPI page. The data can be manually updated by running the same command if the latest data is required. 
 
+## Reviews
+
+If the review questions are not showing, you may need to uun `rake review:load` to populate the review questions from `db/review_template.json`
+
 ## Deployment
 
 * Staging: `cap staging deploy`
@@ -54,20 +58,20 @@ You will need to register an application with Github to use this and stub out th
 
 For local development, homepage URL for the github application will need to be http://0.0.0.0:3000 and Authorization Callback URL will be http://0.0.0.0:3000/users/auth/github/callback
 
-## User Interface for displaying the Database structure of our projects in the Entity-Relationship format.
+## User Interface for displaying the Database structure of our products in the Entity-Relationship format.
 
 How it works:
 
-  1. The project of which DB structure needs to be uploaded to Labs, must include the following gem into the Gemfile: `https://github.com/unepwcmc/domain_uploader`
+  1. The product of which DB structure needs to be uploaded to Labs, must include the following gem into the Gemfile: `https://github.com/unepwcmc/domain_uploader`
 
   2. The `domain_uploader` gem includes the `rails-erd` gem which inspects the database and generates dotfiles for each entity, representing relationships in the E-R format. The `rails-erd` gem needs `graphviz` installed in the system in order to work properly.
 
-  3. Run the following rake task to upload the current project on Labs: `bundle exec rake du:uploader['project_name','host']`, where `project_name` must match the name of the project on Labs and `host` is the host you wish to upload the domain to, so for example `http://localhost:3000` if you are trying it locally. Please note that there cannot be any space between the comma in the rake task params.
+  3. Run the following rake task to upload the current product on Labs: `bundle exec rake du:uploader['product_name','host']`, where `product_name` must match the name of the product on Labs and `host` is the host you wish to upload the domain to, so for example `http://localhost:3000` if you are trying it locally. Please note that there cannot be any space between the comma in the rake task params.
 
-  4. On Labs you will now have a new folder in `public` which is `public/domains/project_name` with a list of .png files, each of which represents the relationships of an entity/model.
+  4. On Labs you will now have a new folder in `public` which is `public/domains/product_name` with a list of .png files, each of which represents the relationships of an entity/model.
 
   5. On the header of the Labs website, click on `Domains` to have a list of all the uploaded domains. Then choose one by clicking on the eye looking icon.
 
-  6. On the left of the new page you will have a list of all entities of that project and by clicking on them you will have the corresponding E-R diagrams showing as an image.
+  6. On the left of the new page you will have a list of all entities of that product and by clicking on them you will have the corresponding E-R diagrams showing as an image.
 
 
