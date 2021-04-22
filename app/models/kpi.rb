@@ -4,23 +4,23 @@ class Kpi < ApplicationRecord
   validates_inclusion_of :singleton_guard, in: [0]
 
   serialize :bugs_severity
-  serialize :project_vulnerability_counts
+  serialize :product_vulnerability_counts
   serialize :percentage_currently_active_products
-  serialize :percentage_projects_with_kpis
-  serialize :percentage_projects_documented
-  serialize :percentage_projects_with_ci
+  serialize :percentage_products_with_kpis
+  serialize :percentage_products_documented
+  serialize :percentage_products_with_ci
   serialize :manual_yearly_updates_overview
-  serialize :project_breakdown
+  serialize :product_breakdown
   serialize :level_of_involvement
 
   def self.instance
     first || construct_instance
   end
 
-  def self.quick_refresh(project = nil)
-    return first.update_attributes(db_statistics) if project.nil?
+  def self.quick_refresh(product = nil)
+    return first.update_attributes(db_statistics) if product.nil?
 
-    first.update_attributes(serializer.quick_refresh(project))
+    first.update_attributes(serializer.quick_refresh(product))
   end
 
   def self.refresh_values

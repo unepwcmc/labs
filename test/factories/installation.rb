@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :installation do
     server_id { FactoryGirl.create(:server).id }
-    project_instance
+    product_instance
     role { ['Web', 'Database', 'Web & Database'].sample }
     description Faker::Lorem.paragraph
     closing false

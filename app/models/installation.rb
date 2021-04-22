@@ -8,7 +8,7 @@
 #  description         :text
 #  created_at          :datetime
 #  updated_at          :datetime
-#  project_instance_id :integer          not null
+#  product_instance_id :integer          not null
 #  deleted_at          :datetime
 #  closing             :boolean          default(FALSE)
 #
@@ -17,25 +17,25 @@ class Installation <  ApplicationRecord
   acts_as_paranoid
 
   belongs_to :server
-  belongs_to :project_instance
+  belongs_to :product_instance
   has_many :comments, as: :commentable
 
   #Validations
   validates :server_id, :role, presence: true
   validates :role, inclusion: { in: ['Web', 'Database', 'Web & Database']}
 
-  delegate :stage, to: :project_instance
-  delegate :project, to: :project_instance
+  delegate :stage, to: :product_instance
+  delegate :product, to: :product_instance
 
-  after_create { project.refresh_reviews }
-  after_destroy { project.refresh_reviews }
+  after_create { product.refresh_reviews }
+  after_destroy { product.refresh_reviews }
 
   def name
-    "#{self.project.title} - #{role} (#{stage})"
+    "#{self.product.title} - #{role} (#{stage})"
   end
 
-  def project_instance
-    ProjectInstance.unscoped { super }
+  def product_instance
+    ProductInstance.unscoped { super }
   end
 
   def server

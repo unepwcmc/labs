@@ -3,8 +3,8 @@
 module Kpis::CiImporter
   TRAVIS_ENDPOINT = 'https://api.travis-ci.com/repos'.freeze
   
-  # Note - only finds 'active' projects on Travis
-  def self.find_projects_with_ci
+  # Note - only finds 'active' products on Travis
+  def self.find_products_with_ci
     response = HTTParty.get(
       TRAVIS_ENDPOINT,
       query: {
@@ -17,13 +17,13 @@ module Kpis::CiImporter
        }
     )
 
-    travis_projects = nil
+    travis_products = nil
     max_retries = 3
     times_retried = 0
 
     # Sometimes the importer doesn't manage to reach the API properly
     begin
-      travis_projects = JSON.parse(response.body)['repos'].map { |project| project['slug'] }
+      travis_products = JSON.parse(response.body)['repos'].map { |product| product['slug'] }
     rescue JSON::ParserError
       if times_retried < max_retries
         times_retried += 1
@@ -31,12 +31,12 @@ module Kpis::CiImporter
         retry
       else
         Rails.logger.error("Max retries reached. Aborting...")
-        travis_projects = []
+        travis_products = []
       end
     end
 
-    travis_projects.select do |identifier|
-      Project.pluck(:github_identifier).include?(identifier)
+    travis_products.select do |identifier|
+      Product.pluck(:github_identifier).include?(identifier)
     end.count
   end
 end

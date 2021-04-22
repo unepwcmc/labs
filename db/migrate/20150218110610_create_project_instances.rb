@@ -18,7 +18,9 @@ class CreateProjectInstances < ActiveRecord::Migration
   end
 
   def down
-    ProjectInstance.destroy_all
+    # ProjectInstance model has been deleted.
+
+    # ProjectInstance.destroy_all
     drop_table :project_instances
 
     remove_column :installations, :project_instance_id

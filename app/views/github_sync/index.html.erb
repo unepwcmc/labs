@@ -1,16 +1,16 @@
-<h1>Sync Projects</h1>
-<p>Select projects from Github to sync with Labs</p>
+<h1>Sync Products</h1>
+<p>Select products from Github to sync with Labs</p>
 
 <%= render 'error_messages' %>
 
 <nav>
   <ul class="pagination">
-    <li><%= link_to 'Previous 25', sync_projects_path(page: @link_headers['prev_page']) if @link_headers.try(:[], 'prev_page') %></li>
-    <li><%= link_to 'Next 25', sync_projects_path(page: @link_headers['next_page']) if @link_headers.try(:[], 'next_page') %></li>
+    <li><%= link_to 'Previous 25', sync_products_path(page: @link_headers['prev_page']) if @link_headers.try(:[], 'prev_page') %></li>
+    <li><%= link_to 'Next 25', sync_products_path(page: @link_headers['next_page']) if @link_headers.try(:[], 'next_page') %></li>
   </ul>
 </nav>
 
-<%= form_tag sync_projects_path do %>
+<%= form_tag sync_products_path do %>
   <%= hidden_field_tag 'page', @page %>
   <table class="table" id="sync_table">
     <thead>
@@ -31,5 +31,5 @@
       <% end %>
     </tbody>
   </table>
-  <%= submit_tag 'Sync marked Projects', class: 'btn btn-large btn-success' %>
+  <%= submit_tag 'Sync marked Products', class: 'btn btn-large btn-success' %>
 <% end %>

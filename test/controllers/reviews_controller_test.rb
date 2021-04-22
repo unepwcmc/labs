@@ -4,8 +4,8 @@ class ReviewsControllerTest < ActionController::TestCase
   include Devise::Test::ControllerHelpers
 
   setup do
-    @project = FactoryGirl.create(:project)
-    @review = FactoryGirl.create(:review, project: @project)
+    @product = FactoryGirl.create(:product)
+    @review = FactoryGirl.create(:review, product: @product)
     @user = FactoryGirl.create(:user)
     sign_in @user
   end
@@ -26,7 +26,7 @@ class ReviewsControllerTest < ActionController::TestCase
       post :create, params: {
         review: {
           reviewer_id: @user.id,
-          project_id: FactoryGirl.create(:project).id
+          product_id: FactoryGirl.create(:product).id
         }
       }
     end
@@ -38,7 +38,7 @@ class ReviewsControllerTest < ActionController::TestCase
       post :create, params: {
         review: {
           reviewer_id: @user.id,
-          project_id: nil
+          product_id: nil
         }
       }
     end
@@ -60,7 +60,7 @@ class ReviewsControllerTest < ActionController::TestCase
       id: @review.id,
       review: {
         reviewer_id: @user.id,
-        project_id: FactoryGirl.create(:project).id
+        product_id: FactoryGirl.create(:product).id
       }
     }
     assert_redirected_to review_path(assigns(:review))
@@ -71,10 +71,10 @@ class ReviewsControllerTest < ActionController::TestCase
       id: @review.id,
       review: {
         reviewer_id: @user.id,
-        project_id: nil
+        product_id: nil
       }
     }
-    assert @review.project_id == @project.id
+    assert @review.product_id == @product.id
     assert_response :success
   end
 

@@ -42,10 +42,10 @@ class Github
 
   # Only looks at commits from master branch
   def self.import_commit_dates
-    Project.find_each do |project|
-      next if project.github_identifier.blank?
+    Product.find_each do |product|
+      next if product.github_identifier.blank?
 
-      url = "#{Rails.application.secrets.github_api_base_url}repos/#{project.github_identifier}/commits"
+      url = "#{Rails.application.secrets.github_api_base_url}repos/#{product.github_identifier}/commits"
       response = HTTParty.get(
         url, 
         query: {
@@ -66,12 +66,12 @@ class Github
         next if commit_hash.nil?
         latest_commit_date = commit_hash.dig('commit', 'author', 'date')
       rescue TypeError
-        Rails.logger.info "#{project.title} has not been worked on in the past year or is not available"
+        Rails.logger.info "#{product.title} has not been worked on in the past year or is not available"
         next
       end
 
-      project.update_attribute(:last_commit_date, latest_commit_date.to_date)
-      Rails.logger.info "#{project.title} has been successfully updated"
+      product.update_attribute(:last_commit_date, latest_commit_date.to_date)
+      Rails.logger.info "#{product.title} has been successfully updated"
     end
   end
 

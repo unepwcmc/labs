@@ -1,0 +1,52 @@
+<table class="display table" id="products_table">
+  <thead>
+    <tr class="filters">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    <tr>
+      <th>Title</th>
+      <th>State</th>
+      <th>Review</th>
+      <th>Instances</th>
+      <th>Rails</th>
+      <th>Ruby</th>
+      <th>PostgreSQL</th>
+      <th class="no-sort"></th>
+      <th class="no-sort"></th>
+      <th class="no-sort"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products.each do |product| %>
+      <tr class="user_row">
+        <td><%= link_to product.title, product.url %><br>
+        <%= link_to (image_tag("https://secure.travis-ci.org/#{product.github_identifier}.png", class: "badge_img",
+            alt: "No Travis")), "https://travis-ci.org/#{product.github_identifier}", class: "badge_link"%><br>
+        <%= link_to (image_tag("https://snyk.io/test/github/#{product.github_identifier}/badge.svg", class: "badge_img",
+            alt: "No Vulnerabilities!")), "https://snyk.io/test/github/#{product.github_identifier}", class: "badge_link"%><br>
+        <%= link_to (image_tag("https://codeclimate.com/github/#{product.github_identifier}.png", class: "badge_img",
+            alt: "No Code Climate")), "https://codeclimate.com/github/#{product.github_identifier}", class: "badge_link"%>
+        </td>
+        <td><%= product.state %></td>
+        <td><%= product.last_review ? review_score(product.last_review) : start_review_button(product) %></td>
+        <td><%= product.product_instances.size %></td>
+        <td><%= product.rails_version %></td>
+        <td><%= product.ruby_version %></td>
+        <td><%= product.postgresql_version %></td>
+        <td><%= link_to(product_path(product)) { fa_icon "eye" } %></td>
+        <td><%= link_to(edit_product_path(product)) { fa_icon "pencil" } %></td>
+        <td><%= link_to(product_path(product), method: :delete, data: { confirm: "Are you sure?" }){ fa_icon "trash" } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

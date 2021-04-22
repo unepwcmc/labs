@@ -1,0 +1,13 @@
+<div class="page-header">
+  <h1>Listing Products</h1>
+</div>
+
+<div class="btn-group">
+  <%= button_to 'New Product', new_product_path, method: :get, class: "btn btn-primary" %>
+</div>
+
+<div class="btn-group pull-right">
+  <%= button_to 'Download all', list_products_path(format: :csv), method: :get, class: "btn btn-default" %>
+</div>
+
+<%= render "shared/products" %>
