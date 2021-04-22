@@ -22,3 +22,7 @@
 ### 1.1.2 (2021-04-07)
 
 * Fix search functionality on projects grid view
+
+### 1.1.3 (2021-04-22)
+
+* Rename projects to products
