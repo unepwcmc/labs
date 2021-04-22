@@ -6,6 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+#FIXME: seeds need updating to match new product details and fix errors
+
 Product.delete_all
 Server.delete_all
 Installation.delete_all
