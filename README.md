@@ -11,10 +11,15 @@ The homepage for the WCMC Informatics team. A basic rails app for showing off th
 - Clone repo
 - Run `bundle install`
 - Run `rake db:create`, `rake db:migrate`
-- Run `rails secret` and populate `config/secrets.yml`
+- Run `rails secret` and populate `config/secrets.yml` according to 
+  `secrets.yml.sample` which gives guidance on how to access the secrets.
+  [The Teams wiki](https://teams.microsoft.com/l/entity/com.microsoft.teamspace.tab.wiki/tab::b2573265-0479-4589-905a-86cc6d6db74f?context=%7B%22subEntityId%22%3A%22%7B%5C%22pageId%5C%22%3A7%2C%5C%22sectionId%5C%22%3A14%2C%5C%22origin%5C%22%3A2%7D%22%2C%22channelId%22%3A%2219%3A2c43334822444bff812af4c30f423ceb%40thread.tacv2%22%7D&tenantId=2faab858-d1f4-48af-86f6-486196d5969d)
+  may also be helpful.
 - Run `yarn install`
 
 ## KPI Page
+
+**NB: Make sure you have the secrets populated before running this task, else it will fail as it expects certain secrets to be present!**
 
 The KPI page will be initially blank if you don't have an instance of the KPI model in your database. Run `rake kpi:regenerate` to create a KPI, which should then populate the various charts on the KPI page. The data can be manually updated by running the same command if the latest data is required. 
 
