@@ -11,10 +11,13 @@ The homepage for the WCMC Informatics team. A basic rails app for showing off th
 - Clone repo
 - Run `bundle install`
 - Run `rake db:create`, `rake db:migrate`
-- Run `rails secret` and populate `config/secrets.yml`
+- Run `rails secret` and populate `config/secrets.yml` according to 
+  `secrets.yml.sample` which gives guidance on how to access the secrets.
 - Run `yarn install`
 
 ## KPI Page
+
+**NB: Make sure you have the secrets populated before running this task, else it will fail as it expects certain secrets to be present!**
 
 The KPI page will be initially blank if you don't have an instance of the KPI model in your database. Run `rake kpi:regenerate` to create a KPI, which should then populate the various charts on the KPI page. The data can be manually updated by running the same command if the latest data is required. 
 
