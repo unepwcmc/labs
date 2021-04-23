@@ -13,6 +13,8 @@ The homepage for the WCMC Informatics team. A basic rails app for showing off th
 - Run `rake db:create`, `rake db:migrate`
 - Run `rails secret` and populate `config/secrets.yml` according to 
   `secrets.yml.sample` which gives guidance on how to access the secrets.
+  [The Teams wiki](https://teams.microsoft.com/l/entity/com.microsoft.teamspace.tab.wiki/tab::b2573265-0479-4589-905a-86cc6d6db74f?context=%7B%22subEntityId%22%3A%22%7B%5C%22pageId%5C%22%3A7%2C%5C%22sectionId%5C%22%3A14%2C%5C%22origin%5C%22%3A2%7D%22%2C%22channelId%22%3A%2219%3A2c43334822444bff812af4c30f423ceb%40thread.tacv2%22%7D&tenantId=2faab858-d1f4-48af-86f6-486196d5969d)
+  may also be helpful.
 - Run `yarn install`
 
 ## KPI Page
