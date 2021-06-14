@@ -1,7 +1,7 @@
 <%= review_jumbotron %>
 
 <div class="page-header product-header">
-	<%= link_to product_preview(@product)%>
+	<%= link_to product_preview(@product), class: 'link--product' %>
 	<h1><%= @product.title %></h1>
 	<div class="btn-group">
 	  <%= button_to 'Back', list_products_path, method: :get, :class => 'btn' %>
@@ -170,7 +170,7 @@
       <h2>This Product's Vulnerabilities</h2>
     </div>
       <%= link_to (image_tag("https://snyk.io/test/github/#{@product.github_identifier}/badge.svg", class: "badge_img",
-            alt: "No Vulnerabilities!")), "https://snyk.io/test/github/#{@product.github_identifier}", class: "badge_link"%>
+            alt: "No Vulnerabilities!")), "https://snyk.io/test/github/#{@product.github_identifier}", class: "badge_link link--product"%>
   </div>
 </div>
 
