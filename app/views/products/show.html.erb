@@ -22,13 +22,13 @@
 
     <p>
       <strong>Production:</strong>
-      <%= link_to @product.url, @product.url, target: '_blank' %>
+      <%= link_to @product.url, @product.url, target: '_blank', class: 'link--product' %>
     </p>
 
     <p>
       <strong>Staging:</strong>
       <% if @product.url_staging %>
-        <%= link_to @product.url_staging, @product.url_staging, target: '_blank' %>
+        <%= link_to @product.url_staging, @product.url_staging, target: '_blank', class: 'link--product' %>
       <% end %>
     </p>
 
@@ -209,7 +209,7 @@
   <div class="col-lg-6">
     <p>
       <strong>Documentation link:</strong>
-      <%= link_to @product.documentation_link, @product.documentation_link, target: '_blank' %>
+      <%= link_to @product.documentation_link, @product.documentation_link, target: '_blank', class: 'link--product' %>
     </p>
 
     <p>
@@ -238,7 +238,7 @@
     <p>
       <strong>Repository URL:</strong>
       <%= link_to @product.github_identifier,
-        "https://github.com/#{@product.github_identifier}"
+        "https://github.com/#{@product.github_identifier}", class: 'link--product'
       %>
     </p>
 
@@ -296,7 +296,7 @@
     <p><strong>Sharepoint Link</strong></p>
     <p>
      <% if !@product.sharepoint_link.blank? %>
-       <%= link_to @product.sharepoint_link, @product.sharepoint_link, target: '_blank' %>
+       <%= link_to @product.sharepoint_link, @product.sharepoint_link, target: '_blank', class: 'link--product' %>
       <% else %>
         This product has no Sharepoint link
       <% end %>
@@ -305,7 +305,7 @@
     <p><strong>Codebase Link</strong></p>
     <p>
       <% if !@product.codebase_url.blank? %>
-       <%= link_to @product.codebase_url, @product.codebase_url, target: '_blank' %>
+       <%= link_to @product.codebase_url, @product.codebase_url, target: '_blank', class: 'link--product' %>
       <% else %>
         This product has no Codebase link
       <% end %>
@@ -316,7 +316,7 @@
     <p><strong>Adobe XD design Link</strong></p>
     <p>
       <% if !@product.design_link.blank? %>
-       <%= link_to @product.design_link, @product.design_link, target: '_blank' %>
+       <%= link_to @product.design_link, @product.design_link, target: '_blank', class: 'link--product' %>
       <% else %>
         This product has no design link
       <% end %>
