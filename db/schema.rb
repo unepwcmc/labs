@@ -231,22 +231,13 @@ ActiveRecord::Schema.define(version: 20210413130826) do
   end
 
   add_foreign_key "comments", "users"
-  add_foreign_key "comments", "users", name: "comments_user_id_fk"
   add_foreign_key "dependencies", "products", column: "master_product_id"
-  add_foreign_key "dependencies", "products", column: "master_product_id", name: "dependencies_master_project_id_fk"
   add_foreign_key "dependencies", "products", column: "sub_product_id"
-  add_foreign_key "dependencies", "products", column: "sub_product_id", name: "dependencies_sub_project_id_fk"
   add_foreign_key "installations", "servers"
-  add_foreign_key "installations", "servers", name: "installations_server_id_fk", on_delete: :cascade
   add_foreign_key "models", "domains"
   add_foreign_key "review_answers", "review_questions"
-  add_foreign_key "review_answers", "review_questions", name: "review_answers_review_question_id_fk", on_delete: :cascade
   add_foreign_key "review_answers", "reviews"
-  add_foreign_key "review_answers", "reviews", name: "review_answers_review_id_fk", on_delete: :cascade
   add_foreign_key "review_questions", "review_sections"
-  add_foreign_key "review_questions", "review_sections", name: "review_questions_review_section_id_fk", on_delete: :cascade
   add_foreign_key "reviews", "products"
-  add_foreign_key "reviews", "products", name: "reviews_project_id_fk", on_delete: :cascade
   add_foreign_key "reviews", "users", column: "reviewer_id"
-  add_foreign_key "reviews", "users", column: "reviewer_id", name: "reviews_reviewer_id_fk", on_delete: :nullify
 end
