@@ -107,31 +107,31 @@ ActiveRecord::Schema.define(version: 20210413130826) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.string   "title",                                     null: false
-    t.text     "description",                               null: false
+    t.string   "title",                                       null: false
+    t.text     "description",                                 null: false
     t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "published",                 default: false
+    t.boolean  "published",                   default: false
     t.string   "screenshot"
     t.string   "github_identifier"
     t.text     "dependencies"
-    t.string   "state",                                     null: false
+    t.string   "state",                                       null: false
     t.string   "current_lead"
     t.text     "hacks"
-    t.text     "external_clients",          default: [],                 array: true
-    t.text     "product_leads",             default: [],                 array: true
-    t.text     "developers",                default: [],                 array: true
-    t.text     "pdrive_folders",            default: [],                 array: true
-    t.text     "dropbox_folders",           default: [],                 array: true
-    t.text     "pivotal_tracker_ids",       default: [],                 array: true
-    t.text     "trello_ids",                default: [],                 array: true
+    t.text     "external_clients",            default: [],                 array: true
+    t.text     "product_leads",               default: [],                 array: true
+    t.text     "developers",                  default: [],                 array: true
+    t.text     "pdrive_folders",              default: [],                 array: true
+    t.text     "dropbox_folders",             default: [],                 array: true
+    t.text     "pivotal_tracker_ids",         default: [],                 array: true
+    t.text     "trello_ids",                  default: [],                 array: true
     t.date     "expected_release_date"
     t.string   "rails_version"
     t.string   "ruby_version"
     t.string   "postgresql_version"
-    t.text     "other_technologies",        default: [],                 array: true
-    t.text     "internal_clients",          default: [],                 array: true
+    t.text     "other_technologies",          default: [],                 array: true
+    t.text     "internal_clients",            default: [],                 array: true
     t.text     "internal_description"
     t.text     "background_jobs"
     t.text     "cron_jobs"
@@ -142,18 +142,18 @@ ActiveRecord::Schema.define(version: 20210413130826) do
     t.text     "design_link"
     t.text     "sharepoint_link"
     t.text     "ga_tracking_code"
-    t.string   "designers",                 default: [],                 array: true
+    t.string   "designers",                   default: [],                 array: true
     t.float    "income_earned"
     t.string   "key_performance_indicator"
     t.string   "kpi_measurement"
     t.boolean  "is_feasible"
     t.string   "documentation_link"
     t.boolean  "is_documentation_adequate"
+    t.float    "manual_yearly_updates",       default: 0.0
     t.date     "last_commit_date"
+    t.text     "product_leading_style"
     t.integer  "google_analytics_user_count"
     t.string   "ga_view_id"
-    t.float    "manual_yearly_updates",     default: 0.0
-    t.text     "product_leading_style"
   end
 
   create_table "review_answers", force: :cascade do |t|
