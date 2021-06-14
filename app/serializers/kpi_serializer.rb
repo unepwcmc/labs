@@ -15,101 +15,114 @@ class KpiSerializer
     db_statistics.merge(imported_stats)
   end
 
+  def quick_refresh(product)
+    snyk_stats = Kpis::SnykStatisticsImporter.update_single_product(product)
+
+    db_statistics.merge(
+      api_imports.merge(
+        product_vulnerability_counts: snyk_stats[:vulnerability_hash],
+        product_breakdown: snyk_stats[:products]
+      )
+    )
+  end
+
   def db_statistics
     {
       percentage_currently_active_products: currently_active_products,
-      percentage_projects_with_kpis: projects_with_kpis,
-      percentage_projects_documented: projects_with_documentation,
+      percentage_products_with_kpis: products_with_kpis,
+      percentage_products_documented: products_with_documentation,
       manual_yearly_updates_overview: manual_yearly_updates_overview,
-      total_income: project_income_sum,
-      level_of_involvement: projects_led
+      total_income: product_income_sum,
+      level_of_involvement: products_led
     }
   end
 
   def api_imports
-    bugs_backlog = Kpi::CodebaseImporter.bugs_backlog_size
+    bugs_backlog = Kpis::CodebaseImporter.bugs_backlog_size
 
     {
       bugs_backlog_size: bugs_backlog[:ticket_count],
       bugs_severity: bugs_backlog[:severity],
-      percentage_projects_with_ci: projects_with_ci
+      percentage_products_with_ci: products_with_ci
     }
   end
 
   def imported_stats
-    snyk_stats = Kpi::SnykStatisticsImporter.vulnerabilities_per_project
+    snyk_stats = Kpis::SnykStatisticsImporter.vulnerabilities_per_product
 
     # API imports
     api_imports.merge({
-                        project_vulnerability_counts: snyk_stats[:vulnerability_hash],
-                        project_breakdown: snyk_stats[:projects]
+                        product_vulnerability_counts: snyk_stats[:vulnerability_hash],
+                        product_breakdown: snyk_stats[:products]
                       })
   end
 
-  def project_income_sum
-    Project.pluck(:income_earned).compact.inject(:+)
+  def product_income_sum
+    Product.pluck(:income_earned).compact.inject(:+)
   end
 
-  def projects_led
+  def products_led
     hash = Hash.new(0)
 
-    Project.pluck(:project_leading_style).each do |style|
+    Product.pluck(:product_leading_style).each do |style|
       style.nil? ? hash['Unknown'] += 1 : hash[style] += 1
     end
 
     hash
   end
 
-  def projects_with_ci
-    projects_with_ci = Kpi::CiImporter.find_projects_with_ci
+  def products_with_ci
+    products_with_ci = Kpis::CiImporter.find_products_with_ci
 
     convert_to_percentage({
-                            ci_present: projects_with_ci,
-                            ci_absent: Project.count - projects_with_ci
+                            ci_present: products_with_ci,
+                            ci_absent: Product.count - products_with_ci
                           })
   end
 
   def currently_active_products
-    active_projects = Project.where(state: ACTIVE_STATUSES).or(Project.where.not(last_commit_date: nil)).count
+    active_products = Product.where(state: ACTIVE_STATUSES).or(Product.where.not(last_commit_date: nil)).count
 
     convert_to_percentage({
-                            active_products: active_projects,
-                            inactive_products: Project.count - active_projects
+                            active_products: active_products,
+                            inactive_products: Product.count - active_products
                           })
   end
 
-  def projects_with_kpis
-    feasible_kpis = Project.where.not(is_feasible: false, key_performance_indicator: nil).count
-    unfeasible_kpis = Project.where.not(is_feasible: true, key_performance_indicator: nil).count
+  def products_with_kpis
+    feasible_kpis = Product.where.not(is_feasible: false, key_performance_indicator: nil).count
+    unfeasible_kpis = Product.where.not(is_feasible: true, key_performance_indicator: nil).count
 
     convert_to_percentage({
                             feasible_kpis: feasible_kpis,
                             unfeasible_kpis: unfeasible_kpis,
-                            no_kpis_present: Project.count - (feasible_kpis + unfeasible_kpis)
+                            no_kpis_present: Product.count - (feasible_kpis + unfeasible_kpis)
                           })
   end
 
-  def projects_with_documentation
-    adequate_documentation = Project.where.not(is_documentation_adequate: false, documentation_link: nil).count
-    inadequate_documentation = Project.where.not(is_documentation_adequate: true, documentation_link: nil).count
+  def products_with_documentation
+    adequate_documentation = Product.where.not(is_documentation_adequate: false, documentation_link: nil).count
+    inadequate_documentation = Product.where.not(is_documentation_adequate: true, documentation_link: nil).count
 
     convert_to_percentage({
                             adequate_documentation: adequate_documentation,
                             inadequate_documentation: inadequate_documentation,
-                            without_documentation: Project.count - (adequate_documentation + inadequate_documentation)
+                            without_documentation: Product.count - (adequate_documentation + inadequate_documentation)
                           })
   end
 
   def manual_yearly_updates_overview
     hash = Hash.new(0)
 
-    Project.find_each do |project|
-      if project.manual_yearly_updates.zero?
+    Product.find_each do |product|
+      if product.manual_yearly_updates.zero? || product.manual_yearly_updates.negative? 
         hash[:none] += 1
-      elsif project.manual_yearly_updates.positive? && project.manual_yearly_updates < 10
-        hash['0 to 10'] += 1
+      elsif product.manual_yearly_updates >= 12
+        hash['Monthly or more often'] += 1
+      elsif product.manual_yearly_updates >= 2
+        hash['Every 1 to 6 Months'] += 1
       else
-        hash['10 to 20'] += 1
+        hash['Every 6 months or less'] += 1
       end
     end
 
@@ -117,6 +130,6 @@ class KpiSerializer
   end
 
   def convert_to_percentage(hash)
-    hash.each { |_key, value| ((value.to_f / Project.count) * 100).round(2) }
+    hash.each { |_key, value| ((value.to_f / Product.count) * 100).round(2) }
   end
 end

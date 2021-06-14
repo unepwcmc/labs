@@ -34,7 +34,7 @@ class InstallationsControllerTest < ActionController::TestCase
       post :create, params: {
         installation: {
           description: @new_installation.description,
-          project_instance_id: @new_installation.project_instance_id,
+          product_instance_id: @new_installation.product_instance_id,
           role: @new_installation.role, server_id: @new_installation.server_id,
         }
       }
@@ -56,7 +56,7 @@ class InstallationsControllerTest < ActionController::TestCase
   test "should update installation" do
     patch :update, params: { id: @installation, installation: {
       description: @installation.description,
-      project_instance_id: @new_installation.project_instance_id,
+      product_instance_id: @new_installation.product_instance_id,
       role: @installation.role, server_id: @installation.server_id,
       }
     }

@@ -1,16 +1,16 @@
 <template>
   <div class="page--kpi">
-    <h3>Last regenerated: {{ lastRegeneratedDate }}</h3>
+    <h3>Last updated: {{ lastRegeneratedDate }}</h3>
     <template v-if="kpiStats">
-      <h2>Project vulnerabilities</h2>
+      <h2>Product vulnerabilities</h2>
       <div class="page--kpi__chart-row">
         <chart-doughnut
-          :statistics="kpiStats.project_vulnerability_counts"
+          :statistics="kpiStats.product_vulnerability_counts"
           :title="'Number of repos sorted by vulnerability count'"
           :chart-id="'vuln-counts'"
         />
       </div>
-      <h2>Project completeness</h2>
+      <h2>Product completeness</h2>
       <div class="page--kpi__chart-row">
         <chart-doughnut
           :statistics="kpiStats.percentage_currently_active_products"
@@ -18,20 +18,20 @@
           :chart-id="'active-products'"
         />
         <chart-doughnut
-          :statistics="kpiStats.percentage_projects_with_kpis"
-          :title="'% Projects with KPIs'"
+          :statistics="kpiStats.percentage_products_with_kpis"
+          :title="'% Products with KPIs'"
           :chart-id="'kpi-percentages'"
         />
       </div>
       <div class="page--kpi__chart-row">
         <chart-doughnut
-          :statistics="kpiStats.percentage_projects_documented"
-          :title="'% Projects with documentation'"
+          :statistics="kpiStats.percentage_products_documented"
+          :title="'% Products with documentation'"
           :chart-id="'documentation-percentages'"
         />
         <chart-doughnut
-          :statistics="kpiStats.percentage_projects_with_ci"
-          :title="'% Projects with CI/CD'"
+          :statistics="kpiStats.percentage_products_with_ci"
+          :title="'% Products with CI/CD'"
           :chart-id="'ci-percentages'"
         />
       </div>
@@ -57,7 +57,7 @@
       <div class="page--kpi__chart-row">
         <chart-doughnut
           :statistics="kpiStats.manual_yearly_updates_overview"
-          :title="'Overview of manual yearly updates for our projects'"
+          :title="'Overview of manual updates for our products'"
           :chart-id="'manual-updates'"
         />
       </div>
@@ -115,6 +115,7 @@ export default {
       axios.get(this.endpoint).then(response => {
         this.kpiStats = response.data
         this.updateDate(this.kpiStats.updated_at)
+        this.lastRegeneratedDate = new Date(this.kpiStats.updated_at)
       }).catch(error => {
         console.log(error)
       })
@@ -139,7 +140,6 @@ export default {
     startPolling() {
       // Refreshes every 5 minutes
       window.setInterval(this.pollKpi, 300000)
-      this.lastRegeneratedDate = new Date()
     }
   }
 }

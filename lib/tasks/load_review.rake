@@ -37,6 +37,6 @@ namespace :review do
     ReviewSection.where(id: (section_ids - new_section_ids)).each(&:destroy)
     new_question_ids = ReviewQuestion.pluck(:id)
     ReviewQuestion.where(id: (question_ids - new_question_ids)).each(&:destroy)
-    Review.all.each{ |r| r.respond_to_project_update }
+    Review.all.each{ |r| r.respond_to_product_update }
   end
 end

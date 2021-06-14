@@ -11,7 +11,7 @@
     </tr>
     <tr>
       <th>Instance</th>
-      <th>Project</th>
+      <th>Product</th>
       <th>Server</th>
       <th>Role</th>
       <th>Closing</th>
@@ -26,12 +26,12 @@
     <% @installations.each do |installation| %>
       <tr>
         <td>
-          <%= link_to installation.project_instance.name,
-            project_instance_path(installation.project_instance) %>
+          <%= link_to installation.product_instance.name,
+            product_instance_path(installation.product_instance) %>
         </td>
         <td>
-          <%= link_to installation.project.title,
-            project_path(installation.project) %>
+          <%= link_to installation.product.title,
+            product_path(installation.product) %>
         </td>
         <td><%= link_to installation.server.name, server_path(installation.server) %></td>
         <td><%= installation.role %></td>

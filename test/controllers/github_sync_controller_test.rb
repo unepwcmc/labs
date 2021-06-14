@@ -29,7 +29,7 @@ class GithubSyncControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should create a project on post to sync" do
+  test "should create a product on post to sync" do
     stub_request(:get, "#{Rails.application.secrets.github_api_base_url}orgs/unepwcmc/repos?client_id=&client_secret=").
     with(:headers => {'User-Agent'=>'Labs'}).
     to_return(
@@ -91,14 +91,14 @@ class GithubSyncControllerTest < ActionController::TestCase
       }
     )
 
-    assert_difference 'Project.count' do
+    assert_difference 'Product.count' do
       post :sync, params: { repos: ["first_repo"] }
     end
   end
 
   context "push event webhook" do
     setup do
-      @project = FactoryGirl.create(:project, {
+      @product = FactoryGirl.create(:product, {
         title: 'proj',
         github_identifier: 'unepwcmc/repo',
         ruby_version: '1.8',
@@ -109,20 +109,20 @@ class GithubSyncControllerTest < ActionController::TestCase
       Github.any_instance.stubs(:get_ruby_version).returns('2.0')
     end
 
-    should "update project when pushing to master" do
+    should "update product when pushing to master" do
       post :push_event_webhook, params: {ref: 'head/master', repository: {full_name: 'unepwcmc/repo' } }
 
-      @project.reload
-      assert_equal '4.2', @project.rails_version
-      assert_equal '2.0', @project.ruby_version
+      @product.reload
+      assert_equal '4.2', @product.rails_version
+      assert_equal '2.0', @product.ruby_version
     end
 
-    should "not update project when pushing to branch different from master" do
+    should "not update product when pushing to branch different from master" do
       post :push_event_webhook, params: {ref: 'head/branch', repository: {full_name: 'unepwcmc/repo'} }
 
-      @project.reload
-      assert_equal '3.0', @project.rails_version
-      assert_equal '1.8', @project.ruby_version
+      @product.reload
+      assert_equal '3.0', @product.rails_version
+      assert_equal '1.8', @product.ruby_version
     end
   end
 end

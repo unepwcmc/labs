@@ -1,0 +1,54 @@
+div.product {
+  border: 0 none;
+  padding: 0;
+  margin: 10px 0px;
+  text-align: center;
+}
+
+div.product-header {
+	padding-bottom: 120px;
+}
+
+div.product-header a {
+	float: left;
+	margin: 0 80px 0 0;
+}
+
+div.product-header div.btn-group {top: 100px}
+
+.badge_link {
+	margin-left: 15px;
+	font-size: 10px;
+}
+
+.badge_img {
+	height: 14px;
+}
+
+.form-inline .form-control {
+	padding: 5px !important;
+}
+
+div.block-of-text {
+  border: 1px dashed #eee;
+  padding-top: 5px;
+  padding-left: 5px;
+  margin-bottom: 10px;
+}
+
+.review-success { color: green; }
+.review-warning { color: orange; }
+.review-error { color: red; }
+
+.products-list-header {
+  text-align: center;
+  font-size: 28px;
+}
+
+.product {
+  &:hover {
+    .heading--product {
+      text-decoration: underline;
+    }
+  }
+}

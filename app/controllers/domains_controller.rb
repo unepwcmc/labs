@@ -14,7 +14,7 @@ class DomainsController < ApplicationController
 
   def destroy
     @domain = Domain.find(params[:id])
-    FileUtils.remove_dir("#{Rails.root}/public/domains/#{@domain.project.title}", true)
+    FileUtils.remove_dir("#{Rails.root}/public/domains/#{@domain.product.title}", true)
     @domain.destroy
     respond_with(@domain)
   end
