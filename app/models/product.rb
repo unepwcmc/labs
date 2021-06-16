@@ -165,7 +165,9 @@ class Product < ApplicationRecord
   end
 
   def fetch_ga_stats
-    updated_user_count = GoogleAnalytics.new.get_user_count(ga_tracking_code)
+    ga = GoogleAnalytics::Reporting.new(ga_tracking_code)
+    
+    updated_user_count = ga.send_request
 
     update(google_analytics_user_count: updated_user_count)
   end

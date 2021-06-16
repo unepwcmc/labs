@@ -24,7 +24,9 @@ class GoogleAnalytics::Reporting < GoogleAnalytics::Base
 
     GoogleAnalytics::Processor.parse_response_for_total_users(raw_response)
   rescue Google::Apis::ClientError 
-    Rails.logger.info('Check your credentials and try again (are they correct?)')
+    # Currently no differentiation between incorrect tracking codes and other issues
+    Rails.logger.info('Check your product tracking code - is it correct?')
+    false
   end
 
   private
@@ -60,7 +62,6 @@ class GoogleAnalytics::Reporting < GoogleAnalytics::Base
     ANALYTICS::ReportRequest.new(
       view_id: @google_tracking_code,
       sampling_level: 'DEFAULT',
-      filters_expression: "ga:country==United Kingdom",
       date_ranges: [date_range],
       metrics: [metric],
       dimensions: [dimension]
