@@ -1,5 +1,3 @@
-require 'googleauth'
-
 class GoogleAnalytics::Base 
 
   private

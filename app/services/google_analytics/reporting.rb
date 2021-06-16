@@ -9,25 +9,31 @@ class GoogleAnalytics::Reporting < GoogleAnalytics::Base
   Google::Apis::RequestOptions.default.retries = 3
 
   # date default to 3 months ago (90 days) for fetching the user count per product
-  def initialize(from_date = 3.months.ago)
+  def initialize(google_tracking_code, from_date = 3.months.ago)
     @analytics = ANALYTICS::AnalyticsReportingService.new
-    
-    # Authorise with our read-only credentials
+
     @analytics.authorization = google_authorization
 
+    @google_tracking_code = google_tracking_code
     # Google API only accepts dates in 'YYYY-MM-DD' format
     @from_date = from_date.strftime('%Y-%m-%d')
   end
 
-  def new_request(google_tracking_code)
-    request = ANALYTICS::GetReportsRequest.new(
-      { report_requests: [new_report_request(google_tracking_code)] }
-    )
+  def send_request
+    raw_response = @analytics.batch_get_reports(new_request)
 
-    @analytics.batch_get_reports(request)
+    GoogleAnalytics::Processor.parse_response_for_total_users(raw_response)
+  rescue Google::Apis::ClientError 
+    Rails.logger.info('Check your credentials and try again (are they correct?)')
   end
 
   private
+
+  def new_request
+    ANALYTICS::GetReportsRequest.new(
+      { report_requests: [new_report_request] }
+    )
+  end
 
   def date_range
     today = Date.today.strftime('%Y-%m-%d')
@@ -50,9 +56,9 @@ class GoogleAnalytics::Reporting < GoogleAnalytics::Base
     )
   end
 
-  def new_report_request(google_tracking_code)
+  def new_report_request
     ANALYTICS::ReportRequest.new(
-      view_id: google_tracking_code,
+      view_id: @google_tracking_code,
       sampling_level: 'DEFAULT',
       filters_expression: "ga:country==United Kingdom",
       date_ranges: [date_range],
