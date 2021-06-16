@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210413130826) do
+ActiveRecord::Schema.define(version: 20210616202349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -153,7 +153,6 @@ ActiveRecord::Schema.define(version: 20210413130826) do
     t.date     "last_commit_date"
     t.text     "product_leading_style"
     t.integer  "google_analytics_user_count"
-    t.string   "ga_view_id"
   end
 
   create_table "review_answers", force: :cascade do |t|
