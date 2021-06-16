@@ -163,6 +163,12 @@ class Product < ApplicationRecord
     }
     update_attributes(product_params)
   end
+
+  def fetch_ga_stats
+    updated_user_count = GoogleAnalytics.new.get_user_count(ga_tracking_code)
+
+    update(google_analytics_user_count: updated_user_count)
+  end
   
   def self.pluck_field(symbol)
     pluck(symbol).compact.uniq.reject(&:empty?).sort
