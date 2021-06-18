@@ -25,7 +25,7 @@ The KPI page will be initially blank if you don't have an instance of the KPI mo
 
 ### Google Analytics
 
-There is a field in the Edit view of a product for entering in the Google Analytics View ID code for that particular product. Please note that this is **not** the Account ID, rather this is the View ID, which only ever contains numbers. Also whenever possible, use the code which corresponds to views that exclude the WCMC office as that is most reliable. When you then run the Rake task, it will compute the user counts for each project which has a tracking code and then 
+There is a field in the Edit view of a product for entering in the Google Analytics View ID code for that particular product. Please note that this is **not** the Account ID, rather this is the View ID, which only ever contains numbers. Also whenever possible, use the code which corresponds to views that exclude the WCMC office as that is most reliable. When you then run the Rake task, it will compute the user counts for each project which has a tracking code and then updates the list of projects and KPI page accordingly. 
 
 ## Reviews
 

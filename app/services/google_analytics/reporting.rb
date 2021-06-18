@@ -1,14 +1,9 @@
 # frozen_string_literal: true
 
-require 'google/apis/analyticsreporting_v4'
-
 class GoogleAnalytics::Reporting < GoogleAnalytics::Base
   ANALYTICS = Google::Apis::AnalyticsreportingV4
 
-  # Default number of times which Google will retry calling the API
-  Google::Apis::RequestOptions.default.retries = 3
-
-  # date default to 3 months ago (90 days) for fetching the user count per product
+  # date defaults to 3 months ago (90 days) for fetching the user count per product
   def initialize(google_tracking_code, from_date = 3.months.ago)
     @analytics = ANALYTICS::AnalyticsReportingService.new
 
