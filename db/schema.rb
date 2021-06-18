@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210616202349) do
+ActiveRecord::Schema.define(version: 20210617114308) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20210616202349) do
     t.text     "manual_yearly_updates_overview"
     t.text     "product_breakdown"
     t.text     "level_of_involvement"
+    t.text     "google_analytics_overview"
     t.index ["singleton_guard"], name: "index_kpis_on_singleton_guard", unique: true, using: :btree
   end
 

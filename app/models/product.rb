@@ -70,7 +70,7 @@ class Product < ApplicationRecord
   pg_search_scope :search, using: { tsearch: { prefix: true } }, against: SEARCH_SCOPE
 
   scope :published, -> { where(published: true) }
-
+  scope :tracked_products, -> { where.not(ga_tracking_code: nil) }
   # multisearchable against: [:title, :description, :github_identifier, :state, :internal_clients,
   #           :current_lead, :external_clients, :product_leads, :developers,
   #           :dependencies, :hacks, :pdrive_folders, :dropbox_folders, :published]
@@ -89,7 +89,7 @@ class Product < ApplicationRecord
   validates :sharepoint_link, :codebase_url, :design_link,
             format: { with: URI.regexp(%w[http https]), message: 'needs to be a valid URL (add a http:// or https://)' }, allow_blank: true
   validates :ga_tracking_code, absence: true, unless: :url_present?
-  validates :ga_tracking_code, format: { with: /\AUA-\d+-\d{1}\z/, message: 'has to be a valid code' }, allow_blank: true
+  validates :ga_tracking_code, format: { with: /\d+/, message: 'has to be a valid code' }, length: { in: 8..9 }, allow_blank: true
 
   accepts_nested_attributes_for :master_sub_relationship, allow_destroy: true
   accepts_nested_attributes_for :sub_master_relationship, allow_destroy: true
@@ -164,9 +164,9 @@ class Product < ApplicationRecord
     update_attributes(product_params)
   end
 
-  def fetch_ga_stats
+  def user_count_in_last_90_days
     ga = GoogleAnalytics::Reporting.new(ga_tracking_code)
-    
+
     updated_user_count = ga.send_request
 
     update(google_analytics_user_count: updated_user_count)

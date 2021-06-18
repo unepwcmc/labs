@@ -33,7 +33,8 @@ class KpiSerializer
       percentage_products_documented: products_with_documentation,
       manual_yearly_updates_overview: manual_yearly_updates_overview,
       total_income: product_income_sum,
-      level_of_involvement: products_led
+      level_of_involvement: products_led,
+      google_analytics_overview: product_user_count
     }
   end
 
@@ -131,5 +132,29 @@ class KpiSerializer
 
   def convert_to_percentage(hash)
     hash.each { |_key, value| ((value.to_f / Product.count) * 100).round(2) }
+  end
+
+  def product_user_count
+    hash = Hash.new(0)
+    
+    Product.tracked_products.each do |product|
+      user_count = product.google_analytics_user_count
+
+      unless user_count.nil?
+        # Categories may need to be reworked based on the full spectrum of user 
+        # counts across all of our products
+        if user_count > 1000
+          hash[:more_than_1000] += 1
+        elsif 750 < user_count && user_count <= 1000
+          hash[:"750_to_1000"] += 1
+        elsif 500 < user_count && user_count <= 750
+          hash[:"500_to_750"] += 1
+        else
+          hash[:less_than_500] += 1
+        end
+      end
+    end
+
+    hash
   end
 end

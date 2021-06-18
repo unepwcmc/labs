@@ -61,6 +61,14 @@
           :chart-id="'manual-updates'"
         />
       </div>
+      <h2>Google Analytics</h2>
+      <div class="page--kpi__chart-row">
+        <chart-doughnut
+          :statistics="kpiStats.google_analytics_overview"
+          :title="'Overview of Google Analytics user counts in the last 90 days'"
+          :chart-id="'google-analytics-overview'"
+        />
+      </div>
     </template>
 
     <template v-else>

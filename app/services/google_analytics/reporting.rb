@@ -27,6 +27,9 @@ class GoogleAnalytics::Reporting < GoogleAnalytics::Base
     # Currently no differentiation between incorrect tracking codes and other issues
     Rails.logger.info('Check your product tracking code - is it correct?')
     false
+  rescue BadResponseError
+    Rails.logger.info('Response could not be parsed properly')
+    false
   end
 
   private
