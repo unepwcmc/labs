@@ -23,6 +23,10 @@ The homepage for the WCMC Informatics team. A basic rails app for showing off th
 
 The KPI page will be initially blank if you don't have an instance of the KPI model in your database. Run `rake kpi:regenerate` to create a KPI, which should then populate the various charts on the KPI page. The data can be manually updated by running the same command if the latest data is required. 
 
+### Google Analytics
+
+There is a field in the Edit view of a product for entering in the Google Analytics View ID code for that particular product. Please note that this is **not** the Account ID, rather this is the View ID, which only ever contains numbers. Also whenever possible, use the code which corresponds to views that exclude the WCMC office as that is most reliable. When you then run the Rake task, it will compute the user counts for each project which has a tracking code and then 
+
 ## Reviews
 
 If the review questions are not showing, you may need to uun `rake review:load` to populate the review questions from `db/review_template.json`
