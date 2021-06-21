@@ -18,14 +18,13 @@ module GoogleAnalytics
     def send_request
       raw_response = @analytics.batch_get_reports(new_request)
 
-      GoogleAnalytics::Processor.parse_response_for_total_users(raw_response)
+      user_count = GoogleAnalytics::Processor.parse_response_for_total_users(raw_response)
+      OpenStruct.new({payload: user_count, success: true})
     rescue Google::Apis::ClientError
       # Currently no differentiation between incorrect tracking codes and other issues
-      Rails.logger.info('Check your product tracking code - is it correct?')
-      false
+      OpenStruct.new({message: 'Check your product tracking code - is it correct?', success: false})
     rescue BadResponseError
-      Rails.logger.info('Response could not be parsed properly')
-      false
+      OpenStruct.new({message: 'Response could not be parsed properly', success: false})
     end
 
     private

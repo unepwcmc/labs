@@ -164,11 +164,16 @@ class Product < ApplicationRecord
     update_attributes(product_params)
   end
 
+  # Logic below should be abstracted out into a background job
   def user_count_in_last_90_days
-    ga = GoogleAnalytics::Reporting.new(ga_tracking_code)
+    ga_reporting_api = GoogleAnalytics::Reporting.new(ga_tracking_code)
 
-    updated_user_count = ga.send_request
+    ga_reporting_result = ga_reporting_api.send_request
 
+    return unless ga_reporting_result.success
+    
+    updated_user_count = ga_reporting_result.payload
+    
     update(google_analytics_user_count: updated_user_count)
   end
   
