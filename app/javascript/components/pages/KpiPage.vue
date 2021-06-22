@@ -64,9 +64,14 @@
       <h2>Google Analytics</h2>
       <div class="page--kpi__chart-row">
         <chart-doughnut
-          :statistics="kpiStats.google_analytics_overview"
-          :title="'Overview of Google Analytics user counts in the last 90 days'"
-          :chart-id="'google-analytics-overview'"
+          :statistics="kpiStats.google_analytics_overview.top_10_products"
+          :title="'Overview of top 10 Google Analytics user counts in the last 90 days (amongst active products)'"
+          :chart-id="'google-analytics-top-10-overview'"
+        />
+        <chart-doughnut
+          :statistics="kpiStats.google_analytics_overview.bottom_10_products"
+          :title="'Overview of bottom 10 Google Analytics user counts in the last 90 days (amongst active products)'"
+          :chart-id="'google-analytics-bottom-10-overview'"
         />
       </div>
     </template>

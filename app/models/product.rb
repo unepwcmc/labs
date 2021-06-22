@@ -71,7 +71,7 @@ class Product < ApplicationRecord
   pg_search_scope :search, using: { tsearch: { prefix: true } }, against: SEARCH_SCOPE
 
   scope :published, -> { where(published: true) }
-  scope :tracked_products, -> { where.not(ga_tracking_code: [nil, ""]) }
+  scope :tracked_products, -> { where.not(ga_tracking_code: ["", nil]) }
   # multisearchable against: [:title, :description, :github_identifier, :state, :internal_clients,
   #           :current_lead, :external_clients, :product_leads, :developers,
   #           :dependencies, :hacks, :pdrive_folders, :dropbox_folders, :published]
@@ -96,7 +96,7 @@ class Product < ApplicationRecord
   accepts_nested_attributes_for :sub_master_relationship, allow_destroy: true
 
   after_update :refresh_reviews
-  after_update :refresh_kpi_information
+  # after_update :refresh_kpi_information
   after_touch :refresh_reviews
 
   # Mount uploader for carrierwave
