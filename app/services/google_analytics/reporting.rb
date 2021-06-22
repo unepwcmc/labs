@@ -2,6 +2,8 @@
 
 module GoogleAnalytics
   class Reporting < Base
+    include Processor
+
     ANALYTICS = Google::Apis::AnalyticsreportingV4
 
     # date defaults to 3 months ago (90 days) for fetching the user count per product
@@ -18,13 +20,7 @@ module GoogleAnalytics
     def send_request
       raw_response = @analytics.batch_get_reports(new_request)
 
-      user_count = GoogleAnalytics::Processor.parse_response_for_total_users(raw_response)
-      OpenStruct.new({payload: user_count, success: true})
-    rescue Google::Apis::ClientError
-      # Currently no differentiation between incorrect tracking codes and other issues
-      OpenStruct.new({message: 'Check your product tracking code - is it correct?', success: false})
-    rescue BadResponseError
-      OpenStruct.new({message: 'Response could not be parsed properly', success: false})
+      parse_response_for_total_users(raw_response)
     end
 
     private

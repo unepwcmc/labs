@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 module GoogleAnalytics
+  class BadResponseError < StandardError
+    def message
+     'Malformed hash - response could not be parsed properly'
+    end
+  end
+  
   class Base
     private
 

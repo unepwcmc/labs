@@ -40,6 +40,7 @@ class Product < ApplicationRecord
   # Add pg_search
   include PgSearch
   include ActiveModel::Dirty
+  include GoogleAnalytics
 
   # Relationships
   has_many :comments, as: :commentable
@@ -166,15 +167,19 @@ class Product < ApplicationRecord
 
   # Logic below should be abstracted out into a background job
   def user_count_in_last_90_days
+    return if ga_tracking_code.blank?
+
     ga_reporting_api = GoogleAnalytics::Reporting.new(ga_tracking_code)
 
-    ga_reporting_result = ga_reporting_api.send_request
+    updated_user_count = ga_reporting_api.send_request
 
-    return unless ga_reporting_result.success
-    
-    updated_user_count = ga_reporting_result.payload
-    
     update(google_analytics_user_count: updated_user_count)
+  rescue GoogleAnalytics::BadResponseError => e
+    errors.add(:base, e.message)
+    false
+  rescue Google::Apis::ClientError => e
+    errors.add(:base, 'Check your product tracking code - is it correct?')
+    false
   end
   
   def self.pluck_field(symbol)
