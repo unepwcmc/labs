@@ -19,7 +19,7 @@
       <th>Instances</th>
       <th>Rails</th>
       <th>Ruby</th>
-      <th>PostgreSQL</th>
+      <th>User count</th>
       <th class="no-sort"></th>
       <th class="no-sort"></th>
       <th class="no-sort"></th>
@@ -42,7 +42,7 @@
         <td><%= product.product_instances.size %></td>
         <td><%= product.rails_version %></td>
         <td><%= product.ruby_version %></td>
-        <td><%= product.postgresql_version %></td>
+        <td><%= product.google_analytics_user_count %></td>
         <td><%= link_to(product_path(product)) { fa_icon "eye" } %></td>
         <td><%= link_to(edit_product_path(product)) { fa_icon "pencil" } %></td>
         <td><%= link_to(product_path(product), method: :delete, data: { confirm: "Are you sure?" }){ fa_icon "trash" } %></td>

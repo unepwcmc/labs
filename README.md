@@ -23,6 +23,16 @@ The homepage for the WCMC Informatics team. A basic rails app for showing off th
 
 The KPI page will be initially blank if you don't have an instance of the KPI model in your database. Run `rake kpi:regenerate` to create a KPI, which should then populate the various charts on the KPI page. The data can be manually updated by running the same command if the latest data is required. 
 
+### Google Analytics
+
+This requires a bit more nuance compared to the standard KPI fields. Please note that the code applies to, and was built around, v4 of the Google Analytics API, and so in future if the response from the API changes in terms of output, then it will be the maintainers' responsibility to fix this.
+
+1. Get a copy of the Service Account Credentials from Lastpass > Development Environments. Store that in the root of your repository as a JSON.
+The `GoogleAnalytics::Base` class specifically looks for it in that location to authenticate you against Google.
+1. You need to have the correct GA tracking codes in for each project that's tracked via GA and and is also present on Labs, prior to running the KPI regeneration rake task, which now also includes a way to generate GA user counts (in the last 90 days) for each project.
+
+There is a field in the Edit view of a product for entering in the Google Analytics View ID code for that particular product. Please note that this is **not** the Account ID, rather this is the View ID, which only ever contains numbers. To identify this, within the Google Analytics Dashboard, from the main menu, look for the Views column for each project, which should always contain 'All Web Site Data' as the default. Underneath each view is the View ID. Also whenever possible, use the code which corresponds to views that exclude the WCMC office as that is most reliable. When you then run the Rake task, it will compute the user counts for each project which has a tracking code and then updates the list of projects and KPI page accordingly. 
+
 ## Reviews
 
 If the review questions are not showing, you may need to uun `rake review:load` to populate the review questions from `db/review_template.json`
