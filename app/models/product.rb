@@ -96,7 +96,7 @@ class Product < ApplicationRecord
   accepts_nested_attributes_for :sub_master_relationship, allow_destroy: true
 
   after_update :refresh_reviews
-  # after_update :refresh_kpi_information
+  after_update :refresh_kpi_information
   after_touch :refresh_reviews
 
   # Mount uploader for carrierwave
