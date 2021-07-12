@@ -167,8 +167,7 @@ class ProductsController < ApplicationController
     gon.push({
                states: Product.pluck_field(:state),
                rails_versions: Product.pluck_field(:rails_version),
-               ruby_versions: Product.pluck_field(:ruby_version),
-               postgresql_versions: Product.pluck_field(:postgresql_version)
+               ruby_versions: Product.pluck_field(:ruby_version)
              })
   end
 

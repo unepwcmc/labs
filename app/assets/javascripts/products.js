@@ -85,10 +85,7 @@ $(document).ready(function(){
       type: "select",
       values: gon.ruby_versions
     },
-    {
-      type: "select",
-      values: gon.postgresql_versions
-    },
+    null,
     null
     ]
   });
