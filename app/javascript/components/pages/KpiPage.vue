@@ -63,12 +63,14 @@
       </div>
       <h2>Google Analytics</h2>
       <div class="page--kpi__chart-row">
-        <chart-doughnut
+        <chart-bar
           :statistics="kpiStats.google_analytics_overview.top_10_products"
           :title="'Overview of top 10 Google Analytics user counts in the last 90 days (amongst active products)'"
           :chart-id="'google-analytics-top-10-overview'"
         />
-        <chart-doughnut
+      </div>
+      <div class="page--kpi__chart-row">
+        <chart-bar
           :statistics="kpiStats.google_analytics_overview.bottom_10_products"
           :title="'Overview of bottom 10 Google Analytics user counts in the last 90 days (amongst active products)'"
           :chart-id="'google-analytics-bottom-10-overview'"
@@ -87,13 +89,14 @@
 <script>
 import axios from 'axios'
 import { setAxiosHeaders } from '../../helpers/axios-helpers'
+import ChartBar from '../charts/ChartBar.vue'
 import ChartDoughnut from '../charts/ChartDoughnut.vue'
 
 setAxiosHeaders(axios)
 
 export default {
   name: 'KpiPage',
-  components: { ChartDoughnut },
+  components: { ChartBar, ChartDoughnut },
   filters: {
     convert_to_gbp: function (str) {
       if (str === null || str === undefined) { return 'Total income is nil' }
