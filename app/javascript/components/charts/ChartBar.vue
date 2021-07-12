@@ -39,10 +39,16 @@ export default {
       formattedStats: undefined,
       datasetOptions: {
         backgroundColors: [
-          'rgba(0, 255, 0, 0.5)',
-          'rgba(255, 0, 0, 0.5)',
-          'rgba(0, 0, 255, 0.5)',
-          'rgba(255, 255, 0, 0.5)'
+          '#088BA5',
+          '#00A0D1',
+          '#38A38E',
+          '#90C352',
+          '#7D8DE2',
+          '#EA6E8F',
+          '#FEB958',
+          '#D66F30',
+          '#51191C',
+          '#AA37BF'
         ]
       },
       generalOptions: {
