@@ -340,7 +340,7 @@
         <%= f.label 'GA tracking code', class: "col-sm-2 control-label" %>
         <div class="input col-sm-10">
           <%= f.text_field :ga_tracking_code, class: "form-control" %>
-          <p class="help-block">Add the GA tracking code for this site (can't be inputted without a production URL)</p>
+          <p class="help-block">Add the GA tracking code for the analytics view, not the account id (can't be inputted without a production URL). Make sure that the client_email (found in service_account_credentials in LastPass) is given read access to the GA account for this project.</p>
         </div>
       </div>
     </div>
