@@ -1,12 +1,12 @@
 <template>
-  <div class="chart--doughnut">
-    <h5 class="chart--doughnut__title">
+  <div class="chart--bar">
+    <h5 class="chart--bar__title">
       {{ title }}
     </h5>
-    <template v-if="Object.entries(statistics).length > 0">
+    <template v-if="statistics.length > 0">
       <canvas
         :id="chartId"
-        class="chart--doughnut__chartarea"
+        class="chart--bar__chartarea"
       />
     </template>
     <template v-else>
@@ -53,7 +53,8 @@ export default {
       },
       generalOptions: {
         legend: { display: false },
-        responsive: false,
+        responsive: true,
+        maintainAspectRatio: false,
         scales: { y: { beginAtZero: true } }
       }
     }
@@ -72,15 +73,14 @@ export default {
         options: this.generalOptions
       })
     },
+
     getStyleOptions() {
       return {
         backgroundColor: this.datasetOptions.backgroundColors,
         borderWidth: '1'
       }
     },
-    replaceUnderscores(str) {
-      return str.replace(/_/g, ' ').split(' ')
-    },
+
     customiseDataset() {
       this.formattedStats = {
         datasets: [
