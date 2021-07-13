@@ -26,3 +26,7 @@
 ### 1.1.3 (2021-04-22)
 
 * Rename projects to products
+
+### 1.1.4 (2021-07-13)
+
+* Add google analytics KPIs
