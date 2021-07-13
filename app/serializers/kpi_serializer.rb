@@ -142,50 +142,21 @@ class KpiSerializer
     top_10_products = valid_products.order('google_analytics_user_count DESC').limit(10)
     bottom_10_products = valid_products.order('google_analytics_user_count ASC').limit(10)
     
-    hash[:top_10_products] = sort_into_google_analytics_chart_hash(top_10_products)
-    hash[:bottom_10_products] = sort_into_google_analytics_chart_hash(bottom_10_products)
+    hash[:top_10_products] = google_analytics_bar_chart_statistics(top_10_products)
+    hash[:bottom_10_products] = google_analytics_bar_chart_statistics(bottom_10_products)
 
     hash
   end
 
   private
 
-  def sort_into_google_analytics_chart_hash(records)
-    hash = Hash.new(0)
-
-    records.each do |record|
-      user_count = record.google_analytics_user_count
-
-      unless user_count.nil?
-        # Categories may need to be reworked based on the full spectrum of user 
-        # counts across all of our products
-        if user_count > 1000
-          hash[:more_than_1000] += 1
-        elsif 750 < user_count && user_count <= 1000
-          hash[:"750_to_1000"] += 1
-        elsif 500 < user_count && user_count <= 750
-          hash[:"500_to_750"] += 1
-        else
-          add_finer_categories_to(hash, user_count)
-        end
-      end
-    end
-
-    hash
-  end
-
-  # Covers 0 to 500
-  def add_finer_categories_to(hash, user_count)
-    if user_count > 100 && user_count <= 500
-      hash[:over_100] += 1
-    elsif 75 < user_count && user_count <= 100
-      hash[:"75 to 100"] += 1
-    elsif 50 < user_count && user_count <= 75
-      hash[:"50 to 75"] += 1
-    elsif 25 < user_count && user_count <= 50
-      hash[:"25 to 50"] += 1
-    else
-      hash[:"Almost no views (0 to 25)"] += 1
+  def google_analytics_bar_chart_statistics(products)
+    products.map do |product|
+      {
+        id: product[:id],
+        label: product[:title],
+        value: product[:google_analytics_user_count]
+      }
     end
   end
 end
