@@ -10,6 +10,7 @@ class Kpi < ApplicationRecord
   serialize :percentage_products_documented
   serialize :percentage_products_with_ci
   serialize :manual_yearly_updates_overview
+  serialize :google_analytics_overview
   serialize :product_breakdown
   serialize :level_of_involvement
 

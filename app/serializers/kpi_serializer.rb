@@ -33,7 +33,8 @@ class KpiSerializer
       percentage_products_documented: products_with_documentation,
       manual_yearly_updates_overview: manual_yearly_updates_overview,
       total_income: product_income_sum,
-      level_of_involvement: products_led
+      level_of_involvement: products_led,
+      google_analytics_overview: product_user_count
     }
   end
 
@@ -131,5 +132,31 @@ class KpiSerializer
 
   def convert_to_percentage(hash)
     hash.each { |_key, value| ((value.to_f / Product.count) * 100).round(2) }
+  end
+
+  def product_user_count
+    hash = Hash.new(0)
+    
+    valid_products = Product.tracked_products.where.not(state: 'Offline')
+
+    top_10_products = valid_products.order('google_analytics_user_count DESC').limit(10)
+    bottom_10_products = valid_products.order('google_analytics_user_count ASC').limit(10)
+    
+    hash[:top_10_products] = google_analytics_bar_chart_statistics(top_10_products)
+    hash[:bottom_10_products] = google_analytics_bar_chart_statistics(bottom_10_products)
+
+    hash
+  end
+
+  private
+
+  def google_analytics_bar_chart_statistics(products)
+    products.map do |product|
+      {
+        id: product[:id],
+        label: product[:title],
+        value: product[:google_analytics_user_count]
+      }
+    end
   end
 end

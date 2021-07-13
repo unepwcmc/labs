@@ -77,14 +77,14 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
 
     respond_with(@product) do |format|
-      if @product.save
+      if @product.save && @product.user_count_in_last_90_days
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
       else
         format.html do
           available_developers
           available_designers
           available_employees
-          render action: 'new'
+          render action: 'new', notice: @product.errors.full_messages.join(',')
         end
       end
     end
@@ -97,14 +97,14 @@ class ProductsController < ApplicationController
     @product_leading_style_options = product_leading_style_options
 
     respond_with(@product) do |format|
-      if @product.update_attributes(product_params)
+      if @product.update_attributes(product_params) && @product.user_count_in_last_90_days
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
       else
         format.html do
           available_developers
           available_designers
           available_employees
-          render action: 'edit'
+          render action: 'edit', notice: @product.errors.full_messages.join(',')
         end
       end
     end
@@ -167,8 +167,7 @@ class ProductsController < ApplicationController
     gon.push({
                states: Product.pluck_field(:state),
                rails_versions: Product.pluck_field(:rails_version),
-               ruby_versions: Product.pluck_field(:ruby_version),
-               postgresql_versions: Product.pluck_field(:postgresql_version)
+               ruby_versions: Product.pluck_field(:ruby_version)
              })
   end
 
