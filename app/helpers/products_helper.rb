@@ -2,13 +2,12 @@ module ProductsHelper
   delegate :url_helpers, to: 'Rails.application.routes'
 
   def product_preview product
-    source = product.screenshot.thumb.url.blank? ? "http://placehold.it/320x200" : product.screenshot.thumb.url
-    image_tag(source)
+    source = product.screenshot.thumb.url.blank? ? placeholder_image_path : product.screenshot.thumb.url
+    image_tag(source, class: 'product__image')
   end
 
-  def product_mini_preview product
-    source = product.screenshot.mini.url.blank? ? "http://placehold.it/200x120" : product.screenshot.mini.url
-    image_tag(source)
+  def placeholder_image_path
+    image_url('placeholder_image.png')
   end
 
   def product_style product
