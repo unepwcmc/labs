@@ -47,5 +47,7 @@ module Labs
     #deprecated
     #config.active_record.raise_in_transactional_callbacks = true
 
+    # Use memory_store for caching sessions due to CookieOverflow error when using cookies
+    config.cache_store = :memory_store
   end
 end
