@@ -1,6 +1,5 @@
 # Be sure to restart your server when you modify this file.
 
-# Labs::Application.config.session_store :cookie_store, :key => '_labs_session'
 Labs::Application.config.session_store :cache_store
 
 # Use the database for sessions instead of the cookie-based default,
