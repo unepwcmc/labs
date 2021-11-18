@@ -62,7 +62,7 @@ There is a field in the Edit view of a product for entering in the Google Analyt
 
 ## Reviews
 
-If the review questions are not showing, you may need to uun `rake review:load` to populate the review questions from `db/review_template.json`
+If the review questions are not showing, you may need to run `rake review:load` to populate the review questions from `db/review_template.json`
 
 ## Deployment
 
@@ -73,9 +73,9 @@ If the review questions are not showing, you may need to uun `rake review:load` 
 
 Sign in uses Omniauth with Github, a method is then ran to query the Github API to see if the user is a member of the wcmc-core-dev team. If they are, login succeeds. If not, the login is rejected and they are directed to the root of the application.
 
-You will need to register an application with Github to use this and stub out the is_dev_team? method to return true.
+You will need to register an application with Github to use this. In secrets.yml the github_secret is the Client ID for the registered app, and github_key is the Client secret.
 
-For local development, homepage URL for the github application will need to be http://0.0.0.0:3000 and Authorization Callback URL will be http://0.0.0.0:3000/users/auth/github/callback
+For local development, homepage URL for the github application will need to be http://localhost:3000 and Authorization Callback URL will be http://localhost:3000/users/auth/github/callback
 
 ## User Interface for displaying the Database structure of our products in the Entity-Relationship format.
 
