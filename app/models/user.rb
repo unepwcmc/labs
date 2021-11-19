@@ -55,7 +55,7 @@ class User < ApplicationRecord
     
     response = HTTParty.get(
       "#{Rails.application.secrets.github_api_base_url}teams/98845/memberships/#{self.github}",
-      headers: {"User-Agent" => "Labs", "Accept" => "application/vnd.github.v3+json", "Authorization" => "token #{self.token}"} 
+      headers: {"User-Agent" => "Labs", "Accept" => "application/vnd.github.v3+json", "Authorization" => "token #{self.token}"}
     )
     response_hash = JSON.parse(response.body)
     response_hash.has_key?("state") and response_hash["state"] == "active"
