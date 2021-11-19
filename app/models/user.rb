@@ -54,8 +54,8 @@ class User < ApplicationRecord
     return true if Rails.env.development?
     
     response = HTTParty.get(
-      "#{Rails.application.secrets.github_api_base_url}teams/98845/memberships/#{User.first.github}",
-      headers: {"User-Agent" => "Labs", "Accept" => "application/vnd.github.v3+json", "Authorization" => "token #{User.first.token}"} 
+      "#{Rails.application.secrets.github_api_base_url}teams/98845/memberships/#{self.github}",
+      headers: {"User-Agent" => "Labs", "Accept" => "application/vnd.github.v3+json", "Authorization" => "token #{self.token}"} 
     )
     response_hash = JSON.parse(response.body)
     response_hash.has_key?("state") and response_hash["state"] == "active"
