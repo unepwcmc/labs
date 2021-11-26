@@ -1,6 +1,6 @@
 ### 1.1.5 (2021-11-26)
 
-* update outdated github teams api call
+* Update outdated github teams api call
 
 ### 1.1.4 (2021-07-13)
 
